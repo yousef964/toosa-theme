@@ -1,0 +1,565 @@
+{% comment %}
+  Comparison Table Section
+  Theme: Refine
+  Responsive comparison table with editable rows
+{% endcomment %}
+
+<section
+  id="comparison-table-{{ section.id }}"
+  class="comparison-table-section"
+>
+  <div class="comparison-table-container">
+
+    <!-- Section Heading -->
+    <div class="comparison-table-heading">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="comparison-table-eyebrow">
+          <span class="comparison-table-eyebrow-line"></span>
+          <span>{{ section.settings.eyebrow | escape }}</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="comparison-table-title">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {% endif %}
+
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="comparison-table-scroll">
+      <table class="comparison-table">
+
+        <thead>
+          <tr>
+            <th class="comparison-table-empty"></th>
+
+            <th scope="col">
+              {{ section.settings.column_1 | escape }}
+            </th>
+
+            <th scope="col">
+              {{ section.settings.column_2 | escape }}
+            </th>
+
+            <th scope="col">
+              {{ section.settings.column_3 | escape }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for block in section.blocks %}
+            <tr {{ block.shopify_attributes }}>
+
+              <th scope="row" class="comparison-table-label">
+                {{ block.settings.label | escape }}
+              </th>
+
+              <td>
+                <span class="{% if block.settings.highlight_1 %}comparison-highlight{% endif %}">
+                  {{ block.settings.value_1 | escape }}
+                </span>
+              </td>
+
+              <td>
+                <span class="{% if block.settings.highlight_2 %}comparison-highlight{% endif %}">
+                  {{ block.settings.value_2 | escape }}
+                </span>
+              </td>
+
+              <td>
+                <span class="{% if block.settings.highlight_3 %}comparison-highlight{% endif %}">
+                  {{ block.settings.value_3 | escape }}
+                </span>
+              </td>
+
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #comparison-table-{{ section.id }} {
+    --ct-bg: {{ section.settings.background_color }};
+    --ct-heading: {{ section.settings.heading_color }};
+    --ct-text: {{ section.settings.text_color }};
+    --ct-accent: {{ section.settings.accent_color }};
+    --ct-border: {{ section.settings.border_color }};
+
+    background-color: var(--ct-bg);
+    width: 100%;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  #comparison-table-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table-container {
+    width: 100%;
+    max-width: min(100% - 80px,  {{ section.settings.content_width }}px);
+    margin: 0 auto;
+  }
+
+  /* Heading */
+
+  #comparison-table-{{ section.id }} .comparison-table-heading {
+    margin-bottom: 48px;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    color: var(--ct-accent);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table-eyebrow-line {
+    display: inline-block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--ct-accent);
+    flex-shrink: 0;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table-title {
+    margin: 0;
+    padding: 0;
+    color: var(--ct-heading);
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 700;
+  }
+
+  /* Table Wrapper */
+
+  #comparison-table-{{ section.id }} .comparison-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ct-border) transparent;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    border: 1px solid var(--ct-border);
+    table-layout: fixed;
+    margin: 0;
+    background: transparent;
+  }
+
+  /* Column Widths */
+
+  #comparison-table-{{ section.id }} .comparison-table th:first-child,
+  #comparison-table-{{ section.id }} .comparison-table td:first-child {
+    width: 20%;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table th:nth-child(2),
+  #comparison-table-{{ section.id }} .comparison-table td:nth-child(2),
+  #comparison-table-{{ section.id }} .comparison-table th:nth-child(3),
+  #comparison-table-{{ section.id }} .comparison-table td:nth-child(3),
+  #comparison-table-{{ section.id }} .comparison-table th:nth-child(4),
+  #comparison-table-{{ section.id }} .comparison-table td:nth-child(4) {
+    width: 26.666%;
+  }
+
+  /* Table Header */
+
+  #comparison-table-{{ section.id }} .comparison-table thead th {
+    height: 58px;
+    padding: 15px 20px;
+    text-align: left;
+    vertical-align: middle;
+    color: var(--ct-heading);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    border-bottom: 1px solid var(--ct-border);
+        border: 1px solid var(--ct-border);
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table thead th:first-child {
+    color: transparent;
+  }
+
+  /* Table Rows */
+
+  #comparison-table-{{ section.id }} .comparison-table tbody th,
+  #comparison-table-{{ section.id }} .comparison-table tbody td {
+    height: 59px;
+    padding: 15px 20px;
+    border: 1px solid var(--ct-border) !important;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: 400;
+    overflow-wrap: break-word;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table tbody th {
+    color: var(--ct-text);
+    font-weight: 500;
+  }
+
+  #comparison-table-{{ section.id }} .comparison-table tbody td {
+    color: var(--ct-text);
+  }
+
+  #comparison-table-{{ section.id }} .comparison-highlight {
+    color: var(--ct-accent);
+    {% comment %} font-weight: 600; {% endcomment %}
+  }
+
+  /* Mobile Responsive */
+
+  @media screen and (max-width: 749px) {
+    #comparison-table-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table-container {
+      padding-left: 10px;
+      padding-right: 10px;
+      max-width: min(100% - 40px,  {{ section.settings.content_width }}px);
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table-heading {
+      margin-bottom: 28px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table-eyebrow {
+      font-size: 14px;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table-eyebrow-line {
+      width: 24px;
+      height: 2px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table-title {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table {
+      min-width: 700px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table thead th {
+      height: 54px;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table tbody th,
+    #comparison-table-{{ section.id }} .comparison-table tbody td {
+      height: auto;
+      min-height: 56px;
+      padding: 13px 14px;
+      font-size: 14px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table th:first-child,
+    #comparison-table-{{ section.id }} .comparison-table td:first-child {
+      width: 190px;
+    }
+
+    #comparison-table-{{ section.id }} .comparison-table th:nth-child(2),
+    #comparison-table-{{ section.id }} .comparison-table td:nth-child(2),
+    #comparison-table-{{ section.id }} .comparison-table th:nth-child(3),
+    #comparison-table-{{ section.id }} .comparison-table td:nth-child(3),
+    #comparison-table-{{ section.id }} .comparison-table th:nth-child(4),
+    #comparison-table-{{ section.id }} .comparison-table td:nth-child(4) {
+      width: 170px;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Tool Comparison Table",
+  "tag": "section",
+  "class": "comparison-table-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "BEYOND THE SPEC SHEET"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "What actually happens after you buy"
+    },
+    {
+      "type": "text",
+      "id": "column_1",
+      "label": "First column heading",
+      "default": "TOOSA"
+    },
+    {
+      "type": "text",
+      "id": "column_2",
+      "label": "Second column heading",
+      "default": "Snap-on"
+    },
+    {
+      "type": "text",
+      "id": "column_3",
+      "label": "Third column heading",
+      "default": "Temu"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 900,
+      "max": 1600,
+      "step": 50,
+      "default": 1350,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 22,
+      "max": 36,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F1F3F4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#202A38"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#66717E"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#F04424"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Table border color",
+      "default": "#DCE1E5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 20,
+      "max": 160,
+      "step": 5,
+      "default": 95,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 20,
+      "max": 160,
+      "step": 5,
+      "default": 85,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top spacing",
+      "min": 15,
+      "max": 100,
+      "step": 5,
+      "default": 45,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom spacing",
+      "min": 15,
+      "max": 100,
+      "step": 5,
+      "default": 45,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_row",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Row title",
+          "default": "Feature"
+        },
+        {
+          "type": "text",
+          "id": "value_1",
+          "label": "TOOSA value",
+          "default": "Yes"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_1",
+          "label": "Highlight TOOSA value",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "value_2",
+          "label": "Snap-on value",
+          "default": "Yes"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_2",
+          "label": "Highlight Snap-on value",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "value_3",
+          "label": "Temu value",
+          "default": "No"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_3",
+          "label": "Highlight Temu value",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Tool Comparison Table",
+      "blocks": [
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "Talk to a real person",
+            "value_1": "Yes — phone & showroom",
+            "highlight_1": true,
+            "value_2": "Yes — dealer route",
+            "highlight_2": true,
+            "value_3": "Marketplace support only",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "See it before buying",
+            "value_1": "Richmond, BC showroom",
+            "highlight_1": true,
+            "value_2": "Local dealer truck",
+            "highlight_2": true,
+            "value_3": "Photos & listings only",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "Monthly payment plans",
+            "value_1": "Yes, with RBC",
+            "highlight_1": true,
+            "value_2": "Dealer-arranged",
+            "highlight_2": true,
+            "value_3": "No",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "Parts & replacements",
+            "value_1": "Kept in stock, Canada",
+            "highlight_1": true,
+            "value_2": "Extensive, via dealer",
+            "highlight_2": true,
+            "value_3": "Rarely available",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "Fits a home budget",
+            "value_1": "Yes",
+            "highlight_1": true,
+            "value_2": "Rarely",
+            "highlight_2": false,
+            "value_3": "Yes",
+            "highlight_3": true
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "label": "Fits daily commercial use",
+            "value_1": "Yes",
+            "highlight_1": true,
+            "value_2": "Yes",
+            "highlight_2": true,
+            "value_3": "Not designed for it",
+            "highlight_3": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

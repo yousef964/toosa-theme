@@ -1,0 +1,610 @@
+{% render 'otsb-text-column-with-image-base' %}
+{% schema %}
+{
+  "name": "OT: Multi columns #5",
+  "class": "otsb__root section section-text-columns-with-image x-section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Text columns with images",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "unit": "%",
+      "label": "Heading size",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "default": "h2",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "p",
+          "label": "p"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "default": "center",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "100%",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "150%",
+          "label": "Rectangle (2:3)"
+        },
+        {
+          "value": "75%",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "133%",
+          "label": "Standard (3:4)"
+        },
+        {
+          "value": "round",
+          "label": "Round"
+        }, 
+        {
+          "value": "natural",
+          "label": "Natural"
+        }
+      ],
+      "default": "100%",
+      "label": "Image style"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_lazyload",
+      "label": "Lazy-load images",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "corner_image",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Corner radius",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "column_content_alignment",
+      "options": [
+        {
+          "value": "start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Column content alignment"
+    },
+    {
+      "type": "range",
+      "id": "padding_column",
+      "max": 40,
+      "min": 0,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "label": "Text padding"
+    },
+    {
+      "type": "header",
+      "content": "Carousel"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_desktop_slider",
+      "label": "Enable carousel on desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "swiper_on_mobile",
+      "default": false,
+      "label": "Enable swipe on mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_play",
+      "label": "Auto play",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "change_bar_every",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Change bar every",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation",
+      "info": "Only applies to desktop display.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F5F0E7"
+    },
+    {
+      "type": "color",
+      "id": "background_column_color",
+      "label": "Background column",
+      "default": "#F5F0E7"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#1B1A19"
+    },
+    {
+      "type": "color",
+      "id": "heading_column_color",
+      "label": "Column heading",
+      "default": "#1B1A19"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#444444"
+    },
+    {
+      "type": "color",
+      "id": "color_text_link",
+      "label": "Text link",
+      "default": "#EA580C"
+    },
+    {
+      "type": "color",
+      "id": "line_border_color",
+      "label": "Line and borders",
+      "default": "#EEEEEE"
+    },
+    {
+      "type": "color",
+      "id": "button_light",
+      "label": "Primary button",
+      "default": "#DCDCDC"
+    },
+    {
+      "type": "color",
+      "id": "button_text_light",
+      "label": "Primary button text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_light",
+      "label": "Primary button hover",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_hover_light",
+      "label": "Primary button hover text",
+      "default": "#DCDCDC"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_light",
+      "label": "Secondary button",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text_light",
+      "label": "Secondary button text",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "slider_button_color",
+      "default": "#242424",
+      "label": "Slider button"
+    },
+    {
+      "type": "color",
+      "id": "slider_button_hover_color",
+      "default": "#000000",
+      "label": "Slider button hover"
+    },
+    {
+      "type": "color",
+      "id": "slider_button_hover_text_color",
+      "default": "#FFFFFF",
+      "label": "Slider button hover text"
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "select",
+      "id": "column_layout_desktop",
+      "options": [
+        {
+          "value": "lg:w-full",
+          "label": "1 column"
+        },
+        {
+          "value": "lg:w-1/2",
+          "label": "2 columns"
+        },
+        {
+          "value": "lg:w-1/3",
+          "label": "3 columns"
+        },
+        {
+          "value": "lg:w-1/4",
+          "label": "4 columns"
+        }
+      ],
+      "default": "lg:w-1/3",
+      "label": "Column layout"
+    },
+
+    {
+      "type": "range",
+      "id": "spacing_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Block spacing",
+      "default": 28
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Make section full width"
+    },
+    {
+      "type": "checkbox",
+      "id": "padding_full_width",
+      "default": true,
+      "label": "Enable side padding",
+      "info": "Add left and right padding when section is full-width."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_section_divider",
+      "default": false,
+      "label": "Show section divider"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "select",
+      "id": "column_layout_mobile",
+      "options": [
+        {
+          "value": "w-full",
+          "label": "1 column"
+        },
+        {
+          "value": "w-1/2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "w-full",
+      "label": "Column layout"
+    },
+    {
+      "type": "range",
+      "id": "spacing_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Block spacing",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_mobile",
+      "default": false,
+      "label": "Make section full width"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_section_divider_mobile",
+      "default": false,
+      "label": "Show section divider"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "For recommended image sizes, check our [user guide](https://support.omnithemes.com/blogs/user-guide/faqs)."
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Column",
+          "label": "Heading"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "min": 50,
+          "max": 200,
+          "step": 10,
+          "unit": "%",
+          "label": "Heading size",
+          "default": 100
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Explore Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_window",
+          "default": false,
+          "label": "Open this link in a new window"
+        },
+        {
+          "type": "select",
+          "id": "show_button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "text-link",
+              "label": "Text link"
+            }
+          ],
+          "label": "Button style",
+          "default": "text-link"
+        },
+        {
+          "type": "header",
+          "content": "Button Design"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "options": [
+            {
+              "value": "square",
+              "label": "Square"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "rounded_corners",
+              "label": "Rounded Corners"
+            },
+            {
+              "value": "mixed",
+              "label": "Mixed"
+            }
+          ],
+          "label": "Button style",
+          "default": "square"
+        },
+        {
+          "type": "select",
+          "id": "button_color_mobile",
+          "options": [
+            {
+              "value": "hover",
+              "label": "Use button hover color"
+            },
+            {
+              "value": "color",
+              "label": "Use button color"
+            }
+          ],
+          "label": "Mobile primary button style",
+          "default": "color"
+        },
+        {
+          "type": "select",
+          "id": "button_animation",
+          "options": [
+            {
+              "value": "slide",
+              "label": "Slide"
+            },
+            {
+              "value": "fill_up",
+              "label": "Fill up"
+            },
+            {
+              "value": "sliced",
+              "label": "Sliced with icon"
+            },
+            {
+              "value": "underline",
+              "label": "Underline"
+            }
+          ],
+          "label": "Primary button hover animation",
+          "default": "fill_up"
+        },
+        {
+          "type": "html",
+          "id": "custom_icon_button",
+          "label": "Custom icon (SVG code)",
+          "info": "Applies to 'Sliced with icon' animation type. For assistance with custom SVG code or fixing issues that arise from custom SVG code, please [contact our support](https://support.bsscommerce.com/support/tickets/new)."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "OT: Multi columns #5",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+      ]
+    }
+  ]
+}
+{% endschema %}

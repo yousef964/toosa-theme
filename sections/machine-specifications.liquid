@@ -1,0 +1,551 @@
+{% liquid
+  assign section_id = 'machine-specifications-' | append: section.id
+%}
+
+<section
+  id="{{ section_id }}"
+  class="machine-specifications"
+>
+  <div class="machine-specifications__container">
+
+
+      {% if section.settings.eyebrow != blank %}
+      <div class="build-it-way__eyebrow">
+        <span class="build-it-way__eyebrow-line"></span>
+        <span class="build-it-way__eyebrow-text">
+          {{ section.settings.eyebrow | escape }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="machine-specifications__heading">
+        {{ section.settings.heading | escape }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="machine-specifications__description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="machine-specifications__table" role="table">
+
+        {% for block in section.blocks %}
+          <div
+            class="machine-specifications__row"
+            role="row"
+            {{ block.shopify_attributes }}
+          >
+            <div
+              class="machine-specifications__label"
+              role="rowheader"
+            >
+              {{ block.settings.label | escape }}
+            </div>
+
+            <div
+              class="machine-specifications__value"
+              role="cell"
+            >
+              {{ block.settings.value | escape | newline_to_br }}
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    --ms-bg-color: {{ section.settings.background_color }};
+    --ms-heading-color: {{ section.settings.heading_color }};
+    --ms-text-color: {{ section.settings.text_color }};
+    --ms-label-color: {{ section.settings.label_color }};
+    --ms-border-color: {{ section.settings.border_color }};
+
+    --ms-max-width: {{ section.settings.max_width }}px;
+    --ms-heading-size: {{ section.settings.heading_size }}px;
+    --ms-description-size: {{ section.settings.description_size }}px;
+    --ms-row-text-size: {{ section.settings.row_text_size }}px;
+
+    --ms-padding-top: {{ section.settings.padding_top }}px;
+    --ms-padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    --ms-label-width: {{ section.settings.label_width }}%;
+  }
+
+  #{{ section_id }}.machine-specifications {
+    width: 100%;
+    background: var(--ms-bg-color);
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} *,
+  #{{ section_id }} *::before,
+  #{{ section_id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .machine-specifications__container {
+    width: 100%;
+    max-width:  min(100% - 80px, var(--ms-max-width));
+    margin: 0 auto;
+    padding-top: var(--ms-padding-top);
+    padding-bottom: var(--ms-padding-bottom);
+  }
+ /* Eyebrow */
+   #{{ section_id }} .build-it-way__eyebrow {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    margin: 0 0 14px;
+    text-align: left;
+      font-size: 16px;
+          color: #ff6f3c;
+  }
+
+   #{{ section_id }} .build-it-way__eyebrow-line {
+    width: 21px;
+    height: 2px;
+    flex: 0 0 21px;
+    background: #ff6f3c;
+    opacity: 0.95;
+  }
+
+   #{{ section_id }} .build-it-way__eyebrow-text {
+    {% comment %} font-family: inherit;
+    font-size: 9px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1.35px; {% endcomment %}
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  #{{ section_id }} .machine-specifications__heading {
+    margin: 0 0 8px;
+    padding: 0;
+    color: var(--ms-heading-color);
+    font-size: var(--ms-heading-size);
+  }
+
+  #{{ section_id }} .machine-specifications__description {
+    margin: 0 0 35px;
+    padding: 0;
+    color: var(--ms-text-color);
+    font-size: var(--ms-description-size);
+  }
+
+  #{{ section_id }} .machine-specifications__table {
+    width: 100%;
+    border-top: 1px solid var(--ms-border-color);
+  }
+
+  #{{ section_id }} .machine-specifications__row {
+    display: grid;
+    grid-template-columns: var(--ms-label-width) 1fr;
+    width: 100%;
+    min-height: 38px;
+    border-bottom: 1px solid var(--ms-border-color);
+  }
+
+  #{{ section_id }} .machine-specifications__label,
+  #{{ section_id }} .machine-specifications__value {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 9px 0;
+    font-size: var(--ms-row-text-size);
+    line-height: 1.45;
+  }
+
+  #{{ section_id }} .machine-specifications__label {
+    padding-right: 20px;
+    color: var(--ms-label-color);
+    font-weight: 600;
+  }
+
+  #{{ section_id }} .machine-specifications__value {
+    padding-left: 0;
+    color: var(--ms-text-color);
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} {
+      --ms-heading-size: {{ section.settings.mobile_heading_size }}px;
+      --ms-description-size: {{ section.settings.mobile_description_size }}px;
+      --ms-row-text-size: {{ section.settings.mobile_row_text_size }}px;
+    }
+
+    #{{ section_id }} .machine-specifications__container {
+      padding-left: 10px;
+      padding-right: 10px;
+      max-width:  min(100% - 40px, var(--ms-max-width));
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+ #{{ section_id }} .build-it-way__eyebrow {
+        font-size: 14px;
+        margin-bottom: 13px;
+      }
+    #{{ section_id }} .machine-specifications__heading {
+      margin-bottom: 8px;
+
+    }
+
+    #{{ section_id }} .machine-specifications__description {
+      margin-bottom: 25px;
+
+    }
+
+    #{{ section_id }} .machine-specifications__row {
+      grid-template-columns: 40% 60%;
+      min-height: 0;
+    }
+
+    #{{ section_id }} .machine-specifications__label,
+    #{{ section_id }} .machine-specifications__value {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      line-height: 1.45;
+    }
+
+    #{{ section_id }} .machine-specifications__label {
+      padding-right: 12px;
+    }
+
+    #{{ section_id }} .machine-specifications__value {
+      padding-left: 5px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+
+
+    #{{ section_id }} .machine-specifications__row {
+      grid-template-columns: 39% 61%;
+    }
+
+    #{{ section_id }} .machine-specifications__label {
+      padding-right: 10px;
+    }
+
+    #{{ section_id }} .machine-specifications__value {
+      padding-left: 4px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Machine specifications",
+  "tag": "section",
+  "class": "machine-specifications-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+     {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "specifications"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What's in the machine"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "[Figures in brackets are placeholders — confirm against the manufacturer spec sheet before publishing.]"
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum content width",
+      "min": 600,
+      "max": 1400,
+      "step": 10,
+      "unit": "px",
+      "default": 860
+    },
+    {
+      "type": "range",
+      "id": "label_width",
+      "label": "Label column width",
+      "min": 20,
+      "max": 45,
+      "step": 1,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "row_text_size",
+      "label": "Table text size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 65
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_row_text_size",
+      "label": "Mobile table text size",
+      "min": 11,
+      "max": 17,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top spacing",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom spacing",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#263545"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#3d4a59"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Labels",
+      "default": "#657384"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Table borders",
+      "default": "#d9dee3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "specification",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Motor"
+        },
+        {
+          "type": "textarea",
+          "id": "value",
+          "label": "Value",
+          "default": "20 HP electric"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Machine specifications",
+      "blocks": [
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Motor",
+            "value": "20 HP electric"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Pump type",
+            "value": "Oil-flooded rotary screw, [single-stage]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Air delivery (FAD)",
+            "value": "[~80–90 CFM] at [125 psi]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Maximum pressure",
+            "value": "[145 psi / 10 bar]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Receiver tank",
+            "value": "500 L vertical, ASME/CRN [certified — confirm]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Air treatment",
+            "value": "Integrated refrigerated air dryer + [pre/after] filtration"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Duty cycle",
+            "value": "100% — continuous operation"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Electrical",
+            "value": "[3-phase, 208/230/460 V — confirm] · [full-load amps]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Sound level",
+            "value": "[~68–72 dB(A)] at [1 m]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Dimensions / weight",
+            "value": "[L × W × H] · [~XXX kg]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Controller",
+            "value": "[Digital controller with hour meter, temperature and service alerts]"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "label": "Warranty",
+            "value": "[Airend X years · package Y years — confirm]"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

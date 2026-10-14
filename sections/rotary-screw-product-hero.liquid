@@ -1,0 +1,1548 @@
+{% liquid
+  assign current_product = product
+
+  if current_product == blank
+    assign current_product = section.settings.product
+  endif
+
+  if current_product != blank
+    assign current_variant = current_product.selected_or_first_available_variant
+  endif
+
+  assign image_position = section.settings.image_position
+%}
+
+{% if current_product != blank %}
+
+<section
+  id="CustomProductHero-{{ section.id }}"
+  class="cph"
+  style="
+    --cph-bg: {{ section.settings.background_color }};
+    --cph-heading: {{ section.settings.heading_color }};
+    --cph-text: {{ section.settings.text_color }};
+    --cph-muted: {{ section.settings.muted_color }};
+    --cph-border: {{ section.settings.border_color }};
+    --cph-accent: {{ section.settings.accent_color }};
+    --cph-max-width: {{ section.settings.max_width }}px;
+    --cph-top-padding: {{ section.settings.padding_top }}px;
+    --cph-bottom-padding: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="cph__container">
+
+    <div class="cph__grid cph__grid--{{ image_position }}">
+
+      <!-- =========================================
+           CONTENT
+      ========================================== -->
+      <div class="cph__content">
+
+        {% if section.settings.show_eyebrow %}
+          <div class="cph__eyebrow">
+            <span class="cph__eyebrow-line"></span>
+
+            <span>
+              {% if section.settings.eyebrow != blank %}
+                {{ section.settings.eyebrow }}
+              {% elsif current_product.type != blank %}
+                {{ current_product.type }}
+              {% else %}
+                PRODUCT
+              {% endif %}
+            </span>
+          </div>
+        {% endif %}
+
+        <!-- Product Title -->
+        <h1 class="cph__title">
+          {{ current_product.title | escape }}
+        </h1>
+
+        {% if section.settings.show_description and current_product.description != blank %}
+          <div class="cph__description rte">
+            {{ current_product.description }}
+          </div>
+        {% endif %}
+{% assign accordion_blocks = section.blocks | where: 'type', 'accordion' %}
+
+{% if accordion_blocks.size > 0 %}
+
+  <div class="cph__accordions">
+
+    {% for block in accordion_blocks %}
+
+      <details
+        class="cph__accordion"
+        {% if block.settings.open_by_default %}open{% endif %}
+        {{ block.shopify_attributes }}
+      >
+
+        <summary class="cph__accordion-summary">
+
+          <span class="cph__accordion-title">
+            {{ block.settings.title }}
+          </span>
+
+          <span class="cph__accordion-icon">
+            <span></span>
+            <span></span>
+          </span>
+
+        </summary>
+
+        <div class="cph__accordion-content rte">
+          {{ block.settings.content }}
+        </div>
+
+      </details>
+
+    {% endfor %}
+
+  </div>
+
+{% endif %}
+        <!-- =========================================
+             PRICE / CTA BOX
+        ========================================== -->
+        <div class="cph__purchase-box">
+
+          <div class="cph__price-row">
+
+            <span class="cph__price">
+              {{ current_variant.price | money }}
+            </span>
+
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="cph__compare-price">
+                {{ current_variant.compare_at_price | money }}
+              </span>
+            {% endif %}
+
+          </div>
+
+          {% if section.settings.payment_text != blank %}
+            <div class="cph__payment-text">
+              {{ section.settings.payment_text }}
+            </div>
+          {% endif %}
+
+          {% if current_product.available %}
+
+            <div class="cph__buttons">
+
+              <!-- BUY NOW -->
+              {% if section.settings.show_buy_button %}
+                <button
+                  type="button"
+                  class="cph__button cph__button--primary"
+                  data-cph-buy-now
+                  data-variant-id="{{ current_variant.id }}"
+                >
+                  {{ section.settings.buy_button_text }}
+                </button>
+              {% endif %}
+
+              <!-- REQUEST QUOTE -->
+              {% if section.settings.show_quote_button %}
+                <a
+                  href="{{ section.settings.quote_url }}"
+                  class="cph__button cph__button--secondary"
+                >
+                  {{ section.settings.quote_button_text }}
+                </a>
+              {% endif %}
+ <!-- SHOWROOM -->
+            {% if section.settings.show_showroom_button %}
+              <a
+                href="{{ section.settings.showroom_url }}"
+                class="cph__button cph__button--secondary cph__button--showroom"
+              >
+                {{ section.settings.showroom_button_text }}
+              </a>
+            {% endif %}
+            </div>
+
+           
+
+          {% else %}
+
+            <div class="cph__sold-out">
+  Sold Out
+</div>
+
+          {% endif %}
+
+        </div>
+
+        <!-- =========================================
+             FEATURE LIST
+        ========================================== -->
+        {% if section.blocks.size > 0 %}
+          <div class="cph__features">
+
+            {% for block in section.blocks %}
+              {% case block.type %}
+
+                {% when 'feature' %}
+
+                  {% if block.settings.text != blank %}
+                    <div
+                      class="cph__feature"
+                      {{ block.shopify_attributes }}
+                    >
+                      <span class="cph__feature-dot"></span>
+
+                      <div class="cph__feature-text">
+                        {{ block.settings.text }}
+                      </div>
+                    </div>
+                  {% endif %}
+
+              {% endcase %}
+            {% endfor %}
+
+          </div>
+        {% endif %}
+
+      </div>
+
+
+      <!-- =========================================
+           PRODUCT MEDIA
+      ========================================== -->
+      <div class="cph__media">
+
+        <div
+          class="cph__slider"
+          data-cph-slider
+        >
+
+          {% if current_product.media.size > 0 %}
+
+            <div class="cph__slides">
+
+              {% for media in current_product.media %}
+
+                {% if media.media_type == 'image' %}
+
+                  <div
+                    class="cph__slide{% if forloop.first %} is-active{% endif %}"
+                    data-cph-slide="{{ forloop.index0 }}"
+                  >
+
+                    {{
+                      media.preview_image
+                      | image_url: width: 1400
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '500, 700, 900, 1100, 1400',
+                        sizes: '(min-width: 990px) 45vw, 100vw',
+                        class: 'cph__image',
+                        alt: media.alt | default: current_product.title
+                    }}
+
+                  </div>
+
+                {% endif %}
+
+              {% endfor %}
+
+            </div>
+
+            {% assign image_count = 0 %}
+
+            {% for media in current_product.media %}
+              {% if media.media_type == 'image' %}
+                {% assign image_count = image_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+
+            {% if image_count > 1 %}
+
+              <!-- PREVIOUS -->
+              <button
+                type="button"
+                class="cph__arrow cph__arrow--prev"
+                data-cph-prev
+                aria-label="Previous product image"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6"></path>
+                </svg>
+              </button>
+
+              <!-- NEXT -->
+              <button
+                type="button"
+                class="cph__arrow cph__arrow--next"
+                data-cph-next
+                aria-label="Next product image"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6"></path>
+                </svg>
+              </button>
+
+              <!-- DOTS -->
+              <div class="cph__dots" aria-label="Product images">
+
+                {% assign dot_index = 0 %}
+
+                {% for media in current_product.media %}
+
+                  {% if media.media_type == 'image' %}
+
+                    <button
+                      type="button"
+                      class="cph__dot{% if dot_index == 0 %} is-active{% endif %}"
+                      data-cph-dot="{{ dot_index }}"
+                      aria-label="Go to image {{ dot_index | plus: 1 }}"
+                    ></button>
+
+                    {% assign dot_index = dot_index | plus: 1 %}
+
+                  {% endif %}
+
+                {% endfor %}
+
+              </div>
+
+            {% endif %}
+
+          {% else %}
+
+            <div class="cph__placeholder">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+
+          {% endif %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+  #CustomProductHero-{{ section.id }} {
+    background: var(--cph-bg);
+    color: var(--cph-text);
+    width: 100%;
+        position: static !important;
+    overflow: visible !important;
+  }
+
+  #CustomProductHero-{{ section.id }} *,
+  #CustomProductHero-{{ section.id }} *::before,
+  #CustomProductHero-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__container {
+    width: min(
+      calc(100% - 80px),
+      var(--cph-max-width)
+    );
+
+    margin: 0 auto;
+
+    padding-top: var(--cph-top-padding);
+    padding-bottom: var(--cph-bottom-padding);
+  }
+
+  /* =========================================
+     GRID
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.6fr) minmax(340px, 0.6fr);
+    align-items: center;
+    gap: clamp(50px, 7vw, 60px);
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__grid--right {
+    grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.35fr);
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__grid--right .cph__content {
+    order: 2;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__grid--right .cph__media {
+    order: 1;
+  }
+
+  /* =========================================
+     CONTENT
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__content {
+    min-width: 0;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 16px;
+    color: var(--cph-accent);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__eyebrow-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--cph-accent);
+    flex: 0 0 20px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__title {
+    margin: 0;
+    max-width: 720px;
+    color: var(--cph-heading);
+    font-size:36px;
+    line-height: 40px;
+    font-weight: 700;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__description {
+    max-width: 610px;
+    margin-top: 18px;
+    color: var(--cph-muted);
+    font-size: 18px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__description p {
+    margin: 0 0 12px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__description p:last-child {
+    margin-bottom: 0;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__description h1,
+  #CustomProductHero-{{ section.id }} .cph__description h2,
+  #CustomProductHero-{{ section.id }} .cph__description h3,
+  #CustomProductHero-{{ section.id }} .cph__description h4,
+  #CustomProductHero-{{ section.id }} .cph__description h5,
+  #CustomProductHero-{{ section.id }} .cph__description h6 {
+    color: var(--cph-heading);
+  }
+
+  /* =========================================
+     PURCHASE BOX
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__purchase-box {
+    width: min(100%, 575px);
+
+    margin-top: 24px;
+
+    padding: 22px 17px 17px;
+
+    border: 1px solid var(--cph-border);
+
+    background: transparent;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__price {
+    color: var(--cph-heading);
+    font-size: 28px;
+    font-weight: 700;
+
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__compare-price {
+    color: var(--cph-muted);
+
+    font-size: 13px;
+    text-decoration: line-through;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__payment-text {
+    margin-top: 10px;
+    color: var(--cph-muted);
+    font-size: 16px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 14px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__button {
+   
+    color: var(--cph-heading);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 0px;
+     border: 1px solid ;
+     border-color: #fff;
+     text-transform: capitalize;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__button:hover {
+   background: transparent
+    color: var(--cph-muted);
+        border-color: var(--cph-muted);
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__button--primary {
+    
+    background: var(--cph-accent);
+    color: #ffffff;
+        display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 0px;
+    border-color: #fff;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__button--primary:hover {
+     background: transparent
+    color: var(--cph-muted);
+            border: 1px solid var(--cph-muted);
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__button--secondary:hover {
+       border-color: var(--cph-accent);
+    background: var(--cph-accent);
+    color: #fff
+  }
+
+  {% comment %} #CustomProductHero-{{ section.id }} .cph__button--showroom {
+    margin-top: 10px;
+  } {% endcomment %}
+
+  #CustomProductHero-{{ section.id }} .cph__sold-out {
+    margin-top: 15px;
+
+    color: var(--cph-muted);
+ border-color: var(--cph-accent);
+    background: var(--cph-accent);
+       display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 0px;
+  }
+
+  /* =========================================
+     FEATURES
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__features {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 9px;
+
+    max-width: 680px;
+
+    margin-top: 22px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__feature {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--cph-muted);
+    font-size: 14px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__feature-dot {
+    position: relative;
+
+    display: block;
+
+    width: 6px;
+    height: 6px;
+
+    margin-top: 4px;
+
+    background: var(--cph-accent);
+
+    flex: 0 0 6px;
+
+    transform: rotate(45deg);
+  }
+
+  /* =========================================
+     MEDIA / SLIDER
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__media {
+    min-width: 0;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__slider {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    border: 1px solid var(--cph-border);
+
+    background: rgba(0, 0, 0, .08);
+
+    overflow: hidden;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__slides {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__slide {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+      opacity .35s ease,
+      visibility .35s ease;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    object-position: center;
+  }
+
+  /* =========================================
+     ARROWS
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+
+    border: 1px solid rgba(255,255,255,.18);
+
+    background: rgba(12, 24, 37, .78);
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform: translateY(-50%);
+
+    transition:
+      opacity .2s ease,
+      background-color .2s ease;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__slider:hover .cph__arrow {
+    opacity: 1;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__arrow:hover {
+    background: rgba(12, 24, 37, .95);
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__arrow--prev {
+    left: 12px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__arrow--next {
+    right: 12px;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__arrow svg {
+    width: 18px;
+    height: 18px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* =========================================
+     DOTS
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 13px;
+    z-index: 4;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    transform: translateX(-50%);
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__dot {
+    width: 6px;
+    height: 6px;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.42);
+
+    cursor: pointer;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__dot.is-active {
+    background: var(--cph-accent);
+  }
+
+  /* =========================================
+     PLACEHOLDER
+  ========================================== */
+
+  #CustomProductHero-{{ section.id }} .cph__placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  #CustomProductHero-{{ section.id }} .cph__placeholder svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* =========================================
+     TABLET
+  ========================================== */
+
+  @media screen and (max-width: 989px) {
+
+    #CustomProductHero-{{ section.id }} .cph__grid,
+    #CustomProductHero-{{ section.id }} .cph__grid--right {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, .75fr);
+
+      gap: 35px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__features {
+      column-gap: 14px;
+    }
+
+  }
+
+  /* =========================================
+     MOBILE
+  ========================================== */
+
+  @media screen and (max-width: 749px) {
+
+    #CustomProductHero-{{ section.id }} .cph__container {
+      width: calc(100% - 40px);
+
+      padding: 60px 10px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__grid,
+    #CustomProductHero-{{ section.id }} .cph__grid--right {
+      display: flex;
+      flex-direction: column;
+
+      gap: 28px;
+    }
+ #CustomProductHero-{{ section.id }} .cph__payment-text {
+    font-size: 14px;
+  }
+    /*
+      On mobile image always comes first.
+    */
+
+    #CustomProductHero-{{ section.id }} .cph__media,
+    #CustomProductHero-{{ section.id }} .cph__grid--right .cph__media {
+      order: 1;
+      width: 100%;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__content,
+    #CustomProductHero-{{ section.id }} .cph__grid--right .cph__content {
+      order: 2;
+      width: 100%;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__slider {
+      aspect-ratio: 1 / 1;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__arrow {
+      width: 34px;
+      height: 34px;
+
+      opacity: 1;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__arrow--prev {
+      left: 8px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__arrow--next {
+      right: 8px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__eyebrow {
+      margin-bottom: 13px;
+      font-size: 14px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__title {
+      font-size: 28px;
+      line-height: 32px;
+
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__description {
+      margin-top: 16px;
+      font-size: 16px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__purchase-box {
+      margin-top: 21px;
+
+      padding: 19px 14px 14px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__price {
+      font-size: 24px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+        font-size: 14px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__button {
+      width: 100%;
+        font-size: 14px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__button--showroom {
+      width: 100%;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__feature {
+      font-size: 12px;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__dot {
+      width: 6px;
+      height: 6px;
+    }
+
+  }
+
+  /* =========================================
+     SMALL MOBILE
+  ========================================== */
+
+  @media screen and (max-width: 430px) {
+
+    #CustomProductHero-{{ section.id }} .cph__buttons {
+      grid-template-columns: 1fr;
+    }
+
+    #CustomProductHero-{{ section.id }} .cph__button--showroom {
+      margin-top: 8px;
+    }
+
+  }
+  @media screen and (min-width: 750px) {
+
+  .cph__grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    align-items: start !important;
+    overflow: visible !important;
+  }
+
+  .cph__grid {
+    position: static !important;
+    overflow: visible !important;
+  }
+
+  .cph__content {
+    position: static !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .cph__media {
+    position: sticky !important;
+    top: 90px !important;
+    align-self: start !important;
+    height: fit-content !important;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .cph__media {
+    position: static !important;
+  }
+}
+
+
+/* =========================================
+   ACCORDION
+========================================= */
+
+#CustomProductHero-{{ section.id }} .cph__accordions {
+  width: min(100%, 680px);
+  margin-top: 28px;
+  border-top: 1px solid var(--cph-border);
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion {
+  border-bottom: 1px solid var(--cph-border);
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-title {
+  color: var(--cph-heading);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-icon span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 1px;
+  background: var(--cph-heading);
+  transform: translate(-50%, -50%);
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-icon span:last-child {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion[open]
+.cph__accordion-icon span:last-child {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-content {
+  padding: 0 35px 20px 0;
+  color: var(--cph-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-content p {
+  margin: 0 0 10px;
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-content p:last-child {
+  margin-bottom: 0;
+}
+
+#CustomProductHero-{{ section.id }} .cph__accordion-content ul {
+  padding-left: 20px;
+}
+</style>
+
+
+<script>
+(function() {
+
+  var section = document.getElementById(
+    'CustomProductHero-{{ section.id }}'
+  );
+
+  if (!section) return;
+
+  /* =========================================
+     IMAGE SLIDER
+  ========================================== */
+
+  var slides = Array.prototype.slice.call(
+    section.querySelectorAll('[data-cph-slide]')
+  );
+
+  var dots = Array.prototype.slice.call(
+    section.querySelectorAll('[data-cph-dot]')
+  );
+
+  var prevButton = section.querySelector('[data-cph-prev]');
+  var nextButton = section.querySelector('[data-cph-next]');
+
+  var currentIndex = 0;
+
+  function showSlide(index) {
+
+    if (!slides.length) return;
+
+    if (index < 0) {
+      index = slides.length - 1;
+    }
+
+    if (index >= slides.length) {
+      index = 0;
+    }
+
+    currentIndex = index;
+
+    slides.forEach(function(slide, i) {
+      slide.classList.toggle(
+        'is-active',
+        i === currentIndex
+      );
+    });
+
+    dots.forEach(function(dot, i) {
+      dot.classList.toggle(
+        'is-active',
+        i === currentIndex
+      );
+    });
+  }
+
+  if (prevButton) {
+    prevButton.addEventListener('click', function() {
+      showSlide(currentIndex - 1);
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', function() {
+      showSlide(currentIndex + 1);
+    });
+  }
+
+  dots.forEach(function(dot) {
+
+    dot.addEventListener('click', function() {
+
+      var index = parseInt(
+        dot.getAttribute('data-cph-dot'),
+        10
+      );
+
+      showSlide(index);
+
+    });
+
+  });
+
+
+  /* =========================================
+     TOUCH SWIPE
+  ========================================== */
+
+  var slider = section.querySelector('[data-cph-slider]');
+
+  if (slider && slides.length > 1) {
+
+    var touchStartX = 0;
+    var touchEndX = 0;
+
+    slider.addEventListener(
+      'touchstart',
+      function(event) {
+
+        touchStartX = event.changedTouches[0].screenX;
+
+      },
+      { passive: true }
+    );
+
+    slider.addEventListener(
+      'touchend',
+      function(event) {
+
+        touchEndX = event.changedTouches[0].screenX;
+
+        var difference = touchStartX - touchEndX;
+
+        if (Math.abs(difference) < 45) return;
+
+        if (difference > 0) {
+          showSlide(currentIndex + 1);
+        } else {
+          showSlide(currentIndex - 1);
+        }
+
+      },
+      { passive: true }
+    );
+
+  }
+
+
+  /* =========================================
+     BUY NOW
+     Adds current variant and redirects
+     directly to checkout.
+  ========================================== */
+
+  var buyButton = section.querySelector(
+    '[data-cph-buy-now]'
+  );
+
+  if (buyButton) {
+
+    buyButton.addEventListener('click', function() {
+
+      var variantId = buyButton.getAttribute(
+        'data-variant-id'
+      );
+
+      if (!variantId) return;
+
+      var originalText = buyButton.textContent;
+
+      buyButton.disabled = true;
+
+      buyButton.textContent = 'Adding...';
+
+      fetch('{{ routes.cart_add_url }}.js', {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+
+        body: JSON.stringify({
+          items: [
+            {
+              id: Number(variantId),
+              quantity: 1
+            }
+          ]
+        })
+      })
+
+      .then(function(response) {
+
+        if (!response.ok) {
+          throw new Error(
+            'Unable to add product to cart.'
+          );
+        }
+
+        return response.json();
+
+      })
+
+      .then(function() {
+
+        window.location.href = '/cart';
+
+      })
+
+      .catch(function(error) {
+
+        console.error(error);
+
+        buyButton.disabled = false;
+
+        buyButton.textContent = originalText;
+
+      });
+
+    });
+
+  }
+
+})();
+</script>
+
+
+{% else %}
+
+<div
+  style="
+    padding: 60px 20px;
+    text-align: center;
+  "
+>
+  <p>
+    Please open this section inside a product template.
+  </p>
+</div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Custom Product Hero",
+  "tag": "section",
+  "class": "custom-product-hero-section",
+
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum content width",
+      "min": 900,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "default": 1400
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+
+    {
+      "type": "header",
+      "content": "Product content"
+    },
+
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select product",
+      "info": "Select the product to display in this section."
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow",
+      "label": "Show eyebrow",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "ROTARY SCREW AIR COMPRESSOR",
+      "info": "Leave blank to automatically use the product type."
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description",
+      "default": true
+    },
+
+    {
+      "type": "header",
+      "content": "Price & buttons"
+    },
+
+    {
+      "type": "text",
+      "id": "payment_text",
+      "label": "Payment text",
+      "default": "or monthly payments with RBC financing · Free shipping across Canada"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_buy_button",
+      "label": "Show Buy Now button",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "buy_button_text",
+      "label": "Buy button text",
+      "default": "Buy now"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_quote_button",
+      "label": "Show Request Quote button",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "quote_button_text",
+      "label": "Quote button text",
+      "default": "Request a quote"
+    },
+
+    {
+      "type": "url",
+      "id": "quote_url",
+      "label": "Request quote link"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_showroom_button",
+      "label": "Show showroom button",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "showroom_button_text",
+      "label": "Showroom button text",
+      "default": "Book a showroom visit"
+    },
+
+    {
+      "type": "url",
+      "id": "showroom_url",
+      "label": "Showroom link"
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1D2A39"
+    },
+
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#F1F3F5"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#D8DEE5"
+    },
+
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9AAABA"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#334150"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#FF6841"
+    }
+  ],
+
+"blocks": [
+  {
+    "type": "feature",
+    "name": "Feature",
+    "settings": [
+      {
+        "type": "text",
+        "id": "text",
+        "label": "Feature text",
+        "default": "100% duty cycle — built to run continuously"
+      }
+    ]
+  },
+  {
+    "type": "accordion",
+    "name": "Accordion",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Accordion title",
+        "default": "Technical Specifications"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Accordion content",
+        "default": "<p>Add your additional product information here.</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "open_by_default",
+        "label": "Open by default",
+        "default": false
+      }
+    ]
+  }
+],
+
+  "presets": [
+    {
+      "name": "Custom Product Hero",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "text": "100% duty cycle — built to run continuously"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Integrated refrigerated air dryer"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "500 L receiver tank"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "text": "Canadian support & service parts"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,411 @@
+{% comment %}
+  Why Buy It From TOOSA
+  Refine / Shopify OS 2.0 section
+  Responsive: Desktop / Tablet / Mobile
+{% endcomment %}
+
+<section
+  id="WhyBuyToosa-{{ section.id }}"
+  class="why-buy-toosa"
+>
+  <div class="why-buy-toosa__container">
+
+    <div class="why-buy-toosa__intro">
+      <div class="why-buy-toosa__eyebrow">
+        <span class="why-buy-toosa__eyebrow-line"></span>
+        <span>{{ section.settings.eyebrow }}</span>
+      </div>
+
+      {% if section.settings.heading != blank %}
+        <h2 class="why-buy-toosa__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="why-buy-toosa__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="why-buy-toosa__grid">
+        {% for block in section.blocks %}
+          <div
+            class="why-buy-toosa__item"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.title != blank %}
+              <h3 class="why-buy-toosa__item-title">
+                {{ block.settings.title }}
+              </h3>
+            {% endif %}
+
+            {% if block.settings.text != blank %}
+              <div class="why-buy-toosa__item-text">
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #WhyBuyToosa-{{ section.id }} {
+    --why-bg: {{ section.settings.background_color }};
+    --why-heading: {{ section.settings.heading_color }};
+    --why-text: {{ section.settings.text_color }};
+    --why-item-title: {{ section.settings.item_title_color }};
+    --why-border: {{ section.settings.border_color }};
+    --why-accent: {{ section.settings.accent_color }};
+
+    width: 100%;
+    display: block;
+    background: var(--why-bg);
+    color: var(--why-text);
+    box-sizing: border-box;
+  }
+
+  #WhyBuyToosa-{{ section.id }},
+  #WhyBuyToosa-{{ section.id }} *,
+  #WhyBuyToosa-{{ section.id }} *::before,
+  #WhyBuyToosa-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__container {
+    width: min(
+      calc(100% - 80px),
+      {{ section.settings.max_width }}px
+    );
+
+    margin: 0 auto;
+
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* =========================
+     INTRO
+  ========================= */
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__intro {
+    max-width: 680px;
+    margin-bottom: 35px;
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 0 13px;
+
+    color: var(--why-accent);
+
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__eyebrow-line {
+    width: 21px;
+    height: 2px;
+    flex: 0 0 21px;
+    display: inline-block;
+    background: var(--why-accent);
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__heading {
+    margin: 0;
+    color: var(--why-heading);
+    font-size:36px;
+    font-weight: 700;
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__description {
+    margin-top: 15px;
+    color: var(--why-text);
+    font-size: 18px;
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__description p {
+    margin: 0;
+  }
+
+  /* =========================
+     GRID
+  ========================= */
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__grid {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    border-top: 1px solid var(--why-border);
+    border-left: 1px solid var(--why-border);
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__item {
+    padding:20px;
+
+    border-right: 1px solid var(--why-border);
+    border-bottom: 1px solid var(--why-border);
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__item-title {
+    margin: 0 0 10px;
+    color: var(--why-item-title);
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__item-text {
+    margin: 0;
+    color: var(--why-text);
+    font-size: 18px;
+  }
+
+  #WhyBuyToosa-{{ section.id }} .why-buy-toosa__item-text p {
+    margin: 0;
+  }
+
+  /* =========================
+     TABLET
+  ========================= */
+
+  @media screen and (max-width: 749px) {
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__container {
+      width: calc(100% - 40px);
+ padding-left: 10px;
+        padding-right: 10px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__intro {
+      margin-bottom: 28px;
+    }
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__heading {
+      font-size: 28px;
+    }
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__description {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+      #WhyBuyToosa-{{ section.id }} .why-buy-toosa__eyebrow {
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+      #WhyBuyToosa-{{ section.id }} .why-buy-toosa__item-title {
+      font-size: 18px;
+    }
+        #WhyBuyToosa-{{ section.id }} .why-buy-toosa__item-text {
+      font-size: 14px;
+    }
+  }
+
+  /* =========================
+     MOBILE
+  ========================= */
+
+  @media screen and (max-width: 480px) {
+
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__intro {
+      margin-bottom: 25px;
+    }
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__eyebrow {
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__eyebrow-line {
+      width: 19px;
+      flex-basis: 19px;
+    }
+
+    #WhyBuyToosa-{{ section.id }} .why-buy-toosa__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Why buy it from TOOSA",
+  "tag": "section",
+  "class": "section-why-buy-toosa",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHY BUY IT FROM TOOSA"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The same shop that builds your storage"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>A compressor is a 10-year purchase. Buying it from the team already outfitting your workshop means one point of contact for the setup, the support and the payments.</p>"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content max width",
+      "min": 600,
+      "max": 1400,
+      "step": 10,
+      "unit": "px",
+      "default": 860
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 20,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 20,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1D2A39"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#F1F3F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#9BA9B8"
+    },
+    {
+      "type": "color",
+      "id": "item_title_color",
+      "label": "Item title color",
+      "default": "#F1F3F5"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Grid border",
+      "default": "#3A4857"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent orange",
+      "default": "#FF6B32"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "See & hear it run"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Come to the Richmond, BC showroom and stand next to it before you commit."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why buy it from TOOSA",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "See & hear it run",
+            "text": "Come to the Richmond, BC showroom and stand next to it before you commit."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Pay monthly with RBC",
+            "text": "Spread a shop-grade compressor over manageable payments — the same financing as our tool storage."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Canadian support",
+            "text": "Talk to a person about power, install and service parts. No overseas ticket queue."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Free shipping Canada-wide",
+            "text": "Delivered to your door, or collect in Richmond, Vancouver or Calgary."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "One workshop, one supplier",
+            "text": "Storage, custom foam, lighting, engraving and air — from a team that fits out whole shops."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Honest sizing help",
+            "text": "Send your tool list and shop size; we'll tell you if this is right — or if you should wait."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

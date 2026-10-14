@@ -1,0 +1,557 @@
+{% doc %}
+  @prompt
+    Update the existing Homepage “Our Story” section in the Shopify Refine theme.
+    
+    Keep the existing section content and functionality, but replace the current image with the supplied professional TOOSA workshop/team photo.
+    
+    Image requirements:
+    - Use the supplied professional image
+    - Recommended display size: 768 × 800px
+    - High-quality, professional and well-cropped appearance
+    - Use responsive image handling with Shopify image_url/srcset
+    - Desktop: balanced image + text layout
+    - Mobile: image and content stacked vertically
+    - Use object-fit: cover with a customizable image position
+    - Prevent image distortion and horizontal overflow
+    
+    Design:
+    - Create a clean premium TOOSA-style layout
+    - Strong visual hierarchy
+    - Proper spacing and alignment
+    - Dark navy/black typography
+    - TOOSA orange accent
+    - Subtle image border radius if supported by the existing theme
+    - Maintain the existing Refine theme design language
+    
+    Content:
+    - Keep the existing “Our Story” heading and text dynamic/editable
+    - Keep the existing CTA/button functionality
+    
+    IMPORTANT BUTTON REQUIREMENT:
+    - Do NOT hardcode button colors, typography, padding, border radius or hover styles.
+    - Use the Refine theme's existing button classes/styles/settings.
+    - The button must automatically inherit the theme's global Button settings.
+    - Keep the button label and link customizable through the Theme Editor.
+    - If the section already has a button setting, preserve and reuse it.
+    
+    Customization settings:
+    - Section heading
+    - Description/richtext
+    - Image
+    - Image position
+    - Image width
+    - Content alignment
+    - Button text
+    - Button link
+    - Image corner radius
+    - Section background
+    - Section spacing
+    - Desktop/mobile padding
+    
+    Responsive:
+    - Desktop: 50/50 or configurable image/content layout
+    - Tablet: optimized two-column layout
+    - Mobile: single-column layout
+    - Proper typography scaling
+    - No horizontal scrolling
+    - No layout shift
+    
+    Technical:
+    - Use dynamic Shopify Liquid settings
+    - Use Shopify responsive image URLs
+    - Do not hardcode content
+    - Do not add external libraries
+    - Scope only the necessary CSS
+    - Preserve existing Refine theme functionality
+    - Do not duplicate existing theme button CSS
+    - Generate valid Shopify Liquid + CSS + schema
+    - Modify only the existing Our Story section; do not create unrelated sections.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-our-story-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.section_background }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-our-story-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 {{ block.settings.mobile_padding }}px;
+  }
+
+  .ai-our-story-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: {{ block.settings.content_gap }}px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-our-story-container-{{ ai_gen_id }} {
+      padding: 0 {{ block.settings.desktop_padding }}px;
+    }
+
+    .ai-our-story-grid-{{ ai_gen_id }} {
+      grid-template-columns: {% if block.settings.image_position == 'left' %}{{ block.settings.image_width }}% 1fr{% else %}1fr {{ block.settings.image_width }}%{% endif %};
+      gap: {{ block.settings.content_gap_desktop }}px;
+    }
+  }
+
+  .ai-our-story-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    {% if block.settings.image_position == 'right' %}
+      order: 2;
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-our-story-image-wrapper-{{ ai_gen_id }} {
+      order: -1;
+    }
+  }
+
+  .ai-our-story-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: {{ block.settings.image_focal_point }};
+  }
+
+  .ai-our-story-image-placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-our-story-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-our-story-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-our-story-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.content_spacing }}px;
+    text-align: {{ block.settings.content_alignment }};
+    {% if block.settings.image_position == 'left' %}
+      order: 2;
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-our-story-content-{{ ai_gen_id }} {
+      order: 1;
+    }
+  }
+
+  .ai-our-story-heading-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size_mobile }}px;
+    line-height: 1.2;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-our-story-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size }}px;
+    }
+  }
+
+  .ai-our-story-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size_mobile }}px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-our-story-text-{{ ai_gen_id }} p {
+    margin: 0 0 1em;
+  }
+
+  .ai-our-story-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-our-story-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size }}px;
+    }
+  }
+
+  .ai-our-story-button-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    {% if block.settings.content_alignment == 'center' %}
+      justify-content: center;
+      align-items: center;
+    {% elsif block.settings.content_alignment == 'right' %}
+      justify-content: flex-end;
+    {% else %}
+      justify-content: flex-start;
+    {% endif %}
+  }
+{% endstyle %}
+
+<our-story-{{ ai_gen_id }} class="ai-our-story-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-our-story-container-{{ ai_gen_id }}">
+    <div class="ai-our-story-grid-{{ ai_gen_id }}">
+      <div class="ai-our-story-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 1536 }}"
+            srcset="
+              {{ block.settings.image | image_url: width: 375 }} 375w,
+              {{ block.settings.image | image_url: width: 750 }} 750w,
+              {{ block.settings.image | image_url: width: 1100 }} 1100w,
+              {{ block.settings.image | image_url: width: 1536 }} 1536w
+            "
+            sizes="(min-width: 750px) {{ block.settings.image_width }}vw, 100vw"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-our-story-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-our-story-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-our-story-empty-state-{{ ai_gen_id }}">
+              Add your professional TOOSA workshop/team photo
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-our-story-content-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-our-story-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+
+        {% if block.settings.text != blank %}
+          <div class="ai-our-story-text-{{ ai_gen_id }}">
+            {{ block.settings.text }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.button_label != blank %}
+          <div class="ai-our-story-button-wrapper-{{ ai_gen_id }}">
+            <a href="{{ block.settings.button_link }}" class="button button--primary">
+              {{ block.settings.button_label }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</our-story-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class OurStory{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+    customElements.define('our-story-{{ ai_gen_id }}', OurStory{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Our Story",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Story"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>At TOOSA, we believe in creating storage solutions that combine functionality with exceptional craftsmanship. Our team is dedicated to designing and building premium storage systems that transform spaces and enhance everyday living.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Recommended: 768 × 800px"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "image_focal_point",
+      "label": "Image focal point",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Mobile content gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_gap_desktop",
+      "label": "Desktop content gap",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "label": "Content spacing",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Mobile heading size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Desktop text size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "label": "Mobile text size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding",
+      "label": "Desktop side padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding",
+      "label": "Mobile side padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Story"
+    }
+  ]
+}
+{% endschema %}

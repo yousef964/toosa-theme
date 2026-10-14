@@ -1,0 +1,382 @@
+{% liquid
+  assign section_id = 'why-toosa-' | append: section.id
+%}
+
+<section id="{{ section_id }}" class="why-toosa-section">
+  <div class="why-toosa-container">
+
+    <div class="why-toosa-intro">
+      <div class="why-toosa-eyebrow">
+        <span class="why-toosa-line"></span>
+        <span>{{ section.settings.eyebrow }}</span>
+      </div>
+
+      {% if section.settings.heading != blank %}
+        <h2 class="why-toosa-heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+    </div>
+
+    <div class="why-toosa-grid">
+      {% for block in section.blocks %}
+        <div
+          class="why-toosa-card"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.label != blank %}
+            <div class="why-toosa-label">
+              {{ block.settings.label }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.title != blank %}
+            <h3 class="why-toosa-card-title">
+              {{ block.settings.title }}
+            </h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="why-toosa-text">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    --why-bg: {{ section.settings.background_color }};
+    --why-border: {{ section.settings.border_color }};
+    --why-heading: {{ section.settings.heading_color }};
+    --why-body: {{ section.settings.body_color }};
+    --why-muted: {{ section.settings.muted_color }};
+    --why-accent: {{ section.settings.accent_color }};
+
+    background: var(--why-bg);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} *,
+  #{{ section_id }} *::before,
+  #{{ section_id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .why-toosa-container {
+    width: min(100% - 80px, 1400px);
+    margin: 0 auto;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  #{{ section_id }} .why-toosa-intro {
+    margin-bottom: 29px;
+  }
+
+  #{{ section_id }} .why-toosa-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 14px;
+    font-size: 16px;
+  }
+
+  #{{ section_id }} .why-toosa-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    flex: 0 0 20px;
+    background: var(--why-accent);
+  }
+
+  #{{ section_id }} .why-toosa-eyebrow span:last-child {
+    color: var(--why-accent);
+    {% comment %} font-size: 9px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 1.55px; {% endcomment %}
+    text-transform: uppercase;
+  }
+
+  #{{ section_id }} .why-toosa-heading {
+  
+    margin: 0;
+    padding: 0;
+    color: var(--why-heading);
+    {% comment %} font-size: 27px;
+    line-height: 1.18;
+    font-weight: 700;
+    letter-spacing: -0.65px; {% endcomment %}
+  }
+
+  #{{ section_id }} .why-toosa-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--why-border);
+    border-left: 1px solid var(--why-border);
+  }
+
+  #{{ section_id }} .why-toosa-card {
+    min-width: 0;
+    min-height: 115px;
+    padding: 22px 20px 19px;
+    border-right: 1px solid var(--why-border);
+    border-bottom: 1px solid var(--why-border);
+  }
+
+  #{{ section_id }} .why-toosa-label {
+    margin: 0 0 12px;
+    color: var(--why-accent);
+     font-size: 14px;
+   {% comment %} line-height: 1;
+    font-weight: 700;
+    letter-spacing: 1.35px; {% endcomment %}
+    text-transform: uppercase;
+  }
+
+  #{{ section_id }} .why-toosa-card-title {
+    margin: 0 0 7px;
+    padding: 0;
+    color: var(--why-heading);
+   font-size: 20px;
+    {% comment %}  line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: -0.05px; {% endcomment %}
+  }
+
+  #{{ section_id }} .why-toosa-text {
+    margin: 0;
+    color: var(--why-muted);
+    font-size: 18px;
+    {% comment %} line-height: 1.55;
+    font-weight: 400;
+    letter-spacing: 0; {% endcomment %}
+  }
+
+  /*
+    TABLET
+  */
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .why-toosa-container {
+      width: min(100% - 40px);
+       padding: 60px 10px;
+    }
+
+    #{{ section_id }} .why-toosa-intro {
+      margin-bottom: 25px;
+    }
+
+    #{{ section_id }} .why-toosa-heading {
+      max-width: 100%;
+     font-size: 28px;
+    }
+
+    #{{ section_id }} .why-toosa-card {
+      min-height: 0;
+      padding: 21px 18px 20px;
+    }
+ #{{ section_id }} .why-toosa-text {
+      font-size: 14px;
+    } 
+  }
+
+  /*
+    MOBILE
+  */
+  @media screen and (max-width: 549px) {
+
+
+    #{{ section_id }} .why-toosa-intro {
+      margin-bottom: 24px;
+    }
+
+    #{{ section_id }} .why-toosa-eyebrow {
+      gap: 8px;
+      margin-bottom: 13px;
+      font-size: 14px;
+    }
+
+    #{{ section_id }} .why-toosa-line {
+      width: 18px;
+      flex-basis: 18px;
+    }
+
+    {% comment %} #{{ section_id }} .why-toosa-eyebrow span:last-child {
+      font-size: 8px;
+      letter-spacing: 1.35px;
+    }
+
+    #{{ section_id }} .why-toosa-heading {
+      font-size: 23px;
+      line-height: 1.2;
+      letter-spacing: -0.45px;
+    } {% endcomment %}
+
+    #{{ section_id }} .why-toosa-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #{{ section_id }} .why-toosa-card {
+      padding: 20px 16px 19px;
+    }
+
+   #{{ section_id }} .why-toosa-label {
+        {% comment %} margin-bottom: 11px;{% endcomment %}
+      font-size: 12px;
+    } 
+
+    #{{ section_id }} .why-toosa-card-title {
+      margin-bottom: 7px;
+      font-size: 16px;
+    }
+
+    {% comment %} #{{ section_id }} .why-toosa-text { 
+      font-size: 11px;
+      line-height: 1.55;
+    } {% endcomment %}
+  }
+
+  /*
+    VERY SMALL MOBILE
+  */
+  @media screen and (max-width: 374px) {
+
+    #{{ section_id }} .why-toosa-card {
+      padding: 18px 14px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Why Toosa Standard",
+  "tag": "section",
+  "class": "section-why-toosa-standard",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHY TOOSA"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built to a standard you feel in the first drawer pull"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1D2A39"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#394756"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading and titles",
+      "default": "#E8EBEE"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body color",
+      "default": "#D5DBE0"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#8E9AA7"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#FF6338"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "FRAME"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Heavy-gauge welded steel"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "No flex, no rattle under a full load. A welded frame, not folded sheet metal."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Why Toosa Standard",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "label": "FRAME",
+            "title": "Heavy-gauge welded steel",
+            "text": "No flex, no rattle under a full load. A welded frame, not folded sheet metal."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "label": "MOTION",
+            "title": "Full-extension ball-bearing slides",
+            "text": "Every drawer opens 100%, so the tools at the back are never lost."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "label": "FINISH",
+            "title": "A finish that takes a beating",
+            "text": "Textured powder coat shrugs off brake clean, oil and impacts that chip cheaper coatings."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "label": "SYSTEM",
+            "title": "Modular by design",
+            "text": "Start with one unit. Add lockers, hutches and benches later — they bolt straight on."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

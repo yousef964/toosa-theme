@@ -1,0 +1,445 @@
+{% comment %}
+  Honest Comparison Section
+{% endcomment %}
+
+<section
+  id="honest-comparison-{{ section.id }}"
+  class="honest-comparison-section"
+  style="
+    --section-bg: {{ section.settings.background_color }};
+    --text-color: {{ section.settings.text_color }};
+    --accent-color: {{ section.settings.accent_color }};
+    --table-border: {{ section.settings.border_color }};
+    --toosa-bg: {{ section.settings.toosa_background }};
+    --toosa-header: {{ section.settings.toosa_header }};
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="honest-comparison-section__container">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="honest-comparison-section__eyebrow">
+        <span></span>
+        <p>{{ section.settings.eyebrow }}</p>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="honest-comparison-section__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    <div class="honest-comparison-section__table-wrapper">
+      <table class="honest-comparison-section__table">
+        <thead>
+          <tr>
+            {% comment %} <th class="honest-comparison-section__empty"></th> {% endcomment %}
+            <th colspan="2" class="honest-comparison-section__normal-header">
+              {{ section.settings.competitor_heading }}
+            </th>
+            <th class="honest-comparison-section__brand-header">
+              {{ section.settings.brand_heading }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {% for block in section.blocks %}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row" class="honest-comparison-section__label">
+                {{ block.settings.feature }}
+              </th>
+
+              <td class="honest-comparison-section__competitor">
+                {{ block.settings.competitor_text }}
+              </td>
+
+              <td class="honest-comparison-section__brand">
+                {{ block.settings.brand_text }}
+              </td>
+            </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #honest-comparison-{{ section.id }} {
+    background: var(--section-bg);
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #honest-comparison-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__container {
+    width: 100%;
+    max-width: min(100% - 80px, 1400px);
+    margin: 0 auto;
+  }
+
+  /* Eyebrow */
+  #honest-comparison-{{ section.id }} .honest-comparison-section__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+     font-size: 16px;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__eyebrow span {
+    width: 21px;
+    height: 1px;
+    background: var(--accent-color);
+    display: block;
+    flex-shrink: 0;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__eyebrow p {
+    margin: 0;
+    color: var(--accent-color);
+    text-transform: uppercase;
+  }
+
+  /* Heading */
+  #honest-comparison-{{ section.id }} .honest-comparison-section__heading {
+    margin: 0 0 32px;
+    max-width: 560px;
+    color: var(--text-color);
+        font-size: 36px;
+  }
+
+  /* Table */
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table {
+    width: 100%;
+    {% comment %} min-width: 700px; {% endcomment %}
+    border-collapse: collapse;
+    border: 1px solid var(--table-border);
+    table-layout: fixed;
+    background: transparent;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table th,
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table td {
+    border-bottom: 1px solid;
+    vertical-align: middle;
+     border-color: var(--table-border) !important;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table tbody tr:last-child th,
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* Header */
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table thead th {
+    height: 41px;
+    padding: 10px 16px;
+    text-align: left;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__empty {
+    width: 23%;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__normal-header {
+    width: 38%;
+    color: var(--text-color);
+    background: transparent;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__brand-header {
+    width: 39%;
+    background: var(--toosa-header);
+    color: #ffffff;
+  }
+
+  /* Body rows */
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table tbody th,
+  #honest-comparison-{{ section.id }} .honest-comparison-section__table tbody td {
+    padding: 13px 16px;
+    text-align: left;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__label {
+    {% comment %} color: #66717e; {% endcomment %}
+      font-size: 20px;
+    font-weight: 600 !important;
+  }
+
+  #honest-comparison-{{ section.id }} .honest-comparison-section__competitor {
+    color: var(--text-color);
+    font-size: 16px;
+  }
+
+#honest-comparison-{{ section.id }} .honest-comparison-section__brand{
+    font-size: 16px;
+  }
+ #honest-comparison-{{ section.id }} .honest-comparison-section__label {
+   
+      font-size: 16px;
+  }
+  #honest-comparison-{{ section.id }} .honest-comparison-section__brand {
+    background: var(--toosa-bg);
+    color: var(--text-color);
+  }
+
+  /* Tablet */
+  @media screen and (max-width: 989px) {
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__heading {
+      margin-bottom: 28px;
+    }
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 749px) {
+    #honest-comparison-{{ section.id }} {
+      padding-top: calc(var(--section-padding-top) * 0.7);
+      padding-bottom: calc(var(--section-padding-bottom) * 0.7);
+    }
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__container {
+      padding-left: 10px;
+      padding-right: 10px;
+      max-width: min(100% - 40px, 1400px);
+    margin: 0 auto;
+    }
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__eyebrow {
+      margin-bottom: 12px;
+       font-size: 14px;
+    }
+#honest-comparison-{{ section.id }} .honest-comparison-section__competitor,
+#honest-comparison-{{ section.id }} .honest-comparison-section__brand{
+    font-size: 14px;
+  }
+    {% comment %} #honest-comparison-{{ section.id }} .honest-comparison-section__eyebrow p {
+      font-size: 9px;
+      letter-spacing: 1.4px;
+    } {% endcomment %}
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__heading {
+      max-width: 100%;
+      margin-bottom: 24px;
+          font-size: 28px;
+    }
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__table-wrapper {
+      margin-right: -16px;
+      padding-right: 16px;
+    }
+
+    {% comment %} #honest-comparison-{{ section.id }} .honest-comparison-section__table {
+      min-width: 680px;
+    } {% endcomment %}
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__table thead th {
+
+      padding: 11px 12px;
+    }
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__table tbody th,
+    #honest-comparison-{{ section.id }} .honest-comparison-section__table tbody td {
+
+      padding: 12px;
+    }
+  }
+
+  /* Small mobile */
+  @media screen and (max-width: 480px) {
+    {% comment %} #honest-comparison-{{ section.id }} .honest-comparison-section__heading {
+      font-size: 23px;
+    } {% endcomment %}
+
+    #honest-comparison-{{ section.id }} .honest-comparison-section__table {
+      min-width: 620px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Honest comparison",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "HONEST COMPARISON"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Why the cheap box costs more in the long run"
+    },
+    {
+      "type": "text",
+      "id": "competitor_heading",
+      "label": "Competitor heading",
+      "default": "Typical import special"
+    },
+    {
+      "type": "text",
+      "id": "brand_heading",
+      "label": "Brand heading",
+      "default": "TOOSA"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f5f5f4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#3b4653"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#e5674d"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Table border color",
+      "default": "#d9d9d9"
+    },
+    {
+      "type": "color",
+      "id": "toosa_background",
+      "label": "Brand column background",
+      "default": "#f4e9e3"
+    },
+    {
+      "type": "color",
+      "id": "toosa_header",
+      "label": "Brand header background",
+      "default": "#283342"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 70
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_row",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature",
+          "default": "Steel & frame"
+        },
+        {
+          "type": "text",
+          "id": "competitor_text",
+          "label": "Competitor text",
+          "default": "Folded thin-gauge panels, bolted corners"
+        },
+        {
+          "type": "text",
+          "id": "brand_text",
+          "label": "Brand text",
+          "default": "Heavy-gauge steel, welded frame"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Honest comparison",
+      "blocks": [
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Steel & frame",
+            "competitor_text": "Folded thin-gauge panels, bolted corners",
+            "brand_text": "Heavy-gauge steel, welded frame"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Drawer slides",
+            "competitor_text": "Partial-extension, sag when loaded",
+            "brand_text": "Full-extension ball-bearing, rated per drawer"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Finish",
+            "competitor_text": "Thin paint that chips on impact and solvents",
+            "brand_text": "Textured powder coat, solvent-resistant"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Support & parts",
+            "competitor_text": "Overseas seller, no parts, no replacements",
+            "brand_text": "Canadian support, modules & parts in stock"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Add-ons",
+            "competitor_text": "One-off unit — nothing connects to it",
+            "brand_text": "Hutch, lockers, benches bolt straight on"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Getting it home",
+            "competitor_text": "Freight depot pickup or costly LTL",
+            "brand_text": "Free delivery Canada-wide, or local pickup"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

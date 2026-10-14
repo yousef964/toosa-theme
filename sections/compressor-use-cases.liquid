@@ -1,0 +1,489 @@
+{% comment %}
+  Compressor Use Cases
+  Refine Theme - Responsive section
+{% endcomment %}
+
+<section
+  id="CompressorUseCases-{{ section.id }}"
+  class="compressor-use-cases"
+>
+  <div class="compressor-use-cases__inner">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="compressor-use-cases__eyebrow">
+        <span class="compressor-use-cases__eyebrow-line"></span>
+        <span>{{ section.settings.eyebrow }}</span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="compressor-use-cases__heading">
+        {{ section.settings.heading | escape | newline_to_br }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="compressor-use-cases__description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="compressor-use-cases__table-wrap">
+      <table class="compressor-use-cases__table">
+        <thead>
+          <tr>
+            <th scope="col">
+              {{ section.settings.tool_heading | escape }}
+            </th>
+            <th scope="col">
+              {{ section.settings.air_heading | escape }}
+            </th>
+            <th scope="col">
+              {{ section.settings.notes_heading | escape }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for block in section.blocks %}
+            <tr {{ block.shopify_attributes }}>
+              <td data-label="{{ section.settings.tool_heading | escape }}">
+                {{ block.settings.tool | escape }}
+              </td>
+
+              <td data-label="{{ section.settings.air_heading | escape }}">
+                {{ block.settings.air | escape }}
+              </td>
+
+              <td data-label="{{ section.settings.notes_heading | escape }}">
+                {{ block.settings.notes | escape }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #CompressorUseCases-{{ section.id }} {
+    --cuc-text: #000;
+    --cuc-muted: #000;
+    --cuc-red: #f6552e;
+    --cuc-border: #dce1e6;
+    --cuc-header: #f1f3f5;
+    --cuc-white: #ffffff;
+
+    width: 100%;
+    box-sizing: border-box;
+    background: {{ section.settings.background_color }};
+    color: var(--cuc-text);
+  }
+
+  #CompressorUseCases-{{ section.id }} *,
+  #CompressorUseCases-{{ section.id }} *::before,
+  #CompressorUseCases-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__inner {
+    width: min(100% - 80px, 1400px);
+    margin: 0 auto;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* EYEBROW */
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 13px;
+    color: var(--cuc-red);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__eyebrow-line {
+    display: block;
+    width: 21px;
+    height: 2px;
+    flex: 0 0 21px;
+    background: var(--cuc-red);
+  }
+
+  /* HEADING */
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__heading {
+    margin: 0 0 13px;
+    padding: 0;
+    color: var(--cuc-text);
+    font-size: 36px;
+  }
+
+  /* DESCRIPTION */
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__description {
+    margin: 0 0 35px;
+    color: var(--cuc-muted);
+    font-size: 18px;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__description p {
+    margin: 0;
+  }
+
+  /* TABLE */
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    background: var(--cuc-white);
+    border: 1px solid var(--cuc-border);
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table th,
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td {
+    text-align: left;
+    vertical-align: middle;
+    border-right: 1px solid var(--cuc-border);
+    border-bottom: 1px solid var(--cuc-border);
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table th:last-child,
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td:last-child {
+    border-right: 0;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table th {
+    height: 40px;
+    padding: 0 14px;
+    background: var(--cuc-header);
+    color: #000;
+    font-size: 20px;
+    font-weight: 700;
+        border: 1px solid var(--cuc-border);
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td {
+    height: 40px;
+    padding: 0 14px;
+    background: #fff;
+    color: #000;
+    font-size: 16px;
+        border: 1px solid var(--cuc-border);
+  }
+
+  /* Column proportions matching screenshot */
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table th:nth-child(1),
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td:nth-child(1) {
+    width: 26%;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table th:nth-child(2),
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td:nth-child(2) {
+    width: 23%;
+  }
+
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table th:nth-child(3),
+  #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td:nth-child(3) {
+    width: 51%;
+  }
+
+  /* TABLET */
+  @media screen and (max-width: 900px) {
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__description {
+      margin-bottom: 30px;
+    }
+  }
+
+  /* MOBILE */
+  @media screen and (max-width: 749px) {
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__inner {
+      width: calc(100% - 32px);
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__eyebrow {
+      margin-bottom: 11px;
+      font-size: 14px;
+      gap: 8px;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__eyebrow-line {
+      width: 18px;
+      flex-basis: 18px;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__heading {
+      max-width: 100%;
+      margin-bottom: 12px;
+      font-size: 28px;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__description {
+      max-width: 100%;
+      margin-bottom: 25px;
+      font-size: 16px;
+    }
+
+    /*
+      On mobile the table becomes stacked cards.
+      This prevents tiny unreadable columns and keeps
+      every row accessible on all phone widths.
+    */
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table-wrap {
+      overflow: visible;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table {
+      min-width: 0;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table thead {
+      display: none;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table tbody {
+      display: block;
+      width: 100%;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table tr {
+      display: block;
+      width: 100%;
+      margin: 0 0 10px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--cuc-border);
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td {
+      display: grid;
+      grid-template-columns: 43% 57%;
+      width: 100% !important;
+      min-height: 43px;
+      height: auto;
+      padding: 10px 12px;
+      border: 0;
+      border-bottom: 1px solid var(--cuc-border);
+      font-size: 14px;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td:last-child {
+      border-bottom: 0;
+    }
+
+    #CompressorUseCases-{{ section.id }} .compressor-use-cases__table td::before {
+      content: attr(data-label);
+      padding-right: 10px;
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Compressor use cases",
+  "tag": "section",
+  "class": "section-compressor-use-cases",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHAT SHOP AIR IS FOR"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What a compressor\nthis size lets you run"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Air tools are rated in CFM at 90 psi. A rotary screw compressor delivers a steady flow, so you can run several demanding tools at once without the pressure dropping. [Tool figures are typical ranges.]</p>"
+    },
+    {
+      "type": "text",
+      "id": "tool_heading",
+      "label": "Tool column heading",
+      "default": "Tool / job"
+    },
+    {
+      "type": "text",
+      "id": "air_heading",
+      "label": "Air column heading",
+      "default": "Typical air draw"
+    },
+    {
+      "type": "text",
+      "id": "notes_heading",
+      "label": "Notes column heading",
+      "default": "Notes"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tool",
+      "name": "Tool / job",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tool",
+          "label": "Tool / job",
+          "default": "½” impact wrench"
+        },
+        {
+          "type": "text",
+          "id": "air",
+          "label": "Typical air draw",
+          "default": "[~4–5 CFM]"
+        },
+        {
+          "type": "text",
+          "id": "notes",
+          "label": "Notes",
+          "default": "Run several at once across the shop"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compressor use cases",
+      "blocks": [
+        {
+          "type": "tool",
+          "settings": {
+            "tool": "½” impact wrench",
+            "air": "[~4–5 CFM]",
+            "notes": "Run several at once across the shop"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "tool": "Air ratchet / die grinder",
+            "air": "[~4–8 CFM]",
+            "notes": "Continuous use, no waiting for recovery"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "tool": "DA / orbital sander",
+            "air": "[~10–13 CFM]",
+            "notes": "Bodywork all day without starving other tools"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "tool": "HVLP spray gun",
+            "air": "[~10–14 CFM]",
+            "notes": "Integrated dryer keeps moisture out of the finish"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "tool": "Plasma cutter (air)",
+            "air": "[~6–10 CFM]",
+            "notes": "Steady pressure for clean cuts"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "tool": "Sandblast / media blasting",
+            "air": "[~15–30+ CFM]",
+            "notes": "High sustained demand — where rotary screw earns its keep"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "tool": "Shop-wide air drops",
+            "air": "[add tool CFM together]",
+            "notes": "Multiple operators on one system"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

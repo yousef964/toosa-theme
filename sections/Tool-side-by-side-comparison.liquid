@@ -1,0 +1,503 @@
+<section id="tc-{{ section.id }}" class="tc-section">
+  <div class="tc-container">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="tc-eyebrow">
+        <span></span>
+        {{ section.settings.eyebrow }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="tc-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="tc-description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="tc-table-wrap">
+      <table class="tc-table">
+
+        <thead>
+          <tr>
+            <th class="tc-col-label"></th>
+
+            <th class="tc-head tc-head-toosa">
+              <strong>{{ section.settings.toosa_title }}</strong>
+              <span>{{ section.settings.toosa_subtitle }}</span>
+            </th>
+
+            <th class="tc-head">
+              <strong>{{ section.settings.snap_title }}</strong>
+              <span>{{ section.settings.snap_subtitle }}</span>
+            </th>
+
+            <th class="tc-head">
+              <strong>{{ section.settings.temu_title }}</strong>
+              <span>{{ section.settings.temu_subtitle }}</span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for block in section.blocks %}
+            <tr {{ block.shopify_attributes }}>
+
+              <th class="tc-label">
+                {{ block.settings.label }}
+              </th>
+
+              <td class="tc-toosa">
+                {{ block.settings.toosa }}
+              </td>
+
+              <td>
+                {{ block.settings.snap }}
+              </td>
+
+              <td>
+                {{ block.settings.temu }}
+              </td>
+
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+    {% if section.settings.footnote != blank %}
+      <div class="tc-footnote">
+        {{ section.settings.footnote }}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #tc-{{ section.id }} {
+    --tc-navy: #021f4b;
+    --tc-text: #000;
+    --tc-muted: #000;
+    --tc-border: #d8dde1;
+    --tc-header: #f0f2f4;
+    --tc-toosa: #fff4f0;
+    --tc-orange: #ff6f3c;
+
+    width: 100%;
+    background: #fff;
+    color: var(--tc-text);
+  }
+
+  #tc-{{ section.id }} *,
+  #tc-{{ section.id }} *::before,
+  #tc-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #tc-{{ section.id }} .tc-container {
+   max-width: min(100% - 80px, 1400px);
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+
+  /* EYEBROW */
+
+  #tc-{{ section.id }} .tc-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 17px;
+    color: var(--tc-orange);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #tc-{{ section.id }} .tc-eyebrow span {
+    width: 21px;
+    height: 2px;
+    background: var(--tc-orange);
+    display: block;
+  }
+
+  /* HEADING */
+
+  #tc-{{ section.id }} .tc-heading {
+    margin: 0;
+    color: var(--tc-text);
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  #tc-{{ section.id }} .tc-description {
+    margin-top: 13px;
+    color: var(--tc-muted);
+    font-size: 18px;
+  }
+
+  /* TABLE */
+
+  #tc-{{ section.id }} .tc-table-wrap {
+    width: 100%;
+    margin-top: 34px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #tc-{{ section.id }} .tc-table {
+    width: 100%;
+    min-width: 850px;
+    border: 1px solid var(--tc-border);
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: #fff;
+  }
+
+  #tc-{{ section.id }} .tc-table th,
+  #tc-{{ section.id }} .tc-table td {
+    border-right: 1px solid var(--tc-border);
+    border-bottom: 1px solid var(--tc-border);
+    vertical-align: top;
+    text-align: left;
+  }
+
+  #tc-{{ section.id }} .tc-table tr:last-child th,
+  #tc-{{ section.id }} .tc-table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  #tc-{{ section.id }} .tc-table th:last-child,
+  #tc-{{ section.id }} .tc-table td:last-child {
+    border-right: 0;
+  }
+
+  /* COLUMNS */
+
+  #tc-{{ section.id }} .tc-table th:nth-child(1),
+  #tc-{{ section.id }} .tc-table td:nth-child(1) {
+    width: 16%;
+      border: 1px solid #d8dde1 !important;
+  }
+
+  #tc-{{ section.id }} .tc-table th:nth-child(2),
+  #tc-{{ section.id }} .tc-table td:nth-child(2) {
+    width: 24%;
+      border: 1px solid #d8dde1 !important;
+  }
+
+  #tc-{{ section.id }} .tc-table th:nth-child(3),
+  #tc-{{ section.id }} .tc-table td:nth-child(3) {
+    width: 24%;
+      border: 1px solid #d8dde1 !important;
+  }
+
+  #tc-{{ section.id }} .tc-table th:nth-child(4),
+  #tc-{{ section.id }} .tc-table td:nth-child(4) {
+    width: 36%;
+      border: 1px solid #d8dde1 !important;
+  }
+
+  /* HEADER */
+
+  #tc-{{ section.id }} .tc-head {
+    height: 56px;
+    padding: 12px;
+    background: var(--tc-header);
+  }
+
+  #tc-{{ section.id }} .tc-head-toosa {
+    background: var(--tc-navy);
+    color: #fff;
+  }
+
+  #tc-{{ section.id }} .tc-head strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  #tc-{{ section.id }} .tc-head span {
+    display: block;
+    margin-top: 3px;
+    font-size: 14px;
+    line-height: 1.25;
+    font-weight: 400;
+  }
+
+  /* ROW LABEL */
+
+  #tc-{{ section.id }} .tc-label {
+    padding: 13px 12px;
+    color: #000;
+    background: #fff;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* CELLS */
+
+  #tc-{{ section.id }} .tc-table td {
+    padding: 13px 12px;
+    color: var(--tc-text);
+    background: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  #tc-{{ section.id }} .tc-table td.tc-toosa {
+    background: var(--tc-toosa);
+  }
+
+  /* FOOTNOTE */
+
+  #tc-{{ section.id }} .tc-footnote {
+    margin-top: 12px;
+    color: #687480;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+.tc-head.tc-head-toosa{
+        border: 1px solid #d8dde1 !important;
+}
+  /* TABLET */
+
+  @media screen and (max-width: 989px) {
+    #tc-{{ section.id }} .tc-table {
+      min-width: 800px;
+    }
+  }
+
+  /* MOBILE */
+
+  @media screen and (max-width: 749px) {
+    #tc-{{ section.id }} .tc-container {
+    max-width: min(100% - 40px, 1400px);
+      padding: 40px 10px;
+    }
+
+    #tc-{{ section.id }} .tc-eyebrow {
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    #tc-{{ section.id }} .tc-eyebrow span {
+      width: 18px;
+    }
+
+    #tc-{{ section.id }} .tc-heading {
+      font-size: 28px;
+    }
+
+    #tc-{{ section.id }} .tc-description {
+      margin-top: 11px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    #tc-{{ section.id }} .tc-table-wrap {
+      margin-top: 25px;
+      margin-right: -14px;
+      padding-right: 14px;
+    }
+
+    #tc-{{ section.id }} .tc-table {
+      min-width: 800px;
+    }
+
+    #tc-{{ section.id }} .tc-table th:nth-child(1),
+    #tc-{{ section.id }} .tc-table td:nth-child(1) {
+      width: 135px;
+    }
+
+    #tc-{{ section.id }} .tc-table th:nth-child(2),
+    #tc-{{ section.id }} .tc-table td:nth-child(2) {
+      width: 190px;
+    }
+
+    #tc-{{ section.id }} .tc-table th:nth-child(3),
+    #tc-{{ section.id }} .tc-table td:nth-child(3) {
+      width: 190px;
+    }
+
+    #tc-{{ section.id }} .tc-table th:nth-child(4),
+    #tc-{{ section.id }} .tc-table td:nth-child(4) {
+      width: 285px;
+    }
+
+    #tc-{{ section.id }} .tc-head {
+      height: 54px;
+      padding: 11px 10px;
+    }
+
+    #tc-{{ section.id }} .tc-label,
+    #tc-{{ section.id }} .tc-table td {
+      padding: 12px 10px;
+      font-size: 14px;
+    }
+
+    #tc-{{ section.id }} .tc-head strong {
+      font-size: 14px;
+    }
+
+    #tc-{{ section.id }} .tc-head span {
+      font-size: 14px;
+    }
+
+    #tc-{{ section.id }} .tc-footnote {
+      font-size: 9px;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "toolTOOSA Comparison",
+  "tag": "section",
+  "class": "toosa-comparison-section",
+
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "SIDE BY SIDE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The 56” rolling cabinet, compared"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "TOOSA sells several products with a direct Snap-on equivalent. Here's the comparison for our most-configured cabinet against the closest Snap-on model and a typical large import cabinet sold on Temu."
+    },
+
+    {
+      "type": "text",
+      "id": "toosa_title",
+      "label": "TOOSA title",
+      "default": "TOOSA"
+    },
+    {
+      "type": "text",
+      "id": "toosa_subtitle",
+      "label": "TOOSA subtitle",
+      "default": "Ultra Task 56”"
+    },
+
+    {
+      "type": "text",
+      "id": "snap_title",
+      "label": "Snap-on title",
+      "default": "SNAP-ON"
+    },
+    {
+      "type": "text",
+      "id": "snap_subtitle",
+      "label": "Snap-on subtitle",
+      "default": "KCP2422 Classic Series (55”)"
+    },
+
+    {
+      "type": "text",
+      "id": "temu_title",
+      "label": "Temu title",
+      "default": "TYPICAL TEMU"
+    },
+    {
+      "type": "text",
+      "id": "temu_subtitle",
+      "label": "Temu subtitle",
+      "default": "72” import cabinet"
+    },
+
+    {
+      "type": "textarea",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Superscript notes and sources are in the appendix. Figures in [brackets] are TOOSA placeholders to confirm from the product spec sheet."
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "comparison_item",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Row label",
+          "default": "Price (CAD)"
+        },
+        {
+          "type": "text",
+          "id": "toosa",
+          "label": "TOOSA value",
+          "default": "From $1,599"
+        },
+        {
+          "type": "text",
+          "id": "snap",
+          "label": "Snap-on value",
+          "default": "$7,000–$12,000 +1"
+        },
+        {
+          "type": "text",
+          "id": "temu",
+          "label": "Temu value",
+          "default": "~$550–$950 2"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "toolTOOSA Comparison",
+      "blocks": [
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        },
+        {
+          "type": "comparison_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

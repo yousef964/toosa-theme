@@ -1,0 +1,868 @@
+{% doc %}
+  @prompt
+    Create a modern, premium **“Our Story” Shopify section** for the TOOSA website, compatible with the **Refine Shopify theme**.
+    
+    Use the current design direction as inspiration, but improve the visual hierarchy, spacing, typography, and overall premium UI.
+    
+    ### Layout
+    
+    * Desktop: two-column layout with approximately 50/50 width.
+    * Image on the left and content on the right.
+    * Use a slightly asymmetric layout for a more premium look.
+    * Keep the section centered within the Refine theme's container width.
+    * Use generous whitespace between image and content.
+    * Mobile: stack the image first, followed by the content.
+    
+    ### Image
+    
+    * Add a customizable image picker.
+    * Use a large high-quality professional TOOSA image.
+    * Rounded corners with configurable border radius.
+    * Use `object-fit: cover`.
+    * Add optional subtle image hover/zoom effect.
+    * Allow the merchant to control image position/crop.
+    * Optional small decorative brand badge or label over the image.
+    * Lazy-load the image for performance.
+    
+    ### Content
+    
+    Create customizable settings for:
+    
+    * Small eyebrow text, e.g. `OUR STORY`
+    * Main heading: `Our Story`
+    * Rich text description
+    * Optional highlighted/bold text within the description
+    * CTA button, e.g. `About Us`
+    * CTA link
+    * Optional secondary text/link
+    
+    The heading should have strong visual hierarchy and use the existing Refine theme typography where possible.
+    
+    ### Premium UI
+    
+    Improve the current basic layout with:
+    
+    * Clean editorial-style typography.
+    * Strong heading hierarchy.
+    * Comfortable paragraph line-height.
+    * Subtle orange TOOSA accent color for the CTA and optional eyebrow.
+    * Optional thin decorative line above the heading.
+    * Soft section background option such as white, light gray, or custom color.
+    * Optional subtle image shadow.
+    * Avoid excessive animations or decorative elements.
+    * Keep the design professional and consistent with TOOSA's industrial/product branding.
+    
+    ### Customization Settings
+    
+    Add Shopify Theme Editor settings for:
+    
+    * Image
+    * Image position
+    * Image width
+    * Image height
+    * Image border radius
+    * Image aspect ratio
+    * Image overlay/badge enable/disable
+    * Eyebrow text
+    * Heading
+    * Description
+    * Button text
+    * Button link
+    * Button style
+    * Text alignment
+    * Desktop column spacing
+    * Section maximum width
+    * Top/bottom padding
+    * Mobile padding
+    * Background color
+    * Text color
+    * Accent color
+    * Image shadow enable/disable
+    * Animation enable/disable
+    
+    ### Responsive Design
+    
+    Desktop:
+    
+    * Two-column layout.
+    * Image vertically aligned with content.
+    * Large but controlled image height.
+    * Comfortable content width for readability.
+    
+    Tablet:
+    
+    * Maintain two columns where space allows.
+    * Reduce image height, typography and spacing automatically.
+    
+    Mobile:
+    
+    * Image appears first.
+    * Content appears below the image.
+    * Heading uses responsive font sizing.
+    * Text remains easy to read.
+    * CTA becomes full-width or appropriately sized.
+    * No horizontal overflow.
+    * Maintain clean spacing between image, heading, text and button.
+    
+    ### Technical Requirements
+    
+    * Shopify OS 2.0 section.
+    * Fully compatible with the Refine theme.
+    * Use Liquid, CSS and vanilla JavaScript only.
+    * No external libraries.
+    * Use Shopify theme settings instead of hard-coded values wherever possible.
+    * Use existing Refine theme typography and button styles where possible.
+    * Use semantic HTML and accessible button/link markup.
+    * Lazy-load the main image.
+    * Keep CSS scoped to the section so it does not affect other Shopify sections.
+    * Ensure the section works correctly when added multiple times to the same page.
+    
+    ### Desired Visual Result
+    
+    The final section should feel like a **premium brand story/editorial section**, not a basic image-and-text block.
+    
+    Recommended visual flow:
+    
+    [ Large Professional TOOSA Image ]    OUR STORY
+    Our Story
+    ─────────
+    Short compelling
+    brand story with
+    strong typography.
+    
+    ```
+                                      [ About Us → ]
+    ```
+    
+    The final design should look polished, spacious, modern and consistent with the TOOSA Refine Shopify storefront.
+    , button colors are not working 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-our-story-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.section_background }};
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-our-story-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .ai-our-story-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: center;
+  }
+
+  .ai-our-story-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    {% if block.settings.enable_image_shadow %}
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    {% endif %}
+  }
+
+  .ai-our-story-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    object-fit: cover;
+    object-position: {{ block.settings.image_position }};
+    display: block;
+    {% if block.settings.enable_image_hover %}
+      transition: transform 0.6s ease;
+    {% endif %}
+  }
+
+  {% if block.settings.enable_image_hover %}
+    .ai-our-story-image-wrapper-{{ ai_gen_id }}:hover .ai-our-story-image-{{ ai_gen_id }} {
+      transform: scale(1.05);
+    }
+  {% endif %}
+
+  .ai-our-story-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-our-story-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    opacity: 0.3;
+  }
+
+  .ai-our-story-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-our-story-content-{{ ai_gen_id }} {
+    padding-left: {{ block.settings.content_padding }}px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-our-story-eyebrow-{{ ai_gen_id }} {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ block.settings.accent_color }};
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  {% if block.settings.show_decorative_line %}
+    .ai-our-story-eyebrow-{{ ai_gen_id }}::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background-color: {{ block.settings.accent_color }};
+      margin-top: 12px;
+      {% if block.settings.text_alignment == 'center' %}
+        margin-left: auto;
+        margin-right: auto;
+      {% elsif block.settings.text_alignment == 'right' %}
+        margin-left: auto;
+      {% endif %}
+    }
+  {% endif %}
+
+  .ai-our-story-heading-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-style: {{ block.settings.heading_font.style }};
+    font-size: {{ block.settings.heading_size }}px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 24px 0;
+  }
+
+  .ai-our-story-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.7;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 32px;
+  }
+
+  .ai-our-story-description-{{ ai_gen_id }} p {
+    margin: 0 0 16px 0;
+  }
+
+  .ai-our-story-description-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-our-story-description-{{ ai_gen_id }} strong {
+    font-weight: 600;
+    color: {{ block.settings.heading_color }};
+  }
+
+  .ai-our-story-button-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    {% if block.settings.text_alignment == 'center' %}
+      justify-content: center;
+      align-items: center;
+    {% elsif block.settings.text_alignment == 'right' %}
+      justify-content: flex-end;
+    {% else %}
+      justify-content: flex-start;
+    {% endif %}
+  }
+
+  .ai-our-story-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    transition: all 0.3s ease;
+    border-style: solid;
+    border-width: {{ block.settings.button_border_width }}px;
+  }
+
+  .ai-our-story-{{ ai_gen_id }} .ai-our-story-button-primary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg_color }} !important;
+    color: {{ block.settings.button_text_color }} !important;
+    border-color: {{ block.settings.button_bg_color }} !important;
+  }
+
+  .ai-our-story-{{ ai_gen_id }} .ai-our-story-button-primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }} !important;
+    border-color: {{ block.settings.button_hover_bg_color }} !important;
+    color: {{ block.settings.button_text_color }} !important;
+  }
+
+  .ai-our-story-{{ ai_gen_id }} .ai-our-story-button-secondary-{{ ai_gen_id }} {
+    background-color: transparent !important;
+    color: {{ block.settings.text_color }} !important;
+    border-color: {{ block.settings.text_color }} !important;
+  }
+
+  .ai-our-story-{{ ai_gen_id }} .ai-our-story-button-secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.text_color }} !important;
+    color: {{ block.settings.section_background }} !important;
+    border-color: {{ block.settings.text_color }} !important;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-our-story-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .ai-our-story-content-{{ ai_gen_id }} {
+      padding-left: 0;
+      text-align: {{ block.settings.mobile_text_alignment }};
+    }
+
+    .ai-our-story-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.75);
+    }
+
+    .ai-our-story-description-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.text_size }}px * 0.9);
+    }
+
+    .ai-our-story-image-{{ ai_gen_id }},
+    .ai-our-story-image-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.mobile_image_height }}px;
+    }
+
+    .ai-our-story-button-wrapper-{{ ai_gen_id }} {
+      {% if block.settings.mobile_text_alignment == 'center' %}
+        justify-content: center;
+        align-items: center;
+      {% elsif block.settings.mobile_text_alignment == 'right' %}
+        justify-content: flex-end;
+      {% else %}
+        justify-content: flex-start;
+      {% endif %}
+      flex-direction: column;
+    }
+
+    .ai-our-story-button-{{ ai_gen_id }} {
+      {% comment %} width: 100%; {% endcomment %}
+      max-width: 300px;
+    }
+
+    {% if block.settings.show_decorative_line %}
+      .ai-our-story-eyebrow-{{ ai_gen_id }}::after {
+        {% if block.settings.mobile_text_alignment == 'center' %}
+          margin-left: auto;
+          margin-right: auto;
+        {% elsif block.settings.mobile_text_alignment == 'right' %}
+          margin-left: auto;
+          margin-right: 0;
+        {% else %}
+          margin-left: 0;
+          margin-right: auto;
+        {% endif %}
+      }
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-our-story-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.mobile_padding_top }}px;
+      padding-bottom: {{ block.settings.mobile_padding_bottom }}px;
+    }
+
+    .ai-our-story-container-{{ ai_gen_id }} {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .ai-our-story-button-{{ ai_gen_id }} {
+    padding: 10px 12px;
+    font-size: 14px;
+    }
+  }
+{% endstyle %}
+
+<our-story-{{ ai_gen_id }} class="ai-our-story-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-our-story-container-{{ ai_gen_id }}">
+    <div class="ai-our-story-grid-{{ ai_gen_id }}">
+      <div class="ai-our-story-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 1200 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-our-story-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-our-story-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-our-story-empty-state-{{ ai_gen_id }}">
+              Add your story image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-our-story-content-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow_text != blank %}
+          <span class="ai-our-story-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow_text }}</span>
+        {% endif %}
+
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-our-story-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-our-story-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        <div class="ai-our-story-button-wrapper-{{ ai_gen_id }}">
+          {% if block.settings.button_text != blank %}
+            <a
+              href="{{ block.settings.button_link }}"
+              class="ai-our-story-button-{{ ai_gen_id }} ai-our-story-button-primary-{{ ai_gen_id }}"
+            >
+              {{ block.settings.button_text }}
+            </a>
+          {% endif %}
+
+          {% if block.settings.secondary_button_text != blank %}
+            <a
+              href="{{ block.settings.secondary_button_link }}"
+              class="ai-our-story-button-{{ ai_gen_id }} ai-our-story-button-secondary-{{ ai_gen_id }}"
+            >
+              {{ block.settings.secondary_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</our-story-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class OurStory{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.initImageHover();
+      }
+
+      initImageHover() {
+        const imageWrapper = this.querySelector('.ai-our-story-image-wrapper-{{ ai_gen_id }}');
+        if (!imageWrapper) return;
+
+        imageWrapper.addEventListener('mouseenter', () => {
+          imageWrapper.style.overflow = 'hidden';
+        });
+      }
+    }
+
+    customElements.define('our-story-{{ ai_gen_id }}', OurStory{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Our story",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "top center",
+          "label": "Top"
+        },
+        {
+          "value": "bottom center",
+          "label": "Bottom"
+        },
+        {
+          "value": "center left",
+          "label": "Left"
+        },
+        {
+          "value": "center right",
+          "label": "Right"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Desktop image height",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "min": 200,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "label": "Mobile image height",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_shadow",
+      "label": "Enable image shadow",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_hover",
+      "label": "Enable hover zoom effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Story"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We're passionate about creating innovative storage solutions that transform spaces and simplify lives. Our journey began with a simple mission: to design products that combine functionality with exceptional quality.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Primary button text",
+      "default": "About Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "manrope_n7"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Desktop text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_alignment",
+      "label": "Mobile text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#f6552e"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Column spacing",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Content left padding",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decorative_line",
+      "label": "Show decorative line",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile top padding",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile bottom padding",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our story"
+    }
+  ]
+}
+{% endschema %}

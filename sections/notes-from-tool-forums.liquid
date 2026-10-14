@@ -1,0 +1,439 @@
+{% comment %}
+  Section: Notes from Tool Forums
+  Theme: Shopify Refine
+  Responsive: Desktop, Tablet, Mobile
+{% endcomment %}
+
+<section
+  id="tool-notes-{{ section.id }}"
+  class="tool-notes-section"
+>
+  <div class="tool-notes-container">
+
+    <!-- Section Heading -->
+    <div class="tool-notes-header">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="tool-notes-eyebrow">
+          <span class="tool-notes-eyebrow-line"></span>
+          <span>{{ section.settings.eyebrow | escape }}</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank %}
+        <h2 class="tool-notes-heading">
+          {% if section.settings.heading_line_1 != blank %}
+           {{ section.settings.heading_line_1 }}
+          {% endif %}
+{% comment %} 
+          {% if section.settings.heading_line_2 != blank %}
+            <span>{{ section.settings.heading_line_2 | escape }}</span>
+          {% endif %} {% endcomment %}
+        </h2>
+      {% endif %}
+
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="tool-notes-grid">
+
+      {% for block in section.blocks %}
+        <article
+          class="tool-notes-card"
+          {{ block.shopify_attributes }}
+        >
+
+          {% if block.settings.card_title != blank %}
+            <h3 class="tool-notes-card-title">
+              {{ block.settings.card_title | escape }}
+            </h3>
+          {% endif %}
+
+          {% if block.settings.card_text != blank %}
+            <div class="tool-notes-card-text">
+              {{ block.settings.card_text | escape | newline_to_br }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.card_source != blank %}
+            <div class="tool-notes-card-source">
+              {{ block.settings.card_source | escape }}
+            </div>
+          {% endif %}
+
+        </article>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+{% style %}
+
+  #tool-notes-{{ section.id }} {
+    --tool-notes-bg: {{ section.settings.background_color }};
+    --tool-notes-text: {{ section.settings.text_color }};
+    --tool-notes-accent: {{ section.settings.accent_color }};
+    --tool-notes-border: {{ section.settings.border_color }};
+
+    background-color: var(--tool-notes-bg);
+    color: var(--tool-notes-text);
+
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #tool-notes-{{ section.id }} *,
+  #tool-notes-{{ section.id }} *::before,
+  #tool-notes-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-container {
+    width: 100%;
+    max-width: min(100% - 80px, {{ section.settings.container_width }}px);
+    margin: 0 auto;
+  }
+
+  /* Header */
+
+  #tool-notes-{{ section.id }} .tool-notes-header {
+    margin-bottom: 28px;
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: var(--tool-notes-accent);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-eyebrow-line {
+    display: inline-block;
+
+    width: 20px;
+    height: 1px;
+
+    background-color: var(--tool-notes-accent);
+
+    flex-shrink: 0;
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-heading {
+    margin: 0;
+    color: var(--tool-notes-text);
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 700;
+    
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-heading span {
+    display: block;
+  }
+
+  /* Cards Grid */
+
+  #tool-notes-{{ section.id }} .tool-notes-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
+
+    align-items: stretch;
+  }
+
+  /* Individual Card */
+
+  #tool-notes-{{ section.id }} .tool-notes-card {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    padding: 18px 16px 16px;
+
+    border: 1px solid var(--tool-notes-border);
+
+    background-color: transparent;
+
+    text-align: left;
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-card-title {
+    margin: 0 0 10px;
+
+    color: var(--tool-notes-accent);
+
+    font-size: 18px;
+
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-card-text {
+    margin: 0 0 8px;
+    color: var(--tool-notes-text);
+    font-size: 16px;
+    overflow-wrap: break-word;
+  }
+
+  #tool-notes-{{ section.id }} .tool-notes-card-source {
+    margin-top: 0;
+    color: {{ section.settings.source_color }};
+    font-size: 16px;
+    font-weight: 400;
+    overflow-wrap: break-word;
+  }
+
+  /* Tablet */
+
+  @media screen and (max-width: 900px) {
+
+    #tool-notes-{{ section.id }} .tool-notes-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+  }
+
+  /* Mobile */
+
+  @media screen and (max-width: 749px) {
+
+    #tool-notes-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-container {
+      padding-left: 10px;
+      padding-right: 10px;
+        max-width: min(100% - 40px, {{ section.settings.container_width }}px);
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-header {
+      margin-bottom: 22px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-eyebrow {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-card {
+      padding: 17px 15px 16px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-card-title {
+      font-size: 16px;
+      margin-bottom: 9px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-card-text {
+      font-size: 14px;
+    }
+
+    #tool-notes-{{ section.id }} .tool-notes-card-source {
+      font-size: 14px;
+    }
+
+  }
+
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Tool forum notes",
+  "tag": "section",
+  "class": "tool-forum-notes-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "WHAT BUYERS ACTUALLY SAY"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading - Line 1",
+      "default": "Notes from tool forums"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 24,
+      "max": 48,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 20,
+      "max": 36,
+      "step": 1,
+      "default": 27,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Content width",
+      "min": 800,
+      "max": 1400,
+      "step": 20,
+      "default": 900,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading and text color",
+      "default": "#26313F"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#E63B20"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Card border color",
+      "default": "#E1E5E9"
+    },
+    {
+      "type": "color",
+      "id": "source_color",
+      "label": "Source text color",
+      "default": "#66717F"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top spacing",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom spacing",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "default": 36,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "note",
+      "name": "Note card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "ON IMPORT CABINETS"
+        },
+        {
+          "type": "textarea",
+          "id": "card_text",
+          "label": "Card description",
+          "default": "Owners on The Hobby-Machinist forum describe large marketplace cabinets as a \"dice roll\" — quality varies listing to listing, and some report drawer mechanisms failing under normal use."
+        },
+        {
+          "type": "text",
+          "id": "card_source",
+          "label": "Source",
+          "default": "Source: hobby-machinist.com forum thread, 2025"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Tool forum notes",
+      "blocks": [
+        {
+          "type": "note",
+          "settings": {
+            "card_title": "ON IMPORT CABINETS",
+            "card_text": "Owners on The Hobby-Machinist forum describe large marketplace cabinets as a \"dice roll\" — quality varies listing to listing, and some report drawer mechanisms failing under normal use.",
+            "card_source": "Source: hobby-machinist.com forum thread, 2025"
+          }
+        },
+        {
+          "type": "note",
+          "settings": {
+            "card_title": "ON DRAWER ENGINEERING",
+            "card_text": "Several reviewers note that the largest drawers on big import cabinets often ride on a single slide, where higher-tier cabinets use two per drawer for stability under load.",
+            "card_source": "Source: owner reviews aggregated via Slikdeals & forum threads, 2025"
+          }
+        },
+        {
+          "type": "note",
+          "settings": {
+            "card_title": "ON SNAP-ON PRICING",
+            "card_text": "Comparable Snap-on Classic Series roll cabs list well into the thousands new, with used units on Canadian marketplaces still trading at $3,500–$10,000+ depending on configuration.",
+            "card_source": "Source: Kijiji Canada listings, Snap-on dealer shop pages, 2025"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,348 @@
+{% comment %}
+  Financing Banner Section
+  Compatible with Shopify OS 2.0 themes
+{% endcomment %}
+
+<section
+  class="financing-banner"
+  id="financing-banner-{{ section.id }}"
+>
+  <div class="financing-banner__inner">
+
+    <!-- Left Content -->
+    <div class="financing-banner__content">
+
+      <div class="financing-banner__eyebrow">
+        <span></span>
+        <p>{{ section.settings.eyebrow }}</p>
+      </div>
+
+      <h2>{{ section.settings.heading }}</h2>
+
+      <div class="financing-banner__description">
+        {{ section.settings.description }}
+      </div>
+
+      {% if section.settings.button_label != blank %}
+        <a
+          href="{{ section.settings.button_link }}"
+          class="financing-banner__button"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+
+    </div>
+
+    <!-- Right Payment Box -->
+    <div class="financing-banner__payment">
+
+      <p class="financing-banner__example">
+        {{ section.settings.example_text }}
+      </p>
+
+      <div class="financing-banner__price">
+        {{ section.settings.monthly_price }}
+      </div>
+
+      <p class="financing-banner__details">
+        {{ section.settings.payment_details }}
+      </p>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #financing-banner-{{ section.id }} {
+    width: 100%;
+    background: #000;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255,255,255,0.65);
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__inner {
+    max-width: 1420px;
+    margin: 0 auto;
+    min-height: 305px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.95fr);
+    gap: 90px;
+    align-items: center;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__content {
+    max-width: 520px;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 16px;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__eyebrow span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #ff6f3c;
+    flex-shrink: 0;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__eyebrow p {
+    margin: 0;
+    color: #ff6f3c;
+    {% comment %} font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1; {% endcomment %}
+    text-transform: uppercase;
+  }
+
+  #financing-banner-{{ section.id }} h2 {
+    margin: 0 0 4px;
+    color: #f2f3f4;
+     font-size: 36px;
+    {% comment %}line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.4px; {% endcomment %}
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__description {
+    margin-top: 0;
+    max-width: 500px;
+    color: #fff;
+    font-size: 18px;
+    {% comment %} line-height: 1.65; {% endcomment %}
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__description p {
+    margin: 0;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__description strong,
+  #financing-banner-{{ section.id }} .financing-banner__description b {
+    color: #ffffff;
+    {% comment %} font-weight: 700; {% endcomment %}
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    margin-top: 19px;
+    background: #ff6f3c;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+     {% comment %}font-weight: 700;
+    line-height: 1; {% endcomment %}
+      border: 1px solid #ff6f3c;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__button:hover {
+    {% comment %} opacity: 0.9;
+    transform: translateY(-1px); {% endcomment %}
+        background: transparent;
+    border: 1px solid #ff6f3c;
+        color: #ff6f3c;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__payment {
+    width: 100%;
+    max-width: 368px;
+    justify-self: end;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 21px 19px 19px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: 18px;
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__example {
+    margin: 0 0 5px;
+    color: #fff;
+    {% comment %} font-size: 11px;
+    line-height: 1.4; {% endcomment %}
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__price {
+    margin: 0 0 5px;
+    color: #ff875c;
+    {% comment %} font-size: 30px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.2px; {% endcomment %}
+  }
+
+  #financing-banner-{{ section.id }} .financing-banner__details {
+    margin: 0;
+    color: #fff;
+    {% comment %} font-size: 11px;
+    line-height: 1.4; {% endcomment %}
+  }
+
+
+  /* Large Desktop */
+  @media screen and (min-width: 1600px) {
+    #financing-banner-{{ section.id }} .financing-banner__inner {
+      max-width: 1500px;
+      padding-left: 70px;
+      padding-right: 70px;
+    }
+
+    #financing-banner-{{ section.id }} .financing-banner__payment {
+      max-width: 430px;
+    }
+  }
+
+
+  /* Tablet */
+  @media screen and (max-width: 990px) {
+    #financing-banner-{{ section.id }} .financing-banner__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 50px 40px;
+    }
+
+    #financing-banner-{{ section.id }} .financing-banner__payment {
+      max-width: 100%;
+      justify-self: stretch;
+    }
+
+    {% comment %} #financing-banner-{{ section.id }} h2 {
+      font-size: 26px;
+    } {% endcomment %}
+  }
+
+
+  /* Mobile */
+  @media screen and (max-width: 749px) {
+    #financing-banner-{{ section.id }} .financing-banner__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 32px;
+      min-height: auto;
+      padding: 42px 20px 45px;
+    }
+
+  #financing-banner-{{ section.id }} .financing-banner__eyebrow {
+    font-size: 14px;
+  }
+    #financing-banner-{{ section.id }} .financing-banner__content {
+      max-width: 100%;
+    }
+
+    #financing-banner-{{ section.id }} h2 {
+      font-size: 28px;
+      {% comment %} line-height: 1.25;{% endcomment %}
+    } 
+
+     #financing-banner-{{ section.id }} .financing-banner__description {
+    font-size: 16px;
+       {% comment %} line-height: 1.6;{% endcomment %}
+    } 
+
+    #financing-banner-{{ section.id }} .financing-banner__payment {
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      padding: 20px 18px;
+      font-size: 16px;
+    }
+
+    {% comment %} #financing-banner-{{ section.id }} .financing-banner__price {
+      font-size: 28px;
+    } {% endcomment %}
+
+    #financing-banner-{{ section.id }} .financing-banner__button {
+     padding: 10px 12px;
+         font-size: 14px;
+    }
+  }
+
+
+  /* Small Mobile */
+  @media screen and (max-width: 374px) {
+    #financing-banner-{{ section.id }} .financing-banner__inner {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    {% comment %} #financing-banner-{{ section.id }} h2 {
+      font-size: 23px;
+    } {% endcomment %}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Financing Banner",
+  "tag": "section",
+  "class": "section-financing-banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "FINANCING"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Own it now. Pay monthly."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>TOOSA has partnered with <strong>RBC</strong> to offer simple monthly payment plans on tool storage and compressors.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Buy now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "example_text",
+      "label": "Payment example text",
+      "default": "Example – Ultra Task 56”"
+    },
+    {
+      "type": "text",
+      "id": "monthly_price",
+      "label": "Monthly price",
+      "default": "$xx/mo"
+    },
+    {
+      "type": "text",
+      "id": "payment_details",
+      "label": "Payment details",
+      "default": "over [XX] months · $1,599 total"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Financing Banner"
+    }
+  ]
+}
+{% endschema %}

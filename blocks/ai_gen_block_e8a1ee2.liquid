@@ -1,0 +1,794 @@
+{% doc %}
+  @prompt
+    Create a Shopify OS 2.0 **Recently Viewed Products Section** for the Refine theme.
+    
+    Build a lightweight recently viewed products slider that automatically remembers products visited by the customer.
+    
+    ### Functionality
+    
+    * Detect the current product page automatically.
+    * Store recently viewed product handles/IDs using browser `localStorage`.
+    * Do not require an external app.
+    * Do not store personal customer information.
+    * Exclude the current product from the displayed list.
+    * Display the most recently viewed products first.
+    * Limit stored products to a configurable number such as 4–12.
+    * Hide the section automatically when there are no recently viewed products.
+    
+    ### Product Cards
+    
+    Dynamically display:
+    
+    * Product image
+    * Product title
+    * Current price
+    * Compare-at price
+    * Sale badge
+    * Product rating if available
+    * Product link
+    
+    ### Slider
+    
+    * Desktop: 4 products.
+    * Tablet: 3 products.
+    * Mobile: 2 products.
+    * Responsive arrows.
+    * Optional dots.
+    * Touch/swipe support.
+    * Smooth lightweight scrolling.
+    
+    ### Design
+    
+    * Match the Refine theme's existing product card design.
+    * Use the same typography, buttons, border radius and spacing.
+    * Premium and clean TOOSA appearance.
+    * Keep the section visually consistent with the Related Products section.
+    
+    ### Performance
+    
+    * Use vanilla JavaScript only.
+    * Use `localStorage`.
+    * Lazy-load images.
+    * No external libraries.
+    * No unnecessary API calls.
+    * Keep JavaScript lightweight.
+    * Fully responsive and accessible.
+    
+    ### Theme Editor Settings
+    
+    Add settings for:
+    
+    * Section heading
+    * Maximum products
+    * Desktop columns
+    * Mobile columns
+    * Show price
+    * Show rating
+    * Show sale badge
+    * Show arrows
+    * Show dots
+    * Section spacing
+    * Background color
+    * Text color
+    
+    Make the section compatible with Shopify OS 2.0 and the Refine theme.
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-recently-viewed-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-recently-viewed-{{ ai_gen_id }}[data-hidden="true"] {
+    display: none;
+  }
+
+  .ai-recently-viewed__container-{{ ai_gen_id }} {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-recently-viewed__header-{{ ai_gen_id }} {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .ai-recently-viewed__heading-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: 36px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  .ai-recently-viewed__slider-wrapper-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-recently-viewed__slider-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+  }
+
+  .ai-recently-viewed__slider-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-recently-viewed__product-{{ ai_gen_id }} {
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+
+  .ai-recently-viewed__product-link-{{ ai_gen_id }} {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ai-recently-viewed__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #f4f4f4;
+  }
+
+  .ai-recently-viewed__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-recently-viewed__product-link-{{ ai_gen_id }}:hover .ai-recently-viewed__image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-recently-viewed__badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: {{ block.settings.badge_background }};
+    color: {{ block.settings.badge_text }};
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 1;
+  }
+
+  .ai-recently-viewed__info-{{ ai_gen_id }} {
+    text-align: left;
+  }
+
+  .ai-recently-viewed__vendor-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-recently-viewed__title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: 18px;
+    line-height: 1.4;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .ai-recently-viewed__title-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.badge_background }};
+  }
+  .ai-recently-viewed__price-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .ai-recently-viewed__price-regular-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-recently-viewed__price-compare-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    opacity: 0.5;
+    text-decoration: line-through;
+    font-size: 14px;
+  }
+
+  .ai-recently-viewed__rating-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-recently-viewed__stars-{{ ai_gen_id }} {
+    display: flex;
+    gap: 2px;
+    color: #ffa500;
+  }
+
+  .ai-recently-viewed__arrow-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: {{ block.settings.arrow_background }};
+    color: {{ block.settings.arrow_color }};
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ai-recently-viewed__arrow-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-recently-viewed__arrow-{{ ai_gen_id }}.active {
+    opacity: 0.9;
+    pointer-events: auto;
+  }
+
+  .ai-recently-viewed__arrow--prev-{{ ai_gen_id }} {
+    left: -24px;
+  }
+
+  .ai-recently-viewed__arrow--next-{{ ai_gen_id }} {
+    right: -24px;
+  }
+
+  .ai-recently-viewed__arrow-{{ ai_gen_id }} svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ai-recently-viewed__dots-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .ai-recently-viewed__dot-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: {{ block.settings.text_color }};
+    opacity: 0.3;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-recently-viewed__dot-{{ ai_gen_id }}.active {
+    opacity: 1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-recently-viewed__slider-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-recently-viewed__slider-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+   .ai-recently-viewed__heading-{{ ai_gen_id }} {
+    font-size: 28px;
+  }
+   .ai-recently-viewed__title-{{ ai_gen_id }} {
+    font-size: 16px;
+   }
+}
+{% endstyle %}
+
+<recently-viewed-products-{{ ai_gen_id }}
+  class="ai-recently-viewed-{{ ai_gen_id }}"
+  data-max-products="{{ block.settings.max_products }}"
+  data-current-product="{{ product.handle }}"
+  data-show-arrows="{{ block.settings.show_arrows }}"
+  data-show-dots="{{ block.settings.show_dots }}"
+  data-hidden="true"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-recently-viewed__container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <div class="ai-recently-viewed__header-{{ ai_gen_id }}">
+        <h3 class="ai-recently-viewed__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h3>
+      </div>
+    {% endif %}
+
+    <div class="ai-recently-viewed__slider-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.show_arrows %}
+        <button
+          class="ai-recently-viewed__arrow-{{ ai_gen_id }} ai-recently-viewed__arrow--prev-{{ ai_gen_id }}"
+          aria-label="Previous products"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+      {% endif %}
+
+      <div class="ai-recently-viewed__slider-{{ ai_gen_id }}"></div>
+
+      {% if block.settings.show_arrows %}
+        <button
+          class="ai-recently-viewed__arrow-{{ ai_gen_id }} ai-recently-viewed__arrow--next-{{ ai_gen_id }}"
+          aria-label="Next products"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_dots %}
+      <div class="ai-recently-viewed__dots-{{ ai_gen_id }}"></div>
+    {% endif %}
+  </div>
+</recently-viewed-products-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class RecentlyViewedProducts{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.maxProducts = parseInt(this.dataset.maxProducts) || 8;
+        this.currentProduct = this.dataset.currentProduct;
+        this.showArrows = this.dataset.showArrows === 'true';
+        this.showDots = this.dataset.showDots === 'true';
+        this.slider = this.querySelector('.ai-recently-viewed__slider-{{ ai_gen_id }}');
+        this.dotsContainer = this.querySelector('.ai-recently-viewed__dots-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-recently-viewed__arrow--prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.ai-recently-viewed__arrow--next-{{ ai_gen_id }}');
+        this.currentIndex = 0;
+      }
+
+      connectedCallback() {
+        this.saveCurrentProduct();
+        this.loadRecentlyViewed();
+      }
+
+      saveCurrentProduct() {
+        if (!this.currentProduct) return;
+
+        let recentlyViewed = this.getRecentlyViewed();
+        recentlyViewed = recentlyViewed.filter(handle => handle !== this.currentProduct);
+        recentlyViewed.unshift(this.currentProduct);
+        recentlyViewed = recentlyViewed.slice(0, this.maxProducts);
+
+        try {
+          localStorage.setItem('recentlyViewedProducts', JSON.stringify(recentlyViewed));
+        } catch (e) {
+          console.error('Failed to save to localStorage:', e);
+        }
+      }
+
+      getRecentlyViewed() {
+        try {
+          const stored = localStorage.getItem('recentlyViewedProducts');
+          return stored ? JSON.parse(stored) : [];
+        } catch (e) {
+          console.error('Failed to read from localStorage:', e);
+          return [];
+        }
+      }
+
+      async loadRecentlyViewed() {
+        let recentlyViewed = this.getRecentlyViewed();
+        recentlyViewed = recentlyViewed.filter(handle => handle !== this.currentProduct);
+
+        if (recentlyViewed.length === 0) {
+          this.dataset.hidden = 'true';
+          return;
+        }
+
+        this.dataset.hidden = 'false';
+
+        const products = await this.fetchProducts(recentlyViewed);
+        this.renderProducts(products);
+        this.setupSlider();
+      }
+
+      async fetchProducts(handles) {
+        const products = [];
+        
+        for (const handle of handles) {
+          try {
+            const response = await fetch(`/products/${handle}.js`);
+            if (response.ok) {
+              const product = await response.json();
+              products.push(product);
+            }
+          } catch (e) {
+            console.error(`Failed to fetch product ${handle}:`, e);
+          }
+        }
+
+        return products;
+      }
+
+      renderProducts(products) {
+        const showPrice = {{ block.settings.show_price | json }};
+        const showRating = {{ block.settings.show_rating | json }};
+        const showSaleBadge = {{ block.settings.show_sale_badge | json }};
+        const showVendor = {{ block.settings.show_vendor | json }};
+
+        this.slider.innerHTML = products.map(product => {
+          const price = product.price / 100;
+          const comparePrice = product.compare_at_price / 100;
+          const onSale = comparePrice > price;
+          const image = product.featured_image || '';
+          const currencySymbol = '{{ cart.currency.symbol }}';
+
+          return `
+            <div class="ai-recently-viewed__product-{{ ai_gen_id }}">
+              <a href="/products/${product.handle}" class="ai-recently-viewed__product-link-{{ ai_gen_id }}">
+                <div class="ai-recently-viewed__image-wrapper-{{ ai_gen_id }}">
+                  ${image ? `<img src="${image}" alt="${this.escapeHtml(product.title)}" class="ai-recently-viewed__image-{{ ai_gen_id }}" loading="lazy" width="400" height="400">` : ''}
+                  ${showSaleBadge && onSale ? `<span class="ai-recently-viewed__badge-{{ ai_gen_id }}">Sale</span>` : ''}
+                </div>
+                <div class="ai-recently-viewed__info-{{ ai_gen_id }}">
+                  ${showVendor && product.vendor ? `<div class="ai-recently-viewed__vendor-{{ ai_gen_id }}">${this.escapeHtml(product.vendor)}</div>` : ''}
+                  <h3 class="ai-recently-viewed__title-{{ ai_gen_id }}">${this.escapeHtml(product.title)}</h3>
+                  ${showPrice ? `
+                    <div class="ai-recently-viewed__price-{{ ai_gen_id }}">
+                      <span class="ai-recently-viewed__price-regular-{{ ai_gen_id }}">${currencySymbol}${price.toFixed(2)}</span>
+                      ${onSale ? `<span class="ai-recently-viewed__price-compare-{{ ai_gen_id }}">${currencySymbol}${comparePrice.toFixed(2)}</span>` : ''}
+                    </div>
+                  ` : ''}
+                  ${showRating ? `
+                    <div class="ai-recently-viewed__rating-{{ ai_gen_id }}">
+                      <div class="ai-recently-viewed__stars-{{ ai_gen_id }}">
+                        ${'★'.repeat(5)}
+                      </div>
+                    </div>
+                  ` : ''}
+                </div>
+              </a>
+            </div>
+          `;
+        }).join('');
+      }
+
+      escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      setupSlider() {
+        if (!this.slider) return;
+
+        if (this.showArrows && this.prevButton && this.nextButton) {
+          this.prevButton.addEventListener('click', () => this.scrollPrev());
+          this.nextButton.addEventListener('click', () => this.scrollNext());
+          this.updateArrows();
+        }
+
+        if (this.showDots && this.dotsContainer) {
+          this.renderDots();
+        }
+
+        this.slider.addEventListener('scroll', () => {
+          this.updateArrows();
+          this.updateDots();
+        });
+
+        let startX = 0;
+        let scrollLeft = 0;
+
+        this.slider.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].pageX;
+          scrollLeft = this.slider.scrollLeft;
+        });
+
+        this.slider.addEventListener('touchmove', (e) => {
+          const x = e.touches[0].pageX;
+          const walk = (startX - x) * 2;
+          this.slider.scrollLeft = scrollLeft + walk;
+        });
+      }
+
+      scrollPrev() {
+        const scrollAmount = this.slider.offsetWidth;
+        this.slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      }
+
+      scrollNext() {
+        const scrollAmount = this.slider.offsetWidth;
+        this.slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+
+      updateArrows() {
+        if (!this.prevButton || !this.nextButton) return;
+
+        const isAtStart = this.slider.scrollLeft <= 0;
+        const isAtEnd = this.slider.scrollLeft + this.slider.offsetWidth >= this.slider.scrollWidth - 1;
+
+        if (isAtStart) {
+          this.prevButton.classList.remove('active');
+        } else {
+          this.prevButton.classList.add('active');
+        }
+
+        if (isAtEnd) {
+          this.nextButton.classList.remove('active');
+        } else {
+          this.nextButton.classList.add('active');
+        }
+      }
+
+      renderDots() {
+        if (!this.dotsContainer) return;
+
+        const products = this.slider.querySelectorAll('.ai-recently-viewed__product-{{ ai_gen_id }}');
+        const totalDots = Math.ceil(products.length / this.getVisibleColumns());
+
+        this.dotsContainer.innerHTML = Array.from({ length: totalDots }, (_, i) => 
+          `<button class="ai-recently-viewed__dot-{{ ai_gen_id }} ${i === 0 ? 'active' : ''}" data-index="${i}" aria-label="Go to slide ${i + 1}"></button>`
+        ).join('');
+
+        this.dotsContainer.querySelectorAll('.ai-recently-viewed__dot-{{ ai_gen_id }}').forEach(dot => {
+          dot.addEventListener('click', () => {
+            const index = parseInt(dot.dataset.index);
+            const scrollAmount = this.slider.offsetWidth * index;
+            this.slider.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+          });
+        });
+      }
+
+      updateDots() {
+        if (!this.dotsContainer) return;
+
+        const scrollPosition = this.slider.scrollLeft;
+        const slideWidth = this.slider.offsetWidth;
+        const currentSlide = Math.round(scrollPosition / slideWidth);
+
+        this.dotsContainer.querySelectorAll('.ai-recently-viewed__dot-{{ ai_gen_id }}').forEach((dot, index) => {
+          if (index === currentSlide) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      getVisibleColumns() {
+        const width = window.innerWidth;
+        if (width >= 990) return {{ block.settings.columns_desktop }};
+        if (width >= 750) return {{ block.settings.columns_tablet }};
+        return {{ block.settings.columns_mobile }};
+      }
+    }
+
+    customElements.define('recently-viewed-products-{{ ai_gen_id }}', RecentlyViewedProducts{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Recently viewed products",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Recently Viewed"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "label": "Maximum products to store",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Desktop columns",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Tablet columns",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Mobile columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badge",
+      "label": "Show sale badge",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Slider controls"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_background",
+      "label": "Arrow background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "manrope_n7"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently viewed products"
+    }
+  ]
+}
+{% endschema %}

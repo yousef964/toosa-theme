@@ -1,0 +1,435 @@
+{% liquid
+  assign section_id = 'toosa-customer-picks-' | append: section.id
+%}
+
+<section id="{{ section_id }}" class="toosa-customer-picks">
+  <div class="toosa-customer-picks__container">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="toosa-customer-picks__eyebrow">
+        <span></span>
+        {{ section.settings.eyebrow }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="toosa-customer-picks__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="toosa-customer-picks__description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="toosa-customer-picks__grid">
+      {% for block in section.blocks %}
+        <article
+          class="toosa-customer-card"
+          {{ block.shopify_attributes }}
+        >
+
+          <div class="toosa-customer-card__header">
+            {% if block.settings.title != blank %}
+              <h3>{{ block.settings.title }}</h3>
+            {% endif %}
+
+            {% if block.settings.subtitle != blank %}
+              <p>{{ block.settings.subtitle }}</p>
+            {% endif %}
+          </div>
+
+          <div class="toosa-customer-card__body">
+
+            {% if block.settings.row_1_text != blank %}
+              <div class="toosa-comparison-row">
+                <div class="toosa-comparison-row__text">
+                  {% if block.settings.row_1_label != blank %}
+                    <strong>{{ block.settings.row_1_label }}</strong>
+                  {% endif %}
+                  {{ block.settings.row_1_text }}
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.settings.row_2_text != blank %}
+              <div class="toosa-comparison-row">
+                <div class="toosa-comparison-row__text">
+                  {% if block.settings.row_2_label != blank %}
+                    <strong>{{ block.settings.row_2_label }}</strong>
+                  {% endif %}
+                  {{ block.settings.row_2_text }}
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.settings.highlight_text != blank %}
+              <div class="toosa-comparison-row toosa-comparison-row--highlight">
+                <div class="toosa-comparison-row__text">
+                  {% if block.settings.highlight_label != blank %}
+                    <strong>{{ block.settings.highlight_label }}</strong>
+                  {% endif %}
+                  {{ block.settings.highlight_text }}
+                </div>
+              </div>
+            {% endif %}
+
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    --toosa-navy: #021f4b;
+    --toosa-text: #000;
+    --toosa-dark-text: #000;
+    --toosa-orange: #ff4b2b;
+    --toosa-border: #dce1e5;
+    --toosa-white: #ffffff;
+
+    width: 100%;
+    background: var(--toosa-white);
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }},
+  #{{ section_id }} * {
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .toosa-customer-picks__container {
+    width: 100%;
+      width: 100%;
+    max-width: min(100% - 80px, 1400px);
+    margin: 0 auto;
+    padding: 40px 0 40px;
+  }
+
+  /* EYEBROW */
+  #{{ section_id }} .toosa-customer-picks__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 17px;
+    color: var(--toosa-orange);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #{{ section_id }} .toosa-customer-picks__eyebrow span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    flex: 0 0 22px;
+    background: var(--toosa-orange);
+  }
+
+  /* MAIN HEADING */
+  #{{ section_id }} .toosa-customer-picks__heading {
+    max-width: 430px;
+    margin: 0;
+    color: var(--toosa-dark-text);
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  /* DESCRIPTION */
+  #{{ section_id }} .toosa-customer-picks__description {
+    max-width: 760px;
+    margin: 17px 0 38px;
+    color: #000;
+    font-size: 18px;
+  }
+
+  /* 3 COLUMN GRID */
+  #{{ section_id }} .toosa-customer-picks__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+    align-items: stretch;
+  }
+
+  /* CARD */
+  #{{ section_id }} .toosa-customer-card {
+    min-width: 0;
+    min-height: 425px;
+    border: 1px solid var(--toosa-border);
+    background: #fff;
+    overflow: hidden;
+  }
+
+  /* CARD HEADER */
+  #{{ section_id }} .toosa-customer-card__header {
+    min-height: 87px;
+    padding: 15px 18px 14px;
+    background: var(--toosa-navy);
+    color: #fff;
+  }
+
+  #{{ section_id }} .toosa-customer-card__header h3 {
+    margin: 0 0 5px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #{{ section_id }} .toosa-customer-card__header p {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+  }
+
+  /* CARD BODY */
+  #{{ section_id }} .toosa-customer-card__body {
+    padding: 17px 18px 17px;
+  }
+
+  /* COMPARISON ROW */
+  #{{ section_id }} .toosa-comparison-row {
+    position: relative;
+    margin: 0 0 13px;
+    padding: 0 0 0 13px;
+    border-left: 2px solid #dfe4e8;
+  }
+
+  #{{ section_id }} .toosa-comparison-row:last-child {
+    margin-bottom: 0;
+  }
+
+  #{{ section_id }} .toosa-comparison-row__text {
+    color: var(--toosa-text);
+    font-size: 18px;
+  }
+
+  #{{ section_id }} .toosa-comparison-row__text strong {
+    color: var(--toosa-dark-text);
+    font-weight: 700;
+  }
+
+  /* ORANGE HIGHLIGHT ROW */
+  #{{ section_id }} .toosa-comparison-row:hover {
+    border-left: 2px solid var(--toosa-orange);
+  margin: 0 0 13px;
+    padding: 0 0 0 13px;
+  }
+{% comment %} 
+  #{{ section_id }} .toosa-comparison-row--highlight .toosa-comparison-row__text {
+    color: #344354;
+  } {% endcomment %}
+
+  /* TABLET */
+  @media screen and (max-width: 1024px) {
+    #{{ section_id }} .toosa-customer-picks__container {
+      max-width: 100%;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    #{{ section_id }} .toosa-customer-picks__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #{{ section_id }} .toosa-customer-card {
+      min-height: 0;
+    }
+  }
+
+  /* MOBILE */
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .toosa-customer-picks__container {
+       width: 100%;
+    max-width: min(100% - 40px, 1400px);
+    margin: 0 auto;
+     padding: 40px 10px;
+    }
+
+    #{{ section_id }} .toosa-customer-picks__eyebrow {
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    #{{ section_id }} .toosa-customer-picks__eyebrow span {
+      width: 19px;
+      flex-basis: 19px;
+    }
+
+    #{{ section_id }} .toosa-customer-picks__heading {
+      max-width: 100%;
+      font-size: 28px;
+    }
+
+    #{{ section_id }} .toosa-customer-picks__description {
+      margin-top: 14px;
+      margin-bottom: 28px;
+      font-size: 16px;
+    }
+
+    #{{ section_id }} .toosa-customer-picks__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    #{{ section_id }} .toosa-customer-card {
+      min-height: 0;
+      width: 100%;
+    }
+
+    #{{ section_id }} .toosa-customer-card__header {
+      min-height: auto;
+      padding: 15px 17px 14px;
+    }
+
+    #{{ section_id }} .toosa-customer-card__header h3 {
+      font-size: 16px;
+    }
+
+    #{{ section_id }} .toosa-customer-card__header p {
+      font-size: 14px;
+    }
+
+    #{{ section_id }} .toosa-customer-card__body {
+      padding: 17px 17px 19px;
+    }
+
+    #{{ section_id }} .toosa-comparison-row__text {
+      font-size: 14px;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "TOOSA Customer Picks",
+  "tag": "section",
+  "class": "section-toosa-customer-picks",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "EVERY KIND OF WORKSHOP"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why each type of customer picks TOOSA"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Three very different buyers, three different reasons — and the same two alternatives each of them is really weighing us against."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "customer_type",
+      "name": "Customer type",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card title",
+          "default": "DIY & Home Garage"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Card subtitle",
+          "default": "Building the garage they actually want to work in"
+        },
+        {
+          "type": "text",
+          "id": "row_1_label",
+          "label": "First comparison label",
+          "default": "Temu / marketplace boxes:"
+        },
+        {
+          "type": "textarea",
+          "id": "row_1_text",
+          "label": "First comparison text",
+          "default": "no way to inspect it first, inconsistent quality between listings, and no one to call if a drawer fails."
+        },
+        {
+          "type": "text",
+          "id": "row_2_label",
+          "label": "Second comparison label",
+          "default": "Snap-on:"
+        },
+        {
+          "type": "textarea",
+          "id": "row_2_text",
+          "label": "Second comparison text",
+          "default": "the gold standard, but a comparable cabinet runs into the thousands — built for a pro's truck route, not a weekend budget."
+        },
+        {
+          "type": "text",
+          "id": "highlight_label",
+          "label": "TOOSA label",
+          "default": "With TOOSA"
+        },
+        {
+          "type": "textarea",
+          "id": "highlight_text",
+          "label": "TOOSA text",
+          "default": "they get welded steel storage they can see and touch at the Richmond showroom, pay monthly with RBC, and grow the setup over time with foam, lighting and engraving."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TOOSA Customer Picks",
+      "blocks": [
+        {
+          "type": "customer_type",
+          "settings": {
+            "title": "DIY & Home Garage",
+            "subtitle": "Building the garage they actually want to work in",
+            "row_1_label": "Temu / marketplace boxes:",
+            "row_1_text": "no way to inspect it first, inconsistent quality between listings, and no one to call if a drawer fails.",
+            "row_2_label": "Snap-on:",
+            "row_2_text": "the gold standard, but a comparable cabinet runs into the thousands — built for a pro's truck route, not a weekend budget.",
+            "highlight_label": "With TOOSA",
+            "highlight_text": "they get welded steel storage they can see and touch at the Richmond showroom, pay monthly with RBC, and grow the setup over time with foam, lighting and engraving."
+          }
+        },
+        {
+          "type": "customer_type",
+          "settings": {
+            "title": "Small Businesses & Trade Shops",
+            "subtitle": "Outfitting one to three bays that run every day",
+            "row_1_label": "Temu / marketplace boxes:",
+            "row_1_text": "not built for daily commercial use — a failed drawer or caster becomes shop downtime, with no warranty to fall back on.",
+            "row_2_label": "Snap-on:",
+            "row_2_text": "excellent for daily use, but outfitting several bays at premium pricing ties up capital a small shop needs elsewhere.",
+            "highlight_label": "With TOOSA",
+            "highlight_text": "they get commercial-duty storage and air at a fraction of premium pricing, RBC financing that protects cash flow, and Canadian parts if something needs replacing."
+          }
+        },
+        {
+          "type": "customer_type",
+          "settings": {
+            "title": "Bigger Businesses & Production",
+            "subtitle": "Standardizing storage and air across a whole facility",
+            "row_1_label": "Temu / marketplace boxes:",
+            "row_1_text": "no consistency unit-to-unit, no account support, and no compliance paperwork — not a serious option at scale.",
+            "row_2_label": "Snap-on:",
+            "row_2_text": "capable at scale, but standardizing a whole facility at premium pricing and truck-route lead times is a major capital commitment.",
+            "highlight_label": "With TOOSA",
+            "highlight_text": "they get one Canadian supplier for storage and industrial air (including the 20 HP rotary-screw compressor), consistent equipment across every bay, and financing to spread the cost."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

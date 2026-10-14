@@ -1,0 +1,1478 @@
+{% doc %}
+  @prompt
+    Create a modern, premium and fully responsive FAQ / Information Accordion section for the Shopify Refine theme.
+    
+    Use the existing screenshot as the visual starting point, but significantly improve the UI while keeping the design clean and consistent with TOOSA's branding.
+    
+    SECTION STRUCTURE:
+    
+    Create a centered FAQ section with:
+    - Optional small eyebrow text
+    - Main section heading
+    - Optional short description
+    - Multiple FAQ categories/groups
+    - Accordion questions and answers under each category
+    
+    {% comment %} Example categories:
+    - Getting Started
+    - Shipping
+    - Returns
+    - Product Information
+    - Warranty
+    - Orders {% endcomment %}
+    
+    DESKTOP LAYOUT:
+    
+    - Use a clean centered container with a maximum width of approximately 1200–1400px.
+    - Each category should have a clear heading.
+    - Add a subtle divider below category headings.
+    - FAQ items should have generous vertical spacing.
+    - Question text should be medium/semi-bold.
+    - Answer text should have slightly smaller typography and comfortable line-height.
+    - Place the expand/collapse icon on the right.
+    - Use a clean plus (+) icon when closed and minus (−) when opened.
+    - Make the entire question row clickable.
+    - Add subtle hover effects.
+    - The active/open FAQ should have a clear visual state without looking heavy.
+    - Avoid excessive borders and shadows.
+    
+    PREMIUM UI STYLE:
+    
+    - Minimal, modern editorial design.
+    - White or configurable light background.
+    - Dark navy/black text.
+    - TOOSA orange as an optional accent color.
+    - Thin light-gray dividers.
+    - Large clean section heading.
+    - Comfortable whitespace.
+    - Rounded corners should be configurable and subtle.
+    - Optional soft background for FAQ answer area.
+    - Do not use excessive cards or heavy shadows.
+    
+    FAQ ACCORDION BEHAVIOR:
+    
+    - Clicking a question opens its answer.
+    - Clicking again closes it.
+    - Smooth height/opacity transition.
+    - Allow one FAQ to remain open at a time OR provide a Theme Editor option for multiple open items.
+    - First FAQ can optionally be open by default.
+    - Use accessible buttons rather than clickable divs.
+    - Add proper aria-expanded and aria-controls attributes.
+    - Support keyboard navigation.
+    - No external JavaScript libraries.
+    
+    MOBILE DESIGN:
+    
+    - Fully responsive.
+    - Stack all content vertically.
+    - Reduce heading size automatically.
+    - Use comfortable horizontal padding around 16–20px.
+    - FAQ question rows should have a minimum touch target of approximately 48px.
+    - Keep expand/collapse icons clearly visible.
+    - Answers should remain easy to read.
+    - Prevent horizontal scrolling.
+    - Category headings should have strong visual separation.
+    - Optimize spacing so the section does not become excessively long.
+    
+    SHOPIFY THEME EDITOR CUSTOMIZATION:
+    
+    Add customizable settings for:
+    
+    SECTION:
+    - Section heading
+    - Eyebrow text
+    - Description
+    - Text alignment
+    - Maximum section width
+    - Background color
+    - Text color
+    - Accent color
+    - Top padding
+    - Bottom padding
+    - Desktop spacing
+    - Mobile spacing
+    
+    FAQ CATEGORY:
+    - Category title
+    - Category title size
+    - Category spacing
+    
+    FAQ BLOCK:
+    Each FAQ should be created as a Shopify block with:
+    - Question
+    - Answer / rich text
+    - Open by default toggle
+    - Optional icon
+    - Optional custom accent color
+    
+    STYLE SETTINGS:
+    - Question font size
+    - Answer font size
+    - Question font weight
+    - Divider color
+    - Divider thickness
+    - Border radius
+    - Answer background color
+    - Show/hide dividers
+    - Show/hide category headings
+    - Accordion animation speed
+    
+    FUNCTIONAL REQUIREMENTS:
+    
+    - Shopify OS 2.0 compatible.
+    - Compatible with the Refine theme.
+    - Use Liquid, CSS and vanilla JavaScript only.
+    - Do not use external libraries.
+    - Do not affect other theme sections.
+    - Scope all CSS to the section ID.
+    - Use Shopify's existing typography and design system where possible.
+    - Support rich text inside FAQ answers.
+    - Allow unlimited FAQ blocks.
+    - Allow unlimited FAQ categories where practical.
+    - Make the section reusable multiple times on the same page.
+    - Ensure there are no Liquid schema errors.
+    - Ensure all settings have valid Shopify schema types and defaults.
+    
+    DESIRED VISUAL RESULT:
+    
+    The final design should look like a premium modern FAQ/help section rather than a basic accordion.
+    
+    Desktop:
+    
+                    FAQ / INFORMATION
+            Frequently Asked Questions
+            Find answers to common questions.
+    
+    GETTING STARTED
+    ────────────────────────────────────────
+    How do your sizes work?                         +
+    ────────────────────────────────────────
+    What products do you offer?                     +
+    ────────────────────────────────────────
+    
+    SHIPPING
+    ────────────────────────────────────────
+    Do you ship internationally?                    +
+    ────────────────────────────────────────
+    How much is shipping?                            +
+    ────────────────────────────────────────
+    What is your return policy?                      +
+    
+    On opening:
+    
+    Do you ship internationally?                    −
+    Currently we are only shipping to USA and
+    Canada. Add comfortable spacing here.
+    acordion + minus icons and set color on active difient, plus minus icin need need when open show minus otherwise show close acordion
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-section-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-faq-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-faq-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: {{ block.settings.desktop_spacing }}px;
+  }
+
+  .ai-faq-eyebrow-{{ ai_gen_id }} {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ block.settings.accent_color }};
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .ai-faq-heading-{{ ai_gen_id }} {
+    font-size: 36px;
+    font-weight: 700;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+
+  .ai-faq-description-{{ ai_gen_id }} {
+    font-size: 16px;
+    color: {{ block.settings.text_color }};
+
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .ai-faq-category-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.desktop_spacing }}px;
+  }
+
+  .ai-faq-category-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.category_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 {{ block.settings.category_spacing }}px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ai-faq-category-divider-{{ ai_gen_id }} {
+    height: {{ block.settings.divider_thickness }}px;
+    background-color: {{ block.settings.divider_color }};
+    margin-bottom: {{ block.settings.category_spacing }}px;
+    border: none;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }} {
+    border-bottom: {{ block.settings.divider_thickness }}px solid {{ block.settings.divider_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+  }
+
+  .ai-faq-question-button-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: all {{ block.settings.animation_speed }}ms ease;
+    min-height: 48px;
+  }
+
+  .ai-faq-question-button-{{ ai_gen_id }}:hover {
+    opacity: 0.7;
+  }
+
+  .ai-faq-question-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.question_font_size }}px;
+    font-weight: {{ block.settings.question_font_weight }};
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    padding-right: 20px;
+    line-height: 1.4;
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all {{ block.settings.animation_speed }}ms ease;
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: {{ block.settings.text_color }};
+    stroke-width: 2;
+  }
+
+  .ai-faq-icon-plus-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-faq-icon-minus-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-plus-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-minus-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-{{ ai_gen_id }} svg {
+    stroke: {{ block.settings.accent_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-question-text-{{ ai_gen_id }} {
+    color: {{ block.settings.accent_color }};
+  }
+
+  .ai-faq-answer-wrapper-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height {{ block.settings.animation_speed }}ms ease, opacity {{ block.settings.animation_speed }}ms ease;
+    opacity: 0;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-wrapper-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} {
+    padding: 0 0 24px 0;
+    font-size: {{ block.settings.answer_font_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.7;
+    background-color: {{ block.settings.answer_background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} p {
+    margin: 0 0 12px;
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-container-{{ ai_gen_id }} {
+      padding: 0 16px;
+    }
+
+    .ai-faq-header-{{ ai_gen_id }} {
+      margin-bottom: {{ block.settings.mobile_spacing }}px;
+    }
+
+    .ai-faq-heading-{{ ai_gen_id }} {
+      font-size: 28px;
+    }
+
+    .ai-faq-description-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .ai-faq-category-{{ ai_gen_id }} {
+      margin-bottom: {{ block.settings.mobile_spacing }}px;
+    }
+
+    .ai-faq-category-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.category_title_size | times: 0.85 }}px;
+    }
+
+    .ai-faq-question-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.question_font_size | times: 0.9 }}px;
+    }
+
+    .ai-faq-answer-{{ ai_gen_id }} {
+      font-size: {{ block.settings.answer_font_size | times: 0.9 }}px;
+    }
+
+    .ai-faq-question-button-{{ ai_gen_id }} {
+      padding: 16px 0;
+    }
+
+  .ai-faq-icon-{{ ai_gen_id }} {
+    width: 18px;
+    height: 18px;
+    }
+  }
+{% endstyle %}
+
+<faq-accordion-{{ ai_gen_id }} class="ai-faq-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-faq-container-{{ ai_gen_id }}">
+    {% if block.settings.eyebrow != blank or block.settings.heading != blank or block.settings.description != blank %}
+      <div class="ai-faq-header-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow != blank %}
+          <div class="ai-faq-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</div>
+        {% endif %}
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-faq-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+        {% if block.settings.description != blank %}
+          <p class="ai-faq-description-{{ ai_gen_id }}">{{ block.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% liquid
+      assign categories = ''
+      for i in (1..20)
+        assign category_key = 'category_' | append: i
+        assign category_name = block.settings[category_key]
+        if category_name != blank
+          assign categories = categories | append: category_name | append: '||'
+        endif
+      endfor
+      assign category_array = categories | split: '||'
+    %}
+
+    {% for category in category_array %}
+      {% if category != blank %}
+        <div class="ai-faq-category-{{ ai_gen_id }}">
+          {% if block.settings.show_category_headings %}
+            <h3 class="ai-faq-category-title-{{ ai_gen_id }}">{{ category }}</h3>
+            {% if block.settings.show_dividers %}
+              <hr class="ai-faq-category-divider-{{ ai_gen_id }}">
+            {% endif %}
+          {% endif %}
+
+          {% for i in (1..20) %}
+            {% assign faq_category_key = 'faq_' | append: i | append: '_category' %}
+            {% assign faq_question_key = 'faq_' | append: i | append: '_question' %}
+            {% assign faq_answer_key = 'faq_' | append: i | append: '_answer' %}
+            {% assign faq_open_key = 'faq_' | append: i | append: '_open' %}
+
+            {% assign faq_category = block.settings[faq_category_key] %}
+            {% assign faq_question = block.settings[faq_question_key] %}
+            {% assign faq_answer = block.settings[faq_answer_key] %}
+            {% assign faq_open = block.settings[faq_open_key] %}
+
+            {% if faq_category == category and faq_question != blank %}
+              {% assign faq_id = ai_gen_id | append: '-faq-' | append: i %}
+              <div class="ai-faq-item-{{ ai_gen_id }} {% if faq_open %}active{% endif %}" data-faq-item>
+                <button
+                  class="ai-faq-question-button-{{ ai_gen_id }}"
+                  aria-expanded="{% if faq_open %}true{% else %}false{% endif %}"
+                  aria-controls="{{ faq_id }}"
+                >
+                  <h4 class="ai-faq-question-text-{{ ai_gen_id }}">{{ faq_question }}</h4>
+                  <span class="ai-faq-icon-{{ ai_gen_id }}">
+                    <svg class="ai-faq-icon-plus-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <svg class="ai-faq-icon-minus-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </span>
+                </button>
+                <div class="ai-faq-answer-wrapper-{{ ai_gen_id }}" id="{{ faq_id }}">
+                  <div class="ai-faq-answer-{{ ai_gen_id }}">
+                    {{ faq_answer }}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</faq-accordion-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FaqAccordion{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.allowMultiple = {{ block.settings.allow_multiple_open }};
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('[data-faq-item]');
+        this.setupEventListeners();
+        this.initializeOpenItems();
+      }
+
+      setupEventListeners() {
+        this.items.forEach((item) => {
+          const button = item.querySelector('.ai-faq-question-button-{{ ai_gen_id }}');
+
+          button.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            if (!this.allowMultiple) {
+              this.items.forEach((otherItem) => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                  this.closeItem(otherItem);
+                }
+              });
+            }
+
+            if (isActive) {
+              this.closeItem(item);
+            } else {
+              this.openItem(item);
+            }
+          });
+        });
+      }
+
+      initializeOpenItems() {
+        this.items.forEach((item) => {
+          if (item.classList.contains('active')) {
+            const answerWrapper = item.querySelector('.ai-faq-answer-wrapper-{{ ai_gen_id }}');
+            const answer = item.querySelector('.ai-faq-answer-{{ ai_gen_id }}');
+            answerWrapper.style.maxHeight = answer.scrollHeight + 'px';
+          }
+        });
+      }
+
+      openItem(item) {
+        const button = item.querySelector('.ai-faq-question-button-{{ ai_gen_id }}');
+        const answerWrapper = item.querySelector('.ai-faq-answer-wrapper-{{ ai_gen_id }}');
+        const answer = item.querySelector('.ai-faq-answer-{{ ai_gen_id }}');
+
+        item.classList.add('active');
+        button.setAttribute('aria-expanded', 'true');
+        answerWrapper.style.maxHeight = answer.scrollHeight + 'px';
+      }
+
+      closeItem(item) {
+        const button = item.querySelector('.ai-faq-question-button-{{ ai_gen_id }}');
+        const answerWrapper = item.querySelector('.ai-faq-answer-wrapper-{{ ai_gen_id }}');
+
+        item.classList.remove('active');
+        button.setAttribute('aria-expanded', 'false');
+        answerWrapper.style.maxHeight = '0';
+      }
+    }
+
+    customElements.define('faq-accordion-{{ ai_gen_id }}', FaqAccordion{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "FAQ / INFORMATION"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Find answers to common questions."
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "desktop_spacing",
+      "label": "Desktop spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing",
+      "label": "Mobile spacing",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#e6e8eb"
+    },
+    {
+      "type": "color",
+      "id": "answer_background_color",
+      "label": "Answer background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Category style"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_headings",
+      "label": "Show category headings",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "category_title_size",
+      "label": "Category title size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "category_spacing",
+      "label": "Category spacing",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "FAQ style"
+    },
+    {
+      "type": "range",
+      "id": "question_font_size",
+      "label": "Question font size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_font_size",
+      "label": "Answer font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "question_font_weight",
+      "label": "Question font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show dividers",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "label": "Divider thickness",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_multiple_open",
+      "label": "Allow multiple open",
+      "info": "Allow multiple FAQ items to be open at the same time",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "min": 200,
+      "max": 600,
+      "step": 50,
+      "unit": "ms",
+      "default": 300
+    },
+    {
+      "type": "header",
+      "content": "Categories"
+    },
+    {
+      "type": "paragraph",
+      "content": "Define up to 6 categories for organizing your FAQs"
+    },
+    {
+      "type": "text",
+      "id": "category_1",
+      "label": "Category 1",
+      "default": "Getting Started"
+    },
+    {
+      "type": "text",
+      "id": "category_2",
+      "label": "Category 2",
+      "default": "Shipping"
+    },
+    {
+      "type": "text",
+      "id": "category_3",
+      "label": "Category 3",
+      "default": "Returns"
+    },
+    {
+      "type": "text",
+      "id": "category_4",
+      "label": "Category 4"
+    },
+    {
+      "type": "text",
+      "id": "category_5",
+      "label": "Category 5"
+    },
+    {
+      "type": "text",
+      "id": "category_6",
+      "label": "Category 6"
+    },
+    {
+      "type": "header",
+      "content": "FAQ 1"
+    },
+    {
+      "type": "select",
+      "id": "faq_1_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Customization"
+    },
+    {
+      "type": "text",
+      "id": "faq_1_question",
+      "label": "Question",
+      "default": "How do your sizes work?"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_1_answer",
+      "label": "Answer",
+      "default": "<p>Our sizes are designed to fit comfortably. Please refer to our size guide for detailed measurements.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_1_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 2"
+    },
+    {
+      "type": "select",
+      "id": "faq_2_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Customization"
+    },
+    {
+      "type": "text",
+      "id": "faq_2_question",
+      "label": "Question",
+      "default": "What products do you offer?"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_2_answer",
+      "label": "Answer",
+      "default": "<p>We offer a wide range of premium products designed for quality and durability.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_2_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 3"
+    },
+    {
+      "type": "select",
+      "id": "faq_3_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Customization"
+    },
+    {
+      "type": "text",
+      "id": "faq_3_question",
+      "label": "Question",
+      "default": "Do you ship internationally?"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_3_answer",
+      "label": "Answer",
+      "default": "<p>Currently we are only shipping to USA and Canada. We're working on expanding to more countries soon.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_3_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 4"
+    },
+    {
+      "type": "select",
+      "id": "faq_4_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Customization"
+    },
+    {
+      "type": "text",
+      "id": "faq_4_question",
+      "label": "Question",
+      "default": "How much is shipping?"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_4_answer",
+      "label": "Answer",
+      "default": "<p>Shipping costs vary based on your location and order size. Free shipping is available on orders over $100.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_4_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 5"
+    },
+    {
+      "type": "select",
+      "id": "faq_5_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Customization"
+    },
+    {
+      "type": "text",
+      "id": "faq_5_question",
+      "label": "Question",
+      "default": "What is your return policy?"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_5_answer",
+      "label": "Answer",
+      "default": "<p>We offer a 30-day return policy on all unused items in their original packaging.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_5_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 6"
+    },
+    {
+      "type": "select",
+      "id": "faq_6_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Warranty"
+    },
+    {
+      "type": "text",
+      "id": "faq_6_question",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_6_answer",
+      "label": "Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_6_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 7"
+    },
+    {
+      "type": "select",
+      "id": "faq_7_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Warranty"
+    },
+    {
+      "type": "text",
+      "id": "faq_7_question",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_7_answer",
+      "label": "Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_7_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 8"
+    },
+    {
+      "type": "select",
+      "id": "faq_8_category",
+      "label": "Category",
+      "options": [
+       {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Warranty"
+    },
+    {
+      "type": "text",
+      "id": "faq_8_question",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_8_answer",
+      "label": "Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_8_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 9"
+    },
+    {
+      "type": "select",
+      "id": "faq_9_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Warranty"
+    },
+    {
+      "type": "text",
+      "id": "faq_9_question",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_9_answer",
+      "label": "Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_9_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 10"
+    },
+    {
+      "type": "select",
+      "id": "faq_10_category",
+      "label": "Category",
+      "options": [
+        {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Warranty"
+    },
+    {
+      "type": "text",
+      "id": "faq_10_question",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_10_answer",
+      "label": "Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_10_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 11"
+    },
+    {
+      "type": "select",
+      "id": "faq_11_category",
+      "label": "Category",
+      "options": [
+       {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Warranty"
+    },
+    {
+      "type": "text",
+      "id": "faq_11_question",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_11_answer",
+      "label": "Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_11_open",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "FAQ 12"
+    },
+    {
+      "type": "select",
+      "id": "faq_12_category",
+      "label": "Category",
+      "options": [
+       {
+          "value": "Ordering",
+          "label": "Ordering"
+        },
+        {
+          "value": "Assembly",
+          "label": "Assembly"
+        },
+        {
+          "value": "Customization",
+          "label": "Customization"
+        },
+        {
+          "value": "Delivery & Pickup",
+          "label": "Delivery & Pickup"
+        },
+        {
+          "value": "Warranty",
+          "label": "Warranty"
+        },
+        {
+          "value": "Payment",
+          "label": "Payment"
+        }
+      ],
+      "default": "Payment"
+    },
+    {
+      "type": "text",
+      "id": "faq_12_question",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_12_answer",
+      "label": "Answer"
+    },
+    {
+      "type": "checkbox",
+      "id": "faq_12_open",
+      "label": "Open by default",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion"
+    }
+  ]
+}
+{% endschema %}

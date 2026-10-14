@@ -1,0 +1,447 @@
+<section
+  id="AirCompressorFAQ-{{ section.id }}"
+  class="ac-faq-section"
+  style="
+    --ac-bg: {{ section.settings.background_color }};
+    --ac-text: {{ section.settings.text_color }};
+    --ac-muted: {{ section.settings.muted_color }};
+    --ac-line: {{ section.settings.line_color }};
+    --ac-accent: {{ section.settings.accent_color }};
+    --ac-max-width: {{ section.settings.max_width }}px;
+  "
+>
+  <div class="ac-faq__container">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="ac-faq__eyebrow">
+        {{ section.settings.eyebrow }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="ac-faq__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.intro != blank %}
+      <div class="ac-faq__intro">
+        {{ section.settings.intro }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.note != blank %}
+      <div class="ac-faq__note">
+        {{ section.settings.note }}
+      </div>
+    {% endif %}
+
+    <div class="ac-faq__items">
+
+      {% for block in section.blocks %}
+
+        <details
+          class="ac-faq__item"
+          {{ block.shopify_attributes }}
+        >
+
+          <summary class="ac-faq__question">
+
+            <span class="ac-faq__question-text">
+              {{ block.settings.question }}
+            </span>
+
+            <span class="ac-faq__icon" aria-hidden="true">
+              <span class="ac-faq__plus">+</span>
+              <span class="ac-faq__minus">−</span>
+            </span>
+
+          </summary>
+
+          <div class="ac-faq__answer">
+            {{ block.settings.answer }}
+          </div>
+
+        </details>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+
+  #AirCompressorFAQ-{{ section.id }} {
+    width: 100%;
+    background: var(--ac-bg);
+    color: var(--ac-text);
+    box-sizing: border-box;
+  }
+
+  #AirCompressorFAQ-{{ section.id }} *,
+  #AirCompressorFAQ-{{ section.id }} *::before,
+  #AirCompressorFAQ-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  /* Main container */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__container {
+    width: 100%;
+    max-width:  min(100% - 80px, var(--ac-max-width));
+    margin: 0 auto;
+    padding: 40px 0px 40px;
+  }
+
+  /* Eyebrow */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 8px;
+    color: var(--ac-accent);
+      font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__eyebrow::before {
+    content: "";
+    display: block;
+
+    width: 10px;
+    height: 1px;
+
+    background: var(--ac-accent);
+
+    flex: 0 0 10px;
+  }
+
+  /* Heading */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__heading {
+    margin: 0;
+    color: var(--ac-text);
+      font-size: 36px;
+    }
+  /* Intro */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__intro {
+    margin-top: 6px;
+    max-width: 700px;
+    color: var(--ac-muted);
+     font-size: 18px;
+  }
+
+  /* Note */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__note {
+    margin-top: 2px;
+    color: var(--ac-muted);
+     font-size: 18px;
+  }
+
+  /* FAQ wrapper */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__items {
+    width: 100%;
+    margin-top: 17px;
+    border-top: 1px solid var(--ac-line);
+  }
+
+  /* FAQ item */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__item {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid var(--ac-line);
+  }
+
+  /* Question */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__question {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 0;
+    margin: 0;
+    cursor: pointer;
+    list-style: none;
+    color: var(--ac-text);
+    background: transparent;
+  transition: color 0.2s ease;
+   font-size: 18px;
+    font-weight: 700;
+  }
+
+  /* Remove browser triangle */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__question::marker {
+    content: "";
+  }
+
+  /* Question text */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__question-text {
+    display: block;
+    max-width: calc(100% - 20px);
+  }
+
+  /* ICON */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__icon {
+    position: absolute;
+
+    right: 1px;
+    top: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 14px;
+    height: 14px;
+
+    color: var(--ac-accent);
+
+    transform: translateY(-50%);
+  }
+
+  /* PLUS */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__plus {
+    display: block;
+  }
+
+  /* MINUS */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__minus {
+    display: none;
+  }
+
+  /* OPEN = MINUS */
+
+  #AirCompressorFAQ-{{ section.id }} details[open] .ac-faq__plus {
+    display: none;
+  }
+
+  #AirCompressorFAQ-{{ section.id }} details[open] .ac-faq__minus {
+    display: block;
+  }
+
+  /* Answer */
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__answer {
+    padding: 0 0px 20px 0;
+    color: var(--ac-muted);
+     font-size: 16px;
+  }
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__answer p {
+    margin: 0 0 10px;
+  }
+
+  #AirCompressorFAQ-{{ section.id }} .ac-faq__answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Hover */
+
+  @media (hover: hover) {
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__question:hover {
+      color: #444444;
+    }
+
+  }
+
+  /* TABLET */
+
+  @media screen and (max-width: 749px) {
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__eyebrow {
+      font-size: 14px;
+    }
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__container {
+      padding: 60px 10px 60px;
+       max-width:  min(100% - 40px, var(--ac-max-width));
+    }
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__heading {
+      font-size: 28px;
+    }
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__intro,   #AirCompressorFAQ-{{ section.id }} .ac-faq__note {
+      font-size: 16px;
+    }
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__question {
+     font-size: 14px;
+    }
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__answer {
+      font-size: 14px;
+    }
+
+  }
+
+  /* MOBILE */
+
+  @media screen and (max-width: 480px) {
+
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__items {
+      margin-top: 15px;
+    }
+
+    #AirCompressorFAQ-{{ section.id }} .ac-faq__icon {
+      right: 0;
+      width: 14px;
+      height: 14px;
+    }
+
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Air compressor FAQ",
+
+  "tag": "section",
+
+  "class": "section-air-compressor-faq",
+
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "ANSWERS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Air compressor questions, answered"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "The questions buyers search before choosing a shop compressor."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note",
+      "default": "[Confirm specifics against the manufacturer data before publishing.]"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum content width",
+      "min": 500,
+      "max": 1400,
+      "step": 10,
+      "unit": "px",
+      "default": 850
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f4f5f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#303437"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Secondary text",
+      "default": "#687078"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Divider",
+      "default": "#dfe2e3"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#e94b3c"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ question",
+
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is a rotary screw air compressor?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>A rotary screw compressor uses two interlocking helical rotors to compress air in a continuous flow instead of a piston pumping in strokes.</p>"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Air compressor FAQ",
+
+      "blocks": [
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        },
+        {
+          "type": "faq"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

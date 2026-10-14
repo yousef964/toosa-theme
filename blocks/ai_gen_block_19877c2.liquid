@@ -1,0 +1,521 @@
+{% doc %}
+  @prompt
+    Create a modern, premium **Testimonial Video & Image Slider section** for Shopify, following the clean UI and customization approach of the **Refine theme**.
+    Requirements
+    * Add **Testimonial Video / Image** as selectable blocks in a responsive slider.
+    * Each block should support either:
+    
+      * **Image testimonial:** image + customer name + star rating + review text.
+      * **Video testimonial:** custom thumbnail/overlay image + play button + customer name + star rating + review text.
+    * Clicking an image should open it in an **image popup/lightbox**.
+    * Clicking a video thumbnail/play button should open the video in a **popup/modal**.
+    * Videos must **not load or autoplay initially**; load/play the video only after the user clicks the thumbnail to improve page speed.
+    * Add customizable **customer name, review text, and star rating (1–5 stars)** for every testimonial block.
+    * Include responsive **desktop/tablet/mobile slider settings**, navigation arrows, dots, spacing, and number of visible testimonials.
+    * Use a clean, modern Shopify UI with rounded cards, proper spacing, subtle hover effects, and strong mobile visibility.
+    * Make all major styling and layout options available through the Shopify Theme Editor.
+    * Use **Liquid, CSS, and vanilla JavaScript only**. Avoid unnecessary external libraries.
+    * The section must be fully responsive, lightweight, accessible, and compatible with the Shopify **Refine theme
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-testimonial-card-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-testimonial-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .ai-testimonial-media-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ block.settings.media_aspect_ratio }};
+    overflow: hidden;
+    cursor: pointer;
+    background: #f4f4f4;
+  }
+
+  .ai-testimonial-media-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-testimonial-video-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+  }
+
+  .ai-testimonial-card-{{ ai_gen_id }}:hover .ai-testimonial-video-overlay-{{ ai_gen_id }} {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .ai-testimonial-play-button-{{ ai_gen_id }} {
+    width: {{ block.settings.play_button_size }}px;
+    height: {{ block.settings.play_button_size }}px;
+    border-radius: 50%;
+    background: {{ block.settings.play_button_color }};
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .ai-testimonial-play-button-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+    background: {{ block.settings.play_button_hover_color }};
+  }
+
+  .ai-testimonial-play-icon-{{ ai_gen_id }} {
+    width: calc({{ block.settings.play_button_size }}px * 0.4);
+    height: calc({{ block.settings.play_button_size }}px * 0.4);
+    margin-left: 4px;
+  }
+
+  .ai-testimonial-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ai-testimonial-stars-{{ ai_gen_id }} {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .ai-testimonial-star-{{ ai_gen_id }} {
+    width: {{ block.settings.star_size }}px;
+    height: {{ block.settings.star_size }}px;
+    color: {{ block.settings.star_color }};
+  }
+
+  .ai-testimonial-star-empty-{{ ai_gen_id }} {
+    color: {{ block.settings.star_empty_color }};
+  }
+
+  .ai-testimonial-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .ai-testimonial-author-{{ ai_gen_id }} {
+    color: {{ block.settings.author_color }};
+    font-size: {{ block.settings.author_size }}px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .ai-testimonial-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-testimonial-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-testimonial-play-button-{{ ai_gen_id }} {
+      width: calc({{ block.settings.play_button_size }}px * 0.8);
+      height: calc({{ block.settings.play_button_size }}px * 0.8);
+    }
+
+    .ai-testimonial-play-icon-{{ ai_gen_id }} {
+      width: calc({{ block.settings.play_button_size }}px * 0.32);
+      height: calc({{ block.settings.play_button_size }}px * 0.32);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-testimonial-card-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-testimonial-media-wrapper-{{ ai_gen_id }}" data-testimonial-trigger>
+    {% if block.settings.testimonial_type == 'video' %}
+      {% if block.settings.video_thumbnail %}
+        <img
+          src="{{ block.settings.video_thumbnail | image_url: width: 800 }}"
+          alt="{{ block.settings.customer_name | escape }}"
+          class="ai-testimonial-media-{{ ai_gen_id }}"
+          loading="lazy"
+          width="800"
+          height="600"
+        >
+      {% else %}
+        <div class="ai-testimonial-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+      <div class="ai-testimonial-video-overlay-{{ ai_gen_id }}">
+        <button
+          class="ai-testimonial-play-button-{{ ai_gen_id }}"
+          aria-label="Play video testimonial"
+          type="button"
+        >
+          <svg
+            class="ai-testimonial-play-icon-{{ ai_gen_id }}"
+            viewBox="0 0 24 24"
+            fill="{{ block.settings.play_icon_color }}"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
+      </div>
+    {% else %}
+      {% if block.settings.testimonial_image %}
+        <img
+          src="{{ block.settings.testimonial_image | image_url: width: 800 }}"
+          alt="{{ block.settings.customer_name | escape }}"
+          class="ai-testimonial-media-{{ ai_gen_id }}"
+          loading="lazy"
+          width="800"
+          height="600"
+        >
+      {% else %}
+        <div class="ai-testimonial-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div class="ai-testimonial-content-{{ ai_gen_id }}">
+    {% if block.settings.show_stars %}
+      <div class="ai-testimonial-stars-{{ ai_gen_id }}">
+        {% for i in (1..5) %}
+          {% if i <= block.settings.star_rating %}
+            <svg
+              class="ai-testimonial-star-{{ ai_gen_id }}"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          {% else %}
+            <svg
+              class="ai-testimonial-star-{{ ai_gen_id }} ai-testimonial-star-empty-{{ ai_gen_id }}"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.review_text != blank %}
+      <div class="ai-testimonial-text-{{ ai_gen_id }}">
+        {{ block.settings.review_text }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.customer_name != blank %}
+      <p class="ai-testimonial-author-{{ ai_gen_id }}">
+        {{ block.settings.customer_name }}
+      </p>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  (function() {
+    const trigger{{ ai_gen_id }} = document.querySelector('[data-testimonial-trigger]');
+    const blockType{{ ai_gen_id }} = '{{ block.settings.testimonial_type }}';
+    
+    if (trigger{{ ai_gen_id }}) {
+      trigger{{ ai_gen_id }}.addEventListener('click', function() {
+        if (blockType{{ ai_gen_id }} === 'video') {
+          const videoUrl{{ ai_gen_id }} = '{{ block.settings.video_url }}';
+          if (videoUrl{{ ai_gen_id }}) {
+            window.dispatchEvent(new CustomEvent('openTestimonialModal', {
+              detail: {
+                type: 'video',
+                url: videoUrl{{ ai_gen_id }}
+              }
+            }));
+          }
+        } else {
+          const imageUrl{{ ai_gen_id }} = '{{ block.settings.testimonial_image | image_url: width: 1200 }}';
+          if (imageUrl{{ ai_gen_id }} && imageUrl{{ ai_gen_id }} !== '') {
+            window.dispatchEvent(new CustomEvent('openTestimonialModal', {
+              detail: {
+                type: 'image',
+                url: imageUrl{{ ai_gen_id }}
+              }
+            }));
+          }
+        }
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Testimonial",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Testimonial type"
+    },
+    {
+      "type": "select",
+      "id": "testimonial_type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "header",
+      "content": "Image testimonial"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Video testimonial"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumbnail",
+      "label": "Video thumbnail"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "customer_name",
+      "label": "Customer name"
+    },
+    {
+      "type": "textarea",
+      "id": "review_text",
+      "label": "Review text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stars",
+      "label": "Show star rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "star_rating",
+      "label": "Star rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Media style"
+    },
+    {
+      "type": "select",
+      "id": "media_aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Widescreen (16:9)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait (3:4)"
+        }
+      ],
+      "default": "4 / 3"
+    },
+    {
+      "type": "range",
+      "id": "play_button_size",
+      "label": "Play button size",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "color",
+      "id": "play_button_color",
+      "label": "Play button color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "play_button_hover_color",
+      "label": "Play button hover color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "play_icon_color",
+      "label": "Play icon color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Review text color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Review text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "author_color",
+      "label": "Author color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "range",
+      "id": "author_size",
+      "label": "Author size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Star rating style"
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "label": "Star size",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "star_empty_color",
+      "label": "Empty star color",
+      "default": "#e0e0e0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial"
+    }
+  ]
+}
+{% endschema %}

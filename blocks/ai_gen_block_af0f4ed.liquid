@@ -1,0 +1,1168 @@
+{% doc %}
+  @prompt
+    Create a premium, storytelling-focused Brand Journey section for the TOOSA About Us page that highlights the company's growth, milestones, achievements, challenges, and future vision. The section should feel modern, engaging, and trustworthy while matching TOOSA's industrial premium branding.
+    
+    The design should combine animated statistics, an interactive timeline, challenge & solution cards, and a company growth journey into a seamless experience. Everything must be editable through the Shopify Theme Editor and fully responsive. give proper section name
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-brand-journey-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding_top }}px 20px {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-brand-journey-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-brand-journey-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .ai-brand-journey-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.accent_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .ai-brand-journey-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 20px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .ai-brand-journey-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.text_color }};
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  .ai-brand-journey-stats-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+    padding: 60px 40px;
+    background-color: {{ block.settings.stats_bg_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    border: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-brand-journey-stat-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-brand-journey-stat-number-{{ ai_gen_id }} {
+    font-size: {{ block.settings.stat_number_size }}px;
+    color: {{ block.settings.accent_color }};
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .ai-brand-journey-stat-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.stat_label_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+  }
+
+  .ai-brand-journey-timeline-{{ ai_gen_id }} {
+    position: relative;
+    margin-bottom: 80px;
+  }
+
+  .ai-brand-journey-timeline-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    color: {{ block.settings.heading_color }};
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 700;
+  }
+
+  .ai-brand-journey-timeline-line-{{ ai_gen_id }} {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: {{ block.settings.timeline_line_color }};
+    transform: translateX(-50%);
+        margin-top: 50px;
+  }
+
+  .ai-brand-journey-timeline-items-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-brand-journey-timeline-item-{{ ai_gen_id }} {
+    position: relative;
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .ai-brand-journey-timeline-content-{{ ai_gen_id }} {
+    padding: 30px;
+    background-color: {{ block.settings.card_bg_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    border: 1px solid {{ block.settings.border_color }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-brand-journey-timeline-content-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-brand-journey-timeline-item-{{ ai_gen_id }}:nth-child(odd) .ai-brand-journey-timeline-content-{{ ai_gen_id }} {
+    grid-column: 1;
+  }
+
+  .ai-brand-journey-timeline-item-{{ ai_gen_id }}:nth-child(even) .ai-brand-journey-timeline-content-{{ ai_gen_id }} {
+    grid-column: 3;
+  }
+
+  .ai-brand-journey-timeline-dot-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+    background-color: {{ block.settings.accent_color }};
+    border-radius: 50%;
+    border: 4px solid {{ block.settings.background_color }};
+    grid-column: 2;
+    justify-self: center;
+    z-index: 2;
+  }
+
+  .ai-brand-journey-timeline-year-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timeline_year_size }}px;
+    color: {{ block.settings.accent_color }};
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .ai-brand-journey-timeline-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timeline_heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+
+  .ai-brand-journey-timeline-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timeline_text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  .ai-brand-journey-challenges-{{ ai_gen_id }} {
+    margin-bottom: 80px;
+  }
+
+  .ai-brand-journey-challenges-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    color: {{ block.settings.heading_color }};
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 700;
+  }
+
+  .ai-brand-journey-challenges-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .ai-brand-journey-challenge-card-{{ ai_gen_id }} {
+    padding: 40px;
+    background-color: {{ block.settings.card_bg_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    border: 1px solid {{ block.settings.border_color }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-brand-journey-challenge-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-brand-journey-challenge-icon-{{ ai_gen_id }} {
+    width: 60px;
+    height: 60px;
+    background-color: {{ block.settings.accent_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: {{ block.settings.icon_color }};
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .ai-brand-journey-challenge-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.challenge_heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+
+  .ai-brand-journey-challenge-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.challenge_text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+
+  .ai-brand-journey-challenge-solution-{{ ai_gen_id }} {
+    padding-top: 20px;
+    border-top: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-brand-journey-challenge-solution-label-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.accent_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .ai-brand-journey-challenge-solution-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.challenge_text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  .ai-brand-journey-vision-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 40px;
+    background-color: {{ block.settings.vision_bg_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    border: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-brand-journey-vision-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 24px;
+    font-weight: 700;
+  }
+
+  .ai-brand-journey-vision-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.vision_text_size }}px;
+    color: {{ block.settings.text_color }};
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-brand-journey-timeline-item-{{ ai_gen_id }} {
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+    }
+
+    .ai-brand-journey-timeline-line-{{ ai_gen_id }} {
+      left: 20px;
+    }
+
+    .ai-brand-journey-timeline-dot-{{ ai_gen_id }} {
+      grid-column: 1;
+    }
+
+    .ai-brand-journey-timeline-item-{{ ai_gen_id }}:nth-child(odd) .ai-brand-journey-timeline-content-{{ ai_gen_id }},
+    .ai-brand-journey-timeline-item-{{ ai_gen_id }}:nth-child(even) .ai-brand-journey-timeline-content-{{ ai_gen_id }} {
+      grid-column: 2;
+    }
+
+    .ai-brand-journey-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
+
+    .ai-brand-journey-stats-{{ ai_gen_id }} {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    .ai-brand-journey-stat-number-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.stat_number_size }}px * 0.8);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-brand-journey-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 16px {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-brand-journey-header-{{ ai_gen_id }} {
+      margin-bottom: 40px;
+    }
+
+    .ai-brand-journey-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
+
+    .ai-brand-journey-stats-{{ ai_gen_id }} {
+      margin-bottom: 60px;
+    }
+
+    .ai-brand-journey-timeline-{{ ai_gen_id }},
+    .ai-brand-journey-challenges-{{ ai_gen_id }} {
+      margin-bottom: 60px;
+    }
+
+    .ai-brand-journey-challenges-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-brand-journey-vision-{{ ai_gen_id }} {
+      padding: 40px 24px;
+    }
+    .ai-brand-journey-subtitle-{{ ai_gen_id }} {
+    font-size: 16px;
+    }
+    .ai-brand-journey-timeline-title-{{ ai_gen_id }} {
+    font-size: 28px;
+    }
+     .ai-brand-journey-timeline-year-{{ ai_gen_id }} {
+    font-size: 18px;
+  }
+
+  .ai-brand-journey-timeline-heading-{{ ai_gen_id }} {
+    font-size: 18px;
+  }
+  
+  .ai-brand-journey-challenges-title-{{ ai_gen_id }} {
+    font-size: 28px;
+  }
+   .ai-brand-journey-challenge-icon-{{ ai_gen_id }} {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+   }
+   
+  .ai-brand-journey-challenge-heading-{{ ai_gen_id }} {
+    font-size: 20px;
+  }
+    .ai-brand-journey-vision-title-{{ ai_gen_id }} {
+    font-size: 28px;
+    }
+    
+  .ai-brand-journey-vision-text-{{ ai_gen_id }} {
+    font-size: 16px;
+  }
+  }
+{% endstyle %}
+
+<brand-journey-{{ ai_gen_id }} class="ai-brand-journey-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-brand-journey-container-{{ ai_gen_id }}">
+    {% if block.settings.show_header %}
+      <div class="ai-brand-journey-header-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow != blank %}
+          <div class="ai-brand-journey-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</div>
+        {% endif %}
+        {% if block.settings.title != blank %}
+          <h2 class="ai-brand-journey-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+          <div class="ai-brand-journey-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_stats %}
+      <div class="ai-brand-journey-stats-{{ ai_gen_id }}">
+        {% if block.settings.stat_1_number != blank %}
+          <div class="ai-brand-journey-stat-{{ ai_gen_id }}">
+            <div class="ai-brand-journey-stat-number-{{ ai_gen_id }}" data-target="{{ block.settings.stat_1_number }}">0</div>
+            <div class="ai-brand-journey-stat-label-{{ ai_gen_id }}">{{ block.settings.stat_1_label }}</div>
+          </div>
+        {% endif %}
+        {% if block.settings.stat_2_number != blank %}
+          <div class="ai-brand-journey-stat-{{ ai_gen_id }}">
+            <div class="ai-brand-journey-stat-number-{{ ai_gen_id }}" data-target="{{ block.settings.stat_2_number }}">0</div>
+            <div class="ai-brand-journey-stat-label-{{ ai_gen_id }}">{{ block.settings.stat_2_label }}</div>
+          </div>
+        {% endif %}
+        {% if block.settings.stat_3_number != blank %}
+          <div class="ai-brand-journey-stat-{{ ai_gen_id }}">
+            <div class="ai-brand-journey-stat-number-{{ ai_gen_id }}" data-target="{{ block.settings.stat_3_number }}">0</div>
+            <div class="ai-brand-journey-stat-label-{{ ai_gen_id }}">{{ block.settings.stat_3_label }}</div>
+          </div>
+        {% endif %}
+        {% if block.settings.stat_4_number != blank %}
+          <div class="ai-brand-journey-stat-{{ ai_gen_id }}">
+            <div class="ai-brand-journey-stat-number-{{ ai_gen_id }}" data-target="{{ block.settings.stat_4_number }}">0</div>
+            <div class="ai-brand-journey-stat-label-{{ ai_gen_id }}">{{ block.settings.stat_4_label }}</div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_timeline %}
+      <div class="ai-brand-journey-timeline-{{ ai_gen_id }}">
+        {% if block.settings.timeline_title != blank %}
+          <h3 class="ai-brand-journey-timeline-title-{{ ai_gen_id }}">{{ block.settings.timeline_title }}</h3>
+        {% endif %}
+        <div class="ai-brand-journey-timeline-line-{{ ai_gen_id }}"></div>
+        <div class="ai-brand-journey-timeline-items-{{ ai_gen_id }}">
+          {% if block.settings.milestone_1_year != blank %}
+            <div class="ai-brand-journey-timeline-item-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-timeline-content-{{ ai_gen_id }}">
+                <div class="ai-brand-journey-timeline-year-{{ ai_gen_id }}">{{ block.settings.milestone_1_year }}</div>
+                <h4 class="ai-brand-journey-timeline-heading-{{ ai_gen_id }}">{{ block.settings.milestone_1_title }}</h4>
+                <div class="ai-brand-journey-timeline-text-{{ ai_gen_id }}">{{ block.settings.milestone_1_description }}</div>
+              </div>
+              <div class="ai-brand-journey-timeline-dot-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+          {% if block.settings.milestone_2_year != blank %}
+            <div class="ai-brand-journey-timeline-item-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-timeline-content-{{ ai_gen_id }}">
+                <div class="ai-brand-journey-timeline-year-{{ ai_gen_id }}">{{ block.settings.milestone_2_year }}</div>
+                <h4 class="ai-brand-journey-timeline-heading-{{ ai_gen_id }}">{{ block.settings.milestone_2_title }}</h4>
+                <div class="ai-brand-journey-timeline-text-{{ ai_gen_id }}">{{ block.settings.milestone_2_description }}</div>
+              </div>
+              <div class="ai-brand-journey-timeline-dot-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+          {% if block.settings.milestone_3_year != blank %}
+            <div class="ai-brand-journey-timeline-item-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-timeline-content-{{ ai_gen_id }}">
+                <div class="ai-brand-journey-timeline-year-{{ ai_gen_id }}">{{ block.settings.milestone_3_year }}</div>
+                <h4 class="ai-brand-journey-timeline-heading-{{ ai_gen_id }}">{{ block.settings.milestone_3_title }}</h4>
+                <div class="ai-brand-journey-timeline-text-{{ ai_gen_id }}">{{ block.settings.milestone_3_description }}</div>
+              </div>
+              <div class="ai-brand-journey-timeline-dot-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+          {% if block.settings.milestone_4_year != blank %}
+            <div class="ai-brand-journey-timeline-item-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-timeline-content-{{ ai_gen_id }}">
+                <div class="ai-brand-journey-timeline-year-{{ ai_gen_id }}">{{ block.settings.milestone_4_year }}</div>
+                <h4 class="ai-brand-journey-timeline-heading-{{ ai_gen_id }}">{{ block.settings.milestone_4_title }}</h4>
+                <div class="ai-brand-journey-timeline-text-{{ ai_gen_id }}">{{ block.settings.milestone_4_description }}</div>
+              </div>
+              <div class="ai-brand-journey-timeline-dot-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+          {% if block.settings.milestone_5_year != blank %}
+            <div class="ai-brand-journey-timeline-item-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-timeline-content-{{ ai_gen_id }}">
+                <div class="ai-brand-journey-timeline-year-{{ ai_gen_id }}">{{ block.settings.milestone_5_year }}</div>
+                <h4 class="ai-brand-journey-timeline-heading-{{ ai_gen_id }}">{{ block.settings.milestone_5_title }}</h4>
+                <div class="ai-brand-journey-timeline-text-{{ ai_gen_id }}">{{ block.settings.milestone_5_description }}</div>
+              </div>
+              <div class="ai-brand-journey-timeline-dot-{{ ai_gen_id }}"></div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_challenges %}
+      <div class="ai-brand-journey-challenges-{{ ai_gen_id }}">
+        {% if block.settings.challenges_title != blank %}
+          <h3 class="ai-brand-journey-challenges-title-{{ ai_gen_id }}">{{ block.settings.challenges_title }}</h3>
+        {% endif %}
+        <div class="ai-brand-journey-challenges-grid-{{ ai_gen_id }}">
+          {% if block.settings.challenge_1_title != blank %}
+            <div class="ai-brand-journey-challenge-card-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-challenge-icon-{{ ai_gen_id }}">{{ block.settings.challenge_1_icon }}</div>
+              <h4 class="ai-brand-journey-challenge-heading-{{ ai_gen_id }}">{{ block.settings.challenge_1_title }}</h4>
+              <div class="ai-brand-journey-challenge-text-{{ ai_gen_id }}">{{ block.settings.challenge_1_description }}</div>
+              {% if block.settings.challenge_1_solution != blank %}
+                <div class="ai-brand-journey-challenge-solution-{{ ai_gen_id }}">
+                  <div class="ai-brand-journey-challenge-solution-label-{{ ai_gen_id }}">Solution</div>
+                  <div class="ai-brand-journey-challenge-solution-text-{{ ai_gen_id }}">{{ block.settings.challenge_1_solution }}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if block.settings.challenge_2_title != blank %}
+            <div class="ai-brand-journey-challenge-card-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-challenge-icon-{{ ai_gen_id }}">{{ block.settings.challenge_2_icon }}</div>
+              <h4 class="ai-brand-journey-challenge-heading-{{ ai_gen_id }}">{{ block.settings.challenge_2_title }}</h4>
+              <div class="ai-brand-journey-challenge-text-{{ ai_gen_id }}">{{ block.settings.challenge_2_description }}</div>
+              {% if block.settings.challenge_2_solution != blank %}
+                <div class="ai-brand-journey-challenge-solution-{{ ai_gen_id }}">
+                  <div class="ai-brand-journey-challenge-solution-label-{{ ai_gen_id }}">Solution</div>
+                  <div class="ai-brand-journey-challenge-solution-text-{{ ai_gen_id }}">{{ block.settings.challenge_2_solution }}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if block.settings.challenge_3_title != blank %}
+            <div class="ai-brand-journey-challenge-card-{{ ai_gen_id }}">
+              <div class="ai-brand-journey-challenge-icon-{{ ai_gen_id }}">{{ block.settings.challenge_3_icon }}</div>
+              <h4 class="ai-brand-journey-challenge-heading-{{ ai_gen_id }}">{{ block.settings.challenge_3_title }}</h4>
+              <div class="ai-brand-journey-challenge-text-{{ ai_gen_id }}">{{ block.settings.challenge_3_description }}</div>
+              {% if block.settings.challenge_3_solution != blank %}
+                <div class="ai-brand-journey-challenge-solution-{{ ai_gen_id }}">
+                  <div class="ai-brand-journey-challenge-solution-label-{{ ai_gen_id }}">Solution</div>
+                  <div class="ai-brand-journey-challenge-solution-text-{{ ai_gen_id }}">{{ block.settings.challenge_3_solution }}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_vision %}
+      <div class="ai-brand-journey-vision-{{ ai_gen_id }}">
+        {% if block.settings.vision_title != blank %}
+          <h3 class="ai-brand-journey-vision-title-{{ ai_gen_id }}">{{ block.settings.vision_title }}</h3>
+        {% endif %}
+        {% if block.settings.vision_text != blank %}
+          <div class="ai-brand-journey-vision-text-{{ ai_gen_id }}">{{ block.settings.vision_text }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</brand-journey-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BrandJourney{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.animated = false;
+      }
+
+      connectedCallback() {
+        this.setupIntersectionObserver();
+      }
+
+      setupIntersectionObserver() {
+        const options = {
+          threshold: 0.2,
+          rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !this.animated) {
+              this.animateStats();
+              this.animated = true;
+            }
+          });
+        }, options);
+
+        observer.observe(this);
+      }
+
+      animateStats() {
+        const statNumbers = this.querySelectorAll('.ai-brand-journey-stat-number-{{ ai_gen_id }}');
+        
+        statNumbers.forEach(stat => {
+          const target = stat.getAttribute('data-target');
+          if (!target) return;
+
+          const hasPlus = target.includes('+');
+          const hasPercent = target.includes('%');
+          const numericTarget = parseFloat(target.replace(/[^0-9.]/g, ''));
+          
+          const duration = 2000;
+          const steps = 60;
+          const increment = numericTarget / steps;
+          let current = 0;
+          let step = 0;
+
+          const timer = setInterval(() => {
+            step++;
+            current += increment;
+            
+            if (step >= steps) {
+              current = numericTarget;
+              clearInterval(timer);
+            }
+
+            let displayValue = Math.floor(current);
+            if (numericTarget % 1 !== 0) {
+              displayValue = current.toFixed(1);
+            }
+
+            if (hasPlus) {
+              stat.textContent = displayValue + '+';
+            } else if (hasPercent) {
+              stat.textContent = displayValue + '%';
+            } else {
+              stat.textContent = displayValue;
+            }
+          }, duration / steps);
+        });
+      }
+    }
+
+    customElements.define('brand-journey-{{ ai_gen_id }}', BrandJourney{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Brand journey",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The TOOSA Journey"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "From humble beginnings to industry leadership, discover how we've grown and evolved to serve you better."
+    },
+    {
+      "type": "header",
+      "content": "Statistics"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show statistics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Statistic 1 number",
+      "default": "15+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Statistic 1 label",
+      "default": "Years in Business"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Statistic 2 number",
+      "default": "50000+"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Statistic 2 label",
+      "default": "Happy Customers"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Statistic 3 number",
+      "default": "98%"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Statistic 3 label",
+      "default": "Customer Satisfaction"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_number",
+      "label": "Statistic 4 number",
+      "default": "25"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_label",
+      "label": "Statistic 4 label",
+      "default": "Countries Served"
+    },
+    {
+      "type": "header",
+      "content": "Timeline"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timeline",
+      "label": "Show timeline",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "timeline_title",
+      "label": "Timeline title",
+      "default": "Our Milestones"
+    },
+    {
+      "type": "text",
+      "id": "milestone_1_year",
+      "label": "Milestone 1 year",
+      "default": "2010"
+    },
+    {
+      "type": "text",
+      "id": "milestone_1_title",
+      "label": "Milestone 1 title",
+      "default": "The Beginning"
+    },
+    {
+      "type": "textarea",
+      "id": "milestone_1_description",
+      "label": "Milestone 1 description",
+      "default": "Founded with a vision to revolutionize the industry through innovation and quality."
+    },
+    {
+      "type": "text",
+      "id": "milestone_2_year",
+      "label": "Milestone 2 year",
+      "default": "2015"
+    },
+    {
+      "type": "text",
+      "id": "milestone_2_title",
+      "label": "Milestone 2 title",
+      "default": "Expansion"
+    },
+    {
+      "type": "textarea",
+      "id": "milestone_2_description",
+      "label": "Milestone 2 description",
+      "default": "Opened our first international office and expanded our product line to meet growing demand."
+    },
+    {
+      "type": "text",
+      "id": "milestone_3_year",
+      "label": "Milestone 3 year",
+      "default": "2018"
+    },
+    {
+      "type": "text",
+      "id": "milestone_3_title",
+      "label": "Milestone 3 title",
+      "default": "Innovation Award"
+    },
+    {
+      "type": "textarea",
+      "id": "milestone_3_description",
+      "label": "Milestone 3 description",
+      "default": "Received industry recognition for our groundbreaking sustainable manufacturing processes."
+    },
+    {
+      "type": "text",
+      "id": "milestone_4_year",
+      "label": "Milestone 4 year",
+      "default": "2022"
+    },
+    {
+      "type": "text",
+      "id": "milestone_4_title",
+      "label": "Milestone 4 title",
+      "default": "Global Reach"
+    },
+    {
+      "type": "textarea",
+      "id": "milestone_4_description",
+      "label": "Milestone 4 description",
+      "default": "Achieved presence in 25 countries with a network of trusted partners worldwide."
+    },
+    {
+      "type": "text",
+      "id": "milestone_5_year",
+      "label": "Milestone 5 year",
+      "default": "2026"
+    },
+    {
+      "type": "text",
+      "id": "milestone_5_title",
+      "label": "Milestone 5 title",
+      "default": "Future Forward"
+    },
+    {
+      "type": "textarea",
+      "id": "milestone_5_description",
+      "label": "Milestone 5 description",
+      "default": "Launching next-generation products and committing to carbon neutrality by 2030."
+    },
+    {
+      "type": "header",
+      "content": "Challenges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_challenges",
+      "label": "Show challenges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "challenges_title",
+      "label": "Challenges title",
+      "default": "Challenges We Overcame"
+    },
+    {
+      "type": "text",
+      "id": "challenge_1_icon",
+      "label": "Challenge 1 icon",
+      "default": "1"
+    },
+    {
+      "type": "text",
+      "id": "challenge_1_title",
+      "label": "Challenge 1 title",
+      "default": "Supply Chain Disruption"
+    },
+    {
+      "type": "textarea",
+      "id": "challenge_1_description",
+      "label": "Challenge 1 description",
+      "default": "Global supply chain challenges threatened our ability to deliver on time."
+    },
+    {
+      "type": "textarea",
+      "id": "challenge_1_solution",
+      "label": "Challenge 1 solution",
+      "default": "Built local partnerships and diversified suppliers to ensure reliability and faster delivery."
+    },
+    {
+      "type": "text",
+      "id": "challenge_2_icon",
+      "label": "Challenge 2 icon",
+      "default": "2"
+    },
+    {
+      "type": "text",
+      "id": "challenge_2_title",
+      "label": "Challenge 2 title",
+      "default": "Market Competition"
+    },
+    {
+      "type": "textarea",
+      "id": "challenge_2_description",
+      "label": "Challenge 2 description",
+      "default": "Intense competition from established players in a saturated market."
+    },
+    {
+      "type": "textarea",
+      "id": "challenge_2_solution",
+      "label": "Challenge 2 solution",
+      "default": "Focused on innovation, quality, and exceptional customer service to differentiate ourselves."
+    },
+    {
+      "type": "text",
+      "id": "challenge_3_icon",
+      "label": "Challenge 3 icon",
+      "default": "3"
+    },
+    {
+      "type": "text",
+      "id": "challenge_3_title",
+      "label": "Challenge 3 title",
+      "default": "Sustainability Goals"
+    },
+    {
+      "type": "textarea",
+      "id": "challenge_3_description",
+      "label": "Challenge 3 description",
+      "default": "Balancing growth with environmental responsibility and sustainable practices."
+    },
+    {
+      "type": "textarea",
+      "id": "challenge_3_solution",
+      "label": "Challenge 3 solution",
+      "default": "Invested in green technology and implemented circular economy principles across operations."
+    },
+    {
+      "type": "header",
+      "content": "Future vision"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vision",
+      "label": "Show vision",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "vision_title",
+      "label": "Vision title",
+      "default": "Our Vision for Tomorrow"
+    },
+    {
+      "type": "textarea",
+      "id": "vision_text",
+      "label": "Vision text",
+      "default": "We're committed to leading the industry into a sustainable future. Our vision is to create products that not only meet the highest standards of quality but also contribute positively to our planet and communities. Together, we're building a legacy of innovation, trust, and responsibility."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Headings",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "stats_bg_color",
+      "label": "Stats background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "vision_bg_color",
+      "label": "Vision background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e6e8eb"
+    },
+    {
+      "type": "color",
+      "id": "timeline_line_color",
+      "label": "Timeline line",
+      "default": "#e6e8eb"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "label": "Section title size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "stat_number_size",
+      "label": "Stat number size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "stat_label_size",
+      "label": "Stat label size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "timeline_year_size",
+      "label": "Timeline year size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "timeline_heading_size",
+      "label": "Timeline heading size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "timeline_text_size",
+      "label": "Timeline text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "challenge_heading_size",
+      "label": "Challenge heading size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "challenge_text_size",
+      "label": "Challenge text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "vision_text_size",
+      "label": "Vision text size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand journey"
+    }
+  ]
+}
+{% endschema %}

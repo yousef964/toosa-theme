@@ -1,0 +1,1032 @@
+{% doc %}
+  @prompt
+    Create a Shopify OS 2.0 **Product Description Tabs Section** for the Refine theme.
+    
+    The section must dynamically display information from the current Shopify product and should match the TOOSA Refine theme design.
+    
+    ### Tabs
+    
+    Create clean responsive tabs such as:
+    
+    * Description
+    * Key Features
+    * Specifications
+    * Warranty
+    * Shipping / Pickup
+    * Additional Information
+    
+    Only show a tab when its content exists.
+    
+    ### Dynamic Content
+    
+    * Main Description should automatically use `product.description`.
+    * Support product metafields for additional information such as:
+    
+      * Key Features
+      * Specifications
+      * Warranty
+      * Shipping Information
+      * Additional Information
+    * Allow the merchant to select the metafield from the Theme Editor where practical.
+    * Do not hard-code product-specific text.
+    
+    ### UI
+    
+    * Modern horizontal tab navigation on desktop.
+    * Horizontal scrollable tabs or accordion-style layout on mobile.
+    * Active tab should have a clear visual indicator.
+    * Smooth content switching.
+    * Clean typography and generous spacing.
+    * Support rich text, bullet lists, tables and links.
+    * No unnecessary animation.
+    
+    ### Compatibility
+    
+    * Shopify OS 2.0 section.
+    * Refine theme compatible.
+    * Liquid + CSS + vanilla JavaScript only.
+    * No external libraries.
+    * Fully responsive.
+    * Accessible keyboard navigation and ARIA attributes.
+    * Theme Editor settings for colors, spacing, tab alignment, typography and borders.
+    add by text description metafilds option, tabs option title and desciption option/ metafild to call show content left right center
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-tabs-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-product-tabs-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-product-tabs-nav-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.tab_spacing }}px;
+    border-bottom: {{ block.settings.border_thickness }}px solid {{ block.settings.border_color }};
+    margin-bottom: {{ block.settings.content_spacing }}px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .ai-product-tabs-nav-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-product-tabs-nav-{{ ai_gen_id }}--center {
+    justify-content: center;
+  }
+
+  .ai-product-tabs-nav-{{ ai_gen_id }}--left {
+    justify-content: flex-start;
+  }
+
+  .ai-product-tabs-nav-{{ ai_gen_id }}--right {
+    justify-content: flex-end;
+  }
+
+  .ai-product-tabs-button-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: {{ block.settings.tab_padding }}px 0;
+    cursor: pointer;
+    font-size: {{ block.settings.tab_font_size }}px;
+    font-weight: {{ block.settings.tab_font_weight }};
+    color: {{ block.settings.tab_text_color }};
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.2s ease;
+    font-family: {{ block.settings.tab_font.family }}, {{ block.settings.tab_font.fallback_families }};
+    font-weight: {{ block.settings.tab_font.weight }};
+    letter-spacing: {{ settings.default_letter_spacing }};
+  }
+
+  .ai-product-tabs-button-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.tab_hover_color }};
+  }
+
+  .ai-product-tabs-button-{{ ai_gen_id }}.active {
+    color: {{ block.settings.tab_active_color }};
+  }
+
+  .ai-product-tabs-button-{{ ai_gen_id }}.active::after {
+    content: '';
+    position: absolute;
+    bottom: calc(-1 * {{ block.settings.border_thickness }}px);
+    left: 0;
+    right: 0;
+    height: {{ block.settings.active_border_thickness }}px;
+    background-color: {{ block.settings.tab_active_color }};
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} {
+    display: none;
+    padding: {{ block.settings.content_padding }}px 0;
+    color: {{ block.settings.content_text_color }};
+    font-size: {{ block.settings.content_font_size }}px;
+    line-height: {{ settings.default_line_height }};
+    font-family: {{ block.settings.content_font.family }}, {{ block.settings.content_font.fallback_families }};
+    font-weight: {{ block.settings.content_font.weight }};
+    letter-spacing: {{ settings.default_letter_spacing }};
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} h1,
+  .ai-product-tabs-content-{{ ai_gen_id }} h2,
+  .ai-product-tabs-content-{{ ai_gen_id }} h3,
+  .ai-product-tabs-content-{{ ai_gen_id }} h4,
+  .ai-product-tabs-content-{{ ai_gen_id }} h5,
+  .ai-product-tabs-content-{{ ai_gen_id }} h6 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: {{ block.settings.content_heading_color }};
+    font-family: {{ settings.heading_library_font.family }}, {{ settings.heading_library_font.fallback_families }};
+    font-weight: {{ settings.heading_library_font.weight }};
+    line-height: {{ settings.heading_line_height }};
+    letter-spacing: {{ settings.heading_letter_spacing }};
+    text-transform: {{ settings.heading_text_transform }};
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} p {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} ul,
+  .ai-product-tabs-content-{{ ai_gen_id }} ol {
+    margin: 0 0 16px 0;
+    padding-left: 24px;
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} li {
+    margin-bottom: 8px;
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} table th,
+  .ai-product-tabs-content-{{ ai_gen_id }} table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} table th {
+    font-weight: 600;
+    background-color: {{ block.settings.table_header_bg }};
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+  }
+
+  .ai-product-tabs-content-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-tabs-nav-{{ ai_gen_id }} {
+      gap: {{ block.settings.tab_spacing | times: 0.7 }}px;
+    }
+
+    .ai-product-tabs-button-{{ ai_gen_id }} {
+      font-size: 16px;
+      padding: {{ block.settings.tab_padding | times: 0.8 }}px 0;
+    }
+.ai-product-tabs-nav-{{ ai_gen_id }} {
+      padding-left: 40px;
+}
+    .ai-product-tabs-content-{{ ai_gen_id }} {
+      font-size: {{ block.settings.content_font_size | times: 0.95 }}px;
+      padding: {{ block.settings.content_padding | times: 0.8 }}px 0;
+    }
+  }
+{% endstyle %}
+
+<product-tabs-{{ ai_gen_id }} class="ai-product-tabs-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-tabs-container-{{ ai_gen_id }}">
+    {% liquid
+      assign has_description = false
+      assign has_features = false
+      assign has_specs = false
+      assign has_warranty = false
+      assign has_shipping = false
+      assign has_additional = false
+
+      if block.settings.show_description and product.description != blank
+        assign has_description = true
+      endif
+
+      if block.settings.show_features
+        if block.settings.features_source == 'metafield' and block.settings.features_metafield != blank
+          assign features_content = product.metafields[block.settings.features_metafield]
+          if features_content != blank
+            assign has_features = true
+          endif
+        elsif block.settings.features_source == 'text' and block.settings.features_text != blank
+          assign features_content = block.settings.features_text
+          assign has_features = true
+        endif
+      endif
+
+      if block.settings.show_specs
+        if block.settings.specs_source == 'metafield' and block.settings.specs_metafield != blank
+          assign specs_content = product.metafields[block.settings.specs_metafield]
+          if specs_content != blank
+            assign has_specs = true
+          endif
+        elsif block.settings.specs_source == 'text' and block.settings.specs_text != blank
+          assign specs_content = block.settings.specs_text
+          assign has_specs = true
+        endif
+      endif
+
+      if block.settings.show_warranty
+        if block.settings.warranty_source == 'metafield' and block.settings.warranty_metafield != blank
+          assign warranty_content = product.metafields[block.settings.warranty_metafield]
+          if warranty_content != blank
+            assign has_warranty = true
+          endif
+        elsif block.settings.warranty_source == 'text' and block.settings.warranty_text != blank
+          assign warranty_content = block.settings.warranty_text
+          assign has_warranty = true
+        endif
+      endif
+
+      if block.settings.show_shipping
+        if block.settings.shipping_source == 'metafield' and block.settings.shipping_metafield != blank
+          assign shipping_content = product.metafields[block.settings.shipping_metafield]
+          if shipping_content != blank
+            assign has_shipping = true
+          endif
+        elsif block.settings.shipping_source == 'text' and block.settings.shipping_text != blank
+          assign shipping_content = block.settings.shipping_text
+          assign has_shipping = true
+        endif
+      endif
+
+      if block.settings.show_additional
+        if block.settings.additional_source == 'metafield' and block.settings.additional_metafield != blank
+          assign additional_content = product.metafields[block.settings.additional_metafield]
+          if additional_content != blank
+            assign has_additional = true
+          endif
+        elsif block.settings.additional_source == 'text' and block.settings.additional_text != blank
+          assign additional_content = block.settings.additional_text
+          assign has_additional = true
+        endif
+      endif
+
+      assign tab_count = 0
+      if has_description
+        assign tab_count = tab_count | plus: 1
+      endif
+      if has_features
+        assign tab_count = tab_count | plus: 1
+      endif
+      if has_specs
+        assign tab_count = tab_count | plus: 1
+      endif
+      if has_warranty
+        assign tab_count = tab_count | plus: 1
+      endif
+      if has_shipping
+        assign tab_count = tab_count | plus: 1
+      endif
+      if has_additional
+        assign tab_count = tab_count | plus: 1
+      endif
+    %}
+
+    {% if tab_count > 0 %}
+      <div class="ai-product-tabs-nav-{{ ai_gen_id }} ai-product-tabs-nav-{{ ai_gen_id }}--{{ block.settings.tab_alignment }}" role="tablist">
+        {% if has_description %}
+          <button
+            class="ai-product-tabs-button-{{ ai_gen_id }} active"
+            data-tab="description"
+            role="tab"
+            aria-selected="true"
+            aria-controls="ai-product-tabs-panel-description-{{ ai_gen_id }}"
+            id="ai-product-tabs-tab-description-{{ ai_gen_id }}"
+          >
+            {{ block.settings.description_label }}
+          </button>
+        {% endif %}
+
+        {% if has_features %}
+          <button
+            class="ai-product-tabs-button-{{ ai_gen_id }}"
+            data-tab="features"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-product-tabs-panel-features-{{ ai_gen_id }}"
+            id="ai-product-tabs-tab-features-{{ ai_gen_id }}"
+          >
+            {{ block.settings.features_label }}
+          </button>
+        {% endif %}
+
+        {% if has_specs %}
+          <button
+            class="ai-product-tabs-button-{{ ai_gen_id }}"
+            data-tab="specs"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-product-tabs-panel-specs-{{ ai_gen_id }}"
+            id="ai-product-tabs-tab-specs-{{ ai_gen_id }}"
+          >
+            {{ block.settings.specs_label }}
+          </button>
+        {% endif %}
+
+        {% if has_warranty %}
+          <button
+            class="ai-product-tabs-button-{{ ai_gen_id }}"
+            data-tab="warranty"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-product-tabs-panel-warranty-{{ ai_gen_id }}"
+            id="ai-product-tabs-tab-warranty-{{ ai_gen_id }}"
+          >
+            {{ block.settings.warranty_label }}
+          </button>
+        {% endif %}
+
+        {% if has_shipping %}
+          <button
+            class="ai-product-tabs-button-{{ ai_gen_id }}"
+            data-tab="shipping"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-product-tabs-panel-shipping-{{ ai_gen_id }}"
+            id="ai-product-tabs-tab-shipping-{{ ai_gen_id }}"
+          >
+            {{ block.settings.shipping_label }}
+          </button>
+        {% endif %}
+
+        {% if has_additional %}
+          <button
+            class="ai-product-tabs-button-{{ ai_gen_id }}"
+            data-tab="additional"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-product-tabs-panel-additional-{{ ai_gen_id }}"
+            id="ai-product-tabs-tab-additional-{{ ai_gen_id }}"
+          >
+            {{ block.settings.additional_label }}
+          </button>
+        {% endif %}
+      </div>
+
+      {% if has_description %}
+        <div
+          class="ai-product-tabs-content-{{ ai_gen_id }} active"
+          data-tab-content="description"
+          role="tabpanel"
+          aria-labelledby="ai-product-tabs-tab-description-{{ ai_gen_id }}"
+          id="ai-product-tabs-panel-description-{{ ai_gen_id }}"
+        >
+          {{ product.description }}
+        </div>
+      {% endif %}
+
+      {% if has_features %}
+        <div
+          class="ai-product-tabs-content-{{ ai_gen_id }}"
+          data-tab-content="features"
+          role="tabpanel"
+          aria-labelledby="ai-product-tabs-tab-features-{{ ai_gen_id }}"
+          id="ai-product-tabs-panel-features-{{ ai_gen_id }}"
+        >
+          {{ features_content }}
+        </div>
+      {% endif %}
+
+      {% if has_specs %}
+        <div
+          class="ai-product-tabs-content-{{ ai_gen_id }}"
+          data-tab-content="specs"
+          role="tabpanel"
+          aria-labelledby="ai-product-tabs-tab-specs-{{ ai_gen_id }}"
+          id="ai-product-tabs-panel-specs-{{ ai_gen_id }}"
+        >
+          {{ specs_content }}
+        </div>
+      {% endif %}
+
+      {% if has_warranty %}
+        <div
+          class="ai-product-tabs-content-{{ ai_gen_id }}"
+          data-tab-content="warranty"
+          role="tabpanel"
+          aria-labelledby="ai-product-tabs-tab-warranty-{{ ai_gen_id }}"
+          id="ai-product-tabs-panel-warranty-{{ ai_gen_id }}"
+        >
+          {{ warranty_content }}
+        </div>
+      {% endif %}
+
+      {% if has_shipping %}
+        <div
+          class="ai-product-tabs-content-{{ ai_gen_id }}"
+          data-tab-content="shipping"
+          role="tabpanel"
+          aria-labelledby="ai-product-tabs-tab-shipping-{{ ai_gen_id }}"
+          id="ai-product-tabs-panel-shipping-{{ ai_gen_id }}"
+        >
+          {{ shipping_content }}
+        </div>
+      {% endif %}
+
+      {% if has_additional %}
+        <div
+          class="ai-product-tabs-content-{{ ai_gen_id }}"
+          data-tab-content="additional"
+          role="tabpanel"
+          aria-labelledby="ai-product-tabs-tab-additional-{{ ai_gen_id }}"
+          id="ai-product-tabs-panel-additional-{{ ai_gen_id }}"
+        >
+          {{ additional_content }}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</product-tabs-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductTabs{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabButtons = this.querySelectorAll('.ai-product-tabs-button-{{ ai_gen_id }}');
+        this.tabContents = this.querySelectorAll('.ai-product-tabs-content-{{ ai_gen_id }}');
+        this.setupEventListeners();
+        this.setupKeyboardNavigation();
+      }
+
+      setupEventListeners() {
+        this.tabButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const tabName = button.getAttribute('data-tab');
+            this.switchTab(tabName);
+          });
+        });
+      }
+
+      setupKeyboardNavigation() {
+        this.tabButtons.forEach((button, index) => {
+          button.addEventListener('keydown', (e) => {
+            let newIndex = index;
+
+            if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              newIndex = index + 1 >= this.tabButtons.length ? 0 : index + 1;
+            } else if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              newIndex = index - 1 < 0 ? this.tabButtons.length - 1 : index - 1;
+            } else if (e.key === 'Home') {
+              e.preventDefault();
+              newIndex = 0;
+            } else if (e.key === 'End') {
+              e.preventDefault();
+              newIndex = this.tabButtons.length - 1;
+            } else {
+              return;
+            }
+
+            this.tabButtons[newIndex].focus();
+            const tabName = this.tabButtons[newIndex].getAttribute('data-tab');
+            this.switchTab(tabName);
+          });
+        });
+      }
+
+      switchTab(tabName) {
+        this.tabButtons.forEach((btn) => {
+          if (btn.getAttribute('data-tab') === tabName) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+          } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+          }
+        });
+
+        this.tabContents.forEach((content) => {
+          if (content.getAttribute('data-tab-content') === tabName) {
+            content.classList.add('active');
+          } else {
+            content.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('product-tabs-{{ ai_gen_id }}', ProductTabs{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product description tabs",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Description tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show description tab",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "description_label",
+      "label": "Tab label",
+      "default": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Features tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show features tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "features_label",
+      "label": "Tab label",
+      "default": "Key Features"
+    },
+    {
+      "type": "select",
+      "id": "features_source",
+      "label": "Content source",
+      "options": [
+        {
+          "value": "metafield",
+          "label": "Product metafield"
+        },
+        {
+          "value": "text",
+          "label": "Custom text"
+        }
+      ],
+      "default": "metafield"
+    },
+    {
+      "type": "text",
+      "id": "features_metafield",
+      "label": "Metafield key",
+      "info": "Example: custom.features"
+    },
+    {
+      "type": "richtext",
+      "id": "features_text",
+      "label": "Custom content"
+    },
+    {
+      "type": "header",
+      "content": "Specifications tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_specs",
+      "label": "Show specifications tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "specs_label",
+      "label": "Tab label",
+      "default": "Specifications"
+    },
+    {
+      "type": "select",
+      "id": "specs_source",
+      "label": "Content source",
+      "options": [
+        {
+          "value": "metafield",
+          "label": "Product metafield"
+        },
+        {
+          "value": "text",
+          "label": "Custom text"
+        }
+      ],
+      "default": "metafield"
+    },
+    {
+      "type": "text",
+      "id": "specs_metafield",
+      "label": "Metafield key",
+      "info": "Example: custom.specifications"
+    },
+    {
+      "type": "richtext",
+      "id": "specs_text",
+      "label": "Custom content"
+    },
+    {
+      "type": "header",
+      "content": "Warranty tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_warranty",
+      "label": "Show warranty tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "warranty_label",
+      "label": "Tab label",
+      "default": "Warranty"
+    },
+    {
+      "type": "select",
+      "id": "warranty_source",
+      "label": "Content source",
+      "options": [
+        {
+          "value": "metafield",
+          "label": "Product metafield"
+        },
+        {
+          "value": "text",
+          "label": "Custom text"
+        }
+      ],
+      "default": "metafield"
+    },
+    {
+      "type": "text",
+      "id": "warranty_metafield",
+      "label": "Metafield key",
+      "info": "Example: custom.warranty"
+    },
+    {
+      "type": "richtext",
+      "id": "warranty_text",
+      "label": "Custom content"
+    },
+    {
+      "type": "header",
+      "content": "Shipping tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping",
+      "label": "Show shipping tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "shipping_label",
+      "label": "Tab label",
+      "default": "Shipping / Pickup"
+    },
+    {
+      "type": "select",
+      "id": "shipping_source",
+      "label": "Content source",
+      "options": [
+        {
+          "value": "metafield",
+          "label": "Product metafield"
+        },
+        {
+          "value": "text",
+          "label": "Custom text"
+        }
+      ],
+      "default": "metafield"
+    },
+    {
+      "type": "text",
+      "id": "shipping_metafield",
+      "label": "Metafield key",
+      "info": "Example: custom.shipping_info"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_text",
+      "label": "Custom content"
+    },
+    {
+      "type": "header",
+      "content": "Additional info tab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_additional",
+      "label": "Show additional info tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "additional_label",
+      "label": "Tab label",
+      "default": "Additional Information"
+    },
+    {
+      "type": "select",
+      "id": "additional_source",
+      "label": "Content source",
+      "options": [
+        {
+          "value": "metafield",
+          "label": "Product metafield"
+        },
+        {
+          "value": "text",
+          "label": "Custom text"
+        }
+      ],
+      "default": "metafield"
+    },
+    {
+      "type": "text",
+      "id": "additional_metafield",
+      "label": "Metafield key",
+      "info": "Example: custom.additional_info"
+    },
+    {
+      "type": "richtext",
+      "id": "additional_text",
+      "label": "Custom content"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "tab_alignment",
+      "label": "Tab alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "tab_spacing",
+      "label": "Tab spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "label": "Content spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Tab style"
+    },
+    {
+      "type": "font_picker",
+      "id": "tab_font",
+      "label": "Tab font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size",
+      "label": "Tab font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "tab_font_weight",
+      "label": "Tab font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "tab_padding",
+      "label": "Tab padding",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Tab text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_color",
+      "label": "Tab hover",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Active tab",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Content style"
+    },
+    {
+      "type": "font_picker",
+      "id": "content_font",
+      "label": "Content font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "range",
+      "id": "content_font_size",
+      "label": "Content font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "label": "Content padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "content_text_color",
+      "label": "Content text",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "content_heading_color",
+      "label": "Content headings",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Borders"
+    },
+    {
+      "type": "range",
+      "id": "border_thickness",
+      "label": "Border thickness",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "active_border_thickness",
+      "label": "Active border thickness",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e6e8eb"
+    },
+    {
+      "type": "color",
+      "id": "table_header_bg",
+      "label": "Table header background",
+      "default": "#f6f6f6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product description tabs"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,977 @@
+{% doc %}
+  @prompt
+    Create a premium, modern, and storytelling-focused Our Story section for the TOOSA About Us page. The section should visually communicate TOOSA's journey, passion, craftsmanship, innovation, and commitment to professionals. Instead of a traditional image and text layout, use a dynamic storytelling design with alternating image and content blocks, layered cards, subtle animations, and premium spacing.
+    
+    The section should create an emotional connection while maintaining TOOSA's industrial and modern brand identity.
+    
+    The entire section must be built using Shopify Online Store 2.0, support dynamic content blocks, and be fully customizable through the Theme Editor.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-story-block-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-story-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-story-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.header_alignment }};
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-story-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.eyebrow_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .ai-story-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    line-height: 1.2;
+    margin: 0 0 24px;
+    font-weight: 700;
+  }
+
+  .ai-story-intro-{{ ai_gen_id }} {
+    font-size: {{ block.settings.intro_size }}px;
+    color: {{ block.settings.intro_color }};
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .ai-story-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.content_gap }}px;
+  }
+
+  .ai-story-row-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.row_gap }}px;
+    align-items: center;
+    position: relative;
+  }
+
+  .ai-story-row-{{ ai_gen_id }}.reverse {
+    direction: rtl;
+  }
+
+  .ai-story-row-{{ ai_gen_id }}.reverse > * {
+    direction: ltr;
+  }
+
+  .ai-story-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+  }
+
+  .ai-story-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-story-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-story-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-story-text-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.text_padding }}px;
+  }
+
+  .ai-story-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    padding: {{ block.settings.card_padding }}px;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    border-left: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    margin-bottom: 24px;
+  }
+
+  .ai-story-card-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_label_size }}px;
+    color: {{ block.settings.card_label_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .ai-story-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    color: {{ block.settings.card_title_color }};
+    line-height: 1.3;
+    margin: 0 0 12px;
+    font-weight: 700;
+  }
+
+  .ai-story-card-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_text_size }}px;
+    color: {{ block.settings.card_text_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-story-stats-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .ai-story-stat-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-story-stat-number-{{ ai_gen_id }} {
+    font-size: {{ block.settings.stat_number_size }}px;
+    color: {{ block.settings.stat_number_color }};
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .ai-story-stat-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.stat_label_size }}px;
+    color: {{ block.settings.stat_label_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-story-row-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .ai-story-row-{{ ai_gen_id }}.reverse {
+      direction: ltr;
+    }
+
+    .ai-story-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.7);
+    }
+
+    .ai-story-text-content-{{ ai_gen_id }} {
+      padding: 0;
+    }
+
+    .ai-story-stats-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-story-block-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 0 {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-story-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.5);
+    }
+
+    .ai-story-stats-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+<toosa-story-{{ ai_gen_id }} class="ai-story-block-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-story-container-{{ ai_gen_id }}">
+    {% if block.settings.show_header %}
+      <div class="ai-story-header-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow_text != blank %}
+          <span class="ai-story-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow_text }}</span>
+        {% endif %}
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-story-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+        {% if block.settings.intro_text != blank %}
+          <div class="ai-story-intro-{{ ai_gen_id }}">{{ block.settings.intro_text }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-story-content-{{ ai_gen_id }}">
+      {% if block.settings.show_row_1 %}
+        <div class="ai-story-row-{{ ai_gen_id }} {% if block.settings.row_1_reverse %}reverse{% endif %}">
+          <div class="ai-story-image-wrapper-{{ ai_gen_id }}">
+            {% if block.settings.row_1_image %}
+              <img
+                src="{{ block.settings.row_1_image | image_url: width: 1200 }}"
+                alt="{{ block.settings.row_1_image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.row_1_image.width }}"
+                height="{{ block.settings.row_1_image.height }}"
+                class="ai-story-image-{{ ai_gen_id }}"
+              >
+            {% else %}
+              <div class="ai-story-image-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="ai-story-text-content-{{ ai_gen_id }}">
+            {% if block.settings.row_1_card_label != blank or block.settings.row_1_card_title != blank or block.settings.row_1_card_text != blank %}
+              <div class="ai-story-card-{{ ai_gen_id }}">
+                {% if block.settings.row_1_card_label != blank %}
+                  <span class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.row_1_card_label }}</span>
+                {% endif %}
+                {% if block.settings.row_1_card_title != blank %}
+                  <h3 class="ai-story-card-title-{{ ai_gen_id }}">{{ block.settings.row_1_card_title }}</h3>
+                {% endif %}
+                {% if block.settings.row_1_card_text != blank %}
+                  <div class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.row_1_card_text }}</div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block.settings.row_1_show_stats %}
+              <div class="ai-story-stats-{{ ai_gen_id }}">
+                {% if block.settings.row_1_stat_1_number != blank %}
+                  <div class="ai-story-stat-{{ ai_gen_id }}">
+                    <span class="ai-story-stat-number-{{ ai_gen_id }}">{{ block.settings.row_1_stat_1_number }}</span>
+                    <span class="ai-story-stat-label-{{ ai_gen_id }}">{{ block.settings.row_1_stat_1_label }}</span>
+                  </div>
+                {% endif %}
+                {% if block.settings.row_1_stat_2_number != blank %}
+                  <div class="ai-story-stat-{{ ai_gen_id }}">
+                    <span class="ai-story-stat-number-{{ ai_gen_id }}">{{ block.settings.row_1_stat_2_number }}</span>
+                    <span class="ai-story-stat-label-{{ ai_gen_id }}">{{ block.settings.row_1_stat_2_label }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_row_2 %}
+        <div class="ai-story-row-{{ ai_gen_id }} {% if block.settings.row_2_reverse %}reverse{% endif %}">
+          <div class="ai-story-image-wrapper-{{ ai_gen_id }}">
+            {% if block.settings.row_2_image %}
+              <img
+                src="{{ block.settings.row_2_image | image_url: width: 1200 }}"
+                alt="{{ block.settings.row_2_image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.row_2_image.width }}"
+                height="{{ block.settings.row_2_image.height }}"
+                class="ai-story-image-{{ ai_gen_id }}"
+              >
+            {% else %}
+              <div class="ai-story-image-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="ai-story-text-content-{{ ai_gen_id }}">
+            {% if block.settings.row_2_card_label != blank or block.settings.row_2_card_title != blank or block.settings.row_2_card_text != blank %}
+              <div class="ai-story-card-{{ ai_gen_id }}">
+                {% if block.settings.row_2_card_label != blank %}
+                  <span class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.row_2_card_label }}</span>
+                {% endif %}
+                {% if block.settings.row_2_card_title != blank %}
+                  <h3 class="ai-story-card-title-{{ ai_gen_id }}">{{ block.settings.row_2_card_title }}</h3>
+                {% endif %}
+                {% if block.settings.row_2_card_text != blank %}
+                  <div class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.row_2_card_text }}</div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block.settings.row_2_show_stats %}
+              <div class="ai-story-stats-{{ ai_gen_id }}">
+                {% if block.settings.row_2_stat_1_number != blank %}
+                  <div class="ai-story-stat-{{ ai_gen_id }}">
+                    <span class="ai-story-stat-number-{{ ai_gen_id }}">{{ block.settings.row_2_stat_1_number }}</span>
+                    <span class="ai-story-stat-label-{{ ai_gen_id }}">{{ block.settings.row_2_stat_1_label }}</span>
+                  </div>
+                {% endif %}
+                {% if block.settings.row_2_stat_2_number != blank %}
+                  <div class="ai-story-stat-{{ ai_gen_id }}">
+                    <span class="ai-story-stat-number-{{ ai_gen_id }}">{{ block.settings.row_2_stat_2_number }}</span>
+                    <span class="ai-story-stat-label-{{ ai_gen_id }}">{{ block.settings.row_2_stat_2_label }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_row_3 %}
+        <div class="ai-story-row-{{ ai_gen_id }} {% if block.settings.row_3_reverse %}reverse{% endif %}">
+          <div class="ai-story-image-wrapper-{{ ai_gen_id }}">
+            {% if block.settings.row_3_image %}
+              <img
+                src="{{ block.settings.row_3_image | image_url: width: 1200 }}"
+                alt="{{ block.settings.row_3_image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.row_3_image.width }}"
+                height="{{ block.settings.row_3_image.height }}"
+                class="ai-story-image-{{ ai_gen_id }}"
+              >
+            {% else %}
+              <div class="ai-story-image-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="ai-story-text-content-{{ ai_gen_id }}">
+            {% if block.settings.row_3_card_label != blank or block.settings.row_3_card_title != blank or block.settings.row_3_card_text != blank %}
+              <div class="ai-story-card-{{ ai_gen_id }}">
+                {% if block.settings.row_3_card_label != blank %}
+                  <span class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.row_3_card_label }}</span>
+                {% endif %}
+                {% if block.settings.row_3_card_title != blank %}
+                  <h3 class="ai-story-card-title-{{ ai_gen_id }}">{{ block.settings.row_3_card_title }}</h3>
+                {% endif %}
+                {% if block.settings.row_3_card_text != blank %}
+                  <div class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.row_3_card_text }}</div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block.settings.row_3_show_stats %}
+              <div class="ai-story-stats-{{ ai_gen_id }}">
+                {% if block.settings.row_3_stat_1_number != blank %}
+                  <div class="ai-story-stat-{{ ai_gen_id }}">
+                    <span class="ai-story-stat-number-{{ ai_gen_id }}">{{ block.settings.row_3_stat_1_number }}</span>
+                    <span class="ai-story-stat-label-{{ ai_gen_id }}">{{ block.settings.row_3_stat_1_label }}</span>
+                  </div>
+                {% endif %}
+                {% if block.settings.row_3_stat_2_number != blank %}
+                  <div class="ai-story-stat-{{ ai_gen_id }}">
+                    <span class="ai-story-stat-number-{{ ai_gen_id }}">{{ block.settings.row_3_stat_2_number }}</span>
+                    <span class="ai-story-stat-label-{{ ai_gen_id }}">{{ block.settings.row_3_stat_2_label }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</toosa-story-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ToosaStory{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('toosa-story-{{ ai_gen_id }}', ToosaStory{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Our story",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Crafting Excellence Since Day One"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Introduction text",
+      "default": "<p>At TOOSA, we're driven by a passion for innovation and a commitment to delivering professional-grade tools that empower craftsmen worldwide.</p>"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Row 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_row_1",
+      "label": "Show row 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "row_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "row_1_reverse",
+      "label": "Reverse layout",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "row_1_card_label",
+      "label": "Card label",
+      "default": "Our Journey"
+    },
+    {
+      "type": "text",
+      "id": "row_1_card_title",
+      "label": "Card title",
+      "default": "Built on Passion and Precision"
+    },
+    {
+      "type": "richtext",
+      "id": "row_1_card_text",
+      "label": "Card text",
+      "default": "<p>From humble beginnings to industry leaders, TOOSA has always been about pushing boundaries and redefining what's possible in professional tooling.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "row_1_show_stats",
+      "label": "Show statistics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "row_1_stat_1_number",
+      "label": "Statistic 1 number",
+      "default": "25+"
+    },
+    {
+      "type": "text",
+      "id": "row_1_stat_1_label",
+      "label": "Statistic 1 label",
+      "default": "Years Experience"
+    },
+    {
+      "type": "text",
+      "id": "row_1_stat_2_number",
+      "label": "Statistic 2 number",
+      "default": "50K+"
+    },
+    {
+      "type": "text",
+      "id": "row_1_stat_2_label",
+      "label": "Statistic 2 label",
+      "default": "Professionals Served"
+    },
+    {
+      "type": "header",
+      "content": "Row 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_row_2",
+      "label": "Show row 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "row_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "row_2_reverse",
+      "label": "Reverse layout",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "row_2_card_label",
+      "label": "Card label",
+      "default": "Innovation"
+    },
+    {
+      "type": "text",
+      "id": "row_2_card_title",
+      "label": "Card title",
+      "default": "Engineering the Future"
+    },
+    {
+      "type": "richtext",
+      "id": "row_2_card_text",
+      "label": "Card text",
+      "default": "<p>Our commitment to innovation drives us to constantly evolve, integrating cutting-edge technology with time-tested craftsmanship.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "row_2_show_stats",
+      "label": "Show statistics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "row_2_stat_1_number",
+      "label": "Statistic 1 number",
+      "default": "100+"
+    },
+    {
+      "type": "text",
+      "id": "row_2_stat_1_label",
+      "label": "Statistic 1 label",
+      "default": "Products Designed"
+    },
+    {
+      "type": "text",
+      "id": "row_2_stat_2_number",
+      "label": "Statistic 2 number",
+      "default": "15"
+    },
+    {
+      "type": "text",
+      "id": "row_2_stat_2_label",
+      "label": "Statistic 2 label",
+      "default": "Countries Worldwide"
+    },
+    {
+      "type": "header",
+      "content": "Row 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_row_3",
+      "label": "Show row 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "row_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "row_3_reverse",
+      "label": "Reverse layout",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "row_3_card_label",
+      "label": "Card label",
+      "default": "Commitment"
+    },
+    {
+      "type": "text",
+      "id": "row_3_card_title",
+      "label": "Card title",
+      "default": "Quality Without Compromise"
+    },
+    {
+      "type": "richtext",
+      "id": "row_3_card_text",
+      "label": "Card text",
+      "default": "<p>Every TOOSA product undergoes rigorous testing and quality control, ensuring that professionals receive tools they can trust in any situation.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "row_3_show_stats",
+      "label": "Show statistics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "row_3_stat_1_number",
+      "label": "Statistic 1 number",
+      "default": "99%"
+    },
+    {
+      "type": "text",
+      "id": "row_3_stat_1_label",
+      "label": "Statistic 1 label",
+      "default": "Customer Satisfaction"
+    },
+    {
+      "type": "text",
+      "id": "row_3_stat_2_number",
+      "label": "Statistic 2 number",
+      "default": "24/7"
+    },
+    {
+      "type": "text",
+      "id": "row_3_stat_2_label",
+      "label": "Statistic 2 label",
+      "default": "Support Available"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 40,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "label": "Text padding",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "intro_color",
+      "label": "Introduction",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "card_label_color",
+      "label": "Card label",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "stat_number_color",
+      "label": "Stat number",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "stat_label_color",
+      "label": "Stat label",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 30,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Introduction size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_label_size",
+      "label": "Card label size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "label": "Card text size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "stat_number_size",
+      "label": "Stat number size",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "stat_label_size",
+      "label": "Stat label size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Image style"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Wide (16:9)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait (3:4)"
+        }
+      ],
+      "default": "4 / 3"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our story"
+    }
+  ]
+}
+{% endschema %}

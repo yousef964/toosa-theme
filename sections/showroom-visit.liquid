@@ -1,0 +1,678 @@
+{% comment %}
+  Showroom Visit Section
+  Designed for Shopify Refine Theme
+  Fully responsive: desktop / tablet / mobile
+{% endcomment %}
+
+<section
+  id="showroom-visit-{{ section.id }}"
+  class="showroom-visit-section"
+>
+  <div class="showroom-visit__container">
+
+    <!-- LEFT CONTENT -->
+    <div class="showroom-visit__content">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="showroom-visit__eyebrow">
+          <span></span>
+          {{ section.settings.eyebrow | escape }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="showroom-visit__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="showroom-visit__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      <!-- DETAILS -->
+      <div class="showroom-visit__details">
+
+        {% if section.settings.address != blank %}
+          <div class="showroom-visit__row">
+            <div class="showroom-visit__label">
+              Address
+            </div>
+            <div class="showroom-visit__value">
+              {{ section.settings.address | escape }}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if section.settings.hours != blank %}
+          <div class="showroom-visit__row">
+            <div class="showroom-visit__label">
+              Hours
+            </div>
+            <div class="showroom-visit__value">
+              {{ section.settings.hours | escape }}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if section.settings.phone != blank %}
+          <div class="showroom-visit__row">
+            <div class="showroom-visit__label">
+              Phone
+            </div>
+            <div class="showroom-visit__value">
+              <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' | escape }}">
+                {{ section.settings.phone | escape }}
+              </a>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if section.settings.pickup != blank %}
+          <div class="showroom-visit__row">
+            <div class="showroom-visit__label">
+              Pickup
+            </div>
+            <div class="showroom-visit__value">
+              {{ section.settings.pickup | escape }}
+            </div>
+          </div>
+        {% endif %}
+
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="showroom-visit__buttons">
+
+        {% if section.settings.button_text != blank %}
+          <a
+            href="{{ section.settings.button_link | default: '#' }}"
+            class="showroom-visit__button showroom-visit__button--primary"
+            {% if section.settings.button_link == blank %}
+              aria-disabled="true"
+            {% endif %}
+          >
+            {{ section.settings.button_text | escape }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.directions_text != blank %}
+          <a
+            href="{{ section.settings.directions_link | default: '#' }}"
+            class="showroom-visit__button showroom-visit__button--secondary"
+            {% if section.settings.directions_link == blank %}
+              aria-disabled="true"
+            {% endif %}
+          >
+            {{ section.settings.directions_text | escape }}
+          </a>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT MAP -->
+    <div class="showroom-visit__map-wrapper">
+
+      {% if section.settings.map_embed != blank %}
+
+        <div class="showroom-visit__map">
+          <iframe
+            src="{{ section.settings.map_embed | escape }}"
+            title="Showroom location map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+      {% else %}
+
+        <div class="showroom-visit__map showroom-visit__map--placeholder">
+          <span>
+            MAP EMBED — TOOSA SHOWROOM, RICHMOND BC
+          </span>
+        </div>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+  #showroom-visit-{{ section.id }} {
+    --sv-orange: {{ section.settings.accent_color }};
+    --sv-text: {{ section.settings.text_color }};
+    --sv-muted: {{ section.settings.muted_color }};
+    --sv-border: {{ section.settings.border_color }};
+    --sv-map-bg: {{ section.settings.map_background }};
+
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    background: {{ section.settings.background_color }};
+  }
+
+  #showroom-visit-{{ section.id }} *,
+  #showroom-visit-{{ section.id }} *::before,
+  #showroom-visit-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__container {
+    width: min(100% - 80px, 1400px);
+    margin: 0 auto;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+  }
+
+  /* -------------------------
+     LEFT SIDE
+  ------------------------- */
+
+  #showroom-visit-{{ section.id }} .showroom-visit__content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 0 15px;
+
+    color: var(--sv-orange);
+   font-size: 16px;
+     {% comment %} line-height: 1;
+    font-weight: 700;
+    letter-spacing: 1.5px; {% endcomment %}
+    text-transform: uppercase;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__eyebrow span {
+    width: 20px;
+    height: 1px;
+    flex: 0 0 20px;
+    background: var(--sv-orange);
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__heading {
+    margin: 0;
+    color: var(--sv-text);
+   font-size: 36px;
+     {% comment %} line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: -0.6px; {% endcomment %}
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__description {
+    margin-top: 4px;
+    color: var(--sv-muted);
+   font-size: 18px;
+     {% comment %} line-height: 1.55;
+    font-weight: 400; {% endcomment %}
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__details {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__row {
+    display: grid;
+    grid-template-columns: 98px minmax(0, 1fr);
+    align-items: center;
+    padding: 10px 0px;
+    border-top: 1px solid var(--sv-border);
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__row:last-child {
+    border-bottom: 1px solid var(--sv-border);
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__label {
+    color: var(--sv-muted);
+    font-size: 16px;
+    font-weight: 700; 
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__value {
+    color: var(--sv-text);
+   font-size: 16px;
+    {% comment %}  line-height: 1.45;
+    font-weight: 400; {% endcomment %}
+    min-width: 0;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__value a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__value a:hover {
+    text-decoration: underline;
+  }
+
+  /* -------------------------
+     BUTTONS
+  ------------------------- */
+
+  #showroom-visit-{{ section.id }} .showroom-visit__buttons {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 19px;
+
+    border: 1px solid transparent;
+    border-radius: 0;
+ padding: 12px 22px;
+    font-size: 16px;
+   {% comment %}  line-height: 1;
+    font-weight: 700; {% endcomment %}
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__button--primary {
+    color: #ffffff;
+    background: var(--sv-orange);
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__button--primary:hover {
+      background: transparent;
+    border: 1px solid #ff7548;
+        color: #ff7548;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__button--secondary {
+
+    color: var(--sv-text);
+    background: #ffffff;
+    border-color: var(--sv-border);
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__button--secondary:hover {
+    background: transparent;
+    border: 1px solid #ff7548;
+        color: #ff7548;
+  }
+
+  /* -------------------------
+     MAP
+  ------------------------- */
+
+  #showroom-visit-{{ section.id }} .showroom-visit__map-wrapper {
+    width: 100%;
+    min-width: 0;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__map {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 1.72 / 1;
+
+    overflow: hidden;
+
+    background: var(--sv-map-bg);
+    border: 1px solid #dfe3e6;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__map iframe {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__map--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    text-align: center;
+  }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__map--placeholder span {
+    color: #7b8791;
+    {% comment %} font-size: 9px;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 1px; {% endcomment %}
+  }
+
+
+  /* -------------------------
+     TABLET
+  ------------------------- */
+
+  @media screen and (max-width: 989px) {
+    #showroom-visit-{{ section.id }} .showroom-visit__container {
+      width: min(100% - 40px, 760px);
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    {% comment %} #showroom-visit-{{ section.id }} .showroom-visit__heading {
+      font-size: 25px;
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__description {
+      font-size: 14px;
+    } {% endcomment %}
+
+    #showroom-visit-{{ section.id }} .showroom-visit__row {
+      grid-template-columns: 80px minmax(0, 1fr);
+    }
+
+    {% comment %} #showroom-visit-{{ section.id }} .showroom-visit__value {
+      font-size: 11px;
+    } {% endcomment %}
+  }
+
+
+  /* -------------------------
+     MOBILE
+  ------------------------- */
+
+  @media screen and (max-width: 749px) {
+    #showroom-visit-{{ section.id }} .showroom-visit__container {
+      width: calc(100% - 40px);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+     padding: 60px 10px;
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__heading {
+      max-width: 100%;
+     font-size: 28px;
+       {% comment %} line-height: 1.12;
+      letter-spacing: -0.4px; {% endcomment %}
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__description {
+      max-width: 100%;
+      margin-top: 6px;
+font-size: 16px;
+     
+      {% comment %}  line-height: 1.5; {% endcomment %}
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__details {
+      margin-top: 18px;
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__row {
+      min-height: 43px;
+      grid-template-columns: 78px minmax(0, 1fr);
+    }
+
+  #showroom-visit-{{ section.id }} .showroom-visit__label {
+      font-size: 14px;
+      font-weight: 700; 
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__value {
+      font-size: 14px;
+      {% comment %}  line-height: 1.45;{% endcomment %}
+    } 
+
+    #showroom-visit-{{ section.id }} .showroom-visit__buttons {
+      width: 100%;
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__button {
+      width: 100%;
+       font-size: 14px;
+               padding: 10px 12px;
+    }
+
+    #showroom-visit-{{ section.id }} .showroom-visit__map {
+      aspect-ratio: 1.45 / 1;
+    }
+      #showroom-visit-{{ section.id }} .showroom-visit__eyebrow {
+   font-size: 14px;
+      }
+  }
+
+
+  /* -------------------------
+     SMALL MOBILE
+  ------------------------- */
+
+  @media screen and (max-width: 389px) {
+
+    #showroom-visit-{{ section.id }} .showroom-visit__row {
+      grid-template-columns: 70px minmax(0, 1fr);
+    }
+
+    {% comment %} #showroom-visit-{{ section.id }} .showroom-visit__value {
+      font-size: 10.5px;
+    } {% endcomment %}
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Showroom Visit",
+  "tag": "section",
+  "class": "section-showroom-visit",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "VISIT US"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "See it in person at our Richmond, BC showroom"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Open the drawers, test the slides, compare colours and talk configurations with the people who designed them."
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "[Unit #, Street Address], Richmond, BC [V6X 0X0]"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Hours",
+      "default": "[Mon–Fri 9:00–17:00 · Sat 10:00–16:00 · Sun closed]"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "778-939-9494"
+    },
+    {
+      "type": "text",
+      "id": "pickup",
+      "label": "Pickup",
+      "default": "Richmond & [Vancouver], BC · Calgary, AB"
+    },
+
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Primary button text",
+      "default": "Book a showroom visit"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "directions_text",
+      "label": "Secondary button text",
+      "default": "Get directions"
+    },
+    {
+      "type": "url",
+      "id": "directions_link",
+      "label": "Secondary button link"
+    },
+
+    {
+      "type": "header",
+      "content": "Map"
+    },
+    {
+      "type": "text",
+      "id": "map_embed",
+      "label": "Google Maps embed URL",
+      "info": "Paste only the Google Maps iframe src URL. Leave blank to show the placeholder."
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / Button color",
+      "default": "#ff6842"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#263342"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text color",
+      "default": "#71808e"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e1e5e8"
+    },
+    {
+      "type": "color",
+      "id": "map_background",
+      "label": "Map background",
+      "default": "#f1f3f4"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Showroom Visit"
+    }
+  ]
+}
+{% endschema %}

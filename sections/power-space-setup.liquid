@@ -1,0 +1,337 @@
+{% comment %}
+  Power, Space and Setup
+  Refine Theme - Responsive Shopify OS 2.0 Section
+{% endcomment %}
+
+<section
+  id="PowerSpaceSetup-{{ section.id }}"
+  class="power-space-setup"
+>
+  <div class="power-space-setup__container">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="power-space-setup__eyebrow">
+        <span class="power-space-setup__eyebrow-line"></span>
+        <span class="power-space-setup__eyebrow-text">
+          {{ section.settings.eyebrow }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="power-space-setup__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="power-space-setup__intro">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="power-space-setup__grid">
+      {% for block in section.blocks %}
+        <div
+          class="power-space-setup__card"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.title != blank %}
+            <h3 class="power-space-setup__card-title">
+              {{ block.settings.title }}
+            </h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="power-space-setup__card-text">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #PowerSpaceSetup-{{ section.id }} {
+    --pss-max-width:1400px;
+    --pss-text: #000;
+    --pss-body: #000;
+    --pss-border: #dfe4e9;
+    --pss-accent: #ff6f3c;
+    --pss-background: #ffffff;
+
+    width: 100%;
+    background: var(--pss-background);
+    color: var(--pss-text);
+    box-sizing: border-box;
+  }
+
+  #PowerSpaceSetup-{{ section.id }} *,
+  #PowerSpaceSetup-{{ section.id }} *::before,
+  #PowerSpaceSetup-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__container {
+    width: min(
+      calc(100% - 80px),
+      var(--pss-max-width)
+    );
+
+    margin: 0 auto;
+
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Eyebrow */
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 0 15px;
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__eyebrow-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+
+    flex: 0 0 20px;
+
+    background: var(--pss-accent);
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__eyebrow-text {
+    margin: 0;
+    color: var(--pss-accent);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Main heading */
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__heading {
+    margin: 0;
+    color: var(--pss-text);
+    font-size: 36px;
+  }
+
+  /* Intro text */
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__intro {
+    margin-top: 13px;
+    color: var(--pss-body);
+    font-size: 18px;
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__intro p {
+    margin: 0;
+  }
+
+  /* Cards */
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    margin-top: 34px;
+
+    border-top: 1px solid var(--pss-border);
+    border-left: 1px solid var(--pss-border);
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__card {
+    min-width: 0;
+    padding:30px;
+    border-right: 1px solid var(--pss-border);
+    border-bottom: 1px solid var(--pss-border);
+
+    background: #fff;
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__card-title {
+    margin: 0 0 14px;
+    color: var(--pss-text);
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__card-text {
+    margin: 0;
+    color: var(--pss-body);
+    font-size: 16px;
+  }
+
+  #PowerSpaceSetup-{{ section.id }} .power-space-setup__card-text p {
+    margin: 0;
+  }
+
+  /* Tablet */
+  @media screen and (max-width: 749px) {
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__container {
+      width: min(
+        calc(100% - 40px),
+        var(--pss-max-width)
+      );
+ padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__eyebrow-text {
+      font-size: 14px;
+    }
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__heading {
+      font-size: 28px;
+    }
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__intro {
+      font-size: 16px;
+    }
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__grid {
+      margin-top: 27px;
+    }
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__card {
+      padding: 30px;
+    }
+      #PowerSpaceSetup-{{ section.id }} .power-space-setup__card-text {
+      font-size: 14px;
+    }
+    
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__card-title {
+      font-size: 18px;
+    }
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 549px) {
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__eyebrow {
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__eyebrow-line {
+      width: 18px;
+      height: 2px;
+      flex-basis: 18px;
+    }
+
+    #PowerSpaceSetup-{{ section.id }} .power-space-setup__grid {
+      grid-template-columns: 1fr;
+
+      margin-top: 24px;
+    }
+
+  
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Power, space & setup",
+  "tag": "section",
+  "class": "section-power-space-setup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "BEFORE YOU BUY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Power, space and setup to plan for"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>A machine this size needs a few things in place. Check these before ordering, and involve a licensed electrician and a compressed-air installer for hookup.</p>"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "requirement",
+      "name": "Requirement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Three-phase power"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>A 20 HP motor needs [3-phase] service and a correctly sized breaker and feeder. Confirm your building's supply and [full-load amps] with an electrician.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Power, space & setup",
+      "blocks": [
+        {
+          "type": "requirement",
+          "settings": {
+            "title": "Three-phase power",
+            "text": "<p>A 20 HP motor needs [3-phase] service and a correctly sized breaker and feeder. Confirm your building's supply and [full-load amps] with an electrician.</p>"
+          }
+        },
+        {
+          "type": "requirement",
+          "settings": {
+            "title": "Placement & ventilation",
+            "text": "<p>A dry, level, ventilated area with clearance around the enclosure for cooling airflow. Keep it out of freezing temperatures.</p>"
+          }
+        },
+        {
+          "type": "requirement",
+          "settings": {
+            "title": "Air distribution",
+            "text": "<p>Hard-piped drops sloped to drip legs, air taken off the top of the line, isolation valves per bay. The 500 L tank buffers demand across the shop.</p>"
+          }
+        },
+        {
+          "type": "requirement",
+          "settings": {
+            "title": "Condensate handling",
+            "text": "<p>The dryer and tank produce condensate. Plan a drain line and, where required, an oil-water separator to meet local disposal rules.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

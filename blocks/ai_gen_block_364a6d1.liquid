@@ -1,0 +1,576 @@
+{% doc %}
+  @prompt
+    Update the existing "Our Story" homepage section in the Shopify Refine theme.
+    
+    Replace the current image with a professional supplied TOOSA photo while keeping the existing Our Story heading, text and About Us button.
+    
+    Create a premium image + text split layout:
+    - Desktop: 50/50
+    - Tablet: 45/55
+    - Mobile: image above text
+    - Use dynamic Shopify image_picker
+    - Image: responsive, object-fit: cover
+    - Add image position and aspect-ratio controls
+    - Add customization for heading, text, button, colors, spacing and border radius
+    - Keep the existing content unchanged
+    - Match TOOSA's clean premium style
+    - Fully mobile responsive with no horizontal overflow
+    - Use only Liquid + CSS
+    - Scope CSS to this section
+    - Generate valid Shopify schema
+    - Return only the updated Shopify Liquid section code.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-our-story-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-our-story-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-our-story-grid-{{ ai_gen_id }} {
+    display: grid;
+    gap: {{ block.settings.gap }}px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-our-story-grid-{{ ai_gen_id }} {
+      grid-template-columns: {% if block.settings.image_position == 'left' %}{{ block.settings.desktop_image_width }}% {{ 100 | minus: block.settings.desktop_image_width }}%{% else %}{{ 100 | minus: block.settings.desktop_image_width }}% {{ block.settings.desktop_image_width }}%{% endif %};
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-our-story-grid-{{ ai_gen_id }} {
+      grid-template-columns: {% if block.settings.image_position == 'left' %}{{ block.settings.tablet_image_width }}% {{ 100 | minus: block.settings.tablet_image_width }}%{% else %}{{ 100 | minus: block.settings.tablet_image_width }}% {{ block.settings.tablet_image_width }}%{% endif %};
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-our-story-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ai-our-story-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-our-story-image-wrapper-{{ ai_gen_id }}::before {
+    content: '';
+    display: block;
+    padding-bottom: {% if block.settings.image_aspect_ratio == 'auto' %}100%{% elsif block.settings.image_aspect_ratio == '1/1' %}100%{% elsif block.settings.image_aspect_ratio == '2/3' %}150%{% elsif block.settings.image_aspect_ratio == '3/4' %}133.33%{% elsif block.settings.image_aspect_ratio == '4/5' %}125%{% elsif block.settings.image_aspect_ratio == '3/2' %}66.67%{% elsif block.settings.image_aspect_ratio == '4/3' %}75%{% elsif block.settings.image_aspect_ratio == '5/4' %}80%{% elsif block.settings.image_aspect_ratio == '16/9' %}56.25%{% endif %};
+  }
+
+  .ai-our-story-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ block.settings.image_position_x }}% {{ block.settings.image_position_y }}%;
+  }
+
+  .ai-our-story-image-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-our-story-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .ai-our-story-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.content_padding }}px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-our-story-content-{{ ai_gen_id }} {
+      order: {% if block.settings.image_position == 'left' %}2{% else %}1{% endif %};
+    }
+
+    .ai-our-story-image-wrapper-{{ ai_gen_id }} {
+      order: {% if block.settings.image_position == 'left' %}1{% else %}2{% endif %};
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-our-story-content-{{ ai_gen_id }} {
+      order: {% if block.settings.image_position == 'left' %}2{% else %}1{% endif %};
+    }
+
+    .ai-our-story-image-wrapper-{{ ai_gen_id }} {
+      order: {% if block.settings.image_position == 'left' %}1{% else %}2{% endif %};
+    }
+  }
+
+  .ai-our-story-heading-{{ ai_gen_id }} {
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+    line-height: 1.2;
+  }
+
+  .ai-our-story-text-{{ ai_gen_id }} {
+    margin: 0 0 {{ block.settings.text_spacing }}px;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+  }
+
+  .ai-our-story-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    font-size: {{ block.settings.button_text_size }}px;
+    transition: all 0.3s ease;
+  }
+
+  .ai-our-story-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+{% endstyle %}
+
+<ai-our-story-{{ ai_gen_id }} class="ai-our-story-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-our-story-container-{{ ai_gen_id }}">
+    <div class="ai-our-story-grid-{{ ai_gen_id }}">
+      <div class="ai-our-story-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 2000 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-our-story-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-our-story-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-our-story-content-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-our-story-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+
+        {% if block.settings.text != blank %}
+          <div class="ai-our-story-text-{{ ai_gen_id }}">{{ block.settings.text }}</div>
+        {% endif %}
+
+        {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+          <a href="{{ block.settings.button_link }}" class="ai-our-story-button-{{ ai_gen_id }}">
+            {{ block.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</ai-our-story-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AiOurStory{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+    customElements.define('ai-our-story-{{ ai_gen_id }}', AiOurStory{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Our story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between image and text",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "desktop_image_width",
+      "label": "Desktop image width",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "tablet_image_width",
+      "label": "Tablet image width",
+      "min": 30,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "1/1",
+          "label": "1:1"
+        },
+        {
+          "value": "2/3",
+          "label": "2:3"
+        },
+        {
+          "value": "3/4",
+          "label": "3:4"
+        },
+        {
+          "value": "4/5",
+          "label": "4:5"
+        },
+        {
+          "value": "3/2",
+          "label": "3:2"
+        },
+        {
+          "value": "4/3",
+          "label": "4:3"
+        },
+        {
+          "value": "5/4",
+          "label": "5:4"
+        },
+        {
+          "value": "16/9",
+          "label": "16:9"
+        }
+      ],
+      "default": "4/3"
+    },
+    {
+      "type": "range",
+      "id": "image_position_x",
+      "label": "Image horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "image_position_y",
+      "label": "Image vertical position",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "label": "Content padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Story"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Heading spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>We believe in creating storage solutions that combine functionality with style. Our journey began with a simple mission: to help people organize their spaces beautifully.</p>"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "range",
+      "id": "text_spacing",
+      "label": "Text spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "About Us"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Vertical padding",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our story"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

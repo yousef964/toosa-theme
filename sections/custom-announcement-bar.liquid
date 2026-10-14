@@ -1,0 +1,618 @@
+{% comment %}
+  Custom Announcement Bar
+  Shopify Refine Theme
+  Desktop: All announcements in one row
+  Mobile: Slider with Left / Right arrows only
+{% endcomment %}
+
+<div
+  id="custom-announcement-bar-{{ section.id }}"
+  class="custom-announcement-bar"
+  style="
+    --announcement-bg: {{ section.settings.background_color }};
+    --announcement-text: {{ section.settings.text_color }};
+    --announcement-height: {{ section.settings.bar_height }}px;
+    --announcement-font-size: {{ section.settings.font_size }}px;
+  "
+>
+  <div class="announcement-container">
+
+    <div class="announcement-slider-wrapper">
+
+      <button
+        type="button"
+        class="announcement-arrow announcement-arrow--prev"
+        aria-label="Previous announcement"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+      </button>
+
+      <div class="announcement-slider">
+        {% for block in section.blocks %}
+          <div
+            class="announcement-item"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.icon != blank %}
+              <span class="announcement-icon">
+                {{ block.settings.icon }}
+              </span>
+            {% endif %}
+
+            {% if block.settings.text != blank %}
+              <span class="announcement-text">
+                {{ block.settings.text }}
+              </span>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <button
+        type="button"
+        class="announcement-arrow announcement-arrow--next"
+        aria-label="Next announcement"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
+<style>
+  /* ================================
+     MAIN ANNOUNCEMENT BAR
+  ================================= */
+
+  #custom-announcement-bar-{{ section.id }} {
+    width: 100%;
+    background: var(--announcement-bg);
+    color: var(--announcement-text);
+    min-height: var(--announcement-height);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  #custom-announcement-bar-{{ section.id }} .announcement-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+
+  /* ================================
+     SLIDER WRAPPER
+  ================================= */
+
+  #custom-announcement-bar-{{ section.id }} .announcement-slider-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+
+  /* ================================
+     DESKTOP SLIDER
+  ================================= */
+
+  #custom-announcement-bar-{{ section.id }} .announcement-slider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #custom-announcement-bar-{{ section.id }} .announcement-item {
+    flex: 1 1 25%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 7px 15px;
+    font-size: var(--announcement-font-size);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  #custom-announcement-bar-{{ section.id }} .announcement-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  #custom-announcement-bar-{{ section.id }} .announcement-text {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  /* ================================
+     ARROWS
+     Hidden on Desktop
+  ================================= */
+
+  #custom-announcement-bar-{{ section.id }} .announcement-arrow {
+    display: none;
+    border: none;
+    background: transparent;
+    color: var(--announcement-text);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 5;
+  }
+
+  #custom-announcement-bar-{{ section.id }} .announcement-arrow svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+
+  /* ================================
+     TABLET + MOBILE
+  ================================= */
+
+  @media screen and (max-width: 989px) {
+
+    #custom-announcement-bar-{{ section.id }} .announcement-container {
+      padding: 0;
+    }
+
+    #custom-announcement-bar-{{ section.id }} .announcement-slider-wrapper {
+      overflow: hidden;
+      min-height: var(--announcement-height);
+    }
+
+
+    /* SHOW ARROWS */
+
+    #custom-announcement-bar-{{ section.id }} .announcement-arrow {
+      display: flex;
+      width: 42px;
+      height: 100%;
+      top: 0;
+    }
+
+    #custom-announcement-bar-{{ section.id }} .announcement-arrow--prev {
+      left: 0;
+    }
+
+    #custom-announcement-bar-{{ section.id }} .announcement-arrow--next {
+      right: 0;
+    }
+
+
+    /* MOBILE SLIDER */
+
+    #custom-announcement-bar-{{ section.id }} .announcement-slider {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+      transition: transform 0.45s ease;
+      will-change: transform;
+    }
+
+    #custom-announcement-bar-{{ section.id }} .announcement-item {
+      flex: 0 0 100%;
+      min-width: 100%;
+      width: 100%;
+      padding: 8px 50px;
+      justify-content: center;
+      text-align: center;
+      white-space: nowrap;
+    }
+  }
+
+
+  /* ================================
+     SMALL MOBILE
+  ================================= */
+
+  @media screen and (max-width: 480px) {
+
+    #custom-announcement-bar-{{ section.id }} {
+      min-height: 40px;
+    }
+
+    #custom-announcement-bar-{{ section.id }} .announcement-item {
+      padding: 10px 45px;
+      font-size: 11px;
+      gap: 5px;
+    }
+
+    #custom-announcement-bar-{{ section.id }} .announcement-arrow {
+      width: 38px;
+    }
+
+    #custom-announcement-bar-{{ section.id }} .announcement-arrow svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+</style>
+
+
+<script>
+  (function () {
+
+    function initAnnouncementBar() {
+
+      const announcementBar = document.querySelector(
+        '#custom-announcement-bar-{{ section.id }}'
+      );
+
+      if (!announcementBar) return;
+
+
+      const slider = announcementBar.querySelector(
+        '.announcement-slider'
+      );
+
+      const slides = announcementBar.querySelectorAll(
+        '.announcement-item'
+      );
+
+      const prevButton = announcementBar.querySelector(
+        '.announcement-arrow--prev'
+      );
+
+      const nextButton = announcementBar.querySelector(
+        '.announcement-arrow--next'
+      );
+
+
+      if (!slider || slides.length <= 1) {
+        return;
+      }
+
+
+      let currentSlide = 0;
+      let autoSlideInterval = null;
+
+
+      /* ================================
+         CHECK MOBILE
+      ================================= */
+
+      function isMobile() {
+        return window.innerWidth <= 989;
+      }
+
+
+      /* ================================
+         UPDATE SLIDER
+      ================================= */
+
+      function updateSlider() {
+
+        if (!isMobile()) {
+          slider.style.transform = 'translateX(0)';
+          return;
+        }
+
+        slider.style.transform =
+          'translateX(-' + (currentSlide * 100) + '%)';
+      }
+
+
+      /* ================================
+         NEXT SLIDE
+      ================================= */
+
+      function nextSlide() {
+
+        currentSlide++;
+
+        if (currentSlide >= slides.length) {
+          currentSlide = 0;
+        }
+
+        updateSlider();
+      }
+
+
+      /* ================================
+         PREVIOUS SLIDE
+      ================================= */
+
+      function prevSlide() {
+
+        currentSlide--;
+
+        if (currentSlide < 0) {
+          currentSlide = slides.length - 1;
+        }
+
+        updateSlider();
+      }
+
+
+      /* ================================
+         AUTO SLIDER
+      ================================= */
+
+      function startAutoSlider() {
+
+        stopAutoSlider();
+
+        if (!isMobile()) {
+          return;
+        }
+
+        autoSlideInterval = setInterval(function () {
+          nextSlide();
+        }, {{ section.settings.slide_speed | times: 1000 }});
+      }
+
+
+      function stopAutoSlider() {
+
+        if (autoSlideInterval) {
+          clearInterval(autoSlideInterval);
+          autoSlideInterval = null;
+        }
+      }
+
+
+      /* ================================
+         ARROW CLICKS
+      ================================= */
+
+      if (nextButton) {
+
+        nextButton.addEventListener('click', function () {
+
+          stopAutoSlider();
+
+          nextSlide();
+
+          startAutoSlider();
+
+        });
+
+      }
+
+
+      if (prevButton) {
+
+        prevButton.addEventListener('click', function () {
+
+          stopAutoSlider();
+
+          prevSlide();
+
+          startAutoSlider();
+
+        });
+
+      }
+
+
+      /* ================================
+         PAUSE ON TOUCH
+      ================================= */
+
+      announcementBar.addEventListener(
+        'touchstart',
+        function () {
+          stopAutoSlider();
+        },
+        {
+          passive: true
+        }
+      );
+
+
+      announcementBar.addEventListener(
+        'touchend',
+        function () {
+          startAutoSlider();
+        },
+        {
+          passive: true
+        }
+      );
+
+
+      /* ================================
+         RESIZE
+      ================================= */
+
+      window.addEventListener('resize', function () {
+
+        currentSlide = 0;
+
+        updateSlider();
+
+        startAutoSlider();
+
+      });
+
+
+      /* ================================
+         INITIALIZE
+      ================================= */
+
+      updateSlider();
+
+      startAutoSlider();
+
+    }
+
+
+    if (document.readyState === 'loading') {
+
+      document.addEventListener(
+        'DOMContentLoaded',
+        initAnnouncementBar
+      );
+
+    } else {
+
+      initAnnouncementBar();
+
+    }
+
+
+    /* Shopify Theme Editor Support */
+
+    document.addEventListener(
+      'shopify:section:load',
+      function (event) {
+
+        if (
+          event.target.querySelector(
+            '#custom-announcement-bar-{{ section.id }}'
+          )
+        ) {
+          initAnnouncementBar();
+        }
+
+      }
+    );
+
+  })();
+</script>
+
+
+{% schema %}
+{
+  "name": "Custom Announcement Bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#182433"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "bar_height",
+      "label": "Bar height",
+      "min": 25,
+      "max": 70,
+      "step": 1,
+      "default": 31
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Desktop font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "slide_speed",
+      "label": "Mobile auto slide speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "unit": "s"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon / Emoji",
+          "default": "🚚"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Announcement text",
+          "default": "Free shipping across Canada"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Announcement Bar",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "🚚",
+            "text": "Free shipping across Canada"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "💳",
+            "text": "Pay monthly with RBC"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "📍",
+            "text": "Richmond, BC showroom"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "📞",
+            "text": "Questions? 778-939-9494"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

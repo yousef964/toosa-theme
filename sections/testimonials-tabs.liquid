@@ -1,0 +1,1859 @@
+
+{% liquid
+  assign section_id = 'TestimonialsTabs-' | append: section.id
+%}
+
+<section
+  id="{{ section_id }}"
+  class="tt-section"
+  data-section-id="{{ section.id }}"
+>
+  <div class="tt-container">
+
+    {% comment %}
+      ============================
+      SECTION HEADER
+      ============================
+    {% endcomment %}
+
+    {% if section.settings.heading != blank or section.settings.description != blank %}
+      <div class="tt-header">
+        {% if section.settings.heading != blank %}
+          <h2 class="tt-heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="tt-description">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+
+    {% comment %}
+      ============================
+      TABS
+      ============================
+    {% endcomment %}
+
+    <div class="tt-tabs" role="tablist">
+
+    
+
+      {% if section.settings.enable_text_tab %}
+        <button
+          type="button"
+          class="tt-tab is-active"
+          role="tab"
+          aria-selected="true"
+          data-tab="text"
+        >
+          {{ section.settings.text_tab_label }}
+        </button>
+      {% endif %}
+      
+
+
+        {% if section.settings.enable_video_tab %}
+        <button
+          type="button"
+          class="tt-tab  {% unless section.settings.enable_video_tab %} is-active{% endunless %}"
+          role="tab"
+          aria-selected="{% if section.settings.enable_video_tab %}false{% else %}true{% endif %}"
+          data-tab="video"
+        >
+          {{ section.settings.video_tab_label }}
+        </button>
+      {% endif %}
+    </div>
+
+
+
+
+
+    {% comment %}
+      ==================================================
+      TEXT TESTIMONIALS
+      ==================================================
+    {% endcomment %}
+
+    {% if section.settings.enable_text_tab %}
+      <div
+        class="tt-panel tt-text-panel is-active"
+        data-panel="text"
+        role="tabpanel"
+      >
+
+        <div class="tt-slider-wrapper">
+
+          <div
+            class="tt-slider tt-text-slider"
+            data-slider="text"
+          >
+
+            {% assign text_count = 0 %}
+
+            {% for block in section.blocks %}
+              {% if block.type == 'text_testimonial' %}
+
+                {% assign text_count = text_count | plus: 1 %}
+
+                <div
+                  class="tt-slide"
+                  {{ block.shopify_attributes }}
+                >
+
+                  <article class="tt-text-card">
+
+
+ {% if block.settings.client_image != blank %}
+  <img
+    src="{{ block.settings.client_image | image_url: width: 1200 }}"
+    alt="test"
+    width="100%"
+    height="100%"
+    loading="lazy"
+    class="tt-product-featured-image"
+  >
+{% endif %}
+
+                    {% if block.settings.rating > 0 %}
+                      <div
+                        class="tt-rating"
+                        aria-label="{{ block.settings.rating }} out of 5 stars"
+                      >
+                        {% for i in (1..5) %}
+                          <span class="{% if i <= block.settings.rating %}is-filled{% endif %}">
+                            ★
+                          </span>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+
+
+                    {% if block.settings.quote_icon %}
+                      <div class="tt-quote-icon">
+                        “
+                      </div>
+                    {% endif %}
+
+
+                    {% if block.settings.description != blank %}
+                      <div class="tt-text-content">
+                        {{ block.settings.description }}
+                      </div>
+                    {% endif %}
+
+
+                    {% if block.settings.product != blank %}
+                      <a
+                        href="{{ block.settings.product.url }}"
+                        class="tt-product"
+                      >
+
+                        {% if block.settings.product.featured_image != blank %}
+                          {{
+                            block.settings.product.featured_image
+                            | image_url: width: 180
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'tt-product-image',
+                              alt: block.settings.product.title
+                          }}
+                        {% endif %}
+
+                        <span class="tt-product-info">
+                          <span class="tt-product-label">
+                            {{ block.settings.product_label }}
+                          </span>
+
+                          <span class="tt-product-title">
+                            {{ block.settings.product.title }}
+                          </span>
+                        </span>
+
+                      </a>
+
+                    {% elsif block.settings.product_image != blank %}
+
+                      <div class="tt-product">
+
+                        {{
+                          block.settings.product_image
+                          | image_url: width: 180
+                          | image_tag:
+                            loading: 'lazy',
+                            class: 'tt-product-image',
+                            alt: block.settings.product_name
+                        }}
+
+                        <span class="tt-product-info">
+                          {% if block.settings.product_label != blank %}
+                            <span class="tt-product-label">
+                              {{ block.settings.product_label }}
+                            </span>
+                          {% endif %}
+
+                          {% if block.settings.product_name != blank %}
+                            <span class="tt-product-title">
+                              {{ block.settings.product_name }}
+                            </span>
+                          {% endif %}
+                        </span>
+
+                      </div>
+
+                    {% endif %}
+
+
+                    {% if block.settings.client_name != blank or block.settings.client_image != blank %}
+
+                      <div class="tt-client">
+
+                        {% if block.settings.client_image != blank %}
+                          {{
+                            block.settings.client_image
+                            | image_url: width: 120
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'tt-client-image',
+                              alt: block.settings.client_name
+                          }}
+                        {% endif %}
+
+                        {% if block.settings.client_name != blank %}
+                          <span class="tt-client-name">
+                            {{ block.settings.client_name }}
+                          </span>
+                        {% endif %}
+
+                      </div>
+
+                    {% endif %}
+
+                  </article>
+
+                </div>
+
+              {% endif %}
+            {% endfor %}
+
+          </div>
+
+
+          <button
+            type="button"
+            class="tt-arrow tt-arrow-prev tt-text-prev"
+            aria-label="Previous text testimonial"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.41 12l5.29 5.3a1 1 0 0 1 0 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.41 1.4Z"/>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="tt-arrow tt-arrow-next tt-text-next"
+            aria-label="Next text testimonial"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M9.3 5.3a1 1 0 0 0 0 1.4l5.29 5.3-5.29 5.3a1 1 0 1 0 1.41 1.4l6-6a1 1 0 0 0 0-1.4l-6-6a1 1 0 0 0-1.41 1.4Z"/>
+            </svg>
+          </button>
+
+        </div>
+
+        <div class="tt-dots tt-text-dots"></div>
+
+      </div>
+    {% endif %}
+
+  </div>
+
+
+      {% comment %}
+      ==================================================
+      VIDEO TESTIMONIALS
+      ==================================================
+    {% endcomment %}
+
+    {% if section.settings.enable_video_tab %}
+      <div
+        class="tt-container tt-panel tt-video-panel {% unless section.settings.enable_video_tab %} is-active{% endunless %}"
+        data-panel="video"
+        role="tabpanel"
+      >
+
+        <div class="tt-slider-wrapper">
+
+          <div
+            class="tt-slider tt-video-slider"
+            data-slider="video"
+          >
+
+            {% assign video_count = 0 %}
+
+            {% for block in section.blocks %}
+              {% if block.type == 'video_testimonial' %}
+
+                {% assign video_count = video_count | plus: 1 %}
+
+                <div
+                  class="tt-slide"
+                  data-video-index="{{ video_count | minus: 1 }}"
+                  {{ block.shopify_attributes }}
+                >
+
+                  <article class="tt-video-card">
+
+                    <button
+                      type="button"
+                      class="tt-video-trigger"
+                      data-video-trigger="{{ video_count | minus: 1 }}"
+                      aria-label="Play testimonial video"
+                    >
+
+                      {% if block.settings.video != blank %}
+
+                        {% if block.settings.video.preview_image != blank %}
+                          {{
+                            block.settings.video.preview_image
+                            | image_url: width: 1000
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'tt-video-poster',
+                              alt: block.settings.title
+                          }}
+                        {% else %}
+                          <div class="tt-video-placeholder">
+                            <span>Video</span>
+                          </div>
+                        {% endif %}
+
+                      {% elsif block.settings.video_image != blank %}
+
+                        {{
+                          block.settings.video_image
+                          | image_url: width: 1000
+                          | image_tag:
+                            loading: 'lazy',
+                            class: 'tt-video-poster',
+                            alt: block.settings.title
+                        }}
+
+                      {% else %}
+
+                        <div class="tt-video-placeholder">
+                          <span>Add Video</span>
+                        </div>
+
+                      {% endif %}
+
+                      <span class="tt-play-button" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.22-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z"/>
+                        </svg>
+                      </span>
+
+                    </button>
+
+{% if section.settings.rating_enable_video_tab %}
+                    <div class="tt-card-content">
+
+                      {% if block.settings.title != blank %}
+                        <h3 class="tt-card-title">
+                          {{ block.settings.title }}
+                        </h3>
+                      {% endif %}
+
+                      {% if block.settings.rating > 0 %}
+                        <div
+                          class="tt-rating"
+                          aria-label="{{ block.settings.rating }} out of 5 stars"
+                        >
+                          {% for i in (1..5) %}
+                            <span class="{% if i <= block.settings.rating %}is-filled{% endif %}">
+                              ★
+                            </span>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+
+                      {% if block.settings.description != blank %}
+                        <div class="tt-card-description">
+                          {{ block.settings.description }}
+                        </div>
+                      {% endif %}
+
+                    </div>
+{% endif %}
+                  </article>
+
+                </div>
+
+              {% endif %}
+            {% endfor %}
+
+          </div>
+
+
+          <button
+            type="button"
+            class="tt-arrow tt-arrow-prev tt-video-prev"
+            aria-label="Previous video testimonial"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.41 12l5.29 5.3a1 1 0 0 1-1.41 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.41 0Z"/>
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="tt-arrow tt-arrow-next tt-video-next"
+            aria-label="Next video testimonial"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M9.3 5.3a1 1 0 0 0 0 1.4l5.29 5.3-5.29 5.3a1 1 0 1 0 1.41 1.4l6-6a1 1 0 0 0 0-1.4l-6-6A1 1 0 0 0 9.3 5.3Z"/>
+            </svg>
+          </button>
+
+        </div>
+
+        <div class="tt-dots tt-video-dots"></div>
+
+      </div>
+    {% endif %}
+
+
+  {% comment %}
+    ==================================================
+    VIDEO POPUP
+    ==================================================
+  {% endcomment %}
+
+  <div
+    class="tt-modal"
+    data-video-modal
+    aria-hidden="true"
+  >
+
+    <div class="tt-modal-overlay" data-modal-close></div>
+
+    <div
+      class="tt-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Testimonial video"
+    >
+
+      <button
+        type="button"
+        class="tt-modal-close"
+        data-modal-close
+        aria-label="Close video"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M6.7 5.3a1 1 0 0 0-1.4 1.4L10.59 12l-5.29 5.3a1 1 0 0 0 1.4 1.4L12 13.41l5.3 5.29a1 1 0 0 0 1.4-1.4L13.41 12l5.29-5.3a1 1 0 0 0-1.4-1.4L12 10.59 6.7 5.3Z"/>
+        </svg>
+      </button>
+
+
+      <button
+        type="button"
+        class="tt-modal-arrow tt-modal-prev"
+        data-modal-prev
+        aria-label="Previous video"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M14.7 5.3a1 1 0 0 1 0 1.4L9.41 12l5.29 5.3a1 1 0 0 1 0 1.4l-6-6a1 1 0 0 1 0-1.4l6-6a1 1 0 0 1 1.41 1.4Z"/>
+        </svg>
+      </button>
+
+
+      <div class="tt-modal-video" data-modal-video></div>
+
+
+      <button
+        type="button"
+        class="tt-modal-arrow tt-modal-next"
+        data-modal-next
+        aria-label="Next video"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M9.3 5.3a1 1 0 0 0 0 1.4l5.29 5.3-5.29 5.3a1 1 0 1 0 1.41 1.4l6-6a1 1 0 0 0 0-1.4l-6-6A1 1 0 0 0 9.3 5.3Z"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+</section>
+
+
+<style>
+  #{{ section_id }} {
+    --tt-bg: {{ section.settings.background_color }};
+    --tt-card-bg: {{ section.settings.card_background }};
+    --tt-text: {{ section.settings.text_color }};
+    --tt-accent: {{ section.settings.accent_color }};
+    --tt-radius: {{ section.settings.card_radius }}px;
+    --tt-gap-desktop: {{ section.settings.desktop_gap }}px;
+    --tt-gap-mobile: {{ section.settings.mobile_gap }}px;
+    --tt-top-padding: {{ section.settings.padding_top }}px;
+    --tt-bottom-padding: {{ section.settings.padding_bottom }}px;
+  }
+
+  #{{ section_id }}.tt-section {
+    background: var(--tt-bg);
+    color: var(--tt-text);
+    padding-top: var(--tt-top-padding);
+    padding-bottom: var(--tt-bottom-padding);
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .tt-container {
+    width: min(100% - 40px, {{ section.settings.container_width }}px);
+    margin: 0 auto;
+  }
+
+  #{{ section_id }} .tt-header {
+    text-align: {{ section.settings.heading_alignment }};
+    max-width: 850px;
+    margin: 0 auto 35px;
+  }
+
+  #{{ section_id }} .tt-heading {
+    margin: 0 0 12px;
+    color: var(--tt-text);
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.15;
+  }
+
+  #{{ section_id }} .tt-description {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: .8;
+  }
+
+  #{{ section_id }} .tt-description p {
+    margin: 0;
+  }
+
+  /* TABS */
+
+  #{{ section_id }} .tt-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 35px;
+  }
+
+  #{{ section_id }} .tt-tab {
+    appearance: none;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: var(--tt-text);
+    padding: 12px 28px;
+    cursor: pointer;
+    font-size:16px;
+  }
+ #{{ section_id }} .tt-tab:hover {
+    background: var(--tt-text);
+    border-color: var(--tt-text);
+    color: #fff;
+  }
+
+  #{{ section_id }} .tt-tab.is-active {
+    background: var(--tt-accent);
+    border-color: var(--tt-accent);
+    color: #fff;
+  }
+
+  /* PANELS */
+
+  #{{ section_id }} .tt-panel {
+    display: none;
+  }
+
+  #{{ section_id }} .tt-panel.is-active {
+    display: block;
+  }
+
+  /* SLIDER */
+
+  #{{ section_id }} .tt-slider-wrapper {
+    position: relative;
+    padding: 0 45px;
+  }
+
+  #{{ section_id }} .tt-slider {
+    display: flex;
+    gap: var(--tt-gap-desktop);
+    overflow: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+
+  #{{ section_id }} .tt-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  #{{ section_id }} .tt-slide {
+    flex: 0 0 calc(
+      (100% - ({{ section.settings.desktop_columns }} - 1) * var(--tt-gap-desktop))
+      / {{ section.settings.desktop_columns }}
+    );
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  /* VIDEO CARD */
+
+  #{{ section_id }} .tt-video-card,
+  #{{ section_id }} .tt-text-card {
+    background: var(--tt-card-bg);
+    border-radius: var(--tt-radius);
+    overflow: hidden;
+    height: 100%;
+  }
+
+  #{{ section_id }} .tt-video-trigger {
+    width: 100%;
+     aspect-ratio: 4 / 5;
+    padding: 0;
+    border: 0;
+    background: #eee;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  #{{ section_id }} .tt-video-poster {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .35s ease;
+  }
+
+  #{{ section_id }} .tt-video-trigger:hover .tt-video-poster {
+    transform: scale(1.04);
+  }
+
+  #{{ section_id }} .tt-video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: #e9e9e9;
+    color: #555;
+  }
+
+  #{{ section_id }} .tt-play-button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.95);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+  }
+
+  #{{ section_id }} .tt-play-button svg {
+    width: 26px;
+    height: 26px;
+    fill: #000;
+    margin-left: -4px;
+  }
+
+  /* CARD CONTENT */
+
+  #{{ section_id }} .tt-card-content {
+    padding: 20px;
+  }
+
+  #{{ section_id }} .tt-card-title {
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  #{{ section_id }} .tt-card-description {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: .8;
+  }
+
+  #{{ section_id }} .tt-card-description p {
+    margin: 0;
+  }
+
+  /* RATING */
+
+  #{{ section_id }} .tt-rating {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  #{{ section_id }} .tt-rating span {
+    color: #d6d6d6;
+    font-size: 17px;
+  }
+
+  #{{ section_id }} .tt-rating span.is-filled {
+    color: {{ section.settings.star_color }};
+  }
+
+  /* TEXT CARD */
+
+  #{{ section_id }} .tt-text-card {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #{{ section_id }} .tt-text-card .tt-rating {
+    margin-bottom: 18px;
+  }
+
+  #{{ section_id }} .tt-quote-icon {
+    font-size: 50px;
+    line-height: .5;
+    margin-bottom: 12px;
+    color: var(--tt-accent);
+  }
+
+  #{{ section_id }} .tt-text-content {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+  }
+
+  #{{ section_id }} .tt-text-content p {
+    margin: 0 0 10px;
+  }
+
+  #{{ section_id }} .tt-text-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* PRODUCT */
+
+  #{{ section_id }} .tt-product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    margin-top: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.10);
+    border-radius: 10px;
+  }
+
+  #{{ section_id }} .tt-product-image {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 7px;
+    flex: 0 0 58px;
+  }
+
+  #{{ section_id }} .tt-product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  #{{ section_id }} .tt-product-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    opacity: .6;
+  }
+
+  #{{ section_id }} .tt-product-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* CLIENT */
+
+  #{{ section_id }} .tt-client {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #{{ section_id }} .tt-client-image {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  #{{ section_id }} .tt-client-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ARROWS */
+
+  #{{ section_id }} .tt-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+       max-width: 46px;
+      min-width: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,.12);
+    background: #fff;
+    color: #000;
+    display: flex;
+   justify-content: center;
+   align-items:center;
+    cursor: pointer;
+    z-index: 4;
+    box-shadow: 0 3px 12px rgba(0,0,0,.10);
+    transition: .2s ease;
+  }
+
+  #{{ section_id }} .tt-arrow:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  #{{ section_id }} .tt-arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    max-width: 20px;
+      min-width: 20px;
+  }
+
+  #{{ section_id }} .tt-arrow-prev {
+    left: -16px;
+  }
+
+  #{{ section_id }} .tt-arrow-next {
+    right: -16px;
+  }
+
+  #{{ section_id }} .tt-arrow[disabled] {
+    opacity: .35;
+    cursor: not-allowed;
+  }
+
+  /* DOTS */
+
+  #{{ section_id }} .tt-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 22px;
+  }
+
+  #{{ section_id }} .tt-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+  }
+
+  #{{ section_id }} .tt-dot.is-active {
+    background: var(--tt-accent);
+  }
+
+  /* MODAL */
+
+  #{{ section_id }} .tt-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+  }
+
+  #{{ section_id }} .tt-modal.is-open {
+    display: block;
+  }
+
+  #{{ section_id }} .tt-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.82);
+  }
+
+  #{{ section_id }} .tt-modal-dialog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(900px, calc(100% - 100px));
+    aspect-ratio: 16 / 9;
+    z-index: 2;
+  }
+
+  #{{ section_id }} .tt-modal-video {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .tt-modal-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  #{{ section_id }} .tt-modal-close {
+    position: absolute;
+    right: -45px;
+    top: -45px;
+    width: 40px;
+    height: 40px;
+        min-width: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    {% comment %} place-items: center; {% endcomment %}
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  #{{ section_id }} .tt-modal-close svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+        min-width: 20px;
+  }
+
+  #{{ section_id }} .tt-modal-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+     max-width: 40px;
+    min-width: 40px;
+
+    border-radius: 50%;
+    border: 0;
+    background: #fff;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 5;
+    box-shadow: 0 4px 15px rgba(0,0,0,.25);
+  }
+
+  #{{ section_id }} .tt-modal-arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+     max-width: 20px;
+    min-width: 20px;
+
+  }
+
+  #{{ section_id }} .tt-modal-prev {
+    left: -70px;
+  }
+
+  #{{ section_id }} .tt-modal-next {
+    right: -70px;
+  }
+
+  @media screen and (max-width: 749px) {
+
+    #{{ section_id }} .tt-container {
+      width: min(100% - 28px, {{ section.settings.container_width }}px);
+    }
+
+    #{{ section_id }} {
+      --tt-gap-desktop: var(--tt-gap-mobile);
+    }
+
+    #{{ section_id }} .tt-heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    #{{ section_id }} .tt-header {
+      margin-bottom: 25px;
+    }
+
+    #{{ section_id }} .tt-tabs {
+      margin-bottom: 25px;
+          gap: 10px;
+    }
+
+    #{{ section_id }} .tt-tab {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 10px;
+    }
+
+    #{{ section_id }} .tt-slider-wrapper {
+      padding: 0 35px;
+    }
+
+    #{{ section_id }} .tt-slide {
+      flex-basis: calc(
+        (100% - ({{ section.settings.mobile_columns }} - 1) * var(--tt-gap-mobile))
+        / {{ section.settings.mobile_columns }}
+      );
+    }
+
+    #{{ section_id }} .tt-arrow {
+      width: 40px;
+      height: 40px;
+       min-width: 40px;
+      max-width: 40px;
+    }
+
+    #{{ section_id }} .tt-arrow-prev {
+      left: -10px;
+    }
+
+    #{{ section_id }} .tt-arrow-next {
+      right: -10px;
+    }
+
+    #{{ section_id }} .tt-card-content {
+      padding: 16px;
+    }
+
+    #{{ section_id }} .tt-text-card {
+      padding: 20px;
+    }
+
+    #{{ section_id }} .tt-modal-dialog {
+      width: calc(100% - 30px);
+      aspect-ratio: 9 / 16;
+      max-height: 85vh;
+    }
+
+    #{{ section_id }} .tt-modal-close {
+      right: 0;
+      top: -48px;
+    }
+
+    #{{ section_id }} .tt-modal-arrow {
+      width: 40px;
+      height: 40px;
+        max-width: 40px;
+      min-width: 40px;
+    }
+
+    #{{ section_id }} .tt-modal-prev {
+      left: 8px;
+    }
+
+    #{{ section_id }} .tt-modal-next {
+      right: 8px;
+    }
+  #{{ section_id }} .tt-tab {
+    font-size:14px;
+            line-height: 20px;
+  }
+   #{{ section_id }} .tt-play-button {
+    width: 46px;
+    height: 46px;
+   }
+  }
+.tt-product-featured-image {
+  display: block;
+  width: 100%;
+   height: 260px;
+
+      padding-bottom: 20px;
+}
+</style>
+
+
+<script>
+(function() {
+  'use strict';
+
+  const root = document.getElementById('{{ section_id }}');
+
+  if (!root) return;
+
+  /* ==========================================
+     TABS
+     ========================================== */
+
+  const tabs = root.querySelectorAll('.tt-tab');
+  const panels = root.querySelectorAll('.tt-panel');
+
+  tabs.forEach(function(tab) {
+
+    tab.addEventListener('click', function() {
+
+      const target = tab.dataset.tab;
+
+      tabs.forEach(function(item) {
+        item.classList.remove('is-active');
+        item.setAttribute('aria-selected', 'false');
+      });
+
+      panels.forEach(function(panel) {
+        panel.classList.remove('is-active');
+      });
+
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+
+      const targetPanel = root.querySelector(
+        '[data-panel="' + target + '"]'
+      );
+
+      if (targetPanel) {
+        targetPanel.classList.add('is-active');
+      }
+
+    });
+
+  });
+
+
+  /* ==========================================
+     SLIDER FUNCTION
+     ========================================== */
+
+  function initSlider(sliderSelector, prevSelector, nextSelector, dotsSelector) {
+
+    const slider = root.querySelector(sliderSelector);
+    const prev = root.querySelector(prevSelector);
+    const next = root.querySelector(nextSelector);
+    const dots = root.querySelector(dotsSelector);
+
+    if (!slider || !prev || !next) return;
+
+    const slides = Array.from(
+      slider.querySelectorAll('.tt-slide')
+    );
+
+    if (!slides.length) {
+      prev.style.display = 'none';
+      next.style.display = 'none';
+      return;
+    }
+
+    let currentIndex = 0;
+
+    function getStep() {
+
+      if (slides.length < 2) {
+        return slider.clientWidth;
+      }
+
+      const first = slides[0];
+      const second = slides[1];
+
+      return second.offsetLeft - first.offsetLeft;
+    }
+
+    function getVisibleCount() {
+
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const gap = parseFloat(
+        getComputedStyle(slider).columnGap || 0
+      );
+
+      if (!slideWidth) return 1;
+
+      return Math.max(
+        1,
+        Math.round(
+          (slider.clientWidth + gap) /
+          (slideWidth + gap)
+        )
+      );
+    }
+
+    function getMaxIndex() {
+      return Math.max(
+        0,
+        slides.length - getVisibleCount()
+      );
+    }
+
+    function updateDots() {
+
+      if (!dots) return;
+
+      dots.innerHTML = '';
+
+      const maxIndex = getMaxIndex();
+
+      if (maxIndex <= 0) {
+        dots.style.display = 'none';
+        return;
+      }
+
+      dots.style.display = 'flex';
+
+      for (let i = 0; i <= maxIndex; i++) {
+
+        const dot = document.createElement('button');
+
+        dot.type = 'button';
+        dot.className = 'tt-dot';
+
+        if (i === currentIndex) {
+          dot.classList.add('is-active');
+        }
+
+        dot.setAttribute(
+          'aria-label',
+          'Go to testimonial ' + (i + 1)
+        );
+
+        dot.addEventListener('click', function() {
+          goTo(i);
+        });
+
+        dots.appendChild(dot);
+      }
+
+    }
+
+    function updateButtons() {
+
+      const maxIndex = getMaxIndex();
+
+      prev.disabled = currentIndex <= 0;
+      next.disabled = currentIndex >= maxIndex;
+
+      if (slides.length <= getVisibleCount()) {
+        prev.style.display = 'none';
+        next.style.display = 'none';
+      } else {
+        prev.style.display = '';
+        next.style.display = '';
+      }
+
+      updateDots();
+    }
+
+    function goTo(index) {
+
+      const maxIndex = getMaxIndex();
+
+      currentIndex = Math.max(
+        0,
+        Math.min(index, maxIndex)
+      );
+
+      slider.scrollTo({
+        left: getStep() * currentIndex,
+        behavior: 'smooth'
+      });
+
+      updateButtons();
+    }
+
+    prev.addEventListener('click', function() {
+      goTo(currentIndex - 1);
+    });
+
+    next.addEventListener('click', function() {
+      goTo(currentIndex + 1);
+    });
+
+    slider.addEventListener('scroll', function() {
+
+      const step = getStep();
+
+      if (!step) return;
+
+      const newIndex = Math.round(
+        slider.scrollLeft / step
+      );
+
+      if (newIndex !== currentIndex) {
+        currentIndex = newIndex;
+        updateButtons();
+      }
+
+    });
+
+    window.addEventListener('resize', function() {
+
+      const maxIndex = getMaxIndex();
+
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
+
+      updateButtons();
+
+    });
+
+    updateButtons();
+
+  }
+
+
+  initSlider(
+    '.tt-video-slider',
+    '.tt-video-prev',
+    '.tt-video-next',
+    '.tt-video-dots'
+  );
+
+  initSlider(
+    '.tt-text-slider',
+    '.tt-text-prev',
+    '.tt-text-next',
+    '.tt-text-dots'
+  );
+
+
+  /* ==========================================
+     VIDEO MODAL
+     ========================================== */
+
+  const modal = root.querySelector('[data-video-modal]');
+  const modalVideo = root.querySelector('[data-modal-video]');
+  const modalPrev = root.querySelector('[data-modal-prev]');
+  const modalNext = root.querySelector('[data-modal-next]');
+  const closeButtons = root.querySelectorAll('[data-modal-close]');
+  const videoTriggers = root.querySelectorAll('[data-video-trigger]');
+
+  if (!modal || !modalVideo) return;
+
+  const videoData = [];
+
+  {% for block in section.blocks %}
+    {% if block.type == 'video_testimonial' and block.settings.video != blank %}
+
+      videoData.push({
+        html: {{ block.settings.video | video_tag:
+          controls: true,
+          autoplay: true,
+          loop: false,
+          muted: false,
+          playsinline: true
+        | json }}
+      });
+
+    {% endif %}
+  {% endfor %}
+
+
+  let activeVideo = 0;
+
+  function showVideo(index) {
+
+    if (!videoData.length) return;
+
+    if (index < 0) {
+      index = videoData.length - 1;
+    }
+
+    if (index >= videoData.length) {
+      index = 0;
+    }
+
+    activeVideo = index;
+
+    modalVideo.innerHTML = videoData[activeVideo].html;
+
+    const video = modalVideo.querySelector('video');
+
+    if (video) {
+      video.setAttribute('controls', 'controls');
+      video.setAttribute('playsinline', 'playsinline');
+
+      video.play().catch(function() {});
+    }
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+  }
+
+
+  function closeModal() {
+
+    const video = modalVideo.querySelector('video');
+
+    if (video) {
+      video.pause();
+    }
+
+    modalVideo.innerHTML = '';
+
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+
+  }
+
+
+  videoTriggers.forEach(function(trigger) {
+
+    trigger.addEventListener('click', function() {
+
+      const index = parseInt(
+        trigger.dataset.videoTrigger,
+        10
+      );
+
+      /*
+        Trigger index is based on all video testimonial
+        blocks, so it matches videoData.
+      */
+
+      showVideo(index);
+
+    });
+
+  });
+
+
+  modalPrev.addEventListener('click', function() {
+    showVideo(activeVideo - 1);
+  });
+
+
+  modalNext.addEventListener('click', function() {
+    showVideo(activeVideo + 1);
+  });
+
+
+  closeButtons.forEach(function(button) {
+
+    button.addEventListener('click', function() {
+      closeModal();
+    });
+
+  });
+
+
+  document.addEventListener('keydown', function(event) {
+
+    if (!modal.classList.contains('is-open')) return;
+
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+
+    if (event.key === 'ArrowLeft') {
+      showVideo(activeVideo - 1);
+    }
+
+    if (event.key === 'ArrowRight') {
+      showVideo(activeVideo + 1);
+    }
+
+  });
+
+
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Testimonials Tabs",
+  "tag": "section",
+  "class": "section-testimonials-tabs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Hear directly from our happy customers.</p>"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+
+    {
+      "type": "header",
+      "content": "Tabs"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_tab",
+      "label": "Enable video testimonials",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "video_tab_label",
+      "label": "Video tab label",
+      "default": "Video Testimonials"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_text_tab",
+      "label": "Enable text testimonials",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text_tab_label",
+      "label": "Text tab label",
+      "default": "Text Testimonials"
+    },
+
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+  "type": "select",
+  "id": "mobile_columns",
+  "label": "Mobile columns",
+  "options": [
+    {
+      "value": "1",
+      "label": "1 column"
+    },
+    {
+      "value": "2",
+      "label": "2 columns"
+    }
+  ],
+  "default": "1"
+},
+    {
+      "type": "range",
+      "id": "desktop_gap",
+      "label": "Desktop gap",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "Video testimonials"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add videos using the Video Testimonial block below. Videos must be uploaded/selected from Shopify-hosted video files."
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#f5b301"
+    },
+
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 38,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 20,
+      "max": 40,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Maximum container width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "default": 1200,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "video_testimonial",
+      "name": "Video testimonial",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify-hosted video"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_image",
+          "label": "Custom video thumbnail (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Amazing Product"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Our customer shares their experience.</p>"
+        },
+        {
+      "type": "checkbox",
+      "id": "rating_enable_video_tab",
+      "label": "Rating Enable video testimonials",
+      "default": false
+    },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    },
+
+    {
+      "type": "text_testimonial",
+      "name": "Text testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Testimonial text",
+          "default": "<p>This product has completely changed my experience. I highly recommend it!</p>"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "checkbox",
+          "id": "quote_icon",
+          "label": "Show quote icon",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "client_name",
+          "label": "Client name",
+          "default": "Happy Customer"
+        },
+        {
+          "type": "image_picker",
+          "id": "client_image",
+          "label": "Client image (optional)"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product (optional)"
+        },
+        {
+          "type": "text",
+          "id": "product_label",
+          "label": "Product label",
+          "default": "Purchased product"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Custom product image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Custom product name (optional)"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Testimonials Tabs",
+      "blocks": [
+        {
+          "type": "video_testimonial"
+        },
+        {
+          "type": "video_testimonial"
+        },
+        {
+          "type": "video_testimonial"
+        },
+        {
+          "type": "text_testimonial"
+        },
+        {
+          "type": "text_testimonial"
+        },
+        {
+          "type": "text_testimonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

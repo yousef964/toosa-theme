@@ -1,0 +1,873 @@
+{% doc %}
+  @prompt
+    Create a premium, modern and highly responsive Shopify Online Store 2.0 section named:
+    
+    "JD – Contact Information & Connect Banner"
+    
+    The purpose of this section is to display TOOSA's essential contact information in a visually attractive and easy-to-scan layout.
+    
+    Do NOT copy the reference screenshot exactly.
+    
+    Use the screenshot only as visual inspiration for the concept of four contact information blocks, but redesign the section with a more premium, modern and professional TOOSA aesthetic.
+    
+    The section should look like a high-end contact information banner that can be placed on the Contact Us page, About Us page, or near the footer.
+    
+    The design must be fully customizable from Shopify Theme Editor and must work perfectly on desktop, tablet and mobile without creating horizontal scrolling.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .jd-contact-banner-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background: {{ block.settings.background_color }};
+  }
+
+  .jd-contact-banner__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .jd-contact-banner__header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    margin-bottom: {{ block.settings.heading_spacing }}px;
+  }
+
+  .jd-contact-banner__title-{{ ai_gen_id }} {
+ 
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.heading_size }}px;
+    line-height: 1.2;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.subheading_spacing }}px;
+    letter-spacing: -0.01em;
+  }
+
+  .jd-contact-banner__subtitle-{{ ai_gen_id }} {
+   
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.subtitle_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    max-width: 700px;
+    {% if block.settings.heading_alignment == 'center' %}
+      margin-left: auto;
+      margin-right: auto;
+    {% endif %}
+  }
+
+  .jd-contact-banner__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    margin-top: {{ block.settings.grid_top_spacing }}px;
+  }
+
+  .jd-contact-banner__card-{{ ai_gen_id }} {
+    background: {{ block.settings.card_background }};
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    text-align: {{ block.settings.card_alignment }};
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.card_content_gap }}px;
+    {% if block.settings.enable_card_shadow %}
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    {% endif %}
+    {% if block.settings.card_alignment == 'center' %}
+      align-items: center;
+    {% elsif block.settings.card_alignment == 'right' %}
+      align-items: flex-end;
+    {% else %}
+      align-items: flex-start;
+    {% endif %}
+  }
+
+  {% if block.settings.enable_card_hover %}
+    .jd-contact-banner__card-{{ ai_gen_id }}:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-color: {{ block.settings.card_hover_border_color }};
+    }
+  {% endif %}
+
+  .jd-contact-banner__icon-wrapper-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    background: {{ block.settings.icon_background }};
+    border-radius: {{ block.settings.icon_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .jd-contact-banner__icon-{{ ai_gen_id }} {
+    width: calc({{ block.settings.icon_size }}px * 0.5);
+    height: calc({{ block.settings.icon_size }}px * 0.5);
+    color: {{ block.settings.icon_color }};
+  }
+
+  .jd-contact-banner__content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.content_gap }}px;
+    width: 100%;
+  }
+
+  .jd-contact-banner__label-{{ ai_gen_id }} {
+
+    font-weight: 600;
+    font-size: {{ block.settings.label_size }}px;
+    line-height: 1.4;
+    color: {{ block.settings.label_color }};
+    margin: 0;
+    text-transform: {{ block.settings.label_text_transform }};
+    letter-spacing: 0.02em;
+  }
+
+  .jd-contact-banner__value-{{ ai_gen_id }} {
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.value_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.value_color }};
+    margin: 0;
+  }
+
+  .jd-contact-banner__link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    transition: color 0.2s ease;
+    word-break: break-word;
+  }
+
+  .jd-contact-banner__link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 989px) {
+    .jd-contact-banner__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
+    }
+
+    .jd-contact-banner__title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+    }
+
+    .jd-contact-banner__subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.9);
+    }
+
+    .jd-contact-banner__card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.8 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .jd-contact-banner-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.7 }}px 0 {{ block.settings.section_padding_bottom | times: 0.7 }}px;
+    }
+
+    .jd-contact-banner__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.6 }}px;
+    }
+
+    .jd-contact-banner__title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+    }
+
+    .jd-contact-banner__subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.85);
+    }
+
+    .jd-contact-banner__card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.7 }}px;
+    }
+
+    .jd-contact-banner__icon-wrapper-{{ ai_gen_id }} {
+      width: calc({{ block.settings.icon_size }}px * 0.85);
+      height: calc({{ block.settings.icon_size }}px * 0.85);
+    }
+
+    .jd-contact-banner__label-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.label_size }}px * 0.9);
+    }
+
+    .jd-contact-banner__value-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.value_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<div class="jd-contact-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="jd-contact-banner__container-{{ ai_gen_id }}">
+    {% if block.settings.show_heading %}
+      <div class="jd-contact-banner__header-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          <h2 class="jd-contact-banner__title-{{ ai_gen_id }}">
+            {{ block.settings.heading }}
+          </h2>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+          <div class="jd-contact-banner__subtitle-{{ ai_gen_id }}">
+            {{ block.settings.subtitle }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="jd-contact-banner__grid-{{ ai_gen_id }}">
+      {% if block.settings.show_card_1 %}
+        <div class="jd-contact-banner__card-{{ ai_gen_id }}">
+          <div class="jd-contact-banner__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="jd-contact-banner__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          <div class="jd-contact-banner__content-{{ ai_gen_id }}">
+            {% if block.settings.card_1_label != blank %}
+              <h3 class="jd-contact-banner__label-{{ ai_gen_id }}">
+                {{ block.settings.card_1_label }}
+              </h3>
+            {% endif %}
+            {% if block.settings.card_1_value != blank %}
+              <div class="jd-contact-banner__value-{{ ai_gen_id }}">
+                {% if block.settings.card_1_link != blank %}
+                  <a href="{{ block.settings.card_1_link }}" class="jd-contact-banner__link-{{ ai_gen_id }}">
+                    {{ block.settings.card_1_value }}
+                  </a>
+                {% else %}
+                  {{ block.settings.card_1_value }}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_card_2 %}
+        <div class="jd-contact-banner__card-{{ ai_gen_id }}">
+          <div class="jd-contact-banner__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="jd-contact-banner__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div class="jd-contact-banner__content-{{ ai_gen_id }}">
+            {% if block.settings.card_2_label != blank %}
+              <h3 class="jd-contact-banner__label-{{ ai_gen_id }}">
+                {{ block.settings.card_2_label }}
+              </h3>
+            {% endif %}
+            {% if block.settings.card_2_value != blank %}
+              <div class="jd-contact-banner__value-{{ ai_gen_id }}">
+                {% if block.settings.card_2_link != blank %}
+                  <a href="{{ block.settings.card_2_link }}" class="jd-contact-banner__link-{{ ai_gen_id }}">
+                    {{ block.settings.card_2_value }}
+                  </a>
+                {% else %}
+                  {{ block.settings.card_2_value }}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_card_3 %}
+        <div class="jd-contact-banner__card-{{ ai_gen_id }}">
+          <div class="jd-contact-banner__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="jd-contact-banner__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <div class="jd-contact-banner__content-{{ ai_gen_id }}">
+            {% if block.settings.card_3_label != blank %}
+              <h3 class="jd-contact-banner__label-{{ ai_gen_id }}">
+                {{ block.settings.card_3_label }}
+              </h3>
+            {% endif %}
+            {% if block.settings.card_3_value != blank %}
+              <div class="jd-contact-banner__value-{{ ai_gen_id }}">
+                {% if block.settings.card_3_link != blank %}
+                  <a href="{{ block.settings.card_3_link }}" class="jd-contact-banner__link-{{ ai_gen_id }}">
+                    {{ block.settings.card_3_value }}
+                  </a>
+                {% else %}
+                  {{ block.settings.card_3_value }}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_card_4 %}
+        <div class="jd-contact-banner__card-{{ ai_gen_id }}">
+          <div class="jd-contact-banner__icon-wrapper-{{ ai_gen_id }}">
+            <svg class="jd-contact-banner__icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div class="jd-contact-banner__content-{{ ai_gen_id }}">
+            {% if block.settings.card_4_label != blank %}
+              <h3 class="jd-contact-banner__label-{{ ai_gen_id }}">
+                {{ block.settings.card_4_label }}
+              </h3>
+            {% endif %}
+            {% if block.settings.card_4_value != blank %}
+              <div class="jd-contact-banner__value-{{ ai_gen_id }}">
+                {% if block.settings.card_4_link != blank %}
+                  <a href="{{ block.settings.card_4_link }}" class="jd-contact-banner__link-{{ ai_gen_id }}">
+                    {{ block.settings.card_4_value }}
+                  </a>
+                {% else %}
+                  {{ block.settings.card_4_value }}
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "JD – Contact Information",
+  "tag": null,
+  "class": "jd-contact-information-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "We're here to help and answer any questions you might have"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Heading bottom spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subheading_spacing",
+      "label": "Space between heading and subtitle",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Card 1 - Phone"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_1",
+      "label": "Show card 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_1_label",
+      "label": "Label",
+      "default": "Call Us"
+    },
+    {
+      "type": "text",
+      "id": "card_1_value",
+      "label": "Value",
+      "default": "+1 (555) 123-4567"
+    },
+    {
+      "type": "url",
+      "id": "card_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 2 - Email"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_2",
+      "label": "Show card 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_2_label",
+      "label": "Label",
+      "default": "Email Us"
+    },
+    {
+      "type": "text",
+      "id": "card_2_value",
+      "label": "Value",
+      "default": "hello@toosa.ca"
+    },
+    {
+      "type": "url",
+      "id": "card_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 3 - Location"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_3",
+      "label": "Show card 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_3_label",
+      "label": "Label",
+      "default": "Visit Us"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_value",
+      "label": "Value",
+      "default": "123 Main Street, Toronto, ON M5V 3A8"
+    },
+    {
+      "type": "url",
+      "id": "card_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 4 - Hours"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_4",
+      "label": "Show card 4",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_4_label",
+      "label": "Label",
+      "default": "Business Hours"
+    },
+    {
+      "type": "textarea",
+      "id": "card_4_value",
+      "label": "Value",
+      "default": "Mon - Fri: 9:00 AM - 6:00 PM"
+    },
+    {
+      "type": "url",
+      "id": "card_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container max width",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between cards",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "grid_top_spacing",
+      "label": "Grid top spacing",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "card_alignment",
+      "label": "Card content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Card border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_card_shadow",
+      "label": "Enable card shadow",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_card_hover",
+      "label": "Enable hover effect",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_content_gap",
+      "label": "Gap between icon and content",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap between label and value",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon container size",
+      "min": 40,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "label": "Icon border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Label size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "value_size",
+      "label": "Value size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "label_text_transform",
+      "label": "Label text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#6b7280"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "color",
+      "id": "card_hover_border_color",
+      "label": "Card hover border",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#fff7ed"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "value_color",
+      "label": "Value color",
+      "default": "#4b5563"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "JD – Contact Information"
+    }
+  ]
+}
+{% endschema %}

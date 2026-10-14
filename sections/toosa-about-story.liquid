@@ -1,0 +1,602 @@
+{% comment %}
+TOOSA About Story
+Compatible with Shopify Refine / OS 2.0
+Responsive editorial About Us section
+{% endcomment %}
+
+<section
+  id="TOOSAAboutStory-{{ section.id }}"
+  class="toosa-about-story"
+  style="
+    --toosa-about-bg: {{ section.settings.background_color }};
+    --toosa-about-text: {{ section.settings.text_color }};
+    --toosa-about-muted: {{ section.settings.muted_color }};
+    --toosa-about-accent: {{ section.settings.accent_color }};
+    --toosa-about-max-width: {{ section.settings.max_width }}px;
+    --toosa-about-top: {{ section.settings.padding_top }}px;
+    --toosa-about-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="toosa-about-story__wrapper">
+
+
+<div class="toosa-about-story__grid">
+
+  <!-- LEFT COLUMN -->
+  <div class="toosa-about-story__intro">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="toosa-about-story__eyebrow">
+        <span class="toosa-about-story__eyebrow-line"></span>
+        <span>{{ section.settings.eyebrow }}</span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="toosa-about-story__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.intro_text != blank %}
+      <div class="toosa-about-story__intro-text rte">
+        {{ section.settings.intro_text }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_number %}
+      <div class="toosa-about-story__number">
+        <span>{{ section.settings.number_text }}</span>
+      </div>
+    {% endif %}
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="toosa-about-story__content">
+
+    {% if section.settings.story != blank %}
+      <div class="toosa-about-story__story rte">
+        {{ section.settings.story }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+      <div class="toosa-about-story__button-wrap">
+        <a
+          href="{{ section.settings.button_link }}"
+          class="toosa-about-story__button"
+        >
+          <span>{{ section.settings.button_label }}</span>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.75 9H14.25"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M9.75 4.5L14.25 9L9.75 13.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+
+  </div>
+</section>
+
+<style>
+  #TOOSAAboutStory-{{ section.id }} {
+    width: 100%;
+    background: var(--toosa-about-bg);
+    color: var(--toosa-about-text);
+    padding-top: var(--toosa-about-top);
+    padding-bottom: var(--toosa-about-bottom);
+    box-sizing: border-box;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} *,
+  #TOOSAAboutStory-{{ section.id }} *::before,
+  #TOOSAAboutStory-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__wrapper {
+    width: 100%;
+    max-width: var(--toosa-about-max-width);
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.4fr);
+    column-gap: clamp(60px, 8vw, 150px);
+    align-items: start;
+  }
+
+  /* -----------------------------------------
+     LEFT / INTRO
+  ----------------------------------------- */
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__intro {
+    position: relative;
+    padding-top: 5px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    color: var(--toosa-about-accent);
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__eyebrow-line {
+    width: 32px;
+    height: 2px;
+    flex: 0 0 32px;
+    background: var(--toosa-about-accent);
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__heading {
+    margin: 0;
+    max-width: 620px;
+    color: var(--toosa-about-text);
+    font-family: inherit;
+    font-size: clamp(38px, 4.2vw, 68px);
+    line-height: 0.98;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__intro-text {
+    margin-top: 28px;
+    max-width: 480px;
+    color: var(--toosa-about-muted);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__number {
+    margin-top: 55px;
+    padding-top: 18px;
+    border-top: 1px solid color-mix(
+      in srgb,
+      var(--toosa-about-text) 16%,
+      transparent
+    );
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__number span {
+    color: var(--toosa-about-muted);
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* -----------------------------------------
+     RIGHT / STORY
+  ----------------------------------------- */
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__content {
+    min-width: 0;
+    max-width: 820px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story {
+    color: var(--toosa-about-text);
+    font-size: 18px;
+    line-height: 1.78;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story > *:first-child {
+    margin-top: 0;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story > *:last-child {
+    margin-bottom: 0;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story p {
+    margin: 0 0 24px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h2,
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h3,
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h4 {
+    margin: 42px 0 18px;
+    color: var(--toosa-about-text);
+    font-family: inherit;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h2 {
+    font-size: clamp(28px, 3vw, 42px);
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h3 {
+    font-size: 28px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story strong {
+    color: var(--toosa-about-text);
+    font-weight: 700;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story em {
+    color: var(--toosa-about-accent);
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story ul,
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story ol {
+    margin: 25px 0;
+    padding-left: 24px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story li {
+    margin-bottom: 8px;
+  }
+
+  /* -----------------------------------------
+     BUTTON
+  ----------------------------------------- */
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button-wrap {
+    margin-top: 38px;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 13px 20px;
+    background: var(--toosa-about-text);
+    color: var(--toosa-about-bg);
+    border: 1px solid var(--toosa-about-text);
+    border-radius: 0;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button svg {
+    flex: 0 0 auto;
+    transition: transform 0.2s ease;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button:hover {
+    background: var(--toosa-about-accent);
+    border-color: var(--toosa-about-accent);
+    color: #ffffff;
+  }
+
+  #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* -----------------------------------------
+     TABLET
+  ----------------------------------------- */
+
+  @media screen and (max-width: 989px) {
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__wrapper {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__grid {
+      grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+      column-gap: 50px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__heading {
+      font-size: clamp(36px, 6vw, 54px);
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story {
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+  }
+
+  /* -----------------------------------------
+     MOBILE
+  ----------------------------------------- */
+
+  @media screen and (max-width: 749px) {
+
+    #TOOSAAboutStory-{{ section.id }} {
+      padding-top: max(48px, calc(var(--toosa-about-top) * 0.65));
+      padding-bottom: max(48px, calc(var(--toosa-about-bottom) * 0.65));
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__wrapper {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__grid {
+      display: block;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__intro {
+      padding-top: 0;
+      margin-bottom: 38px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__eyebrow {
+      margin-bottom: 18px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__eyebrow-line {
+      width: 25px;
+      flex-basis: 25px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__heading {
+      max-width: 100%;
+      font-size: clamp(38px, 11vw, 52px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__intro-text {
+      margin-top: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__number {
+      display: none;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__content {
+      max-width: none;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story p {
+      margin-bottom: 20px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h2,
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h3,
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h4 {
+      margin-top: 34px;
+      margin-bottom: 15px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h2 {
+      font-size: 30px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story h3 {
+      font-size: 25px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button-wrap {
+      margin-top: 30px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button {
+      width: 100%;
+      min-height: 50px;
+    }
+  }
+
+  /* -----------------------------------------
+     SMALL MOBILE
+  ----------------------------------------- */
+
+  @media screen and (max-width: 390px) {
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__wrapper {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__heading {
+      font-size: 36px;
+    }
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__story {
+      font-size: 15px;
+      line-height: 1.68;
+    }
+
+  }
+
+  /* -----------------------------------------
+     REDUCED MOTION
+  ----------------------------------------- */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button,
+    #TOOSAAboutStory-{{ section.id }} .toosa-about-story__button svg {
+      transition: none;
+    }
+
+  }
+</style>
+
+{% schema %}
+{
+"name": "TOOSA About Story",
+"tag": "section",
+"class": "section-toosa-about-story",
+"settings": [
+{
+"type": "header",
+"content": "Content"
+},
+{
+"type": "text",
+"id": "eyebrow",
+"label": "Eyebrow",
+"default": "OUR STORY"
+},
+{
+"type": "text",
+"id": "heading",
+"label": "Heading",
+"default": "Built by people who use tools. Designed around the people who get things done."
+},
+{
+"type": "richtext",
+"id": "intro_text",
+"label": "Intro text",
+"default": "<p>TOOSA was born from a real workshop problem: finding better tool storage without compromising quality, function or value.</p>"
+},
+{
+"type": "richtext",
+"id": "story",
+"label": "Story content",
+"default": "<p>TOOSA didn't start with a business plan.</p><p>It started with a messy metal fabrication shop that needed to be organized.</p><p>When we were renovating our own workspace, we started looking for tool storage that was high quality, functional, and built around the way we actually worked.</p><p>What we found was frustrating.</p><p>The options were either expensive, low quality, or lacked the flexibility we were looking for. Some of the solutions we were quoted were in the <strong>$30,000–$40,000 range</strong> — for a setup we believed should cost a fraction of that.</p><p>So we decided to build our own.</p><p>We designed tool storage around how we wanted to work: integrated work surfaces, easy-access pegboards, concealed upper storage, and a layout that kept everything organized and within reach.</p><p>The result completely transformed our workspace.</p><p>It was cleaner. More organized. More professional. And, most importantly, we could find our tools when we needed them.</p><p>People started asking us where the storage came from.</p><p>That got us thinking.</p>"
+},
+{
+"type": "checkbox",
+"id": "show_number",
+"label": "Show small label",
+"default": false
+},
+{
+"type": "text",
+"id": "number_text",
+"label": "Small label",
+"default": "BUILT FROM A REAL WORKSHOP NEED"
+},
+{
+"type": "text",
+"id": "button_label",
+"label": "Button label",
+"default": "Explore TOOSA"
+},
+{
+"type": "url",
+"id": "button_link",
+"label": "Button link"
+},
+
+{
+  "type": "header",
+  "content": "Colors"
+},
+{
+  "type": "color",
+  "id": "background_color",
+  "label": "Background",
+  "default": "#FFFFFF"
+},
+{
+  "type": "color",
+  "id": "text_color",
+  "label": "Text",
+  "default": "#171717"
+},
+{
+  "type": "color",
+  "id": "muted_color",
+  "label": "Secondary text",
+  "default": "#666666"
+},
+{
+  "type": "color",
+  "id": "accent_color",
+  "label": "Accent",
+  "default": "#E53935"
+},
+
+{
+  "type": "header",
+  "content": "Layout"
+},
+{
+  "type": "range",
+  "id": "max_width",
+  "label": "Maximum width",
+  "min": 900,
+  "max": 1600,
+  "step": 50,
+  "unit": "px",
+  "default": 1300
+},
+{
+  "type": "range",
+  "id": "padding_top",
+  "label": "Top spacing",
+  "min": 20,
+  "max": 160,
+  "step": 10,
+  "unit": "px",
+  "default": 100
+},
+{
+  "type": "range",
+  "id": "padding_bottom",
+  "label": "Bottom spacing",
+  "min": 20,
+  "max": 160,
+  "step": 10,
+  "unit": "px",
+  "default": 100
+}
+
+
+],
+"presets": [
+{
+"name": "TOOSA About Story"
+}
+]
+}
+{% endschema %}

@@ -1,0 +1,1318 @@
+{% doc %}
+  @prompt
+    Create a premium, modern, and fully responsive Store Locations section for the TOOSA Shopify store. The design should showcase warehouse and distributor information alongside an interactive Google Map. The section must look clean, professional, and trustworthy, matching TOOSA's industrial brand identity while improving readability, spacing, and user experience.
+    
+    The layout should be fully customizable through the Shopify Theme Editor and optimized for desktop, tablet, and mobile.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-store-locations-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-store-locations-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-store-locations-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-store-locations-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.subheading_spacing }}px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .ai-store-locations-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    color: {{ block.settings.subheading_color }};
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .ai-store-locations-content-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: {{ block.settings.content_gap }}px;
+  }
+
+  @media (min-width: 990px) {
+    .ai-store-locations-content-{{ ai_gen_id }} {
+      grid-template-columns: {% if block.settings.layout == 'map_left' %}1fr 1fr{% elsif block.settings.layout == 'map_right' %}1fr 1fr{% else %}1fr{% endif %};
+    }
+  }
+
+  .ai-store-locations-list-{{ ai_gen_id }} {
+    {% if block.settings.layout == 'map_right' %}
+      order: 1;
+    {% else %}
+      order: 2;
+    {% endif %}
+  }
+
+  .ai-store-locations-map-wrapper-{{ ai_gen_id }} {
+    {% if block.settings.layout == 'map_right' %}
+      order: 2;
+    {% else %}
+      order: 1;
+    {% endif %}
+    position: relative;
+    width: 100%;
+    height: {{ block.settings.map_height_mobile }}px;
+    border-radius: {{ block.settings.map_border_radius }}px;
+    overflow: hidden;
+    box-shadow: {{ block.settings.map_shadow }};
+  }
+
+  @media (min-width: 990px) {
+    .ai-store-locations-map-wrapper-{{ ai_gen_id }} {
+      height: {{ block.settings.map_height }}px;
+    }
+  }
+
+  .ai-store-locations-map-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-store-location-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    margin-bottom: {{ block.settings.card_spacing }}px;
+    transition: all 0.3s ease;
+  }
+
+  .ai-store-location-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: {{ block.settings.card_hover_border_color }};
+  }
+
+  .ai-store-location-card-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-store-location-header-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: {{ block.settings.card_content_spacing }}px;
+    gap: 16px;
+  }
+
+  .ai-store-location-badge-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: {{ block.settings.badge_background }};
+    color: {{ block.settings.badge_text_color }};
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: {{ block.settings.badge_border_radius }}px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .ai-store-location-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.location_name_size }}px;
+    color: {{ block.settings.location_name_color }};
+    font-weight: 700;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  .ai-store-location-info-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ai-store-location-info-row-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ai-store-location-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: {{ block.settings.icon_color }};
+    margin-top: 2px;
+  }
+
+  .ai-store-location-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.location_text_size }}px;
+    color: {{ block.settings.location_text_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-store-location-link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .ai-store-location-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+    text-decoration: underline;
+  }
+
+  .ai-store-location-actions-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    margin-top: {{ block.settings.card_content_spacing }}px;
+    flex-wrap: wrap;
+  }
+
+  .ai-store-location-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .ai-store-location-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+    transform: translateY(-1px);
+  }
+
+  .ai-store-location-button-secondary-{{ ai_gen_id }} {
+    background-color: transparent;
+    color: {{ block.settings.button_secondary_text_color }};
+    border-color: {{ block.settings.button_secondary_border_color }};
+  }
+
+  .ai-store-location-button-secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_secondary_hover_background }};
+    color: {{ block.settings.button_secondary_hover_text_color }};
+    border-color: {{ block.settings.button_secondary_hover_border_color }};
+  }
+
+  .ai-store-locations-empty-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    color: {{ block.settings.subheading_color }};
+  }
+
+  .ai-store-locations-empty-icon-{{ ai_gen_id }} {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    opacity: 0.3;
+  }
+
+  .ai-store-locations-empty-text-{{ ai_gen_id }} {
+    font-size: 16px;
+    color: {{ block.settings.subheading_color }};
+  }
+
+  @media (max-width: 989px) {
+    .ai-store-locations-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.75);
+    }
+
+    .ai-store-locations-subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subheading_size }}px * 0.9);
+    }
+
+    .ai-store-location-name-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.location_name_size }}px * 0.9);
+    }
+
+    .ai-store-location-actions-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .ai-store-location-button-{{ ai_gen_id }} {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+{% endstyle %}
+
+<store-locations-{{ ai_gen_id }} class="ai-store-locations-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-store-locations-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank or block.settings.subheading != blank %}
+      <div class="ai-store-locations-header-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-store-locations-title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+        {% if block.settings.subheading != blank %}
+          <div class="ai-store-locations-subtitle-{{ ai_gen_id }}">{{ block.settings.subheading }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-store-locations-content-{{ ai_gen_id }}">
+      <div class="ai-store-locations-list-{{ ai_gen_id }}">
+        {% assign has_locations = false %}
+        {% for i in (1..5) %}
+          {% liquid
+            assign enabled_key = 'location_' | append: i | append: '_enabled'
+            assign type_key = 'location_' | append: i | append: '_type'
+            assign name_key = 'location_' | append: i | append: '_name'
+            assign address_key = 'location_' | append: i | append: '_address'
+            assign phone_key = 'location_' | append: i | append: '_phone'
+            assign email_key = 'location_' | append: i | append: '_email'
+            assign hours_key = 'location_' | append: i | append: '_hours'
+            assign directions_key = 'location_' | append: i | append: '_directions_url'
+
+            assign enabled = block.settings[enabled_key]
+            assign type = block.settings[type_key]
+            assign name = block.settings[name_key]
+            assign address = block.settings[address_key]
+            assign phone = block.settings[phone_key]
+            assign email = block.settings[email_key]
+            assign hours = block.settings[hours_key]
+            assign directions_url = block.settings[directions_key]
+          %}
+
+          {% if enabled %}
+            {% assign has_locations = true %}
+            <div class="ai-store-location-card-{{ ai_gen_id }}">
+              <div class="ai-store-location-header-{{ ai_gen_id }}">
+                <div>
+                  {% if name != blank %}
+                    <h3 class="ai-store-location-name-{{ ai_gen_id }}">{{ name }}</h3>
+                  {% endif %}
+                </div>
+                {% if type != blank %}
+                  <span class="ai-store-location-badge-{{ ai_gen_id }}">{{ type }}</span>
+                {% endif %}
+              </div>
+
+              <div class="ai-store-location-info-{{ ai_gen_id }}">
+                {% if address != blank %}
+                  <div class="ai-store-location-info-row-{{ ai_gen_id }}">
+                    <svg class="ai-store-location-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <p class="ai-store-location-text-{{ ai_gen_id }}">{{ address }}</p>
+                  </div>
+                {% endif %}
+
+                {% if phone != blank %}
+                  <div class="ai-store-location-info-row-{{ ai_gen_id }}">
+                    <svg class="ai-store-location-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    <p class="ai-store-location-text-{{ ai_gen_id }}">
+                      <a href="tel:{{ phone | replace: ' ', '' | replace: '-', '' }}" class="ai-store-location-link-{{ ai_gen_id }}">{{ phone }}</a>
+                    </p>
+                  </div>
+                {% endif %}
+
+                {% if email != blank %}
+                  <div class="ai-store-location-info-row-{{ ai_gen_id }}">
+                    <svg class="ai-store-location-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <p class="ai-store-location-text-{{ ai_gen_id }}">
+                      <a href="mailto:{{ email }}" class="ai-store-location-link-{{ ai_gen_id }}">{{ email }}</a>
+                    </p>
+                  </div>
+                {% endif %}
+
+                {% if hours != blank %}
+                  <div class="ai-store-location-info-row-{{ ai_gen_id }}">
+                    <svg class="ai-store-location-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <p class="ai-store-location-text-{{ ai_gen_id }}">{{ hours }}</p>
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if directions_url != blank %}
+                <div class="ai-store-location-actions-{{ ai_gen_id }}">
+                  <a href="{{ directions_url }}" target="_blank" rel="noopener" class="ai-store-location-button-{{ ai_gen_id }}">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                    Get Directions
+                  </a>
+                  {% if phone != blank %}
+                    <a href="tel:{{ phone | replace: ' ', '' | replace: '-', '' }}" class="ai-store-location-button-{{ ai_gen_id }} ai-store-location-button-secondary-{{ ai_gen_id }}">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                      </svg>
+                      Call Now
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% unless has_locations %}
+          <div class="ai-store-locations-empty-{{ ai_gen_id }}">
+            <svg class="ai-store-locations-empty-icon-{{ ai_gen_id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <p class="ai-store-locations-empty-text-{{ ai_gen_id }}">Add your store locations in the theme editor</p>
+          </div>
+        {% endunless %}
+      </div>
+
+      {% if block.settings.show_map %}
+        <div class="ai-store-locations-map-wrapper-{{ ai_gen_id }}">
+          <div id="ai-store-locations-map-{{ ai_gen_id }}" class="ai-store-locations-map-{{ ai_gen_id }}"></div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</store-locations-{{ ai_gen_id }}>
+
+{% if block.settings.show_map and block.settings.google_maps_api_key != blank %}
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ block.settings.google_maps_api_key }}&callback=initMap{{ ai_gen_id }}" async defer></script>
+  <script>
+    (function() {
+      window.initMap{{ ai_gen_id }} = function() {
+        const mapElement = document.getElementById('ai-store-locations-map-{{ ai_gen_id }}');
+        if (!mapElement) return;
+
+        const locations = [
+          {% for i in (1..5) %}
+            {% liquid
+              assign enabled_key = 'location_' | append: i | append: '_enabled'
+              assign name_key = 'location_' | append: i | append: '_name'
+              assign lat_key = 'location_' | append: i | append: '_latitude'
+              assign lng_key = 'location_' | append: i | append: '_longitude'
+              assign address_key = 'location_' | append: i | append: '_address'
+
+              assign enabled = block.settings[enabled_key]
+              assign name = block.settings[name_key]
+              assign lat = block.settings[lat_key]
+              assign lng = block.settings[lng_key]
+              assign address = block.settings[address_key]
+            %}
+            {% if enabled and lat != blank and lng != blank %}
+              {
+                name: {{ name | json }},
+                lat: {{ lat }},
+                lng: {{ lng }},
+                address: {{ address | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {% endif %}
+          {% endfor %}
+        ].filter(loc => loc.lat && loc.lng);
+
+        if (locations.length === 0) {
+          mapElement.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5; color: #666; font-size: 14px;">Add location coordinates to display map</div>';
+          return;
+        }
+
+        const centerLat = locations.reduce((sum, loc) => sum + loc.lat, 0) / locations.length;
+        const centerLng = locations.reduce((sum, loc) => sum + loc.lng, 0) / locations.length;
+
+        const mapStyles = {
+          default: [],
+          light: [
+            {featureType: 'all', elementType: 'geometry', stylers: [{color: '#f5f5f5'}]},
+            {featureType: 'water', elementType: 'geometry', stylers: [{color: '#c9e6f2'}]}
+          ],
+          dark: [
+            {featureType: 'all', elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {featureType: 'water', elementType: 'geometry', stylers: [{color: '#17263c'}]}
+          ]
+        };
+
+        const map = new google.maps.Map(mapElement, {
+          center: { lat: centerLat, lng: centerLng },
+          zoom: {{ block.settings.map_zoom }},
+          styles: mapStyles.{{ block.settings.map_style }},
+          disableDefaultUI: {{ block.settings.map_disable_ui }},
+          zoomControl: {{ block.settings.map_zoom_control }},
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: {{ block.settings.map_fullscreen_control }}
+        });
+
+        locations.forEach(location => {
+          const marker = new google.maps.Marker({
+            position: { lat: location.lat, lng: location.lng },
+            map: map,
+            title: location.name,
+            animation: google.maps.Animation.DROP
+          });
+
+          const infoWindow = new google.maps.InfoWindow({
+            content: `
+              <div style="padding: 10px; max-width: 250px;">
+                <h4 style="margin: 0 0 8px; font-size: 16px; font-weight: 700; color: #1e2a38;">${location.name}</h4>
+                <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.5;">${location.address}</p>
+              </div>
+            `
+          });
+
+          marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+          });
+        });
+      };
+
+      class StoreLocations{{ ai_gen_id }} extends HTMLElement {
+        constructor() {
+          super();
+        }
+      }
+
+      customElements.define('store-locations-{{ ai_gen_id }}', StoreLocations{{ ai_gen_id }});
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Store locations",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Locations"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find our warehouses and distributors near you"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "map_left",
+          "label": "Map on left"
+        },
+        {
+          "value": "map_right",
+          "label": "Map on right"
+        },
+        {
+          "value": "list_only",
+          "label": "List only"
+        }
+      ],
+      "default": "map_right"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Google Maps"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_map",
+      "label": "Show map",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "google_maps_api_key",
+      "label": "Google Maps API key"
+    },
+    {
+      "type": "range",
+      "id": "map_height",
+      "label": "Map height (desktop)",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "map_height_mobile",
+      "label": "Map height (mobile)",
+      "min": 250,
+      "max": 500,
+      "step": 50,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "map_zoom",
+      "label": "Map zoom level",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "map_border_radius",
+      "label": "Map border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "map_shadow",
+      "label": "Map shadow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "0 2px 8px rgba(0,0,0,0.1)",
+          "label": "Light"
+        },
+        {
+          "value": "0 4px 16px rgba(0,0,0,0.15)",
+          "label": "Medium"
+        },
+        {
+          "value": "0 8px 24px rgba(0,0,0,0.2)",
+          "label": "Strong"
+        }
+      ],
+      "default": "0 4px 16px rgba(0,0,0,0.15)"
+    },
+    {
+      "type": "checkbox",
+      "id": "map_disable_ui",
+      "label": "Disable default UI",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "map_zoom_control",
+      "label": "Show zoom control",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "map_fullscreen_control",
+      "label": "Show fullscreen control",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "map_style",
+      "label": "Map style",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "header",
+      "content": "Location 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "location_1_enabled",
+      "label": "Enable location 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "location_1_type",
+      "label": "Type",
+      "default": "Warehouse"
+    },
+    {
+      "type": "text",
+      "id": "location_1_name",
+      "label": "Name",
+      "default": "TOOSA Main Warehouse"
+    },
+    {
+      "type": "textarea",
+      "id": "location_1_address",
+      "label": "Address",
+      "default": "123 Industrial Blvd, Vancouver, BC V6B 1A1, Canada"
+    },
+    {
+      "type": "text",
+      "id": "location_1_phone",
+      "label": "Phone",
+      "default": "+1 (604) 555-0100"
+    },
+    {
+      "type": "text",
+      "id": "location_1_email",
+      "label": "Email",
+      "default": "warehouse@toosa.ca"
+    },
+    {
+      "type": "text",
+      "id": "location_1_hours",
+      "label": "Hours",
+      "default": "Mon-Fri: 8:00 AM - 6:00 PM"
+    },
+    {
+      "type": "url",
+      "id": "location_1_directions_url",
+      "label": "Directions URL"
+    },
+    {
+      "type": "text",
+      "id": "location_1_latitude",
+      "label": "Latitude",
+      "default": "49.2827"
+    },
+    {
+      "type": "text",
+      "id": "location_1_longitude",
+      "label": "Longitude",
+      "default": "-123.1207"
+    },
+    {
+      "type": "header",
+      "content": "Location 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "location_2_enabled",
+      "label": "Enable location 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "location_2_type",
+      "label": "Type",
+      "default": "Distributor"
+    },
+    {
+      "type": "text",
+      "id": "location_2_name",
+      "label": "Name",
+      "default": "TOOSA Distribution Center"
+    },
+    {
+      "type": "textarea",
+      "id": "location_2_address",
+      "label": "Address",
+      "default": "456 Commerce Way, Toronto, ON M5H 2N2, Canada"
+    },
+    {
+      "type": "text",
+      "id": "location_2_phone",
+      "label": "Phone",
+      "default": "+1 (416) 555-0200"
+    },
+    {
+      "type": "text",
+      "id": "location_2_email",
+      "label": "Email",
+      "default": "toronto@toosa.ca"
+    },
+    {
+      "type": "text",
+      "id": "location_2_hours",
+      "label": "Hours",
+      "default": "Mon-Fri: 9:00 AM - 5:00 PM"
+    },
+    {
+      "type": "url",
+      "id": "location_2_directions_url",
+      "label": "Directions URL"
+    },
+    {
+      "type": "text",
+      "id": "location_2_latitude",
+      "label": "Latitude"
+    },
+    {
+      "type": "text",
+      "id": "location_2_longitude",
+      "label": "Longitude"
+    },
+    {
+      "type": "header",
+      "content": "Location 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "location_3_enabled",
+      "label": "Enable location 3",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "location_3_type",
+      "label": "Type"
+    },
+    {
+      "type": "text",
+      "id": "location_3_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "location_3_address",
+      "label": "Address"
+    },
+    {
+      "type": "text",
+      "id": "location_3_phone",
+      "label": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "location_3_email",
+      "label": "Email"
+    },
+    {
+      "type": "text",
+      "id": "location_3_hours",
+      "label": "Hours"
+    },
+    {
+      "type": "url",
+      "id": "location_3_directions_url",
+      "label": "Directions URL"
+    },
+    {
+      "type": "text",
+      "id": "location_3_latitude",
+      "label": "Latitude"
+    },
+    {
+      "type": "text",
+      "id": "location_3_longitude",
+      "label": "Longitude"
+    },
+    {
+      "type": "header",
+      "content": "Location 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "location_4_enabled",
+      "label": "Enable location 4",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "location_4_type",
+      "label": "Type"
+    },
+    {
+      "type": "text",
+      "id": "location_4_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "location_4_address",
+      "label": "Address"
+    },
+    {
+      "type": "text",
+      "id": "location_4_phone",
+      "label": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "location_4_email",
+      "label": "Email"
+    },
+    {
+      "type": "text",
+      "id": "location_4_hours",
+      "label": "Hours"
+    },
+    {
+      "type": "url",
+      "id": "location_4_directions_url",
+      "label": "Directions URL"
+    },
+    {
+      "type": "text",
+      "id": "location_4_latitude",
+      "label": "Latitude"
+    },
+    {
+      "type": "text",
+      "id": "location_4_longitude",
+      "label": "Longitude"
+    },
+    {
+      "type": "header",
+      "content": "Location 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "location_5_enabled",
+      "label": "Enable location 5",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "location_5_type",
+      "label": "Type"
+    },
+    {
+      "type": "text",
+      "id": "location_5_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "location_5_address",
+      "label": "Address"
+    },
+    {
+      "type": "text",
+      "id": "location_5_phone",
+      "label": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "location_5_email",
+      "label": "Email"
+    },
+    {
+      "type": "text",
+      "id": "location_5_hours",
+      "label": "Hours"
+    },
+    {
+      "type": "url",
+      "id": "location_5_directions_url",
+      "label": "Directions URL"
+    },
+    {
+      "type": "text",
+      "id": "location_5_latitude",
+      "label": "Latitude"
+    },
+    {
+      "type": "text",
+      "id": "location_5_longitude",
+      "label": "Longitude"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#e6e8eb"
+    },
+    {
+      "type": "color",
+      "id": "card_hover_border_color",
+      "label": "Card hover border",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "location_name_color",
+      "label": "Location name",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "location_text_color",
+      "label": "Location text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "location_name_size",
+      "label": "Location name size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "location_text_size",
+      "label": "Location text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "subheading_spacing",
+      "label": "Subheading spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_spacing",
+      "label": "Card spacing",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_content_spacing",
+      "label": "Card content spacing",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Card border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "badge_border_radius",
+      "label": "Badge border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_text_color",
+      "label": "Text",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_border_color",
+      "label": "Border",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_background",
+      "label": "Hover background",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_border_color",
+      "label": "Hover border",
+      "default": "#1e2a38"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store locations"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,678 @@
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+
+    {% if section.settings.gap %}
+      --theme-recently-viewed-products-gap: var(--theme-gap-{{ section.settings.gap_choice }});
+    {% else %}
+      --theme-recently-viewed-products-gap: 0px;
+    {% endif %}
+
+  }
+{% endstyle %}
+
+
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    {% unless section.settings.fullwidth %}
+      --theme-section-custom-width: {{ section.settings.width | append: 'px' }};
+    {% endunless %}
+
+    --theme-section-content-padding: var(--theme-section-content-padding-{{ section.settings.inset_choice }});
+  }
+{% endstyle %}
+
+{% if section.settings.separator %}
+  {% style %}
+  #shopify-section-{{ section.id }} .separator{
+    --theme-section-separator-width: {{ section.settings.separator_width | append: '%' }};
+
+    {% if section.settings.separator_use_custom_color %}
+      --theme-section-separator-color: {{ section.settings.separator_custom_color }};
+    {% endif %}
+  }
+  {% endstyle %}
+{% endif %}
+
+{% if section.settings.spacing %}
+  {% style %}
+  #shopify-section-{{ section.id }}{
+    
+      {% unless section.settings.spacing_placement == '3' %}
+--theme-section-spacing-top: var(--theme-spacing-{{ section.settings.spacing_choice }});
+{% endunless %}
+{% unless section.settings.spacing_placement == '2' %}
+      --theme-section-spacing-bottom: var(--theme-spacing-{{ section.settings.spacing_choice }});
+{% endunless %}
+
+  }
+  {% endstyle %}
+{% endif %}
+
+
+{% liquid 
+
+  assign section_products_size = search.results.size
+
+  if section_products_size > 4 and section.settings.carousel
+    assign has_carousel = true
+  endif
+
+  assign section_padding_classname = 'has-section-padding'
+  assign color_scheme = section.settings.color_scheme
+
+  for scheme in settings.color_schemes
+    if color_scheme == scheme and scheme.settings.background == blank
+      if scheme.settings.background == blank
+       assign section_padding_classname = 'has-section-padding-on-sides'
+      endif
+    endif
+  endfor
+%}
+
+
+<recently-viewed-products class="section-recently-viewed-products{% liquid 
+
+  if section.settings.fullwidth
+    echo ' has-fullwidth'
+  else
+    echo ' has-custom-width'
+  endif
+
+  echo ' ' | append: section_padding_classname
+
+  echo ' ' | append: section.settings.color_scheme
+
+  if settings.animation_sections
+    echo ' has-animation'
+  endif
+
+%}">
+  <div class="section-recently-viewed-products-container section-container">
+
+    {% if section.settings.text_1 != blank or section.settings.text_2 != blank or section.settings.button_text != blank %}
+      <div class="section-recently-viewed-products-header">
+        {% if section.settings.text_1 != blank or section.settings.text_2 != blank %}
+          <div class="section-recently-viewed-products-header__texts">
+            {% if section.settings.text_1 != blank %}
+              <h2 class="section-recently-viewed-products-header__heading special-heading-size-{{ section.settings.text_1_size }}">{{ section.settings.text_1 }}</h2>
+            {% endif %}
+
+            {% if section.settings.text_1 != blank %}
+              <p class="section-recently-viewed-products-header__description{% liquid 
+                if section.settings.text_2_newline
+                  echo ' has-fullwidth-description'
+                endif
+              %} paragraph-size-{{ section.settings.text_2_size }}">{{ section.settings.text_2 }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if section.settings.button_text != blank %}
+          {% render 'button', 
+              button_text: section.settings.button_text,  
+              button_url: section.settings.button_url,
+              button_style: section.settings.button_style,
+              button_classes: 'section-recently-viewed-products-header__button',
+              button_target: section.settings.button_target
+          %}
+        {% endif %}
+      </div>
+    {% endif %}
+      <div class="section-recently-viewed-products-list{% liquid 
+
+        if has_carousel
+            if section.settings.columns_offset
+                echo ' has-carousel-columns-offset'
+            endif
+
+            echo ' has-carousel splide'
+        endif
+        %}"
+        data-section-id="{{ section.id }}"
+        data-total-count="{{ section.settings.total_count }}"
+        {% liquid 
+
+        if has_carousel 
+
+          assign data_carousel_offset = 'data-columns-offset="' | append: section.settings.columns_offset | append: '"'
+
+          echo data_carousel_offset
+
+        assign data_options = 'data-options={'
+          
+        assign data_options = data_options | append: '"rewind":' | append: section.settings.loop | append: ','
+        assign data_options = data_options | append: '"perMove":"' | append: section.settings.per_move | append: '",'
+        assign data_options = data_options | append: '"perPage":"' | append: 4 | append: '",'
+
+        if section.settings.speed != blank
+          assign data_options = data_options | append: '"speed":"' | append: section.settings.speed | append: '",'
+        endif 
+        if section.settings.interval != blank
+          assign data_options = data_options | append: '"interval":"' | append: section.settings.interval | append: '",'
+        endif 
+        
+        assign data_options = data_options | append: '"autoplay":' | append: section.settings.autoplay | append: ','
+        assign data_options = data_options | append: '"drag":' | append: section.settings.mouse_drag | append: ','
+        assign data_options = data_options | append: '"arrows":' | append: section.settings.arrows | append: ','
+        assign data_options = data_options | append: '"pagination":' | append: section.settings.dots | append: ','
+
+        assign data_options = data_options | append: '"gap":' | append: '"var(--theme-recently-viewed-products-gap)"' | append: ','
+      
+        assign data_options = data_options | append: '"breakpoints":{'
+        assign data_options = data_options | append: '"1700":{'
+        assign data_options = data_options | append: '"perPage":' | append: 3
+        assign data_options = data_options | append: '},'
+        assign data_options = data_options | append: '"768":{'
+        assign data_options = data_options | append: '"perPage":' | append: 2
+        assign data_options = data_options | append: '}'
+        assign data_options = data_options | append: '}' | append: ','
+
+        assign data_options_count = data_options | size | minus: 1
+        assign data_options = data_options | slice: 0, data_options_count
+        assign data_options = data_options | append: '}'
+
+
+        echo data_options
+
+        endif
+
+        %}>
+          {% if search.results != blank %}
+            {% if has_carousel %}
+                {% if section.settings.progress_bar %}
+                    <div class="splide__progress">
+                    <div class="splide__progress-bar"></div>
+                    </div>
+                {% endif %}
+                <div class="splide__arrows">
+                    <button class="splide__arrow splide__arrow--prev">
+                    {% render 'icon-arrow-right' %}
+                    </button>
+                    <button class="splide__arrow splide__arrow--next">
+                    {% render 'icon-arrow-right' %}
+                    </button>
+                </div>
+
+                <div class="splide__track">
+                    <ul class="splide__list">
+            {% endif %}
+            {% for product in search.results %}
+                {% liquid 
+                    assign tag = 'div'
+                    if has_carousel
+                        assign tag = 'li' 
+                    endif 
+                %}
+                <{{ tag }} class="section-recently-viewed-products-product product{% liquid 
+                if has_carousel
+                    echo ' splide__slide'
+                endif 
+
+                %}">
+                {% render 'section-product-processor', product: product, section_settings: section.settings, prefix: 'section-recently-viewed-products-product' %}
+                </{{ tag }}>
+            {% endfor %}
+            {% if has_carousel %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% endif %}
+        </div>
+  </div>
+</recently-viewed-products>
+{% if section.settings.separator %}
+  <div class="section-separator{% liquid 
+echo ' ' | append: section.settings.color_scheme
+ %}"><hr class="separator"></div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Recently viewed products",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Enable fullwidth",
+      "info": "It will allow this section to occupy full width of the viewport if needed.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "min": 500,
+      "max": 2000,
+      "step": 20,
+      "unit": "px",
+      "label": "Width",
+      "default": 1320,
+      "info": "Only applicable, if fullwidth is disabled."
+    },
+
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color scheme"
+    },
+
+    {
+      "type": "select",
+      "id": "inset_choice",
+      "label": "Inner padding level",
+      "options": [
+         {
+          "value": "level-1",
+          "label": "Extra small"
+        },
+         {
+          "value": "level-2",
+          "label": "Small"
+        },
+         {
+          "value": "level-3",
+          "label": "Medium"
+        },
+         {
+          "value": "level-4",
+          "label": "Large"
+        },
+         {
+          "value": "level-5",
+          "label": "Extra large"
+        }
+      ],
+      "default": "level-4"
+    },
+
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text",
+      "default": "Recently viewed"
+    },
+    {
+      "type": "select",
+      "id": "text_1_size",
+      "label": "Size",
+      "options": [
+        {
+          "value": "x-small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+        
+      ],
+      "default": "small"
+    },
+    
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text",
+      "default": "You can display longer (2 lines) description for this section."
+    },
+
+    {
+      "type": "select",
+      "id": "text_2_size",
+      "label": "Size",
+      "options": [
+        {
+          "value": "x-small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "large"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "text_2_newline",
+      "label": "Keep description to new line",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Label",
+      "default": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "URL"
+    },
+    {
+      "type": "select",
+      "id": "button_target",
+      "label": "Target",
+      "options": [
+          {
+            "value": "_self",
+            "label": "Same window"
+          },
+          {
+            "value": "_blank",
+            "label": "New window"
+          }
+      ],
+      "default": "_self",
+      "info": "Only applicable, if button text is not empty."
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        },
+        {
+          "value": "outline-secondary",
+          "label": "Outline secondary"
+        },
+        {
+          "value": "fill-secondary",
+          "label": "Fill secondary"
+        },
+        {
+          "value": "link",
+          "label": "Link"
+        }
+      ],
+      "default": "fill"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "columns_offset",
+      "label": "Columns offset",
+      "info": "Only applicable, if carousel enabled. It will show small portion of next slide products",
+      "default": true
+    },
+    
+    {
+      "type": "number",
+      "id": "total_count",
+      "label": "Maximum products to show",
+      "default": 6
+    },
+    
+    {
+      "type": "checkbox",
+      "id": "gap",
+      "label": "Add gap",
+      "info": "It will add the space between the columns",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "gap_choice",
+      "label": "Gap",
+      "options": [
+        {
+          "value": "level-1",
+          "label": "Tiny"
+        },
+        {
+          "value": "level-2",
+          "label": "Extra small"
+        },
+        {
+          "value": "level-3",
+          "label": "Small"
+        },
+        {
+          "value": "level-4",
+          "label": "Medium"
+        },
+        {
+          "value": "level-5",
+          "label": "Large"
+        },
+        {
+          "value": "level-6",
+          "label": "Extra large"
+        },
+        {
+          "value": "level-7",
+          "label": "Huge"
+        }
+      ],
+      "default": "level-4",
+      "info": "Set the space between columns."
+    },
+    {
+      "type": "header",
+      "content": "Carousel settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel",
+      "label": "Enable carousel",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "per_move",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Items per move",
+      "info": "Set the number of items to move on each transition.",
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "min": 1000,
+      "max": 9000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Autoplay interval",
+      "default": 4000
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Enable loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "mouse_drag",
+      "label": "Enable mouse drag",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "dots",
+      "label": "Show pagination dots",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 100,
+      "max": 2000,
+      "step": 50,
+      "unit": "ms",
+      "label": "Transition speed",
+      "default": 400
+    },
+
+    {
+      "type": "checkbox",
+      "id": "progress_bar",
+      "label": "Show progress bar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Separator"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "separator",
+      "label": "Show separator",
+      "info": "It will display the underline at the end of the section",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "separator_width",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Width",
+      "default": 100,
+      "info": "Set the width of the separator in percentage."
+    },
+    {
+      "type": "checkbox",
+      "id": "separator_use_custom_color",
+      "label": "Choose custom color",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "separator_custom_color",
+      "label": "Color",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "spacing",
+      "label": "Add margin",
+      "info": "It will add space to the top and bottom of the section",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "spacing_choice",
+      "label": "Level",
+      "options": [
+         {
+          "value": "level-1",
+          "label": "Extra small"
+        },
+         {
+          "value": "level-2",
+          "label": "Small"
+        },
+         {
+          "value": "level-3",
+          "label": "Medium"
+        },
+         {
+          "value": "level-4",
+          "label": "Large"
+        },
+         {
+          "value": "level-5",
+          "label": "Extra large"
+        }
+      ],
+      "default": "level-3"
+    },
+{
+      "type": "select",
+      "id": "spacing_placement",
+      "label": "Placement",
+      "options": [
+        {
+          "value": "1",
+          "label": "Above and below"
+        },
+        {
+          "value": "2",
+          "label": "Above"
+        },
+        {
+          "value": "3",
+          "label": "Below"
+        }
+      ],
+      "default": "1",
+      "info": "Set the placements to display the space above or below the section"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently viewed products"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["*"]
+  }
+}
+{% endschema %}

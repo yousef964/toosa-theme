@@ -1,0 +1,1073 @@
+{% doc %}
+  @prompt
+    Create a fully customizable Shopify Online Store 2.0 section named "Founders Story" that introduces the founders of a brand through a clean editorial-style layout. The design should communicate trust, professionalism, authenticity, and premium quality while remaining lightweight, responsive, SEO-friendly, and easy to customize from the Shopify Theme Editor.
+    
+    The design should closely resemble luxury skincare and premium lifestyle brands with generous white space, refined typography, subtle shadows, and rounded corners. fully custimable with mobile responsive
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-founders-story-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-founders-story-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ block.settings.mobile_padding }}px;
+  }
+
+  .ai-founders-story-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-founders-story-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.eyebrow_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .ai-founders-story-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  .ai-founders-story-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .ai-founders-story-content-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: {{ block.settings.content_gap }}px;
+    margin-top: {{ block.settings.content_spacing }}px;
+  }
+
+  .ai-founders-story-layout-two-column-{{ ai_gen_id }} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ai-founders-story-layout-image-left-{{ ai_gen_id }},
+  .ai-founders-story-layout-image-right-{{ ai_gen_id }} {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  .ai-founders-story-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    box-shadow: {{ block.settings.image_shadow }};
+  }
+
+  .ai-founders-story-layout-image-right-{{ ai_gen_id }} .ai-founders-story-image-wrapper-{{ ai_gen_id }} {
+    order: 2;
+  }
+
+  .ai-founders-story-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-founders-story-image-placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-founders-story-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    opacity: 0.3;
+  }
+
+  .ai-founders-story-text-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.text_padding }}px;
+  }
+
+  .ai-founders-story-layout-image-right-{{ ai_gen_id }} .ai-founders-story-text-content-{{ ai_gen_id }} {
+    order: 1;
+  }
+
+  .ai-founders-story-founder-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.founder_name_size }}px;
+    color: {{ block.settings.founder_name_color }};
+    margin: 0 0 8px;
+    font-weight: 400;
+  }
+
+  .ai-founders-story-founder-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.founder_title_size }}px;
+    color: {{ block.settings.founder_title_color }};
+    margin: 0 0 {{ block.settings.founder_title_spacing }}px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+  }
+
+  .ai-founders-story-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: {{ block.settings.description_line_height }};
+    margin-bottom: {{ block.settings.description_spacing }}px;
+  }
+
+  .ai-founders-story-description-{{ ai_gen_id }} p {
+    margin: 0 0 20px;
+  }
+
+  .ai-founders-story-description-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-founders-story-quote-{{ ai_gen_id }} {
+    font-size: {{ block.settings.quote_size }}px;
+    color: {{ block.settings.quote_color }};
+    font-style: italic;
+    line-height: 1.6;
+    padding: {{ block.settings.quote_padding }}px;
+    border-left: {{ block.settings.quote_border_width }}px solid {{ block.settings.quote_border_color }};
+    margin: {{ block.settings.quote_spacing }}px 0;
+    background-color: {{ block.settings.quote_background }};
+    border-radius: {{ block.settings.quote_border_radius }}px;
+  }
+
+  .ai-founders-story-signature-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.signature_spacing }}px;
+  }
+
+  .ai-founders-story-signature-image-{{ ai_gen_id }} {
+    max-width: {{ block.settings.signature_width }}px;
+    height: auto;
+    display: block;
+  }
+
+  .ai-founders-story-cta-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.cta_spacing }}px;
+  }
+
+  .ai-founders-story-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    font-weight: 400;
+  }
+
+  .ai-founders-story-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-founders-story-container-{{ ai_gen_id }} {
+      padding: 0 {{ block.settings.mobile_padding }}px;
+    }
+
+    .ai-founders-story-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.7);
+    }
+
+    .ai-founders-story-subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.9);
+    }
+
+    .ai-founders-story-layout-two-column-{{ ai_gen_id }},
+    .ai-founders-story-layout-image-left-{{ ai_gen_id }},
+    .ai-founders-story-layout-image-right-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .ai-founders-story-layout-image-right-{{ ai_gen_id }} .ai-founders-story-image-wrapper-{{ ai_gen_id }} {
+      order: 1;
+    }
+
+    .ai-founders-story-layout-image-right-{{ ai_gen_id }} .ai-founders-story-text-content-{{ ai_gen_id }} {
+      order: 2;
+    }
+
+    .ai-founders-story-text-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_text_padding }}px;
+    }
+
+    .ai-founders-story-founder-name-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.founder_name_size }}px * 0.85);
+    }
+
+    .ai-founders-story-description-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.description_size }}px * 0.95);
+    }
+
+    .ai-founders-story-quote-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.quote_size }}px * 0.9);
+      padding: {{ block.settings.mobile_quote_padding }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-founders-story-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_section_padding }}px 0;
+    }
+
+    .ai-founders-story-header-{{ ai_gen_id }} {
+      margin-bottom: {{ block.settings.mobile_header_spacing }}px;
+    }
+
+    .ai-founders-story-content-{{ ai_gen_id }} {
+      margin-top: {{ block.settings.mobile_content_spacing }}px;
+    }
+
+    .ai-founders-story-eyebrow-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.eyebrow_size }}px * 0.9);
+    }
+
+    .ai-founders-story-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.6);
+    }
+  }
+{% endstyle %}
+
+<founders-story-{{ ai_gen_id }} class="ai-founders-story-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-founders-story-container-{{ ai_gen_id }}">
+    {% if block.settings.show_header %}
+      <div class="ai-founders-story-header-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow != blank %}
+          <div class="ai-founders-story-eyebrow-{{ ai_gen_id }}">
+            {{ block.settings.eyebrow }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.title != blank %}
+          <h2 class="ai-founders-story-title-{{ ai_gen_id }}">
+            {{ block.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.subtitle != blank %}
+          <div class="ai-founders-story-subtitle-{{ ai_gen_id }}">
+            {{ block.settings.subtitle }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-founders-story-content-{{ ai_gen_id }} ai-founders-story-layout-{{ block.settings.layout }}-{{ ai_gen_id }}">
+      <div class="ai-founders-story-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.founder_image %}
+          <img
+            src="{{ block.settings.founder_image | image_url: width: 1200 }}"
+            alt="{{ block.settings.founder_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.founder_image.width }}"
+            height="{{ block.settings.founder_image.height }}"
+            class="ai-founders-story-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-founders-story-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-founders-story-text-content-{{ ai_gen_id }}">
+        {% if block.settings.founder_name != blank %}
+          <h3 class="ai-founders-story-founder-name-{{ ai_gen_id }}">
+            {{ block.settings.founder_name }}
+          </h3>
+        {% endif %}
+
+        {% if block.settings.founder_title != blank %}
+          <div class="ai-founders-story-founder-title-{{ ai_gen_id }}">
+            {{ block.settings.founder_title }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-founders-story-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_quote and block.settings.quote != blank %}
+          <blockquote class="ai-founders-story-quote-{{ ai_gen_id }}">
+            {{ block.settings.quote }}
+          </blockquote>
+        {% endif %}
+
+        {% if block.settings.show_signature and block.settings.signature_image %}
+          <div class="ai-founders-story-signature-{{ ai_gen_id }}">
+            <img
+              src="{{ block.settings.signature_image | image_url: width: 400 }}"
+              alt="Signature"
+              loading="lazy"
+              class="ai-founders-story-signature-image-{{ ai_gen_id }}"
+            >
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_cta and block.settings.cta_text != blank %}
+          <div class="ai-founders-story-cta-{{ ai_gen_id }}">
+            <a
+              href="{{ block.settings.cta_link }}"
+              class="ai-founders-story-button-{{ ai_gen_id }}"
+            >
+              {{ block.settings.cta_text }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</founders-story-{{ ai_gen_id }}>
+
+{% schema %}
+{
+  "name": "Founders story",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout style",
+      "options": [
+        {
+          "value": "image-left",
+          "label": "Image left"
+        },
+        {
+          "value": "image-right",
+          "label": "Image right"
+        },
+        {
+          "value": "two-column",
+          "label": "Two column"
+        }
+      ],
+      "default": "image-left"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show section header",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Story"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Meet the Founders"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Discover the passion and vision behind our brand</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Founder details"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder image"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "4/5",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "16/9",
+          "label": "Landscape (16:9)"
+        }
+      ],
+      "default": "4/5"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "founder_name",
+      "label": "Founder name",
+      "default": "Jane & John Doe"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "founder_title",
+      "label": "Founder title",
+      "default": "Co-Founders"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Story description",
+      "default": "<p>Our journey began with a simple belief: that beauty should be both luxurious and sustainable. With over 20 years of combined experience in skincare and wellness, we set out to create products that honor both your skin and the planet.</p><p>Every formula is crafted with intention, using only the finest natural ingredients sourced ethically from around the world. We believe in transparency, quality, and the transformative power of self-care.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Quote"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quote",
+      "label": "Show quote",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "quote",
+      "label": "Quote text",
+      "default": "<p>We believe that true beauty comes from nurturing yourself with products that are as kind to your skin as they are to the earth.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Signature"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signature",
+      "label": "Show signature",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "signature_image",
+      "label": "Signature image"
+    },
+    {
+      "type": "range",
+      "id": "signature_width",
+      "label": "Signature width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Explore Our Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "founder_name_color",
+      "label": "Founder name",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "founder_title_color",
+      "label": "Founder title",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote text",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "quote_background",
+      "label": "Quote background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "quote_border_color",
+      "label": "Quote border",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "founder_name_size",
+      "label": "Founder name size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "founder_title_size",
+      "label": "Founder title size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "quote_size",
+      "label": "Quote size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "label": "Description line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.7
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Title spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "label": "Content spacing",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "founder_title_spacing",
+      "label": "Founder title spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "description_spacing",
+      "label": "Description spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "quote_spacing",
+      "label": "Quote spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "signature_spacing",
+      "label": "Signature spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "cta_spacing",
+      "label": "Button spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "label": "Text padding",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding",
+      "label": "Mobile side padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_padding",
+      "label": "Mobile text padding",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_padding",
+      "label": "Mobile section padding",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_header_spacing",
+      "label": "Mobile header spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_spacing",
+      "label": "Mobile content spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Button spacing"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Vertical padding",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Image style"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "image_shadow",
+      "label": "Shadow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "0 2px 8px rgba(0,0,0,0.08)",
+          "label": "Subtle"
+        },
+        {
+          "value": "0 4px 16px rgba(0,0,0,0.12)",
+          "label": "Medium"
+        },
+        {
+          "value": "0 8px 24px rgba(0,0,0,0.16)",
+          "label": "Strong"
+        }
+      ],
+      "default": "0 4px 16px rgba(0,0,0,0.12)"
+    },
+    {
+      "type": "header",
+      "content": "Quote style"
+    },
+    {
+      "type": "range",
+      "id": "quote_padding",
+      "label": "Padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "mobile_quote_padding",
+      "label": "Mobile padding",
+      "min": 10,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "quote_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "quote_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Founders story"
+    }
+  ]
+}
+{% endschema %}

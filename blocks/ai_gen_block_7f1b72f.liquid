@@ -1,0 +1,830 @@
+{% doc %}
+  @prompt
+    Create a premium, modern, and conversion-focused Mission & Vision section for the TOOSA About Us page. The design should communicate the company's purpose, values, and long-term vision while maintaining a clean industrial aesthetic. The section should be visually engaging with modern cards, subtle animations, premium typography, and excellent readability.
+    
+    The section must be built using Shopify Online Store 2.0, support dynamic content blocks, and be fully customizable through the Theme Editor without editing code.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-mission-vision-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-mission-vision-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-mission-vision-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-mission-vision-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ block.settings.eyebrow_color }};
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .ai-mission-vision-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 20px;
+    line-height: 1.2;
+  }
+
+  .ai-mission-vision-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 auto;
+    max-width: 800px;
+    line-height: 1.6;
+  }
+
+  .ai-mission-vision-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.card_gap }}px;
+    margin-top: {{ block.settings.grid_spacing }}px;
+  }
+
+  .ai-mission-vision-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .ai-mission-vision-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-{{ block.settings.card_hover_lift }}px);
+    box-shadow: 0 {{ block.settings.card_hover_lift | times: 2 }}px {{ block.settings.card_hover_lift | times: 4 }}px rgba(0, 0, 0, {{ block.settings.card_shadow_opacity }});
+    border-color: {{ block.settings.card_border_hover_color }};
+  }
+
+  .ai-mission-vision-card-accent-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: {{ block.settings.accent_width }}px;
+    height: 100%;
+    background-color: {{ block.settings.accent_color }};
+    transition: width 0.3s ease;
+  }
+
+  .ai-mission-vision-card-{{ ai_gen_id }}:hover .ai-mission-vision-card-accent-{{ ai_gen_id }} {
+    width: {{ block.settings.accent_hover_width }}px;
+  }
+
+  .ai-mission-vision-card-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-mission-vision-card-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.icon_background }};
+    border-radius: {{ block.settings.icon_border_radius }}px;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-mission-vision-card-icon-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size | times: 0.5 }}px;
+    height: {{ block.settings.icon_size | times: 0.5 }}px;
+    stroke-width: 2;
+  }
+
+  .ai-mission-vision-card-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: {{ block.settings.label_color }};
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .ai-mission-vision-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.card_title_color }};
+    margin: 0 0 16px;
+    line-height: 1.3;
+  }
+
+  .ai-mission-vision-card-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_description_size }}px;
+    color: {{ block.settings.card_description_color }};
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .ai-mission-vision-card-description-{{ ai_gen_id }} p {
+    margin: 0 0 12px;
+  }
+
+  .ai-mission-vision-card-description-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-mission-vision-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+    }
+
+    .ai-mission-vision-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-mission-vision-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top | times: 0.7 }}px 0 {{ block.settings.padding_bottom | times: 0.7 }}px;
+    }
+
+    .ai-mission-vision-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.card_gap | times: 0.7 }}px;
+    }
+
+    .ai-mission-vision-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-mission-vision-card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.8 }}px;
+    }
+    .ai-mission-vision-card-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    }
+      .ai-mission-vision-card-description-{{ ai_gen_id }} {
+    font-size: 14px;
+      }
+       .ai-mission-vision-subtitle-{{ ai_gen_id }} {
+    font-size: 16px;
+       }
+  }
+{% endstyle %}
+
+<mission-vision-{{ ai_gen_id }} class="ai-mission-vision-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-mission-vision-container-{{ ai_gen_id }}">
+    {% if block.settings.show_header %}
+      <div class="ai-mission-vision-header-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow != blank %}
+          <span class="ai-mission-vision-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</span>
+        {% endif %}
+        
+        {% if block.settings.title != blank %}
+          <h2 class="ai-mission-vision-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+        
+        {% if block.settings.subtitle != blank %}
+          <div class="ai-mission-vision-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-mission-vision-grid-{{ ai_gen_id }}">
+      {% if block.settings.show_mission %}
+        <div class="ai-mission-vision-card-{{ ai_gen_id }}">
+          {% if block.settings.show_accent %}
+            <div class="ai-mission-vision-card-accent-{{ ai_gen_id }}"></div>
+          {% endif %}
+          
+          <div class="ai-mission-vision-card-content-{{ ai_gen_id }}">
+            {% if block.settings.show_icons %}
+              <div class="ai-mission-vision-card-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+            {% endif %}
+
+            {% if block.settings.mission_label != blank %}
+              <span class="ai-mission-vision-card-label-{{ ai_gen_id }}">{{ block.settings.mission_label }}</span>
+            {% endif %}
+
+            {% if block.settings.mission_title != blank %}
+              <h3 class="ai-mission-vision-card-title-{{ ai_gen_id }}">{{ block.settings.mission_title }}</h3>
+            {% endif %}
+
+            {% if block.settings.mission_description != blank %}
+              <div class="ai-mission-vision-card-description-{{ ai_gen_id }}">
+                {{ block.settings.mission_description }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_vision %}
+        <div class="ai-mission-vision-card-{{ ai_gen_id }}">
+          {% if block.settings.show_accent %}
+            <div class="ai-mission-vision-card-accent-{{ ai_gen_id }}"></div>
+          {% endif %}
+          
+          <div class="ai-mission-vision-card-content-{{ ai_gen_id }}">
+            {% if block.settings.show_icons %}
+              <div class="ai-mission-vision-card-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </div>
+            {% endif %}
+
+            {% if block.settings.vision_label != blank %}
+              <span class="ai-mission-vision-card-label-{{ ai_gen_id }}">{{ block.settings.vision_label }}</span>
+            {% endif %}
+
+            {% if block.settings.vision_title != blank %}
+              <h3 class="ai-mission-vision-card-title-{{ ai_gen_id }}">{{ block.settings.vision_title }}</h3>
+            {% endif %}
+
+            {% if block.settings.vision_description != blank %}
+              <div class="ai-mission-vision-card-description-{{ ai_gen_id }}">
+                {{ block.settings.vision_description }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_values %}
+        <div class="ai-mission-vision-card-{{ ai_gen_id }}">
+          {% if block.settings.show_accent %}
+            <div class="ai-mission-vision-card-accent-{{ ai_gen_id }}"></div>
+          {% endif %}
+          
+          <div class="ai-mission-vision-card-content-{{ ai_gen_id }}">
+            {% if block.settings.show_icons %}
+              <div class="ai-mission-vision-card-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+              </div>
+            {% endif %}
+
+            {% if block.settings.values_label != blank %}
+              <span class="ai-mission-vision-card-label-{{ ai_gen_id }}">{{ block.settings.values_label }}</span>
+            {% endif %}
+
+            {% if block.settings.values_title != blank %}
+              <h3 class="ai-mission-vision-card-title-{{ ai_gen_id }}">{{ block.settings.values_title }}</h3>
+            {% endif %}
+
+            {% if block.settings.values_description != blank %}
+              <div class="ai-mission-vision-card-description-{{ ai_gen_id }}">
+                {{ block.settings.values_description }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</mission-vision-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class MissionVision{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.cards = this.querySelectorAll('.ai-mission-vision-card-{{ ai_gen_id }}');
+        this.setupIntersectionObserver();
+      }
+
+      setupIntersectionObserver() {
+        const options = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+              }, index * 100);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, options);
+
+        this.cards.forEach((card) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          observer.observe(card);
+        });
+      }
+    }
+
+    customElements.define('mission-vision-{{ ai_gen_id }}', MissionVision{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Mission & Vision",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Our Purpose"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Mission & Vision"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Driving innovation and excellence in everything we do, while building a sustainable future for our community and industry.</p>"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Mission card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mission",
+      "label": "Show mission card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "mission_label",
+      "label": "Label",
+      "default": "Mission"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "mission_title",
+      "label": "Title",
+      "default": "Empowering Excellence"
+    },
+    {
+      "type": "richtext",
+      "id": "mission_description",
+      "label": "Description",
+      "default": "<p>To deliver exceptional quality and innovative solutions that exceed expectations, while fostering sustainable growth and creating lasting value for our customers and partners.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Vision card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vision",
+      "label": "Show vision card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "vision_label",
+      "label": "Label",
+      "default": "Vision"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "vision_title",
+      "label": "Title",
+      "default": "Leading the Future"
+    },
+    {
+      "type": "richtext",
+      "id": "vision_description",
+      "label": "Description",
+      "default": "<p>To be the industry leader recognized for innovation, quality, and customer-centric solutions that shape the future of our field and inspire positive change.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Values card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_values",
+      "label": "Show values card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "values_label",
+      "label": "Label",
+      "default": "Values"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "values_title",
+      "label": "Title",
+      "default": "Core Principles"
+    },
+    {
+      "type": "richtext",
+      "id": "values_description",
+      "label": "Description",
+      "default": "<p>Integrity, innovation, and excellence guide every decision we make. We believe in transparency, collaboration, and continuous improvement to deliver outstanding results.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "grid_spacing",
+      "label": "Grid spacing",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card gap",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_hover_lift",
+      "label": "Hover lift",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "label": "Shadow opacity",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "header",
+      "content": "Card accent"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_accent",
+      "label": "Show accent bar",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "accent_width",
+      "label": "Accent width",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "accent_hover_width",
+      "label": "Hover width",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icons",
+      "label": "Show icons",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 40,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "label": "Icon border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Card label size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 18,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_description_size",
+      "label": "Card description size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#e6e8eb"
+    },
+    {
+      "type": "color",
+      "id": "card_border_hover_color",
+      "label": "Card border hover",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Card label",
+      "default": "#ff6f3c"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title",
+      "default": "#1e2a38"
+    },
+    {
+      "type": "color",
+      "id": "card_description_color",
+      "label": "Card description",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mission & Vision"
+    }
+  ]
+}
+{% endschema %}

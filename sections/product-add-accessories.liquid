@@ -1,0 +1,1552 @@
+{% comment %}
+  TOOSA - Product Add Accessories
+  Shopify Refine Theme
+  Version: Stable Selection + Slider + Ajax Cart
+
+  Required metafield:
+  product.metafields.custom.accessories
+  Type: List of products
+{% endcomment %}
+
+{% liquid
+  assign current_product = product
+
+  if current_product == blank
+    assign current_product = closest.product
+  endif
+
+  assign accessory_products = current_product.metafields.custom.accessories.value
+%}
+
+{% if accessory_products != blank %}
+
+<section
+  id="TOOSA-AddAccessories-{{ section.id }}"
+  class="toosa-accessories"
+  data-section-id="{{ section.id }}"
+>
+
+  <div class="toosa-accessories__container">
+
+    {% if section.settings.heading != blank or section.settings.description != blank %}
+      <div class="toosa-accessories__header">
+
+        {% if section.settings.heading != blank %}
+          <h2 class="toosa-accessories__heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="toosa-accessories__description">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+      </div>
+    {% endif %}
+
+
+    <div class="toosa-accessories__slider-wrapper">
+
+      <!-- PREVIOUS -->
+      <button
+        type="button"
+        class="toosa-accessories__arrow toosa-accessories__arrow--prev"
+        aria-label="Previous accessories"
+        data-accessories-prev
+      >
+        <span aria-hidden="true">‹</span>
+      </button>
+
+
+      <!-- SLIDER -->
+      <div
+        class="toosa-accessories__slider"
+        data-accessories-slider
+      >
+
+        {% for accessory_product in accessory_products %}
+
+          {% assign accessory_variant = accessory_product.selected_or_first_available_variant %}
+
+          {% if accessory_variant != blank %}
+
+            <div
+              class="toosa-accessory-card{% unless accessory_variant.available %} is-sold-out{% endunless %}"
+              data-accessory-card
+              data-available="{{ accessory_variant.available }}"
+            >
+
+              <div class="toosa-accessory-card__inner">
+
+                <!-- CHECKBOX AREA -->
+                <div class="toosa-accessory-card__checkbox-wrap">
+
+                  <input
+                    type="checkbox"
+                    class="toosa-accessory-card__checkbox"
+                    id="Accessory-{{ section.id }}-{{ forloop.index }}"
+                    data-accessory-checkbox
+                    value="{{ accessory_variant.id }}"
+                    {% unless accessory_variant.available %}
+                      disabled
+                    {% endunless %}
+                  >
+
+                  <label
+                    for="Accessory-{{ section.id }}-{{ forloop.index }}"
+                    class="toosa-accessory-card__checkbox-ui"
+                    aria-label="Select {{ accessory_product.title | escape }}"
+                  >
+                    <span></span>
+                  </label>
+
+                </div>
+
+
+                <!-- PRODUCT IMAGE -->
+                <a
+                  href="{{ accessory_product.url }}"
+                  class="toosa-accessory-card__image-link"
+                >
+
+                  <div class="toosa-accessory-card__image">
+
+                    {% if accessory_product.featured_image != blank %}
+
+                      {{
+                        accessory_product.featured_image
+                        | image_url: width: 700
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '250,350,500,700',
+                          sizes: '(min-width: 990px) 25vw, 50vw',
+                          alt: accessory_product.featured_image.alt
+                        | escape
+                      }}
+
+                    {% else %}
+
+                      {{ 'product-1' | placeholder_svg_tag }}
+
+                    {% endif %}
+
+                  </div>
+
+                </a>
+
+
+                <!-- PRODUCT INFO -->
+                <div class="toosa-accessory-card__content">
+
+                  <a
+                    href="{{ accessory_product.url }}"
+                    class="toosa-accessory-card__title"
+                  >
+                    {{ accessory_product.title }}
+                  </a>
+
+
+                  <div class="toosa-accessory-card__price">
+
+                    {% if accessory_product.compare_at_price_max > accessory_product.price %}
+
+                      <span class="toosa-accessory-card__price-current">
+                        {{ accessory_product.price | money }}
+                      </span>
+
+                      <span class="toosa-accessory-card__price-compare">
+                        {{ accessory_product.compare_at_price_max | money }}
+                      </span>
+
+                    {% else %}
+
+                      <span class="toosa-accessory-card__price-current">
+                        {{ accessory_product.price | money }}
+                      </span>
+
+                    {% endif %}
+
+                  </div>
+
+
+                  {% unless accessory_variant.available %}
+
+                    <div class="toosa-accessory-card__soldout">
+                      Sold out
+                    </div>
+
+                  {% endunless %}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          {% endif %}
+
+        {% endfor %}
+
+      </div>
+
+
+      <!-- NEXT -->
+      <button
+        type="button"
+        class="toosa-accessories__arrow toosa-accessories__arrow--next"
+        aria-label="Next accessories"
+        data-accessories-next
+      >
+        <span aria-hidden="true">›</span>
+      </button>
+
+    </div>
+
+
+    <!-- DOTS -->
+    <div
+      class="toosa-accessories__dots"
+      data-accessories-dots
+      aria-label="Accessory slides"
+    ></div>
+
+
+    <!-- ADD BUTTON -->
+    <div class="toosa-accessories__actions">
+
+      <button
+        type="button"
+        class="toosa-accessories__add-button"
+        data-add-accessories
+        disabled
+      >
+        <span data-add-button-text>
+          Select an accessory
+        </span>
+
+        <span
+          class="toosa-accessories__spinner"
+          data-add-spinner
+          hidden
+        ></span>
+
+      </button>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+    <div
+      class="toosa-accessories__message"
+      data-accessories-message
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<style>
+
+  /* =====================================================
+     MAIN SECTION
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }} {
+    width: 100%;
+    margin: 40px 0;
+    box-sizing: border-box;
+  }
+
+  #TOOSA-AddAccessories-{{ section.id }} *,
+  #TOOSA-AddAccessories-{{ section.id }} *::before,
+  #TOOSA-AddAccessories-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+
+  /* =====================================================
+     HEADER
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__heading {
+    margin: 0 0 8px;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__description {
+    margin: 0 auto;
+    max-width: 700px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+
+  /* =====================================================
+     SLIDER WRAPPER
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__slider-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+
+  /* =====================================================
+     SLIDER
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__slider {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 4px 2px 12px;
+  }
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__slider::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  /* =====================================================
+     CARD
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card {
+    position: relative;
+    flex: 0 0 calc((100% - 54px) / 4);
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    border: 1px solid #dedede;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+
+  /* =====================================================
+     SELECTED CARD
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card.is-selected
+  .toosa-accessory-card__inner {
+    border: 2px solid #222;
+    box-shadow: 0 0 0 1px #222;
+  }
+
+
+  /* =====================================================
+     CHECKBOX
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__checkbox-wrap {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 22px;
+    height: 22px;
+    z-index: 20;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 30;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__checkbox:disabled {
+    cursor: not-allowed;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__checkbox-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #777;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+
+  /* CHECKMARK */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__checkbox-ui span {
+    display: none;
+    width: 6px;
+    height: 11px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+    margin-top: -3px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card.is-selected
+  .toosa-accessory-card__checkbox-ui {
+    background: #222;
+    border-color: #222;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card.is-selected
+  .toosa-accessory-card__checkbox-ui span {
+    display: block;
+  }
+
+
+  /* SOLD OUT CHECKBOX */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card.is-sold-out
+  .toosa-accessory-card__checkbox-ui {
+    background: #eee;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+
+
+  /* =====================================================
+     IMAGE
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__image-link {
+    display: block;
+    text-decoration: none;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f7f7f7;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__image img,
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__image svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__image img {
+    transition: transform 0.3s ease;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card:hover
+  .toosa-accessory-card__image img {
+    transform: scale(1.03);
+  }
+
+
+  /* =====================================================
+     CONTENT
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__content {
+    padding: 14px 14px 18px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__title {
+    display: block;
+    margin: 0 0 8px;
+    color: inherit;
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__title:hover {
+    text-decoration: underline;
+  }
+
+
+  /* =====================================================
+     PRICE
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__price {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__price-current {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__price-compare {
+    font-size: 13px;
+    color: #777;
+    text-decoration: line-through;
+  }
+
+
+  /* =====================================================
+     SOLD OUT
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessory-card__soldout {
+    margin-top: 7px;
+    color: #b00020;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+
+  /* =====================================================
+     ARROWS
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 30;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    border: 1px solid #ddd;
+    border-radius: 50%;
+
+    background: #fff;
+    color: #222;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+    cursor: pointer;
+
+    font-size: 30px;
+    line-height: 1;
+
+    transition:
+      opacity 0.2s ease,
+      background 0.2s ease;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__arrow:hover {
+    background: #f5f5f5;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__arrow span {
+    display: block;
+    line-height: 1;
+    margin-top: -3px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__arrow--prev {
+    left: -20px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__arrow--next {
+    right: -20px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__arrow.is-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+
+  /* =====================================================
+     DOTS
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 12px;
+    min-height: 10px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__dot.is-active {
+    background: #222;
+    transform: scale(1.2);
+  }
+
+
+  /* =====================================================
+     ACTION BUTTON
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__add-button {
+    position: relative;
+
+    min-width: 220px;
+    min-height: 48px;
+
+    padding: 12px 24px;
+
+    border: 1px solid #222;
+    border-radius: 4px;
+
+    background: #222;
+    color: #fff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+      opacity 0.2s ease,
+      background 0.2s ease;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__add-button:hover:not(:disabled) {
+    background: #000;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__add-button:disabled {
+    background: #ddd;
+    border-color: #ddd;
+    color: #777;
+    cursor: not-allowed;
+  }
+
+
+  /* =====================================================
+     SPINNER
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__spinner {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-left: 8px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: toosaAccessoriesSpin 0.7s linear infinite;
+    vertical-align: middle;
+  }
+
+
+  @keyframes toosaAccessoriesSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  /* =====================================================
+     MESSAGE
+  ===================================================== */
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__message {
+    min-height: 20px;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__message.is-success {
+    color: #1a7f37;
+  }
+
+
+  #TOOSA-AddAccessories-{{ section.id }}
+  .toosa-accessories__message.is-error {
+    color: #b00020;
+  }
+
+
+  /* =====================================================
+     TABLET
+  ===================================================== */
+
+  @media screen and (max-width: 989px) {
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessory-card {
+      flex: 0 0 calc((100% - 18px) / 2);
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__arrow--prev {
+      left: 5px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__arrow--next {
+      right: 5px;
+    }
+
+  }
+
+
+  /* =====================================================
+     MOBILE
+  ===================================================== */
+
+  @media screen and (max-width: 749px) {
+
+    #TOOSA-AddAccessories-{{ section.id }} {
+      margin: 30px 0;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__container {
+      padding: 0 14px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__header {
+      margin-bottom: 20px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__heading {
+      font-size: 23px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__description {
+      font-size: 14px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__slider {
+      gap: 12px;
+      padding-left: 1px;
+      padding-right: 1px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessory-card {
+      flex: 0 0 calc((100% - 12px) / 2);
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessory-card__content {
+      padding: 10px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessory-card__title {
+      font-size: 13px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessory-card__price-current {
+      font-size: 14px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessory-card__price-compare {
+      font-size: 12px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__arrow {
+      width: 36px;
+      height: 36px;
+      font-size: 26px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__arrow--prev {
+      left: 2px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__arrow--next {
+      right: 2px;
+    }
+
+    #TOOSA-AddAccessories-{{ section.id }}
+    .toosa-accessories__add-button {
+      width: 100%;
+      min-width: 0;
+    }
+
+  }
+
+</style>
+
+
+<script>
+
+  (function() {
+
+    'use strict';
+
+
+    /* =====================================================
+       SECTION
+    ===================================================== */
+
+    const section = document.getElementById(
+      'TOOSA-AddAccessories-{{ section.id }}'
+    );
+
+    if (!section) return;
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const slider = section.querySelector(
+      '[data-accessories-slider]'
+    );
+
+    const cards = Array.from(
+      section.querySelectorAll('[data-accessory-card]')
+    );
+
+    const checkboxes = Array.from(
+      section.querySelectorAll('[data-accessory-checkbox]')
+    );
+
+    const prevButton = section.querySelector(
+      '[data-accessories-prev]'
+    );
+
+    const nextButton = section.querySelector(
+      '[data-accessories-next]'
+    );
+
+    const dotsContainer = section.querySelector(
+      '[data-accessories-dots]'
+    );
+
+    const addButton = section.querySelector(
+      '[data-add-accessories]'
+    );
+
+    const addButtonText = section.querySelector(
+      '[data-add-button-text]'
+    );
+
+    const spinner = section.querySelector(
+      '[data-add-spinner]'
+    );
+
+    const message = section.querySelector(
+      '[data-accessories-message]'
+    );
+
+
+    if (!slider || !addButton) return;
+
+
+    /* =====================================================
+       SELECTED STATE
+    ===================================================== */
+
+    function getSelectedCheckboxes() {
+
+      return checkboxes.filter(function(checkbox) {
+
+        return (
+          checkbox.checked &&
+          !checkbox.disabled
+        );
+
+      });
+
+    }
+
+
+    function updateButton() {
+
+      const selected = getSelectedCheckboxes();
+
+      if (selected.length > 0) {
+
+        addButton.disabled = false;
+
+        addButtonText.textContent =
+          selected.length === 1
+            ? 'Add selected to cart'
+            : 'Add ' + selected.length + ' accessories to cart';
+
+      } else {
+
+        addButton.disabled = true;
+
+        addButtonText.textContent =
+          'Select an accessory';
+
+      }
+
+    }
+
+
+    /* =====================================================
+       CHECKBOX CHANGE
+       IMPORTANT:
+       NO CARD CLICK EVENT
+       ===================================================== */
+
+    checkboxes.forEach(function(checkbox) {
+
+      checkbox.addEventListener('change', function() {
+
+        const card = checkbox.closest(
+          '[data-accessory-card]'
+        );
+
+        if (card) {
+
+          card.classList.toggle(
+            'is-selected',
+            checkbox.checked
+          );
+
+        }
+
+        updateButton();
+
+      });
+
+    });
+
+
+    /* =====================================================
+       SLIDER
+    ===================================================== */
+
+    function getScrollAmount() {
+
+      const firstCard = cards[0];
+
+      if (!firstCard) {
+        return slider.clientWidth;
+      }
+
+      const cardWidth =
+        firstCard.getBoundingClientRect().width;
+
+      const styles =
+        window.getComputedStyle(slider);
+
+      const gap =
+        parseFloat(styles.columnGap || styles.gap || 0);
+
+      return cardWidth + gap;
+
+    }
+
+
+    function updateArrowState() {
+
+      const maxScroll =
+        slider.scrollWidth - slider.clientWidth;
+
+      if (prevButton) {
+
+        if (slider.scrollLeft <= 5) {
+
+          prevButton.classList.add('is-disabled');
+
+        } else {
+
+          prevButton.classList.remove('is-disabled');
+
+        }
+
+      }
+
+
+      if (nextButton) {
+
+        if (slider.scrollLeft >= maxScroll - 5) {
+
+          nextButton.classList.add('is-disabled');
+
+        } else {
+
+          nextButton.classList.remove('is-disabled');
+
+        }
+
+      }
+
+    }
+
+
+    if (prevButton) {
+
+      prevButton.addEventListener(
+        'click',
+        function() {
+
+          slider.scrollBy({
+            left: -getScrollAmount(),
+            behavior: 'smooth'
+          });
+
+        }
+      );
+
+    }
+
+
+    if (nextButton) {
+
+      nextButton.addEventListener(
+        'click',
+        function() {
+
+          slider.scrollBy({
+            left: getScrollAmount(),
+            behavior: 'smooth'
+          });
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       DOTS
+    ===================================================== */
+
+    function createDots() {
+
+      if (!dotsContainer) return;
+
+      dotsContainer.innerHTML = '';
+
+      if (cards.length <= 1) {
+        return;
+      }
+
+      const cardWidth =
+        cards[0].getBoundingClientRect().width;
+
+      const gap =
+        parseFloat(
+          window.getComputedStyle(slider).gap
+        ) || 0;
+
+      const step =
+        cardWidth + gap;
+
+      const totalPages =
+        Math.max(
+          1,
+          Math.ceil(
+            (slider.scrollWidth - slider.clientWidth) / step
+          ) + 1
+        );
+
+      const pageCount =
+        Math.min(totalPages, cards.length);
+
+      for (
+        let i = 0;
+        i < pageCount;
+        i++
+      ) {
+
+        const dot =
+          document.createElement('button');
+
+        dot.type = 'button';
+
+        dot.className =
+          'toosa-accessories__dot';
+
+        dot.setAttribute(
+          'aria-label',
+          'Go to accessory slide ' + (i + 1)
+        );
+
+        dot.addEventListener(
+          'click',
+          function() {
+
+            slider.scrollTo({
+              left: i * step,
+              behavior: 'smooth'
+            });
+
+          }
+        );
+
+        dotsContainer.appendChild(dot);
+
+      }
+
+      updateDots();
+
+    }
+
+
+    function updateDots() {
+
+      if (!dotsContainer) return;
+
+      const dots =
+        Array.from(
+          dotsContainer.children
+        );
+
+      if (!dots.length || !cards.length) {
+        return;
+      }
+
+      const firstCard =
+        cards[0];
+
+      const cardWidth =
+        firstCard.getBoundingClientRect().width;
+
+      const gap =
+        parseFloat(
+          window.getComputedStyle(slider).gap
+        ) || 0;
+
+      const step =
+        cardWidth + gap;
+
+      let index =
+        Math.round(
+          slider.scrollLeft / step
+        );
+
+      index =
+        Math.max(
+          0,
+          Math.min(
+            index,
+            dots.length - 1
+          )
+        );
+
+      dots.forEach(function(dot, i) {
+
+        dot.classList.toggle(
+          'is-active',
+          i === index
+        );
+
+      });
+
+    }
+
+
+    slider.addEventListener(
+      'scroll',
+      function() {
+
+        updateArrowState();
+        updateDots();
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /* =====================================================
+       ADD SELECTED ACCESSORIES
+    ===================================================== */
+
+    addButton.addEventListener(
+      'click',
+      async function() {
+
+        const selected =
+          getSelectedCheckboxes();
+
+        if (!selected.length) {
+          return;
+        }
+
+
+        /* Disable button */
+
+        addButton.disabled = true;
+
+        addButtonText.textContent =
+          'Adding...';
+
+        if (spinner) {
+          spinner.hidden = false;
+        }
+
+        if (message) {
+
+          message.textContent = '';
+
+          message.classList.remove(
+            'is-success',
+            'is-error'
+          );
+
+        }
+
+
+        /* Build Shopify items */
+
+        const items =
+          selected.map(function(checkbox) {
+
+            return {
+              id: Number(checkbox.value),
+              quantity: 1
+            };
+
+          });
+
+
+        try {
+
+          const response =
+            await fetch(
+              window.Shopify.routes.root +
+              'cart/add.js',
+              {
+                method: 'POST',
+
+                headers: {
+                  'Content-Type':
+                    'application/json',
+
+                  'Accept':
+                    'application/json'
+                },
+
+                body: JSON.stringify({
+                  items: items
+                })
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.description ||
+              data.message ||
+              'Unable to add accessories to cart.'
+            );
+
+          }
+
+
+          /* Success */
+
+          if (message) {
+
+            message.textContent =
+              'Selected accessories added to cart.';
+
+            message.classList.add(
+              'is-success'
+            );
+
+          }
+
+
+          /*
+            Clear selected checkboxes
+          */
+
+          selected.forEach(
+            function(checkbox) {
+
+              checkbox.checked = false;
+
+              const card =
+                checkbox.closest(
+                  '[data-accessory-card]'
+                );
+
+              if (card) {
+
+                card.classList.remove(
+                  'is-selected'
+                );
+
+              }
+
+            }
+          );
+
+
+          /*
+            Update button
+          */
+
+          updateButton();
+
+
+          /*
+            Redirect to cart.
+            This is reliable across Refine/theme
+            cart implementations.
+          */
+
+          window.location.href =
+            window.Shopify.routes.root +
+            'cart';
+
+
+        } catch (error) {
+
+          console.error(
+            'TOOSA accessories error:',
+            error
+          );
+
+
+          if (message) {
+
+            message.textContent =
+              error.message ||
+              'Something went wrong. Please try again.';
+
+            message.classList.add(
+              'is-error'
+            );
+
+          }
+
+
+          updateButton();
+
+        } finally {
+
+          if (spinner) {
+            spinner.hidden = true;
+          }
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    function initialize() {
+
+      updateButton();
+
+      createDots();
+
+      updateArrowState();
+
+      updateDots();
+
+    }
+
+
+    initialize();
+
+
+    /* =====================================================
+       RESIZE
+    ===================================================== */
+
+    let resizeTimer;
+
+    window.addEventListener(
+      'resize',
+      function() {
+
+        clearTimeout(resizeTimer);
+
+        resizeTimer =
+          setTimeout(function() {
+
+            createDots();
+
+            updateArrowState();
+
+            updateDots();
+
+          }, 150);
+
+      }
+    );
+
+
+  })();
+
+</script>
+
+   {% endif %}
+{% schema %}
+
+{
+  "name": "Add Accessories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Add Accessories"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Add Accessories"
+    }
+  ]
+}
+
+{% endschema %}

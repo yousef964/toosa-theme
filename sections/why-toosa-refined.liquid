@@ -1,0 +1,285 @@
+{% comment %}
+  WHY TOOSA
+  Refine Theme - Responsive Section
+{% endcomment %}
+
+<section
+  id="WhyToosa-{{ section.id }}"
+  class="why-toosa-section"
+  style="
+    --why-bg: {{ section.settings.background_color }};
+    --why-label: {{ section.settings.label_color }};
+    --why-heading: {{ section.settings.heading_color }};
+    --why-text: {{ section.settings.text_color }};
+    --why-max-width: {{ section.settings.content_width }}px;
+    --why-padding-top: {{ section.settings.padding_top }}px;
+    --why-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="why-toosa__container">
+
+    {% if section.settings.label != blank %}
+      <div class="why-toosa__label">
+        <span class="why-toosa__label-line" aria-hidden="true"></span>
+        <span class="why-toosa__label-text">
+          {{ section.settings.label | escape }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="why-toosa__heading">
+        {{ section.settings.heading | escape | newline_to_br }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <div class="why-toosa__text">
+        {{ section.settings.text }}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #WhyToosa-{{ section.id }} {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--why-bg);
+    color: var(--why-heading);
+    overflow: hidden;
+  }
+
+  #WhyToosa-{{ section.id }},
+  #WhyToosa-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #WhyToosa-{{ section.id }} .why-toosa__container {
+    width: min(
+      calc(100% - 40px),
+      var(--why-max-width)
+    );
+
+    margin: 0 auto;
+
+    padding-top: var(--why-padding-top);
+    padding-bottom: var(--why-padding-bottom);
+  }
+
+  /* ----------------------------------------
+     LABEL
+  ---------------------------------------- */
+
+  #WhyToosa-{{ section.id }} .why-toosa__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0 0 19px;
+    color: var(--why-label);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #WhyToosa-{{ section.id }} .why-toosa__label-line {
+    display: block;
+
+    width: 21px;
+    height: 2px;
+
+    flex: 0 0 21px;
+
+    background: var(--why-label);
+  }
+
+  #WhyToosa-{{ section.id }} .why-toosa__label-text {
+    display: block;
+  }
+
+  /* ----------------------------------------
+     HEADING
+  ---------------------------------------- */
+
+  #WhyToosa-{{ section.id }} .why-toosa__heading {
+    margin: 0 0 17px;
+    padding: 0;
+    color: var(--why-heading);
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  /* ----------------------------------------
+     BODY TEXT
+  ---------------------------------------- */
+
+  #WhyToosa-{{ section.id }} .why-toosa__text {
+    margin: 0;
+    color: var(--why-text);
+    font-size: 18px;
+  }
+
+  #WhyToosa-{{ section.id }} .why-toosa__text p {
+    margin: 0;
+  }
+
+  /* ----------------------------------------
+     LARGE DESKTOP
+  ---------------------------------------- */
+
+  @media screen and (min-width: 1200px) {
+    #WhyToosa-{{ section.id }} .why-toosa__container {
+      width: min(
+        calc(100% - 80px),
+        var(--why-max-width)
+      );
+    }
+
+  }
+
+  /* ----------------------------------------
+     TABLET
+  ---------------------------------------- */
+
+  @media screen and (max-width: 989px) {
+    #WhyToosa-{{ section.id }} .why-toosa__container {
+      width: calc(100% - 64px);
+    }
+  }
+
+  /* ----------------------------------------
+     MOBILE
+  ---------------------------------------- */
+
+  @media screen and (max-width: 749px) {
+    #WhyToosa-{{ section.id }} .why-toosa__container {
+      width: calc(100% - 40px);
+
+      padding-top: 54px;
+      padding-bottom: 54px;
+    }
+
+    #WhyToosa-{{ section.id }} .why-toosa__label {
+      gap: 9px;
+      margin-bottom: 17px;
+      font-size: 14px;
+    }
+
+    #WhyToosa-{{ section.id }} .why-toosa__label-line {
+      width: 19px;
+      height: 2px;
+      flex-basis: 19px;
+    }
+
+    #WhyToosa-{{ section.id }} .why-toosa__heading {
+      max-width: none;
+      margin-bottom: 16px;
+      font-size: 28px;
+    }
+
+    #WhyToosa-{{ section.id }} .why-toosa__text {
+      max-width: none;
+      font-size: 16px;
+    }
+  }
+
+  /* ----------------------------------------
+     SMALL MOBILE
+  ---------------------------------------- */
+
+  @media screen and (max-width: 390px) {
+    #WhyToosa-{{ section.id }} .why-toosa__container {
+      width: calc(100% - 32px);
+
+      padding-top: 46px;
+      padding-bottom: 46px;
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "tool Why TOOSA",
+  "tag": "section",
+  "class": "why-toosa-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Small label",
+      "default": "WHY TOOSA"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built to last. Priced for real workshops. Backed by people who answer the phone."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Canadians outfitting a garage or a shop are usually choosing between two extremes: a Snap-on truck at premium prices, or an unverified import box from a marketplace like Temu. TOOSA exists for the workshop in between — commercial-grade tool storage, air and organization, at a price a real business or homeowner can justify, with a Canadian team and a showroom behind it.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#1D2A39"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label / accent color",
+      "default": "#FF5A36"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#F3F4F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#9CAABA"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 500,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "tool Why TOOSA"
+    }
+  ]
+}
+{% endschema %}

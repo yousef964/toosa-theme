@@ -1,0 +1,945 @@
+{% comment %}
+  TOOSA / Refine Theme
+  Workshop Hero Section
+  Responsive OS 2.0 Section
+{% endcomment %}
+
+<section
+  id="WorkshopHero-{{ section.id }}"
+  class="workshop-hero"
+  style="
+    --wh-bg: {{ section.settings.background_color }};
+    --wh-text: {{ section.settings.text_color }};
+    --wh-muted: {{ section.settings.muted_color }};
+    --wh-accent: {{ section.settings.accent_color }};
+    --wh-border: {{ section.settings.border_color }};
+    --wh-button-text: {{ section.settings.button_text_color }};
+    --wh-content-width: {{ section.settings.content_width }}px;
+    --wh-padding-top: {{ section.settings.padding_top }}px;
+    --wh-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="workshop-hero__inner">
+
+    <div class="workshop-hero__content">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="workshop-hero__eyebrow">
+          <span class="workshop-hero__eyebrow-line"></span>
+          <span>{{ section.settings.eyebrow }}</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="workshop-hero__heading">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="workshop-hero__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_1_label != blank or section.settings.button_2_label != blank %}
+        <div class="workshop-hero__buttons">
+
+          {% if section.settings.button_1_label != blank %}
+            <a
+              href="{{ section.settings.button_1_link | default: '#' }}"
+              class="workshop-hero__button workshop-hero__button--primary"
+            >
+              {{ section.settings.button_1_label }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.button_2_label != blank %}
+            <a
+              href="{{ section.settings.button_2_link | default: '#' }}"
+              class="workshop-hero__button workshop-hero__button--secondary"
+            >
+              {{ section.settings.button_2_label }}
+            </a>
+          {% endif %}
+
+        </div>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="workshop-hero__trust">
+
+          {% for block in section.blocks %}
+            {% if block.type == 'trust_item' %}
+              <div
+                class="workshop-hero__trust-item"
+                {{ block.shopify_attributes }}
+              >
+                {% if block.settings.icon_text != blank %}
+                  <span class="workshop-hero__trust-icon">
+                    {{ block.settings.icon_text }}
+                  </span>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <span class="workshop-hero__trust-text">
+                    {{ block.settings.text }}
+                  </span>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+        </div>
+      {% endif %}
+
+    </div>
+
+    <div class="workshop-hero__visual">
+
+      <div class="workshop-hero__visual-inner">
+
+        {% if section.settings.show_sale_badge and section.settings.sale_text != blank %}
+          <div class="workshop-hero__sale">
+            {{ section.settings.sale_text }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.hero_image != blank %}
+
+          <div class="workshop-hero__image-wrap">
+            {{
+              section.settings.hero_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'eager',
+                widths: '400, 600, 800, 1000, 1200',
+                sizes: '(max-width: 749px) 90vw, 48vw',
+                class: 'workshop-hero__image',
+                alt: section.settings.hero_image.alt | default: section.settings.heading
+            }}
+          </div>
+
+        {% else %}
+
+          <!-- CSS TOOLBOX FALLBACK -->
+          <div class="workshop-toolbox" aria-hidden="true">
+
+            <div class="workshop-toolbox__top">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="workshop-toolbox__handle"></div>
+
+            <div class="workshop-toolbox__body">
+
+              <div class="workshop-toolbox__drawer">
+                <i></i>
+              </div>
+
+              <div class="workshop-toolbox__drawer">
+                <i></i>
+              </div>
+
+              <div class="workshop-toolbox__drawer workshop-toolbox__drawer--small">
+                <i></i>
+              </div>
+
+              <div class="workshop-toolbox__drawer workshop-toolbox__drawer--small">
+                <i></i>
+              </div>
+
+              <div class="workshop-toolbox__drawer">
+                <i></i>
+              </div>
+
+              <div class="workshop-toolbox__drawer">
+                <i></i>
+              </div>
+
+            </div>
+
+            <div class="workshop-toolbox__wheel workshop-toolbox__wheel--left">
+              <span></span>
+            </div>
+
+            <div class="workshop-toolbox__wheel workshop-toolbox__wheel--right">
+              <span></span>
+            </div>
+
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+  #WorkshopHero-{{ section.id }} {
+    width: 100%;
+    background: var(--wh-bg);
+    color: var(--wh-text);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #WorkshopHero-{{ section.id }} * {
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__inner {
+    width: min(100%, var(--wh-content-width));
+    margin: 0 auto;
+    padding:
+      var(--wh-padding-top)
+      40px
+      var(--wh-padding-bottom);
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
+    align-items: center;
+    gap: 50px;
+    min-height: 540px;
+  }
+
+  /* =========================
+     CONTENT
+  ========================= */
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__content {
+    min-width: 0;
+    max-width: 650px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 20px;
+    color: var(--wh-accent);
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__eyebrow-line {
+    width: 21px;
+    height: 2px;
+    flex: 0 0 21px;
+    background: var(--wh-accent);
+    display: inline-block;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__heading {
+    margin: 0;
+    color: var(--wh-text);
+    font-size: clamp(42px, 5vw, 64px);
+    line-height: 0.98;
+    letter-spacing: -2.5px;
+    font-weight: 750;
+    max-width: 680px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__description {
+    margin-top: 21px;
+    max-width: 625px;
+    color: var(--wh-muted);
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: 0;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__description p {
+    margin: 0 0 8px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__description p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* =========================
+     BUTTONS
+  ========================= */
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__button {
+    min-height: 45px;
+    padding: 0 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 700;
+    border-radius: 0;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__button:hover {
+    transform: translateY(-1px);
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__button--primary {
+    background: var(--wh-accent);
+    color: var(--wh-button-text);
+    border: 1px solid var(--wh-accent);
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__button--primary:hover {
+    background: transparent;
+    color: var(--wh-accent);
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__button--secondary {
+    background: transparent;
+    color: var(--wh-text);
+    border: 1px solid var(--wh-border);
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__button--secondary:hover {
+    border-color: var(--wh-accent);
+    color: var(--wh-accent);
+  }
+
+  /* =========================
+     TRUST ROW
+  ========================= */
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__trust {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--wh-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px 22px;
+    max-width: 650px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    color: var(--wh-muted);
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__trust-icon {
+    color: var(--wh-accent);
+    font-size: 11px;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__trust-text strong,
+  #WorkshopHero-{{ section.id }} .workshop-hero__trust-text b {
+    color: var(--wh-text);
+    font-weight: 700;
+  }
+
+  /* =========================
+     VISUAL
+  ========================= */
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__visual {
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__visual-inner {
+    width: min(100%, 490px);
+    min-height: 330px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__sale {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    z-index: 4;
+    width: 68px;
+    min-height: 38px;
+    padding: 7px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--wh-accent);
+    color: #ffffff;
+    font-size: 10px;
+    line-height: 1.15;
+    font-weight: 700;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__image-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-hero__image {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* =========================
+     CSS TOOLBOX
+  ========================= */
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox {
+    width: min(100%, 330px);
+    height: 245px;
+    position: relative;
+    margin-top: 20px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__top {
+    width: 68%;
+    height: 55px;
+    position: absolute;
+    left: 16%;
+    top: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.025);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 10px 14px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__top span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    box-shadow:
+      0 15px rgba(255,255,255,0.08),
+      0 30px rgba(255,255,255,0.08);
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__handle {
+    width: 73%;
+    height: 12px;
+    position: absolute;
+    left: 13.5%;
+    top: 55px;
+    background: #d9dfe3;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__body {
+    width: 68%;
+    height: 157px;
+    position: absolute;
+    left: 16%;
+    top: 72px;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #263645;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 5px;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__drawer {
+    position: relative;
+    min-width: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #293b4b;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__drawer:nth-child(1),
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__drawer:nth-child(2),
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__drawer:nth-child(5),
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__drawer:nth-child(6) {
+    grid-column: span 2;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__drawer i {
+    width: 27%;
+    height: 5px;
+    background: var(--wh-accent);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__drawer--small i {
+    width: 38%;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__wheel {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    border-radius: 50%;
+    background: #101a23;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__wheel span {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--wh-accent);
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__wheel--left {
+    left: 20%;
+  }
+
+  #WorkshopHero-{{ section.id }} .workshop-toolbox__wheel--right {
+    right: 20%;
+  }
+
+  /* =========================
+     TABLET
+  ========================= */
+
+  @media screen and (max-width: 990px) {
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.8fr);
+      gap: 30px;
+      padding-left: 28px;
+      padding-right: 28px;
+      min-height: 500px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__heading {
+      font-size: clamp(38px, 5vw, 52px);
+      letter-spacing: -2px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__description {
+      font-size: 14px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__visual-inner {
+      min-height: 290px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-toolbox {
+      transform: scale(0.9);
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__trust {
+      gap: 8px 15px;
+    }
+  }
+
+  /* =========================
+     MOBILE
+  ========================= */
+
+  @media screen and (max-width: 749px) {
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__inner {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding:
+        calc(var(--wh-padding-top) * 0.72)
+        20px
+        calc(var(--wh-padding-bottom) * 0.72);
+      min-height: 0;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__content {
+      width: 100%;
+      max-width: none;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__eyebrow {
+      margin-bottom: 15px;
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__eyebrow-line {
+      width: 17px;
+      flex-basis: 17px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__heading {
+      max-width: 100%;
+      font-size: clamp(34px, 10vw, 48px);
+      line-height: 1;
+      letter-spacing: -1.8px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__description {
+      margin-top: 17px;
+      max-width: 100%;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__buttons {
+      width: 100%;
+      margin-top: 19px;
+      gap: 9px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__button {
+      min-height: 44px;
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: 11px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__trust {
+      margin-top: 20px;
+      padding-top: 14px;
+      gap: 8px 15px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__trust-item {
+      font-size: 10px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__visual {
+      width: 100%;
+      min-height: 250px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__visual-inner {
+      width: 100%;
+      max-width: 390px;
+      min-height: 245px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__sale {
+      top: 0;
+      right: 4%;
+      width: 62px;
+      min-height: 36px;
+      font-size: 9px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__image {
+      max-width: 100%;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-toolbox {
+      transform: scale(0.82);
+      transform-origin: center center;
+    }
+  }
+
+  /* =========================
+     SMALL MOBILE
+  ========================= */
+
+  @media screen and (max-width: 480px) {
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__inner {
+      padding-left: 16px;
+      padding-right: 16px;
+      gap: 20px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__heading {
+      font-size: clamp(32px, 10.5vw, 42px);
+      letter-spacing: -1.4px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__description {
+      font-size: 12.5px;
+      line-height: 1.58;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__button {
+      width: 100%;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__trust {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 10px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__trust-item {
+      {% comment %} align-items: flex-start; {% endcomment %}
+      font-size: 9.5px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__visual {
+      min-height: 215px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__visual-inner {
+      min-height: 215px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-toolbox {
+      transform: scale(0.68);
+    }
+  }
+
+  /* =========================
+     VERY SMALL DEVICES
+  ========================= */
+
+  @media screen and (max-width: 360px) {
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__inner {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__heading {
+      font-size: 31px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__description {
+      font-size: 12px;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-hero__trust {
+      grid-template-columns: 1fr;
+    }
+
+    #WorkshopHero-{{ section.id }} .workshop-toolbox {
+      transform: scale(0.6);
+    }
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Workshop Hero",
+  "tag": "section",
+  "class": "section-workshop-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "CANADIAN-BUILT MODULAR TOOL STORAGE"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build the workshop you actually want to work in."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>TOOSA modular tool chests, rolling cabinets and workbenches — heavy-gauge welded steel, full-extension ball-bearing drawers and a finish made for daily use. Designed in Canada. Shipped free, coast to coast.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Primary button",
+      "default": "Shop tool storage"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Secondary button",
+      "default": "Book a showroom visit"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Upload the toolbox illustration/product image. If empty, a CSS toolbox illustration is shown."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badge",
+      "label": "Show sale badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sale_text",
+      "label": "Sale badge text",
+      "default": "Flash Sale on now"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1D2A39"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading color",
+      "default": "#F1F3F4"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Description color",
+      "default": "#9DAAB8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#FF653D"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Primary button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#354351"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 1000,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon",
+          "default": "◆"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>4.8 / 5 from 1,000+ Canadian workshops</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Workshop Hero",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_text": "◆",
+            "text": "<p>4.8 / 5 from 1,000+ Canadian workshops</p>"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_text": "◆",
+            "text": "<p>Pay monthly with <strong>RBC</strong></p>"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_text": "◆",
+            "text": "<p>Free shipping &amp; assembly help</p>"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_text": "◆",
+            "text": "<p>See it in person — <strong>Richmond, BC</strong></p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

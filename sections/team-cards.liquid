@@ -1,0 +1,1395 @@
+{% comment %}
+  TOOSA - Our Team
+  Shopify OS 2.0 / Refine Theme
+  No external libraries required.
+{% endcomment %}
+
+<section
+  id="TOOSAOurTeam-{{ section.id }}"
+  class="toosa-team"
+  data-section-id="{{ section.id }}"
+>
+  <div class="toosa-team__bg-shape toosa-team__bg-shape--one"></div>
+  <div class="toosa-team__bg-shape toosa-team__bg-shape--two"></div>
+
+  <div class="toosa-team__container">
+
+    <!-- Header -->
+    <div class="toosa-team__header">
+
+      <div class="toosa-team__heading-wrap">
+        {% if section.settings.heading != blank %}
+          <h2 class="toosa-team__heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+      </div>
+
+      {% if section.settings.description != blank %}
+        <div class="toosa-team__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+    </div>
+
+    {% if section.blocks.size > 0 %}
+
+      <div class="toosa-team__content">
+
+        <!-- Featured Member -->
+        <div class="toosa-team__featured">
+
+          <div class="toosa-team__featured-card">
+
+            <div class="toosa-team__featured-image-wrap">
+              <div class="toosa-team__featured-image-border"></div>
+
+              <div class="toosa-team__featured-image">
+                {% if section.blocks.first.settings.image != blank %}
+                  {{
+                    section.blocks.first.settings.image
+                    | image_url: width: 900
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '400,600,800,900',
+                      sizes: '(min-width: 990px) 360px, 70vw',
+                      alt: section.blocks.first.settings.name
+                  }}
+                {% else %}
+                  <div class="toosa-team__image-placeholder">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="toosa-team__featured-info">
+
+              <h3
+                class="toosa-team__featured-name"
+                data-featured-name
+              >
+                {{ section.blocks.first.settings.name }}
+              </h3>
+
+              <div
+                class="toosa-team__featured-role"
+                data-featured-role
+              >
+                {{ section.blocks.first.settings.designation }}
+              </div>
+
+              <div class="toosa-team__divider"></div>
+
+              <div
+                class="toosa-team__featured-bio"
+                data-featured-bio
+              >
+                {{ section.blocks.first.settings.bio }}
+              </div>
+
+              <div class="toosa-team__socials">
+
+                <a
+                  href="#"
+                  class="toosa-team__social toosa-team__phone"
+                  data-featured-phone
+                  aria-label="Phone"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.62 10.79a15.54 15.54 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.56 3.58.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.19 2.46.56 3.58a1 1 0 0 1-.24 1.01l-2.2 2.2z"/>
+                  </svg>
+                </a>
+
+                <a
+                  href="#"
+                  class="toosa-team__social toosa-team__email"
+                  data-featured-email
+                  aria-label="Email"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </a>
+
+                <a
+                  href="#"
+                  class="toosa-team__social toosa-team__linkedin"
+                  data-featured-linkedin
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 3A2 2 0 1 0 5.25 7 2 2 0 0 0 5.25 3zM20.44 13.43c0-3.47-1.85-5.09-4.32-5.09-1.99 0-2.88 1.1-3.38 1.87V8.5H9.36V20h3.38v-6.17c0-1.63.31-3.21 2.33-3.21 1.99 0 2.02 1.86 2.02 3.32V20h3.35v-6.57z"/>
+                  </svg>
+                </a>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Team Grid -->
+        <div class="toosa-team__right">
+
+          <!-- Navigation -->
+          <div class="toosa-team__navigation">
+
+            <button
+              type="button"
+              class="toosa-team__nav toosa-team__nav--next"
+              data-team-next
+              aria-label="Next team member"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="toosa-team__nav toosa-team__nav--prev"
+              data-team-prev
+              aria-label="Previous team member"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+
+          </div>
+
+          <div class="toosa-team__grid">
+
+            {% for block in section.blocks %}
+
+              <button
+                type="button"
+                class="toosa-team__member {% if forloop.first %}is-active{% endif %}"
+                data-team-member
+                data-index="{{ forloop.index0 }}"
+                data-name="{{ block.settings.name | escape }}"
+                data-designation="{{ block.settings.designation | escape }}"
+                data-bio="{{ block.settings.bio | strip_html | escape }}"
+                data-phone="{{ block.settings.phone | escape }}"
+                data-email="{{ block.settings.email | escape }}"
+                data-linkedin="{{ block.settings.linkedin | escape }}"
+                data-image="{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 900 }}{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+
+                <span class="toosa-team__member-image">
+
+                  {% if block.settings.image != blank %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 500
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '250,350,500',
+                        sizes: '(min-width: 990px) 150px, 40vw',
+                        alt: block.settings.name
+                    }}
+                  {% else %}
+                    <span class="toosa-team__member-placeholder">
+                      {{ 'image' | placeholder_svg_tag }}
+                    </span>
+                  {% endif %}
+
+                </span>
+
+                <span class="toosa-team__member-name">
+                  {{ block.settings.name }}
+                </span>
+
+              </button>
+
+            {% endfor %}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    {% else %}
+
+      <div class="toosa-team__empty">
+        Add team member blocks from the Shopify Theme Editor.
+      </div>
+
+    {% endif %}
+
+  </div>
+</section>
+
+
+<style>
+  #TOOSAOurTeam-{{ section.id }} {
+    --team-bg: {{ section.settings.background_color }};
+    --team-accent: {{ section.settings.accent_color }};
+    --team-text: {{ section.settings.text_color }};
+    --team-muted: {{ section.settings.muted_color }};
+    --team-card: {{ section.settings.card_color }};
+    --team-card-border: {{ section.settings.card_border_color }};
+    --team-radius: {{ section.settings.team_card_radius }}px;
+    --team-max-width: {{ section.settings.team_max_width }}px;
+
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 90% 75%,
+        rgba(225, 76, 218, 0.25) 0%,
+        rgba(225, 76, 218, 0) 34%
+      ),
+      linear-gradient(
+        135deg,
+        {{ section.settings.background_color }} 0%,
+        {{ section.settings.background_color_2 }} 100%
+      );
+
+    color: var(--team-text);
+    isolation: isolate;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__container {
+    position: relative;
+    z-index: 2;
+    width: min(
+      calc(100% - 80px),
+      var(--team-max-width)
+    );
+    margin: 0 auto;
+    padding-top: {{ section.settings.team_padding_top }}px;
+    padding-bottom: {{ section.settings.team_padding_bottom }}px;
+  }
+
+  /* Decorative curved background */
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__bg-shape {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__bg-shape--one {
+    width: 850px;
+    height: 600px;
+    right: -250px;
+    bottom: -240px;
+    border-radius: 50% 0 0 0;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(2, 31, 75, 1),
+        rgba(214, 72, 217, 0.04)
+      );
+    transform: rotate(-12deg);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__bg-shape--two {
+    width: 900px;
+    height: 400px;
+    right: -180px;
+    top: 310px;
+    border-radius: 50%;
+    background: rgba(2, 31, 75, 7);
+    transform: rotate(-17deg);
+    filter: blur(1px);
+  }
+
+  /* Header */
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 50%);
+    align-items: start;
+    gap: 60px;
+    margin-bottom: -40px;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__heading {
+    margin: 0;
+    color: var(--team-text);
+    font-size: 36px;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__description {
+  
+    margin-left: auto;
+    padding-top: 4px;
+    color: var(--team-muted);
+    font-size: 18px;
+    text-align: left;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__description p {
+    margin: 0 0 8px;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__description p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Main layout */
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__content {
+    display: grid;
+    grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
+    gap: clamp(55px, 8vw, 30px);
+    align-items: center;
+  }
+
+  /* Featured card */
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-card {
+    position: relative;
+    padding: 31px 32px 28px;
+    border: 1px solid var(--team-card-border);
+    border-radius: var(--team-radius);
+    {% comment %} background:
+      linear-gradient(
+        145deg,
+        rgba(255,255,255,0.075),
+        rgba(255,255,255,0.025)
+      ),
+      var(--team-card); {% endcomment %}
+    box-shadow:
+      0 18px 45px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    backdrop-filter: blur(5px);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-image-wrap {
+    position: relative;
+    width: min(100%, 245px);
+    margin: 0 auto 25px;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-image {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 1 / 0.88;
+    border-radius: 17px;
+    background: #dedede;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-image img,
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-image svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-image-border {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 14px;
+    left: 14px;
+    border: 2px solid var(--team-accent);
+    border-radius: 17px;
+    opacity: 0.85;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-name {
+    margin: 0;
+    color: var(--team-text);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-role {
+    margin-top: 5px;
+    color: rgba(255,255,255,255);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__divider {
+    width: 28px;
+    height: 2px;
+    margin: 20px auto 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,255);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-bio {
+    min-height: 67px;
+    color: rgba(255,255,255,255);
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    color: rgba(255,255,255,255);
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__social:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__social svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  /* Right side */
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__right {
+    position: relative;
+    min-width: 0;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: -108px;
+    right: 0;
+    z-index: 5;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,0.45);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    color: #ffffff;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__nav:hover {
+    border-color: var(--team-accent);
+    background: rgba(255,255,255,0.12);
+    transform: scale(1.04);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__nav svg {
+    width: 23px;
+    height: 23px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__nav--next {
+    border-color: var(--team-accent);
+    background: rgba(190,70,209,0.13);
+    box-shadow: 0 0 22px rgba(212,73,220,0.2);
+  }
+
+  /* Grid */
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(105px, 1fr));
+    column-gap: 28px;
+    row-gap: 30px;
+    padding-right: 65px;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member {
+    appearance: none;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--team-text);
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    aspect-ratio: 1 / 0.9;
+    overflow: visible;
+    border-radius: 17px;
+    background: #dedede;
+    transition:
+      transform 0.25s ease,
+      filter 0.25s ease;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border: 2px solid transparent;
+    border-radius: 17px;
+    pointer-events: none;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image img,
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 17px;
+    object-fit: cover;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member-name {
+    display: block;
+    margin-top: 11px;
+    color: rgba(255,255,255,255);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member:hover .toosa-team__member-image {
+    transform: translateY(-4px);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member.is-active .toosa-team__member-image {
+    transform: translateY(-3px);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member.is-active .toosa-team__member-image::after {
+    border-color: var(--team-accent);
+    box-shadow:
+      0 0 0 4px rgba(194, 73, 214, 0.13),
+      0 0 22px rgba(213, 73, 220, 0.24);
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member.is-active .toosa-team__member-name {
+    color: #ffffff;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__empty {
+    padding: 60px 20px;
+    border: 1px dashed rgba(255,255,255,0.25);
+    border-radius: 18px;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__image-placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__image-placeholder svg,
+  #TOOSAOurTeam-{{ section.id }} .toosa-team__member-placeholder svg {
+    width: 100%;
+    height: 100%;
+    padding: 25%;
+    opacity: 0.35;
+  }
+
+  /* =========================
+     TABLET
+  ========================= */
+
+  @media screen and (max-width: 989px) {
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__header {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 42px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__description {
+      max-width: 650px;
+      margin-left: 0;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__content {
+      grid-template-columns: minmax(280px, 350px) minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__grid {
+      column-gap: 18px;
+      row-gap: 25px;
+      padding-right: 55px;
+    }
+
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__navigation {
+      top: -75px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__nav {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* =========================
+     MOBILE
+  ========================= */
+
+  @media screen and (max-width: 749px) {
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__container {
+      width: calc(100% - 40px);
+      padding-top: {{ section.settings.team_mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.team_mobile_padding_bottom }}px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__header {
+      display: block;
+      margin-bottom: 30px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__heading {
+      font-size: 28px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__description {
+      max-width: 100%;
+      font-size: 16px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__featured {
+      width: 100%;
+    }
+#TOOSAOurTeam-{{ section.id }} .toosa-team__featured-image-border {
+        top: 6px;
+    left: 6px;
+}
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-card {
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-image-wrap {
+      width: 100%;
+      margin-bottom: 23px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-name {
+      font-size: 18px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__featured-bio {
+      min-height: 0;
+      font-size: 14px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__right {
+      width: 100%;
+      padding-top: 40px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__navigation {
+      top: 0;
+      right: 0;
+      flex-direction: row;
+      gap: 8px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__nav {
+      width: 28px;
+      height: 28px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__nav svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 25px 12px;
+      padding-right: 0;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image {
+      max-width: 100%;
+      border-radius: 13px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image img,
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image svg {
+      border-radius: 13px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__member-image::after {
+      border-radius: 13px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__member-name {
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__bg-shape--one {
+      width: 550px;
+      height: 350px;
+      right: -260px;
+      bottom: -140px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__bg-shape--two {
+      width: 600px;
+      height: 280px;
+      right: -250px;
+      top: 450px;
+    }
+  }
+
+  /* Small phones */
+  @media screen and (max-width: 420px) {
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__grid {
+      gap: 23px 9px;
+    }
+
+    #TOOSAOurTeam-{{ section.id }} .toosa-team__member-name {
+      font-size: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    #TOOSAOurTeam-{{ section.id }} *,
+    #TOOSAOurTeam-{{ section.id }} *::before,
+    #TOOSAOurTeam-{{ section.id }} *::after {
+      scroll-behavior: auto !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+
+<script>
+  (function () {
+    'use strict';
+
+    var sectionId = 'TOOSAOurTeam-{{ section.id }}';
+
+    function initTOOSATeam() {
+
+      var section = document.getElementById(sectionId);
+
+      if (!section) {
+        return;
+      }
+
+      if (section.dataset.initialized === 'true') {
+        return;
+      }
+
+      section.dataset.initialized = 'true';
+
+      var members = Array.prototype.slice.call(
+        section.querySelectorAll('[data-team-member]')
+      );
+
+      var nextButton = section.querySelector('[data-team-next]');
+      var prevButton = section.querySelector('[data-team-prev]');
+
+      var featuredName = section.querySelector('[data-featured-name]');
+      var featuredRole = section.querySelector('[data-featured-role]');
+      var featuredBio = section.querySelector('[data-featured-bio]');
+      var featuredImage = section.querySelector('.toosa-team__featured-image');
+
+      var featuredPhone = section.querySelector('[data-featured-phone]');
+      var featuredEmail = section.querySelector('[data-featured-email]');
+      var featuredLinkedin = section.querySelector('[data-featured-linkedin]');
+
+      if (!members.length) {
+        return;
+      }
+
+      var currentIndex = 0;
+
+      function escapeHtml(value) {
+        var div = document.createElement('div');
+        div.textContent = value || '';
+        return div.innerHTML;
+      }
+
+      function updateFeatured(index) {
+
+        if (index < 0) {
+          index = members.length - 1;
+        }
+
+        if (index >= members.length) {
+          index = 0;
+        }
+
+        currentIndex = index;
+
+        var member = members[currentIndex];
+
+        var name = member.getAttribute('data-name') || '';
+        var designation = member.getAttribute('data-designation') || '';
+        var bio = member.getAttribute('data-bio') || '';
+        var phone = member.getAttribute('data-phone') || '';
+        var email = member.getAttribute('data-email') || '';
+        var linkedin = member.getAttribute('data-linkedin') || '';
+        var image = member.getAttribute('data-image') || '';
+
+        if (featuredName) {
+          featuredName.textContent = name;
+        }
+
+        if (featuredRole) {
+          featuredRole.textContent = designation;
+        }
+
+        if (featuredBio) {
+          featuredBio.textContent = bio;
+        }
+
+        if (featuredImage) {
+
+          if (image) {
+
+            featuredImage.innerHTML =
+              '<img src="' +
+              escapeHtml(image) +
+              '" alt="' +
+              escapeHtml(name) +
+              '" loading="lazy">';
+
+          } else {
+
+            featuredImage.innerHTML =
+              '<div class="toosa-team__image-placeholder">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+              '<path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>' +
+              '</svg>' +
+              '</div>';
+
+          }
+        }
+
+        if (featuredPhone) {
+
+          if (phone) {
+            featuredPhone.href = 'tel:' + phone;
+            featuredPhone.style.display = 'inline-flex';
+          } else {
+            featuredPhone.removeAttribute('href');
+            featuredPhone.style.display = 'none';
+          }
+
+        }
+
+        if (featuredEmail) {
+
+          if (email) {
+            featuredEmail.href = 'mailto:' + email;
+            featuredEmail.style.display = 'inline-flex';
+          } else {
+            featuredEmail.removeAttribute('href');
+            featuredEmail.style.display = 'none';
+          }
+
+        }
+
+        if (featuredLinkedin) {
+
+          if (linkedin) {
+            featuredLinkedin.href = linkedin;
+            featuredLinkedin.style.display = 'inline-flex';
+          } else {
+            featuredLinkedin.removeAttribute('href');
+            featuredLinkedin.style.display = 'none';
+          }
+
+        }
+
+        members.forEach(function (item, itemIndex) {
+
+          if (itemIndex === currentIndex) {
+            item.classList.add('is-active');
+            item.setAttribute('aria-current', 'true');
+          } else {
+            item.classList.remove('is-active');
+            item.removeAttribute('aria-current');
+          }
+
+        });
+      }
+
+      members.forEach(function (member, index) {
+
+        member.addEventListener('click', function () {
+          updateFeatured(index);
+        });
+
+      });
+
+      if (nextButton) {
+
+        nextButton.addEventListener('click', function () {
+          updateFeatured(currentIndex + 1);
+        });
+
+      }
+
+      if (prevButton) {
+
+        prevButton.addEventListener('click', function () {
+          updateFeatured(currentIndex - 1);
+        });
+
+      }
+
+      document.addEventListener('keydown', function (event) {
+
+        var activeElement = document.activeElement;
+
+        if (!section.contains(activeElement)) {
+          return;
+        }
+
+        if (event.key === 'ArrowRight') {
+          updateFeatured(currentIndex + 1);
+        }
+
+        if (event.key === 'ArrowLeft') {
+          updateFeatured(currentIndex - 1);
+        }
+
+      });
+
+      updateFeatured(0);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTOOSATeam);
+    } else {
+      initTOOSATeam();
+    }
+
+    document.addEventListener('shopify:section:load', function (event) {
+
+      if (
+        event.detail &&
+        event.detail.sectionId === '{{ section.id }}'
+      ) {
+        initTOOSATeam();
+      }
+
+    });
+
+  })();
+</script>
+
+
+{% schema %}
+{
+  "name": "TOOSA Our Team",
+  "tag": "section",
+  "class": "section-toosa-our-team",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Team"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Meet the people behind the ideas, products and experiences we create.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#28104D"
+    },
+    {
+      "type": "color",
+      "id": "background_color_2",
+      "label": "Background color 2",
+      "default": "#35145E"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#D05ADE"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text color",
+      "default": "#BBAFCA"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Card color",
+      "default": "rgba(255,255,255,0.06)"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "rgba(255,255,255,0.13)"
+    },
+{
+  "type": "header",
+  "content": "Layout"
+},
+{
+  "type": "select",
+  "id": "team_max_width",
+  "label": "Maximum width",
+  "options": [
+    {
+      "value": "1100",
+      "label": "1100px"
+    },
+    {
+      "value": "1200",
+      "label": "1200px"
+    },
+    {
+      "value": "1280",
+      "label": "1280px"
+    },
+    {
+      "value": "1400",
+      "label": "1400px"
+    },
+    {
+      "value": "1500",
+      "label": "1500px"
+    },
+    {
+      "value": "1600",
+      "label": "1600px"
+    }
+  ],
+  "default": "1280"
+},
+{
+  "type": "select",
+  "id": "team_card_radius",
+  "label": "Card radius",
+  "options": [
+    {
+      "value": "0",
+      "label": "0px"
+    },
+    {
+      "value": "10",
+      "label": "10px"
+    },
+    {
+      "value": "15",
+      "label": "15px"
+    },
+    {
+      "value": "20",
+      "label": "20px"
+    },
+    {
+      "value": "25",
+      "label": "25px"
+    },
+    {
+      "value": "30",
+      "label": "30px"
+    }
+  ],
+  "default": "20"
+},
+{
+  "type": "select",
+  "id": "team_padding_top",
+  "label": "Desktop top spacing",
+  "options": [
+    {
+      "value": "40",
+      "label": "40px"
+    },
+    {
+      "value": "50",
+      "label": "50px"
+    },
+    {
+      "value": "60",
+      "label": "60px"
+    },
+    {
+      "value": "70",
+      "label": "70px"
+    },
+    {
+      "value": "80",
+      "label": "80px"
+    },
+    {
+      "value": "100",
+      "label": "100px"
+    }
+  ],
+  "default": "70"
+},
+{
+  "type": "select",
+  "id": "team_padding_bottom",
+  "label": "Desktop bottom spacing",
+  "options": [
+    {
+      "value": "40",
+      "label": "40px"
+    },
+    {
+      "value": "50",
+      "label": "50px"
+    },
+    {
+      "value": "60",
+      "label": "60px"
+    },
+    {
+      "value": "70",
+      "label": "70px"
+    },
+    {
+      "value": "80",
+      "label": "80px"
+    },
+    {
+      "value": "100",
+      "label": "100px"
+    }
+  ],
+  "default": "70"
+},
+{
+  "type": "select",
+  "id": "team_mobile_padding_top",
+  "label": "Mobile top spacing",
+  "options": [
+    {
+      "value": "20",
+      "label": "20px"
+    },
+    {
+      "value": "30",
+      "label": "30px"
+    },
+    {
+      "value": "40",
+      "label": "40px"
+    },
+    {
+      "value": "50",
+      "label": "50px"
+    },
+    {
+      "value": "60",
+      "label": "60px"
+    }
+  ],
+  "default": "40"
+},
+{
+  "type": "select",
+  "id": "team_mobile_padding_bottom",
+  "label": "Mobile bottom spacing",
+  "options": [
+    {
+      "value": "20",
+      "label": "20px"
+    },
+    {
+      "value": "30",
+      "label": "30px"
+    },
+    {
+      "value": "40",
+      "label": "40px"
+    },
+    {
+      "value": "50",
+      "label": "50px"
+    },
+    {
+      "value": "60",
+      "label": "60px"
+    }
+  ],
+  "default": "40"
+}
+  ],
+  "blocks": [
+    {
+      "type": "team_member",
+      "name": "Team member",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Member image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Team Member"
+        },
+        {
+          "type": "text",
+          "id": "designation",
+          "label": "Designation",
+          "default": "Designation"
+        },
+        {
+          "type": "textarea",
+          "id": "bio",
+          "label": "Short description",
+          "default": "Add a short description about this team member."
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "+1 000 000 0000"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "hello@example.com"
+        },
+        {
+          "type": "url",
+          "id": "linkedin",
+          "label": "LinkedIn URL"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "TOOSA Our Team",
+      "blocks": [
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Team Member 1",
+            "designation": "Designation",
+            "bio": "Add a short description about this team member."
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Team Member 2",
+            "designation": "Designation",
+            "bio": "Add a short description about this team member."
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Team Member 3",
+            "designation": "Designation",
+            "bio": "Add a short description about this team member."
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Team Member 4",
+            "designation": "Designation",
+            "bio": "Add a short description about this team member."
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Team Member 5",
+            "designation": "Designation",
+            "bio": "Add a short description about this team member."
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Team Member 6",
+            "designation": "Designation",
+            "bio": "Add a short description about this team member."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

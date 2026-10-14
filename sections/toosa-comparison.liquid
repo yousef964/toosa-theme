@@ -1,0 +1,576 @@
+{% comment %}
+  TOOSA - Honest Comparison / What Actually Happens After You Buy
+  Responsive Shopify section
+{% endcomment %}
+
+<section
+  id="comparison-{{ section.id }}"
+  class="toosa-comparison"
+>
+  <div class="toosa-comparison__inner">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="toosa-comparison__eyebrow">
+        <span></span>
+        {{ section.settings.eyebrow | escape }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="toosa-comparison__heading">
+        {{ section.settings.heading | escape }}
+      </h2>
+    {% endif %}
+
+    <div class="toosa-comparison__table-wrap">
+      <table class="toosa-comparison__table">
+
+        <thead>
+          <tr>
+            <th class="toosa-comparison__feature-head"></th>
+
+            <th class="toosa-comparison__brand-head">
+              {{ section.settings.brand_1 | escape }}
+            </th>
+
+            <th class="toosa-comparison__brand-head">
+              {{ section.settings.brand_2 | escape }}
+            </th>
+
+            <th class="toosa-comparison__brand-head">
+              {{ section.settings.brand_3 | escape }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for block in section.blocks %}
+            <tr {{ block.shopify_attributes }}>
+
+              <th class="toosa-comparison__feature">
+                {{ block.settings.feature | escape }}
+              </th>
+
+              <td class="
+                {% if block.settings.highlight_1 %}
+                  toosa-comparison__highlight
+                {% endif %}
+              ">
+                {{ block.settings.value_1 | escape }}
+              </td>
+
+              <td class="
+                {% if block.settings.highlight_2 %}
+                  toosa-comparison__highlight
+                {% endif %}
+              ">
+                {{ block.settings.value_2 | escape }}
+              </td>
+
+              <td class="
+                {% if block.settings.highlight_3 %}
+                  toosa-comparison__highlight
+                {% endif %}
+              ">
+                {{ block.settings.value_3 | escape }}
+              </td>
+
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #comparison-{{ section.id }} {
+    --tc-bg: {{ section.settings.background_color }};
+    --tc-text: {{ section.settings.text_color }};
+    --tc-muted: {{ section.settings.muted_color }};
+    --tc-accent: {{ section.settings.accent_color }};
+    --tc-border: {{ section.settings.border_color }};
+    --tc-max-width: {{ section.settings.max_width }}px;
+
+    background: var(--tc-bg);
+    color: var(--tc-text);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #comparison-{{ section.id }} *,
+  #comparison-{{ section.id }} *::before,
+  #comparison-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__inner {
+    width: min(
+      calc(100% - {{ section.settings.side_padding }}px),
+      var(--tc-max-width)
+    );
+    margin: 0 auto;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Eyebrow */
+
+  #comparison-{{ section.id }} .toosa-comparison__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 0 12px;
+
+    color: var(--tc-accent);
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 1.45px;
+    text-transform: uppercase;
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__eyebrow span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    flex: 0 0 20px;
+    background: var(--tc-accent);
+  }
+
+  /* Heading */
+
+  #comparison-{{ section.id }} .toosa-comparison__heading {
+    margin: 0 0 32px;
+
+    color: var(--tc-text);
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(27px, 3.05vw, 41px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -1.15px;
+  }
+
+  /* Table wrapper */
+
+  #comparison-{{ section.id }} .toosa-comparison__table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    border: 1px solid var(--tc-border);
+  }
+
+  /* Table */
+
+  #comparison-{{ section.id }} .toosa-comparison__table {
+    width: 100%;
+    min-width: 650px;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    table-layout: fixed;
+
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__table th,
+  #comparison-{{ section.id }} .toosa-comparison__table td {
+    border-bottom: 1px solid var(--tc-border);
+    border-right: 1px solid var(--tc-border);
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__table tr:last-child th,
+  #comparison-{{ section.id }} .toosa-comparison__table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__table th:last-child,
+  #comparison-{{ section.id }} .toosa-comparison__table td:last-child {
+    border-right: 0;
+  }
+
+  /* Column widths */
+
+  #comparison-{{ section.id }} .toosa-comparison__feature-head,
+  #comparison-{{ section.id }} .toosa-comparison__feature {
+    width: 20%;
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__brand-head,
+  #comparison-{{ section.id }} .toosa-comparison__table td {
+    width: 26.666%;
+  }
+
+  /* Header */
+
+  #comparison-{{ section.id }} .toosa-comparison__brand-head {
+    height: 38px;
+    padding: 9px 13px;
+
+    color: var(--tc-text);
+
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__feature-head {
+    padding: 0;
+  }
+
+  /* Body */
+
+  #comparison-{{ section.id }} .toosa-comparison__feature {
+    padding: 11px 13px;
+
+    color: var(--tc-muted);
+
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  #comparison-{{ section.id }} .toosa-comparison__table td {
+    padding: 11px 13px;
+
+    color: var(--tc-muted);
+
+    font-size: 11.5px;
+    font-weight: 400;
+    line-height: 1.35;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  /* Orange highlighted text */
+
+  #comparison-{{ section.id }} .toosa-comparison__highlight {
+    color: var(--tc-accent) !important;
+    font-weight: 700 !important;
+  }
+
+  /* Tablet */
+
+  @media screen and (max-width: 749px) {
+    #comparison-{{ section.id }} .toosa-comparison__inner {
+      width: calc(100% - 32px);
+      padding-top: 44px;
+      padding-bottom: 44px;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__heading {
+      margin-bottom: 24px;
+      font-size: clamp(25px, 7vw, 34px);
+      letter-spacing: -0.8px;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__table-wrap {
+      overflow-x: auto;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__table {
+      min-width: 650px;
+    }
+  }
+
+  /* Mobile */
+
+  @media screen and (max-width: 480px) {
+    #comparison-{{ section.id }} .toosa-comparison__inner {
+      width: calc(100% - 24px);
+      padding-top: 36px;
+      padding-bottom: 36px;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__eyebrow {
+      margin-bottom: 10px;
+      font-size: 9px;
+      letter-spacing: 1.2px;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__eyebrow span {
+      width: 17px;
+      flex-basis: 17px;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__heading {
+      margin-bottom: 20px;
+      font-size: 26px;
+      line-height: 1.12;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__table {
+      min-width: 620px;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__feature,
+    #comparison-{{ section.id }} .toosa-comparison__table td {
+      padding: 10px 11px;
+      font-size: 11px;
+    }
+
+    #comparison-{{ section.id }} .toosa-comparison__brand-head {
+      padding: 8px 11px;
+      font-size: 10.5px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "TOOSA Comparison",
+  "tag": "section",
+  "class": "toosa-comparison-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "BEYOND THE SPEC SHEET"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What actually happens after you buy"
+    },
+    {
+      "type": "text",
+      "id": "brand_1",
+      "label": "Brand 1",
+      "default": "TOOSA"
+    },
+    {
+      "type": "text",
+      "id": "brand_2",
+      "label": "Brand 2",
+      "default": "Snap-on"
+    },
+    {
+      "type": "text",
+      "id": "brand_3",
+      "label": "Brand 3",
+      "default": "Temu"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F4F5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading / header text",
+      "default": "#202D3D"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Body text",
+      "default": "#657383"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#FF4B2B"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Table border",
+      "default": "#DCE1E5"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "side_padding",
+      "label": "Desktop side padding",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_row",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature",
+          "default": "Talk to a real person"
+        },
+        {
+          "type": "text",
+          "id": "value_1",
+          "label": "Brand 1 value",
+          "default": "Yes — phone & showroom"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_1",
+          "label": "Highlight Brand 1",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "value_2",
+          "label": "Brand 2 value",
+          "default": "Yes — dealer route"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_2",
+          "label": "Highlight Brand 2",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "value_3",
+          "label": "Brand 3 value",
+          "default": "Marketplace support only"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_3",
+          "label": "Highlight Brand 3",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TOOSA Comparison",
+      "blocks": [
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Talk to a real person",
+            "value_1": "Yes — phone & showroom",
+            "highlight_1": true,
+            "value_2": "Yes — dealer route",
+            "highlight_2": true,
+            "value_3": "Marketplace support only",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "See it before buying",
+            "value_1": "Richmond, BC showroom",
+            "highlight_1": true,
+            "value_2": "Local dealer truck",
+            "highlight_2": true,
+            "value_3": "Photos & listings only",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Monthly payment plans",
+            "value_1": "Yes, with RBC",
+            "highlight_1": true,
+            "value_2": "Dealer-arranged",
+            "highlight_2": true,
+            "value_3": "No",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Parts & replacements",
+            "value_1": "Kept in stock, Canada",
+            "highlight_1": true,
+            "value_2": "Extensive, via dealer",
+            "highlight_2": true,
+            "value_3": "Rarely available",
+            "highlight_3": false
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Fits a home budget",
+            "value_1": "Yes",
+            "highlight_1": true,
+            "value_2": "Rarely",
+            "highlight_2": false,
+            "value_3": "Yes",
+            "highlight_3": true
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature": "Fits daily commercial use",
+            "value_1": "Yes",
+            "highlight_1": true,
+            "value_2": "Yes",
+            "highlight_2": true,
+            "value_3": "Not designed for it",
+            "highlight_3": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

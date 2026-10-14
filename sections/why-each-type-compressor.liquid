@@ -1,0 +1,603 @@
+{% liquid
+  assign section_id = 'why-compressor-' | append: section.id
+%}
+
+<section
+  id="{{ section_id }}"
+  class="why-compressor-section"
+  style="
+    --wcs-bg: {{ section.settings.background_color }};
+    --wcs-text: {{ section.settings.text_color }};
+    --wcs-muted: {{ section.settings.muted_color }};
+    --wcs-accent: {{ section.settings.accent_color }};
+    --wcs-card-bg: {{ section.settings.card_background }};
+    --wcs-border: {{ section.settings.card_border }};
+    --wcs-max-width: {{ section.settings.max_width }}px;
+    --wcs-top-padding: {{ section.settings.padding_top }}px;
+    --wcs-bottom-padding: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="wcs-container">
+
+    <div class="wcs-header">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="wcs-eyebrow">
+          <span class="wcs-eyebrow-line"></span>
+          <span class="wcs-eyebrow-text">
+            {{ section.settings.eyebrow }}
+          </span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="wcs-heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.intro_text != blank %}
+        <div class="wcs-intro">
+          {{ section.settings.intro_text }}
+        </div>
+      {% endif %}
+
+    </div>
+
+    <div class="wcs-cards">
+
+      {% for block in section.blocks %}
+        <article
+          class="wcs-card"
+          {{ block.shopify_attributes }}
+        >
+
+          {% if block.settings.card_title != blank %}
+            <h3 class="wcs-card-title">
+              {{ block.settings.card_title }}
+            </h3>
+          {% endif %}
+
+          {% if block.settings.card_subtitle != blank %}
+            <div class="wcs-card-subtitle">
+              {{ block.settings.card_subtitle }}
+            </div>
+          {% endif %}
+
+          <div class="wcs-bullets">
+
+            {% if block.settings.bullet_1 != blank %}
+              <div class="wcs-bullet">
+                <span class="wcs-bullet-icon">◆</span>
+                <div class="wcs-bullet-content">
+                  {{ block.settings.bullet_1 }}
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.settings.bullet_2 != blank %}
+              <div class="wcs-bullet">
+                <span class="wcs-bullet-icon">◆</span>
+                <div class="wcs-bullet-content">
+                  {{ block.settings.bullet_2 }}
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.settings.bullet_3 != blank %}
+              <div class="wcs-bullet">
+                <span class="wcs-bullet-icon">◆</span>
+                <div class="wcs-bullet-content">
+                  {{ block.settings.bullet_3 }}
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.settings.bullet_4 != blank %}
+              <div class="wcs-bullet">
+                <span class="wcs-bullet-icon">◆</span>
+                <div class="wcs-bullet-content">
+                  {{ block.settings.bullet_4 }}
+                </div>
+              </div>
+            {% endif %}
+
+          </div>
+
+        </article>
+      {% endfor %}
+
+    </div>
+
+    {% if section.settings.bottom_note != blank %}
+      <div class="wcs-bottom-note">
+        {{ section.settings.bottom_note }}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    width: 100%;
+    background: var(--wcs-bg);
+    color: var(--wcs-text);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  #{{ section_id }},
+  #{{ section_id }} *,
+  #{{ section_id }} *::before,
+  #{{ section_id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #{{ section_id }} .wcs-container {
+    width: 100%;
+    max-width:  min(100% - 80px, var(--wcs-max-width));
+    margin: 0 auto;
+    padding-top: var(--wcs-top-padding);
+    padding-bottom: var(--wcs-bottom-padding);
+    {% comment %} padding-left: 24px;
+    padding-right: 24px; {% endcomment %}
+  }
+
+  /* HEADER */
+
+  #{{ section_id }} .wcs-header {
+    margin-bottom: 35px;
+  }
+
+  #{{ section_id }} .wcs-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #{{ section_id }} .wcs-eyebrow-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    flex: 0 0 20px;
+    background: var(--wcs-accent);
+  }
+
+  #{{ section_id }} .wcs-eyebrow-text {
+    margin: 0;
+    color: var(--wcs-accent);
+    
+  }
+
+  #{{ section_id }} .wcs-heading {
+    margin: 0;
+    color: var(--wcs-text);
+    font-size: 36px;
+  }
+
+  #{{ section_id }} .wcs-intro {
+    margin-top: 14px;
+    color: var(--wcs-muted);
+    font-size: 18px;
+  }
+
+  #{{ section_id }} .wcs-intro p {
+    margin: 0;
+  }
+
+  /* CARDS */
+
+  #{{ section_id }} .wcs-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  #{{ section_id }} .wcs-card {
+    min-width: 0;
+    background: var(--wcs-card-bg);
+    border: 1px solid var(--wcs-border);
+    padding: 30px;
+    {% comment %} min-height: 380px; {% endcomment %}
+        box-shadow: 0 3px 12px #0000001a;
+  }
+ #{{ section_id }} .wcs-card:hover {
+    box-shadow: 0 3px 12px #00000073;
+}
+  #{{ section_id }} .wcs-card-title {
+    margin: 0;
+    color: var(--wcs-text);
+    font-size: 20px;
+    font-weight: 700;
+
+  }
+
+  #{{ section_id }} .wcs-card-subtitle {
+    margin-top: 5px;
+    color: var(--wcs-accent);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  #{{ section_id }} .wcs-bullets {
+    margin-top: 20px;
+  }
+
+  #{{ section_id }} .wcs-bullet {
+    display: grid;
+    grid-template-columns: 10px minmax(0, 1fr);
+    column-gap: 10px;
+    align-items: start;
+    margin-bottom:12px;
+  }
+
+  #{{ section_id }} .wcs-bullet:last-child {
+    margin-bottom: 0;
+  }
+
+  #{{ section_id }} .wcs-bullet-icon {
+    display: block;
+    color: var(--wcs-accent);
+    font-size: 14px;
+    line-height: 1.85;
+    transform: translateY(1px);
+  }
+
+  #{{ section_id }} .wcs-bullet-content {
+    color: var(--wcs-muted);
+    font-size: 16px;
+  }
+
+  #{{ section_id }} .wcs-bullet-content p {
+    margin: 0;
+  }
+
+  #{{ section_id }} .wcs-bullet-content strong,
+  #{{ section_id }} .wcs-bullet-content b {
+    color: var(--wcs-text);
+    font-weight: 700;
+  }
+
+  /* BOTTOM NOTE */
+
+  #{{ section_id }} .wcs-bottom-note {
+    margin-top: 40px;
+    max-width: 100%;
+    color: var(--wcs-muted);
+    font-size: 18px;
+  }
+
+  #{{ section_id }} .wcs-bottom-note p {
+    margin: 0;
+  }
+
+  #{{ section_id }} .wcs-bottom-note strong,
+  #{{ section_id }} .wcs-bottom-note b {
+    color: var(--wcs-text);
+    font-weight: 700;
+  }
+
+  /* LARGE TABLETS */
+
+  @media screen and (max-width: 990px) {
+
+    #{{ section_id }} .wcs-cards {
+      gap: 12px;
+    }
+
+    #{{ section_id }} .wcs-card {
+      padding: 16px;
+    }
+
+  }
+
+  /* TABLET / MOBILE */
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .wcs-container {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+       max-width:  min(100% - 40px, var(--wcs-max-width));
+    }
+
+    #{{ section_id }} .wcs-header {
+      max-width: 100%;
+      margin-bottom: 25px;
+    }
+
+    #{{ section_id }} .wcs-eyebrow {
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    #{{ section_id }} .wcs-heading {
+      font-size: 28px;
+      max-width: 100%;
+    }
+
+    #{{ section_id }} .wcs-intro {
+      margin-top: 12px;
+      font-size: 16px;
+    }
+
+    #{{ section_id }} .wcs-cards {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    #{{ section_id }} .wcs-card {
+      min-height: auto;
+      padding: 30px;
+    }
+
+    #{{ section_id }} .wcs-card-title {
+      font-size: 18px;
+    }
+
+    #{{ section_id }} .wcs-card-subtitle {
+      font-size:14px;
+    }
+
+    #{{ section_id }} .wcs-bullet-content {
+      font-size: 14px;
+    }
+
+    #{{ section_id }} .wcs-bottom-note {
+      margin-top: 30px;
+      font-size: 16px;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Why each type compressor",
+  "tag": "section",
+  "class": "why-each-type-compressor",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHO IT'S FOR"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why each type of shop buys this compressor"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Intro text",
+      "default": "<p>One machine, three very different buyers. Here's the case for each — plus the honest note on power at the end.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "bottom_note",
+      "label": "Bottom note",
+      "default": "<p>A note on power: the 20 HP motor needs <strong>3-phase electricity</strong> — standard in commercial buildings, and available to a home shop with a phase converter. Not sure what you have? Send us your tools, bay count and power supply and we'll confirm it fits before you order.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#F1F3F4"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#DDE1E4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Main text",
+      "default": "#233143"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Secondary text",
+      "default": "#657181"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Orange accent",
+      "default": "#FF6545"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 900,
+      "max": 1500,
+      "step": 10,
+      "unit": "px",
+      "default": 1100
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 65
+    }
+  ],
+  "blocks": [
+    {
+      "type": "buyer_card",
+      "name": "Buyer card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "DIY & serious home garages"
+        },
+        {
+          "type": "text",
+          "id": "card_subtitle",
+          "label": "Card subtitle",
+          "default": "BUILD ONCE, NEVER UPGRADE"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_1",
+          "label": "Bullet 1",
+          "default": "<p><strong>The last compressor you'll buy</strong> — no working up from a pancake to a 60-gallon to a two-stage as the shop grows</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_2",
+          "label": "Bullet 2",
+          "default": "<p><strong>Quiet in an attached garage</strong> — an enclosed rotary screw hums where a piston pump hammers</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_3",
+          "label": "Bullet 3",
+          "default": "<p><strong>Clean, dry air with nothing to add</strong> — the dryer is built in, for paint, plasma and air-tool life</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_4",
+          "label": "Bullet 4",
+          "default": "<p><strong>Never waits</strong> — run a media blaster, DA sander or tire tools without stopping for the tank to catch up</p>"
+        }
+      ]
+    },
+    {
+      "type": "trade_card",
+      "name": "Trade shop card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "Small businesses & trade shops"
+        },
+        {
+          "type": "text",
+          "id": "card_subtitle",
+          "label": "Card subtitle",
+          "default": "ONE MACHINE FOR THE WHOLE SHOP"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_1",
+          "label": "Bullet 1",
+          "default": "<p><strong>Supplies every bay from one unit</strong> — no second compressor when you add a lift or a technician</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_2",
+          "label": "Bullet 2",
+          "default": "<p><strong>Runs all day</strong> — 100% duty cycle avoids the wear that kills piston units in a couple of years</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_3",
+          "label": "Bullet 3",
+          "default": "<p><strong>Consistent finish quality</strong> — the integrated dryer means fewer paint and coating redos</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_4",
+          "label": "Bullet 4",
+          "default": "<p><strong>Monthly payments with RBC</strong> — a manageable business asset, not a cash-flow hit</p>"
+        }
+      ]
+    },
+    {
+      "type": "production_card",
+      "name": "Production card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "Bigger businesses & production"
+        },
+        {
+          "type": "text",
+          "id": "card_subtitle",
+          "label": "Card subtitle",
+          "default": "UPTIME AND COST PER CFM"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_1",
+          "label": "Bullet 1",
+          "default": "<p><strong>Cheaper to run</strong> than banks of piston compressors — more air per horsepower, less energy per CFM</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_2",
+          "label": "Bullet 2",
+          "default": "<p><strong>Keeps the line moving</strong> — continuous duty plus a digital controller with service alerts</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_3",
+          "label": "Bullet 3",
+          "default": "<p><strong>Handles demand spikes</strong> — the 500 L receiver covers blasting and several operators at once</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "bullet_4",
+          "label": "Bullet 4",
+          "default": "<p><strong>Canadian support & parts</strong> — no import lead time when production is down</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Why each type compressor",
+      "blocks": [
+        {
+          "type": "buyer_card"
+        },
+        {
+          "type": "trade_card"
+        },
+        {
+          "type": "production_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

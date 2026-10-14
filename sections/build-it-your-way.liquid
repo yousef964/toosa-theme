@@ -1,0 +1,358 @@
+{% comment %}
+  Build It Your Way - Responsive CTA Section
+  Designed to closely match the supplied reference image.
+{% endcomment %}
+
+<section
+  id="build-it-your-way-{{ section.id }}"
+  class="build-it-way"
+>
+  <div class="build-it-way__inner">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="build-it-way__eyebrow">
+        <span class="build-it-way__eyebrow-line"></span>
+        <span class="build-it-way__eyebrow-text">
+          {{ section.settings.eyebrow | escape }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="build-it-way__heading">
+        {{ section.settings.heading | escape }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <div class="build-it-way__text">
+        {{ section.settings.text }}
+      </div>
+    {% endif %}
+
+    <div class="build-it-way__buttons">
+
+      {% if section.settings.primary_label != blank %}
+        <a
+          href="{{ section.settings.primary_link }}"
+          class="build-it-way__button build-it-way__button--primary"
+        >
+          {{ section.settings.primary_label | escape }}
+        </a>
+      {% endif %}
+
+      {% if section.settings.secondary_label != blank %}
+        <a
+          href="{{ section.settings.secondary_link }}"
+          class="build-it-way__button build-it-way__button--secondary"
+        >
+          {{ section.settings.secondary_label | escape }}
+        </a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #build-it-your-way-{{ section.id }} {
+    --biw-orange: {{ section.settings.background_color }};
+    --biw-text: {{ section.settings.text_color }};
+    --biw-dark: {{ section.settings.primary_button_color }};
+    --biw-border: {{ section.settings.secondary_button_border }};
+    --biw-primary-text: {{ section.settings.primary_button_text }};
+    --biw-secondary-text: {{ section.settings.secondary_button_text }};
+
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--biw-orange);
+    color: var(--biw-text);
+    overflow: hidden;
+  }
+
+  #build-it-your-way-{{ section.id }} *,
+  #build-it-your-way-{{ section.id }} *::before,
+  #build-it-your-way-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__inner {
+    width: 100%;
+    max-width: min(100% - 40px, 1400px);
+    margin: 0 auto;
+    padding: 60px 0px;
+    text-align: center;
+  }
+
+  /* Eyebrow */
+  #build-it-your-way-{{ section.id }} .build-it-way__eyebrow {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    margin: 0 0 14px;
+    text-align: left;
+      font-size: 16px;
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__eyebrow-line {
+    width: 21px;
+    height: 2px;
+    flex: 0 0 21px;
+    background: currentColor;
+    opacity: 0.95;
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__eyebrow-text {
+    {% comment %} font-family: inherit;
+    font-size: 9px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1.35px; {% endcomment %}
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Heading */
+  #build-it-your-way-{{ section.id }} .build-it-way__heading {
+    margin: 0;
+    padding: 0;
+    color: inherit;
+      font-size: 36px;
+    {% comment %} font-family: inherit;
+  
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: -1.25px; {% endcomment %}
+  }
+
+  /* Description */
+  #build-it-your-way-{{ section.id }} .build-it-way__text {
+    max-width: 900px;
+    margin: 3px auto 0;
+    color: inherit;
+      font-size: 18px;
+    {% comment %} font-family: inherit;
+  
+    line-height: 1.55;
+    font-weight: 400; {% endcomment %}
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__text p {
+    margin: 0;
+  }
+
+  /* Buttons */
+  #build-it-your-way-{{ section.id }} .build-it-way__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    margin-top: 21px;
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__button {
+    padding: 12px 22px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0;
+    border: 1px solid transparent;
+font-size: 16px;
+    {% comment %} font-family: inherit;
+    
+    line-height: 1.2;
+    font-weight: 600; {% endcomment %}
+    text-decoration: none;
+    text-align: center;
+
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  /* Primary button */
+  #build-it-your-way-{{ section.id }} .build-it-way__button--primary {
+    background: var(--biw-dark);
+    color: var(--biw-primary-text);
+    border-color: var(--biw-dark);
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__button--primary:hover {
+         background: transparent;
+    border: 1px solid #000;
+        color: #000;
+  }
+
+  /* Secondary button */
+  #build-it-your-way-{{ section.id }} .build-it-way__button--secondary {
+    background: transparent;
+    color: var(--biw-secondary-text);
+    border-color: var(--biw-border);
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__button--secondary:hover {
+         background: transparent;
+    border: 1px solid #000;
+        color: #000;
+  }
+
+  #build-it-your-way-{{ section.id }} .build-it-way__button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  /* Tablet */
+  @media screen and (max-width: 749px) {
+    #build-it-your-way-{{ section.id }} .build-it-way__inner {
+        padding: 60px 10px 60px;
+    }
+#build-it-your-way-{{ section.id }} .build-it-way__heading {
+      font-size: 28px;
+}
+    
+
+    #build-it-your-way-{{ section.id }} .build-it-way__text {
+       font-size: 16px;
+      {% comment %} font-size: 14px; {% endcomment %}
+    }
+     #build-it-your-way-{{ section.id }} .build-it-way__button {
+font-size: 14px;
+padding: 10px 12px;
+     }
+      #build-it-your-way-{{ section.id }} .build-it-way__eyebrow {
+        font-size: 14px;
+      }
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 480px) {
+
+
+    #build-it-your-way-{{ section.id }} .build-it-way__eyebrow {
+      margin-bottom: 13px;
+    }
+{% comment %} 
+    #build-it-your-way-{{ section.id }} .build-it-way__heading {
+      font-size: 29px;
+      line-height: 1.12;
+      letter-spacing: -0.7px;
+    } {% endcomment %}
+
+    #build-it-your-way-{{ section.id }} .build-it-way__text {
+      margin-top: 7px;
+      {% comment %} font-size: 14px;
+      line-height: 1.5; {% endcomment %}
+    }
+
+    #build-it-your-way-{{ section.id }} .build-it-way__buttons {
+      width: 100%;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    #build-it-your-way-{{ section.id }} .build-it-way__button {
+      width: 100%;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Build it your way",
+  "tag": "section",
+  "class": "section-build-it-your-way",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "READY WHEN YOU ARE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build it your way."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Shop the full range online, or book time in the Richmond showroom and spec your<br>setup with our team.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop all tool storage"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Book a showroom visit"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FF6840"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color",
+      "label": "Primary button background",
+      "default": "#182637"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary button border",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Build it your way"
+    }
+  ]
+}
+{% endschema %}

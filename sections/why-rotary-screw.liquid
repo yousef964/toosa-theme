@@ -1,0 +1,401 @@
+{% comment %}
+  WHY ROTARY SCREW
+  Refine Theme - Responsive Comparison Section
+{% endcomment %}
+
+<section
+  id="WhyRotaryScrew-{{ section.id }}"
+  class="wrs-section"
+>
+  <div class="wrs-container">
+
+    {% if section.settings.eyebrow != blank %}
+      <div class="wrs-eyebrow">
+        <span class="wrs-eyebrow-line"></span>
+        <span class="wrs-eyebrow-text">
+          {{ section.settings.eyebrow | escape }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="wrs-heading">
+        {{ section.settings.heading | escape | newline_to_br }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="wrs-description">
+        {{ section.settings.description | escape | newline_to_br }}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="wrs-grid">
+
+        {% for block in section.blocks %}
+          <article
+            class="wrs-card"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.title != blank %}
+              <h3 class="wrs-card-title">
+                {{ block.settings.title | escape }}
+              </h3>
+            {% endif %}
+
+            {% if block.settings.text != blank %}
+              <div class="wrs-card-text">
+                {{ block.settings.text | escape | newline_to_br }}
+              </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #WhyRotaryScrew-{{ section.id }} {
+    --wrs-bg: {{ section.settings.background_color }};
+    --wrs-card-bg: {{ section.settings.card_background }};
+    --wrs-border: {{ section.settings.card_border }};
+    --wrs-heading: {{ section.settings.heading_color }};
+    --wrs-text: {{ section.settings.text_color }};
+    --wrs-accent: {{ section.settings.accent_color }};
+
+    background: var(--wrs-bg);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #WhyRotaryScrew-{{ section.id }},
+  #WhyRotaryScrew-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-container {
+    width: min(
+      calc(100% - 80px),
+      {{ section.settings.max_width }}px
+    );
+
+    margin: 0 auto;
+
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Eyebrow */
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 0 14px;
+
+    color: var(--wrs-accent);
+  }
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-eyebrow-line {
+    display: block;
+
+    width: 20px;
+    height: 1px;
+
+    flex: 0 0 20px;
+
+    background: var(--wrs-accent);
+  }
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-eyebrow-text {
+    display: block;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Main heading */
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-heading {
+    margin: 0;
+    color: var(--wrs-heading);
+    font-size: 36px;
+  }
+
+  /* Description */
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-description {
+    margin-top: 13px;
+    color: var(--wrs-text);
+    font-size: 18px;
+  }
+
+  /* Cards */
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-top: 35px;
+  }
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-card {
+    min-width: 0;
+
+    min-height: 94px;
+
+    padding:30px;
+
+    background: var(--wrs-card-bg);
+
+    border: 1px solid var(--wrs-border);
+
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-card-title {
+    margin: 0 0 5px;
+        margin-bottom: 14px;
+    color: var(--wrs-heading);
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  #WhyRotaryScrew-{{ section.id }} .wrs-card-text {
+    margin: 0;
+    color: var(--wrs-text);
+    font-size: 16px;
+
+  }
+
+  /* Tablet */
+
+  @media screen and (max-width: 749px) {
+   #WhyRotaryScrew-{{ section.id }} .wrs-eyebrow-text {
+      font-size: 14px;
+    }
+    #WhyRotaryScrew-{{ section.id }} .wrs-container {
+      width: calc(100% - 32px);
+  padding-left: 10px;
+        padding-right: 10px;
+      padding-top: 44px;
+      padding-bottom: 44px;
+    }
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-heading {
+      max-width: 100%;
+      font-size: 28px;
+    }
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-description {
+      max-width: 100%;
+
+      margin-top: 12px;
+
+      font-size: 16px;
+    }
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-grid {
+      grid-template-columns: 1fr;
+
+      gap: 12px;
+
+      margin-top: 28px;
+    }
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-card {
+      min-height: auto;
+
+      padding: 30px;
+    }
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-card-title {
+      font-size: 18px;
+    }
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-card-text {
+      font-size: 14px;
+    }
+  }
+
+  /* Small phones */
+
+  @media screen and (max-width: 389px) {
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-eyebrow {
+      margin-bottom: 12px;
+    }
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-grid {
+      margin-top: 24px;
+    }
+  }
+
+  /* Large screens */
+
+  @media screen and (min-width: 1400px) {
+
+    #WhyRotaryScrew-{{ section.id }} .wrs-grid {
+      gap: 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Why rotary screw",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHY ROTARY SCREW"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The difference vs. a\npiston compressor"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Piston (reciprocating) compressors are the value choice for intermittent use. Once air is running for hours at a time, a rotary screw is the tool for the job."
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content width",
+      "min": 700,
+      "max": 1400,
+      "step": 10,
+      "unit": "px",
+      "default": 860
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 68
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F4F5"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card border",
+      "default": "#DDE1E5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#202C3B"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#617080"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FF3B20"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Continuous duty"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "A rotary screw runs 100% of the time without overheating. A piston unit is designed to build pressure and rest — push it and it wears fast."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Why rotary screw",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Continuous duty",
+            "text": "A rotary screw runs 100% of the time without overheating. A piston unit is designed to build pressure and rest — push it and it wears fast."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "More air per horsepower",
+            "text": "Screw compressors deliver more usable CFM for the same motor size, and hold pressure steady instead of cycling up and down."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Clean, dry air built in",
+            "text": "Compressing air makes water. The integrated refrigerated dryer removes it before it reaches your lines — protecting finishes, tools and fittings from rust."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Quieter, and lower running cost",
+            "text": "Enclosed and vibration-isolated, it's quieter than an open piston pump — and the cost per CFM over its life is lower."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

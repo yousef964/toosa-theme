@@ -1,0 +1,669 @@
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  
+  {% unless section.settings.fullwidth %}
+    --theme-section-custom-width: {{ section.settings.width | append: 'px' }};
+  {% endunless %}
+
+  {% if section.settings.inset %}
+    --theme-section-content-padding: var(--theme-section-content-padding-{{ section.settings.inset_choice }});
+  {% endif %}
+
+  {% if section.settings.side_margin_choice != 'level-0' %}
+    --theme-section-side-margin: var(--theme-section-side-margin-{{ section.settings.side_margin_choice }});
+  {% endif %}
+
+}
+{% endstyle %}
+
+
+
+{% style %}
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.height_mobile != 'auto' %}
+      --theme-image-before-after-custom-height-mobile: {{ section.settings.height_mobile | append: 'px' }};
+    {% endif %}
+
+    {% if section.settings.height != 'auto' %}
+      --theme-image-before-after-custom-height-desktop: {{ section.settings.height | append: 'px' }};
+    {% endif %}
+  }
+{% endstyle %}
+
+
+{% if section.settings.separator %}
+  {% style %}
+  #shopify-section-{{ section.id }} .separator{
+    --theme-section-separator-width: {{ section.settings.separator_width | append: '%' }};
+
+    {% if section.settings.separator_use_custom_color %}
+      --theme-section-separator-color: {{ section.settings.separator_custom_color }};
+    {% endif %}
+  }
+  {% endstyle %}
+{% endif %}
+
+{% if section.settings.spacing %}
+  {% style %}
+  #shopify-section-{{ section.id }}{
+    
+      {% unless section.settings.spacing_placement == '3' %}
+--theme-section-spacing-top: var(--theme-spacing-{{ section.settings.spacing_choice }});
+{% endunless %}
+{% unless section.settings.spacing_placement == '2' %}
+      --theme-section-spacing-bottom: var(--theme-spacing-{{ section.settings.spacing_choice }});
+{% endunless %}
+
+  }
+  {% endstyle %}
+{% endif %}
+
+
+<div class="section-image-before-after{% liquid 
+
+  if section.settings.fullwidth
+    echo ' has-fullwidth'
+  else
+    echo ' has-custom-width'
+  endif
+
+  if section.settings.side_margin_choice != 'level-0'
+    echo ' has-side-margin'
+  endif
+
+  if section.settings.inset
+    echo ' has-section-padding'
+  endif
+
+  echo ' ' | append: section.settings.color_scheme
+
+  if settings.animation_sections
+    echo ' has-animation'
+  endif
+  
+%}">
+<div class="section-image-before-after-container section-container">
+    {% if section.settings.text_1 != blank or section.settings.text_2 != blank or section.settings.button_text != blank %}
+        <div class="section-image-before-after-header">
+        {% if section.settings.text_1 != blank or section.settings.text_2 != blank %}
+            <div class="section-image-before-after-header__left">
+            {% if section.settings.text_1 != blank %}
+                <h2 class="section-image-before-after-header__heading heading-size-{{ section.settings.text_1_size }}">{{ section.settings.text_1 }}</h2>
+            {% endif %}
+
+            {% if section.settings.text_2 != blank %}
+                <p class="section-image-before-after-header__description paragraph-size-{{ section.settings.text_2_size }}">{{ section.settings.text_2 }}</p>
+            {% endif %}
+            </div>
+        {% endif %}
+        {% if section.settings.button_text != blank %}
+            {% render 'button', 
+                button_text: section.settings.button_text,  
+                button_url: section.settings.button_url,
+                button_style: section.settings.button_style,
+                button_classes: 'section-image-before-after-button',
+                button_target: section.settings.button_target
+            %}
+        {% endif %}
+        </div>
+    {% endif %}
+    {% if section.blocks != blank %}
+    <before-after class="before-after section-image-before-after-content">
+        <div class="before-after-content">
+            {% for block in section.blocks %}
+                {% if block.type == 'image' %}
+                    <div class="before-after-image{% liquid
+  
+                        echo ' ' | append: block.settings.color_scheme
+
+                        %} block-{{ block.id }}" {{ block.shopify_attributes }}>
+                        <div class="before-after-image__image">
+                            {% liquid
+                                if block.settings.image != blank or block.settings.image_mobile != blank
+                                    render 'section-image-processor', image: block.settings.image, image_mobile: block.settings.image_mobile
+                                else 
+                                    assign placeholder_image = 'lifestyle-' | append: forloop.index
+                                    echo placeholder_image | placeholder_svg_tag: 'placeholder placeholder-image-before-after'
+                                endif
+                            %}
+                        </div>
+                        <h3 class="before-after-image__heading heading-size-{{ block.settings.text_size }}">{{ block.settings.text }}</h3>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="before-after-handler">
+            <span class="before-after-handler-button"></span>
+        </div>
+    </before-after>
+    {% endif %}
+</div>
+</div>
+{% if section.settings.separator %}
+  <div class="section-separator{% liquid 
+echo ' ' | append: section.settings.color_scheme
+ %}"><hr class="separator"></div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Before/after image",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "General"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Enable fullwidth",
+      "info": "It will allow this section to occupy full width of the viewport if needed.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "min": 500,
+      "max": 2000,
+      "step": 20,
+      "unit": "px",
+      "label": "Width",
+      "default": 1320,
+      "info": "Only applicable, if fullwidth is disabled."
+    },
+
+    {
+      "type": "select",
+      "id": "height_mobile",
+      "label": "Height",
+      "options": [
+        {
+          "value": "400",
+          "label": "Tiny"
+        },
+        {
+          "value": "460",
+          "label": "Extra small"
+        },
+        {
+          "value": "520",
+          "label": "Small"
+        },
+        {
+          "value": "600",
+          "label": "Medium"
+        },
+        {
+          "value": "680",
+          "label": "Large"
+        },
+        {
+          "value": "780",
+          "label": "Extra large"
+        },
+        {
+          "value": "900",
+          "label": "Huge"
+        },
+        {
+          "value": "auto",
+          "label": "Adapt to image"
+        }
+      ],
+      "default": "460"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height on desktop",
+      "options": [
+        {
+          "value": "400",
+          "label": "Tiny"
+        },
+        {
+          "value": "460",
+          "label": "Extra small"
+        },
+        {
+          "value": "520",
+          "label": "Small"
+        },
+        {
+          "value": "600",
+          "label": "Medium"
+        },
+        {
+          "value": "680",
+          "label": "Large"
+        },
+        {
+          "value": "780",
+          "label": "Extra large"
+        },
+        {
+          "value": "900",
+          "label": "Huge"
+        },
+        {
+          "value": "auto",
+          "label": "Adapt to image"
+        }
+      ],
+      "default": "680"
+    },
+
+    {
+      "type": "select",
+      "id": "side_margin_choice",
+      "label": "Side margin level",
+      "options": [
+         {
+          "value": "level-0",
+          "label": "No margin"
+        },
+         {
+          "value": "level-1",
+          "label": "Extra small"
+        },
+         {
+          "value": "level-2",
+          "label": "Small"
+        },
+         {
+          "value": "level-3",
+          "label": "Medium"
+        },
+         {
+          "value": "level-4",
+          "label": "Large"
+        },
+         {
+          "value": "level-5",
+          "label": "Extra large"
+        }
+      ],
+      "info": "Only applicable, if fullwidth is enabled, it will add margin on left and right sides.",
+      "default": "level-4"
+    },
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "default": "scheme_1",
+        "label": "Color scheme"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "inset",
+      "label": "Add inner padding",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "inset_choice",
+      "label": "Inner padding level",
+      "options": [
+         {
+          "value": "level-1",
+          "label": "Extra small"
+        },
+         {
+          "value": "level-2",
+          "label": "Small"
+        },
+         {
+          "value": "level-3",
+          "label": "Medium"
+        },
+         {
+          "value": "level-4",
+          "label": "Large"
+        },
+         {
+          "value": "level-5",
+          "label": "Extra large"
+        }
+      ],
+      "default": "level-3"
+    },
+
+
+   {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text",
+      "default": "This is Image cards heading"
+    },
+    {
+      "type": "select",
+      "id": "text_1_size",
+      "label": "Size",
+      "options": [
+        {
+          "value": "x-small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "x-large",
+          "label": "Extra large"
+        },
+        {
+          "value": "big",
+          "label": "Big"
+        },
+        {
+          "value": "huge",
+          "label": "Huge"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text",
+      "default": "This is simple description for Image cards section."
+    },
+    
+    {
+      "type": "select",
+      "id": "text_2_size",
+      "label": "Size",
+      "options": [
+        {
+          "value": "x-small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Label",
+      "default": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "URL"
+    },
+    {
+      "type": "select",
+      "id": "button_target",
+      "label": "Target",
+      "options": [
+          {
+            "value": "_self",
+            "label": "Same window"
+          },
+          {
+            "value": "_blank",
+            "label": "New window"
+          }
+      ],
+      "default": "_self",
+      "info": "Only applicable, if button text is not empty."
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        },
+        {
+          "value": "outline-secondary",
+          "label": "Outline secondary"
+        },
+        {
+          "value": "fill-secondary",
+          "label": "Fill secondary"
+        },
+        {
+          "value": "link",
+          "label": "Link"
+        }
+      ],
+      "default": "fill"
+    },
+        
+    {
+      "type": "header",
+      "content": "Separator"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "separator",
+      "label": "Show separator",
+      "info": "It will display the underline at the end of the section",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "separator_width",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Width",
+      "default": 100,
+      "info": "Set the width of the separator in percentage."
+    },
+    {
+      "type": "checkbox",
+      "id": "separator_use_custom_color",
+      "label": "Choose custom color",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "separator_custom_color",
+      "label": "Color",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "spacing",
+      "label": "Add margin",
+      "info": "It will add space to the top and bottom of the section",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "spacing_choice",
+      "label": "Level",
+      "options": [
+         {
+          "value": "level-1",
+          "label": "Extra small"
+        },
+         {
+          "value": "level-2",
+          "label": "Small"
+        },
+         {
+          "value": "level-3",
+          "label": "Medium"
+        },
+         {
+          "value": "level-4",
+          "label": "Large"
+        },
+         {
+          "value": "level-5",
+          "label": "Extra large"
+        }
+      ],
+      "default": "level-3"
+    },
+{
+      "type": "select",
+      "id": "spacing_placement",
+      "label": "Placement",
+      "options": [
+        {
+          "value": "1",
+          "label": "Above and below"
+        },
+        {
+          "value": "2",
+          "label": "Above"
+        },
+        {
+          "value": "3",
+          "label": "Below"
+        }
+      ],
+      "default": "1",
+      "info": "Set the placements to display the space above or below the section"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Image",
+      "type": "image",
+      "limit": 2,
+      "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "default": "scheme_1",
+            "label": "Color scheme"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image",
+          "info": "This image will be applied to all devices based on desktop image availablity."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image on desktop",
+          "info": "(Optional) This image will be displayed on desktops, if present."
+        },
+
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Image"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "label": "Size",
+          "options": [
+            {
+              "value": "x-small",
+              "label": "Extra small"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            },
+            {
+              "value": "x-large",
+              "label": "Extra large"
+            },
+            {
+              "value": "big",
+              "label": "Big"
+            },
+            {
+              "value": "huge",
+              "label": "Huge"
+            }
+          ],
+          "default": "medium"
+        }
+      ]
+    }
+   
+  ],
+  "presets":[
+    {
+      "name": "Before/after image",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+            "text": "Before"
+           }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "text": "After"
+           }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["*"]
+  }
+}
+{% endschema %}
