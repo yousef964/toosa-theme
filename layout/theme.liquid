@@ -205,6 +205,10 @@
   {{ 'theme' | append: rtl_suffix | append:'.css' | asset_url | stylesheet_tag }}
 
   {{ 'photoswipe' | append: rtl_suffix | append:'.css' | asset_url | stylesheet_tag }}
+  {% if request.page_type == 'index' %}
+    {{ 'tx.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'tx.js' | asset_url }}" defer></script>
+  {% endif %}
 
 
   {% liquid 

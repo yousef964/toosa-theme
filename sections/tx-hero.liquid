@@ -1,0 +1,146 @@
+{% comment %} TOOSA redesign: hero with colour switcher, spec chips, proof row and marquee {% endcomment %}
+{%- liquid
+  assign product = all_products[section.settings.product_handle]
+  assign config_value = section.settings.config_value | strip
+  assign colors = 'grey,black,red' | split: ','
+  assign first_link = section.settings.button_1_link | default: '/collections/all'
+-%}
+<section class="tx tx-hero" id="tx-hero-{{ section.id }}" data-tx-section>
+  <div class="tx-wrap">
+    <div class="tx-hero__grid">
+      <div class="tx-hero__copy">
+        {% if section.settings.eyebrow != blank %}<p class="tx-eyebrow tx-reveal">{{ section.settings.eyebrow }}</p>{% endif %}
+        <h1 class="tx-h1 tx-hero__title tx-reveal" data-delay="1">{{ section.settings.heading }}</h1>
+        {% if section.settings.lead != blank %}<p class="tx-lead tx-hero__sub tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
+        <div class="tx-actions tx-reveal" data-delay="3">
+          {% if section.settings.button_1_text != blank %}
+            <a class="tx-btn tx-btn--primary" href="{{ first_link }}">{{ section.settings.button_1_text }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          {% endif %}
+          {% if section.settings.button_2_text != blank %}
+            <a class="tx-btn tx-btn--ghost" href="{{ section.settings.button_2_link | default: '#tx-builder' }}">{{ section.settings.button_2_text }}</a>
+          {% endif %}
+        </div>
+        {% if product != blank and section.settings.show_swatches %}
+          <div class="tx-swatches tx-reveal" data-delay="4" aria-label="Colour">
+            <span class="tx-swatches__label">{{ section.settings.swatch_label }}</span>
+            {% for color in colors %}
+              {%- liquid
+                assign cname = color | capitalize
+                assign found = false
+                for v in product.variants
+                  if v.option1 == cname and v.featured_image != blank
+                    if config_value == blank or v.option2 == config_value
+                      assign found = true
+                    endif
+                  endif
+                endfor
+                case color
+                  when 'grey'
+                    assign hex = '#5b636c'
+                  when 'red'
+                    assign hex = '#c4242b'
+                  else
+                    assign hex = '#23272c'
+                endcase
+              -%}
+              {% if found %}<button type="button" class="tx-swatch" data-color="{{ color }}" aria-label="{{ cname }}" style="--c:{{ hex }}"><i></i></button>{% endif %}
+            {% endfor %}
+            <span class="tx-swatches__name"></span>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="tx-hero__stage tx-reveal" data-delay="2">
+        <div class="tx-hero__glow"></div>
+        {% if section.settings.video_url != blank %}
+          <video class="tx-hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="{{ section.settings.video_url }}"></video>
+        {% endif %}
+        {% if product != blank %}
+          {% for color in colors %}
+            {%- liquid
+              assign cname = color | capitalize
+              assign img = blank
+              for v in product.variants
+                if img == blank and v.option1 == cname and v.featured_image != blank
+                  if config_value == blank or v.option2 == config_value
+                    assign img = v.featured_image
+                  endif
+                endif
+              endfor
+            -%}
+            {% if img != blank %}
+              <img class="tx-hero__img" data-color="{{ color }}" src="{{ img | image_url: width: 1200 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1200 }} 1200w, {{ img | image_url: width: 1400 }} 1400w" sizes="(min-width: 990px) 48vw, 100vw" width="{{ img.width }}" height="{{ img.height }}" alt="{{ product.title | escape }} in {{ cname }}" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+            {% endif %}
+          {% endfor %}
+        {% elsif section.settings.fallback_image != blank %}
+          {{ section.settings.fallback_image | image_url: width: 1400 | image_tag: class: 'tx-hero__img is-on', loading: 'eager', alt: section.settings.fallback_image.alt | default: 'TOOSA tool storage' }}
+        {% endif %}
+        <div class="tx-hero__floor"></div>
+        {% if section.settings.chip_1_big != blank %}<div class="tx-chip tx-chip--1"><b>{{ section.settings.chip_1_big }}</b><span>{{ section.settings.chip_1_small }}</span></div>{% endif %}
+        {% if section.settings.chip_2_big != blank %}<div class="tx-chip tx-chip--2"><b>{{ section.settings.chip_2_big }}</b><span>{{ section.settings.chip_2_small }}</span></div>{% endif %}
+        {% if section.settings.chip_3_big != blank %}<div class="tx-chip tx-chip--3"><b>{{ section.settings.chip_3_big }}</b><span>{{ section.settings.chip_3_small }}</span></div>{% endif %}
+      </div>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="tx-proof tx-reveal">
+        {% for block in section.blocks %}
+          <div class="tx-proof__item" {{ block.shopify_attributes }}><b>{{ block.settings.big }}</b><span>{{ block.settings.small }}</span></div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if section.settings.marquee != blank %}
+    {%- assign items = section.settings.marquee | split: '|' -%}
+    <div class="tx-marquee" aria-hidden="true">
+      <div class="tx-marquee__track">
+        {% for i in (1..2) %}{% for item in items %}<span class="tx-marquee__item">{{ item | strip }}</span>{% endfor %}{% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "TX Hero",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Modular tool storage · Designed in Canada" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Build the workshop you actually want to work in." },
+    { "type": "textarea", "id": "lead", "label": "Lead text", "default": "Heavy-gauge welded steel. Full-extension ball-bearing drawers. Modules that bolt together and grow with your space. Shipped coast to coast from Richmond, BC." },
+    { "type": "text", "id": "button_1_text", "label": "Primary button", "default": "Shop tool storage" },
+    { "type": "url", "id": "button_1_link", "label": "Primary button link" },
+    { "type": "text", "id": "button_2_text", "label": "Secondary button", "default": "Build your wall" },
+    { "type": "text", "id": "button_2_link", "label": "Secondary button link", "default": "#tx-builder", "info": "Use #tx-builder to jump to the wall builder." },
+    { "type": "header", "content": "Product photo and colours" },
+    { "type": "text", "id": "product_handle", "label": "Product handle", "default": "ultra-task-56-modular-rolling-tool-chest", "info": "The product whose colour variants supply the photos." },
+    { "type": "text", "id": "config_value", "label": "Variant option to use", "default": "Full Set", "info": "Second option value, e.g. Full Set. Leave empty to use any." },
+    { "type": "checkbox", "id": "show_swatches", "label": "Show colour swatches", "default": true },
+    { "type": "text", "id": "swatch_label", "label": "Swatch label", "default": "Pick a finish" },
+    { "type": "image_picker", "id": "fallback_image", "label": "Fallback image", "info": "Used only if the product is not found." },
+    { "type": "text", "id": "video_url", "label": "Background video URL (optional)", "info": "An .mp4 link from Content → Files. Shown faintly behind the product." },
+    { "type": "header", "content": "Floating spec chips" },
+    { "type": "text", "id": "chip_1_big", "label": "Chip 1 value", "default": "150 lb" },
+    { "type": "text", "id": "chip_1_small", "label": "Chip 1 label", "default": "per drawer pair" },
+    { "type": "text", "id": "chip_2_big", "label": "Chip 2 value", "default": "Full extension" },
+    { "type": "text", "id": "chip_2_small", "label": "Chip 2 label", "default": "ball-bearing slides" },
+    { "type": "text", "id": "chip_3_big", "label": "Chip 3 value", "default": "Welded steel" },
+    { "type": "text", "id": "chip_3_small", "label": "Chip 3 label", "default": "heavy-gauge frame" },
+    { "type": "header", "content": "Marquee" },
+    { "type": "text", "id": "marquee", "label": "Marquee items (separate with |)", "default": "Heavy-duty steel construction | Full-extension ball-bearing slides | Textured powder coat | Modular & expandable | Canadian support, parts in stock | Free shipping over $3,000 | RBC monthly financing" }
+  ],
+  "blocks": [
+    { "type": "proof", "name": "Proof item", "limit": 3, "settings": [
+      { "type": "text", "id": "big", "label": "Value", "default": "4.85 / 5" },
+      { "type": "text", "id": "small", "label": "Label", "default": "rated by 1,000+ customers" }
+    ] }
+  ],
+  "presets": [ { "name": "TX Hero", "blocks": [
+    { "type": "proof", "settings": { "big": "4.85 / 5", "small": "rated by 1,000+ Canadian customers" } },
+    { "type": "proof", "settings": { "big": "Engineer-built", "small": "founded 2023 by two engineers, Richmond BC" } },
+    { "type": "proof", "settings": { "big": "Coast to coast", "small": "fast delivery · pickup in Richmond & Calgary" } }
+  ] } ],
+  "enabled_on": { "templates": ["index"] }
+}
+{% endschema %}

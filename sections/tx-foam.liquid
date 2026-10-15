@@ -1,0 +1,66 @@
+{% comment %} TOOSA redesign: foam inserts spotlight {% endcomment %}
+{%- liquid
+  assign main_product = all_products[section.settings.main_handle]
+  assign tiles_product = all_products[section.settings.tiles_handle]
+  assign main_img = section.settings.image | default: main_product.featured_image
+-%}
+<section class="tx tx-foam" id="tx-foam-{{ section.id }}">
+  <div class="tx-wrap">
+    <div class="tx-foam__grid">
+      <div class="tx-foam__media tx-reveal">
+        {% if main_img != blank %}{{ main_img | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: section.settings.image_alt | default: 'TOOSA foam inserts in a tool drawer' }}{% endif %}
+        {% if tiles_product != blank %}
+          <div class="tx-foam__tiles">
+            {% for img in tiles_product.images limit: 3 %}<div class="tx-foam__tile">{{ img | image_url: width: 160 | image_tag: loading: 'lazy', alt: img.alt | default: tiles_product.title }}</div>{% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div>
+        {% if section.settings.eyebrow != blank %}<p class="tx-eyebrow tx-reveal">{{ section.settings.eyebrow }}</p>{% endif %}
+        <h2 class="tx-h2 tx-reveal" data-delay="1">{{ section.settings.heading }}</h2>
+        {% if section.settings.lead != blank %}<p class="tx-lead tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
+        {% if section.blocks.size > 0 %}
+          <ol class="tx-steps tx-reveal" data-delay="3">
+            {% for block in section.blocks %}<li {{ block.shopify_attributes }}><div><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></div></li>{% endfor %}
+          </ol>
+        {% endif %}
+        <div class="tx-actions tx-reveal" data-delay="4">
+          {% if section.settings.button_1_text != blank %}<a class="tx-btn tx-btn--primary" href="{{ section.settings.button_1_link | default: '/collections/foam-inserts' }}">{{ section.settings.button_1_text }}</a>{% endif %}
+          {% if section.settings.button_2_text != blank %}<a class="tx-btn tx-btn--ghost" href="{{ section.settings.button_2_link | default: '/pages/custom-foam-inquiry' }}">{{ section.settings.button_2_text }}</a>{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TX Foam spotlight",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Foam inserts" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every socket gets a home." },
+    { "type": "textarea", "id": "lead", "label": "Lead text", "default": "Two-tone EVA foam cut on our own CNC in Richmond. Pull a drawer and see at a glance what's missing. Buy sheets to cut yourself, or send us a photo of your tools and we'll cut the insert for you." },
+    { "type": "text", "id": "main_handle", "label": "Main photo: product handle", "default": "ultra-max-72-foam-bundle-15-sheets-of-cuttable-foam-pads" },
+    { "type": "image_picker", "id": "image", "label": "Main photo (optional, overrides product)" },
+    { "type": "text", "id": "image_alt", "label": "Main photo description", "default": "Red and black TOOSA foam inserts in a Mega Max drawer" },
+    { "type": "text", "id": "tiles_handle", "label": "Small tiles: product handle", "default": "eva-foam-sheets" },
+    { "type": "text", "id": "button_1_text", "label": "Primary button", "default": "Shop foam" },
+    { "type": "url", "id": "button_1_link", "label": "Primary link" },
+    { "type": "text", "id": "button_2_text", "label": "Secondary button", "default": "Get a custom insert" },
+    { "type": "url", "id": "button_2_link", "label": "Secondary link" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Pick a sheet" },
+      { "type": "text", "id": "text", "label": "Text", "default": "20 or 50 mm, black, black & red or black & green." }
+    ] }
+  ],
+  "presets": [ { "name": "TX Foam spotlight", "blocks": [
+    { "type": "step", "settings": { "title": "Pick a sheet or a bundle", "text": "20 or 50 mm thick; black, black & red or black & green. Bundles are pre-sized for Ultra Task and Mega Max drawers." } },
+    { "type": "step", "settings": { "title": "Cut it yourself or send a photo", "text": "Easy-peel sheets trace with a knife. For custom inserts, send us a photo of your tools on the drawer and we CNC-cut the layout." } },
+    { "type": "step", "settings": { "title": "Drop it in", "text": "Colour contrast shows an empty slot instantly, so nothing walks off the job." } }
+  ] } ],
+  "enabled_on": { "templates": ["index"] }
+}
+{% endschema %}

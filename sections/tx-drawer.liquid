@@ -1,0 +1,97 @@
+{% comment %} TOOSA redesign: the drawer story. An SVG drawer slides out on scroll next to the headline specs. {% endcomment %}
+<section class="tx tx--light tx-drawer" id="tx-drawer-{{ section.id }}">
+  <div class="tx-wrap">
+    <div class="tx-drawer__grid">
+      <div class="tx-drawer__visual tx-reveal">
+        <svg viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A TOOSA drawer sliding fully open on ball-bearing slides">
+          <defs>
+            <linearGradient id="txdBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3138"/><stop offset="1" stop-color="#15191e"/></linearGradient>
+            <linearGradient id="txdFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4149"/><stop offset="1" stop-color="#23282e"/></linearGradient>
+            <linearGradient id="txdRail" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9c0c8"/><stop offset="1" stop-color="#7c858f"/></linearGradient>
+            <linearGradient id="txdLiner" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1f23"/><stop offset="1" stop-color="#0f1114"/></linearGradient>
+            <clipPath id="txdClip"><rect x="0" y="0" width="760" height="420"/></clipPath>
+          </defs>
+          <!-- cabinet body (cut-away) -->
+          <rect x="40" y="40" width="300" height="340" rx="6" fill="url(#txdBody)"/>
+          <rect x="52" y="52" width="276" height="316" rx="4" fill="#0f1215"/>
+          <text x="60" y="400" font-family="Inter, system-ui, sans-serif" font-size="12" letter-spacing="2" fill="#6b7480">CABINET · CUT-AWAY</text>
+          <!-- fixed slide rails -->
+          <g data-tx-balls>
+            <rect x="64" y="150" width="270" height="10" rx="2" fill="url(#txdRail)"/>
+            <rect x="64" y="300" width="270" height="10" rx="2" fill="url(#txdRail)"/>
+            {% for i in (0..9) %}
+              <circle cx="{{ i | times: 27 | plus: 78 }}" cy="155" r="3.4" fill="#e9ecf0"/>
+              <circle cx="{{ i | times: 27 | plus: 78 }}" cy="305" r="3.4" fill="#e9ecf0"/>
+            {% endfor %}
+          </g>
+          <!-- the drawer (translated by tx.js) -->
+          <g data-tx-slide data-max="330" clip-path="url(#txdClip)">
+            <rect x="68" y="160" width="262" height="140" fill="url(#txdLiner)"/>
+            <rect x="68" y="160" width="262" height="6" fill="#2b3138"/>
+            <!-- foam insert with tool silhouettes -->
+            <rect x="80" y="172" width="238" height="118" rx="3" fill="#161a1f"/>
+            <rect x="80" y="172" width="238" height="6" fill="#c4242b" opacity="0.9"/>
+            <g fill="#c4242b" opacity="0.85">
+              <rect x="96" y="192" width="150" height="14" rx="7"/><rect x="96" y="214" width="120" height="14" rx="7"/><rect x="96" y="236" width="170" height="14" rx="7"/><rect x="96" y="258" width="90" height="14" rx="7"/>
+              <circle cx="276" cy="200" r="11"/><circle cx="276" cy="232" r="11"/><circle cx="276" cy="264" r="11"/>
+            </g>
+            <!-- drawer front -->
+            <rect x="322" y="140" width="22" height="180" rx="3" fill="url(#txdFace)"/>
+            <rect x="322" y="140" width="22" height="3" fill="#4a525b"/>
+            <rect x="330" y="200" width="6" height="60" rx="3" fill="#9aa3ad"/>
+            <!-- load badge -->
+            <g data-tx-load style="opacity:0;transition:opacity .4s">
+              <rect x="150" y="100" width="120" height="34" rx="17" fill="#ff6f3c"/>
+              <text x="210" y="122" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="14" fill="#fff">150 lb · fully open</text>
+            </g>
+          </g>
+          <!-- floor line -->
+          <line x1="20" y1="382" x2="740" y2="382" stroke="#c9ced4" stroke-width="2"/>
+        </svg>
+        <div class="tx-drawer__tag">{{ section.settings.tag }}</div>
+      </div>
+      <div>
+        {% if section.settings.eyebrow != blank %}<p class="tx-eyebrow tx-reveal">{{ section.settings.eyebrow }}</p>{% endif %}
+        <h2 class="tx-h2 tx-reveal" data-delay="1">{{ section.settings.heading }}</h2>
+        {% if section.settings.lead != blank %}<p class="tx-lead tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
+        <div class="tx-specs">
+          {% for block in section.blocks %}
+            <div class="tx-spec tx-reveal" data-delay="{{ forloop.index }}" {{ block.shopify_attributes }}><b>{{ block.settings.value }}{% if block.settings.unit != blank %}<small>{{ block.settings.unit }}</small>{% endif %}</b><span>{{ block.settings.label }}</span></div>
+          {% endfor %}
+        </div>
+        {% if section.settings.button_text != blank %}
+          <div class="tx-actions tx-reveal"><a class="tx-btn tx-btn--ghost" href="{{ section.settings.button_link | default: '/pages/why-toosa' }}">{{ section.settings.button_text }}</a></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TX Drawer story",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Built like it should be" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Open a drawer. Feel the difference." },
+    { "type": "textarea", "id": "lead", "label": "Lead text", "default": "The cheap box feels fine in the store. It's the thousandth open, fully loaded, that tells you what you bought. TOOSA drawers ride on full-extension ball-bearing slides and latch shut with a real click." },
+    { "type": "text", "id": "tag", "label": "Caption under the drawing", "default": "Scroll to open the drawer" },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Why TOOSA" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    { "type": "spec", "name": "Spec", "settings": [
+      { "type": "text", "id": "value", "label": "Value", "default": "150" },
+      { "type": "text", "id": "unit", "label": "Unit", "default": "lb" },
+      { "type": "text", "id": "label", "label": "Label", "default": "rated per pair of drawer slides, full extension" }
+    ] }
+  ],
+  "presets": [ { "name": "TX Drawer story", "blocks": [
+    { "type": "spec", "settings": { "value": "150", "unit": "lb", "label": "per pair of slides, full extension, no sag" } },
+    { "type": "spec", "settings": { "value": "100", "unit": "%", "label": "full-extension ball-bearing slides on every drawer" } },
+    { "type": "spec", "settings": { "value": "Welded", "unit": "", "label": "heavy-gauge steel frame, not bolted panels" } },
+    { "type": "spec", "settings": { "value": "Powder", "unit": "coat", "label": "textured, solvent-resistant finish that shrugs off impacts" } }
+  ] } ],
+  "enabled_on": { "templates": ["index"] }
+}
+{% endschema %}

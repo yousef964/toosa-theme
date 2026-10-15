@@ -1,0 +1,157 @@
+{% comment %}
+  TOOSA redesign: "Build your wall" configurator.
+  Prices, variant ids and stock come live from the products named below; the drawing is a stylised SVG rendered in tx.js.
+{% endcomment %}
+{%- liquid
+  assign colors = 'grey,black,red' | split: ','
+-%}
+{%- capture builder_json -%}
+{
+  "months": {{ section.settings.months | default: 24 }},
+  "systems": [
+    {% for block in section.blocks %}
+      {%- liquid
+        assign base = all_products[block.settings.base_handle]
+        assign base_config = block.settings.base_config | strip
+        assign sys_colors = block.settings.colors | default: 'black' | split: ','
+      -%}
+      {
+        "id": {{ block.settings.system_id | json }},
+        "name": {{ block.settings.name | json }},
+        "dims": {{ block.settings.dims | json }},
+        "colors": [{% for c in sys_colors %}{{ c | strip | downcase | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],
+        "base": {
+          "name": {{ base.title | default: block.settings.name | json }},
+          "variants": {
+            {%- assign n = 0 -%}
+            {%- for c in sys_colors -%}
+              {%- assign cname = c | strip | capitalize -%}
+              {%- for v in base.variants -%}
+                {%- liquid
+                  assign ok = false
+                  if base.has_only_default_variant
+                    assign ok = true
+                  elsif v.option1 == cname
+                    if base_config == blank or v.option2 == base_config
+                      assign ok = true
+                    endif
+                  endif
+                -%}
+                {%- if ok -%}
+                  {% if n > 0 %},{% endif %}{{ c | strip | downcase | json }}: { "id": {{ v.id }}, "price": {{ v.price }}, "compare": {{ v.compare_at_price | default: 0 }}, "available": {{ v.available }} }
+                  {%- assign n = n | plus: 1 -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          }
+        },
+        "modules": [
+          {%- assign mods = block.settings.modules | newline_to_br | split: '<br />' -%}
+          {%- assign m = 0 -%}
+          {%- for line in mods -%}
+            {%- assign parts = line | strip | split: '|' -%}
+            {%- if parts.size < 3 -%}{%- continue -%}{%- endif -%}
+            {%- assign mh = parts[1] | strip -%}
+            {%- assign mp = all_products[mh] -%}
+            {%- if mp == blank -%}{%- continue -%}{%- endif -%}
+            {% if m > 0 %},{% endif %}
+            {
+              "id": {{ parts[0] | strip | json }},
+              "name": {{ mp.title | json }},
+              "note": {{ parts[2] | strip | json }},
+              "max": {{ parts[3] | default: '1' | strip | plus: 0 }},
+              "excludes": [{% if parts[4] != blank %}{{ parts[4] | strip | json }}{% endif %}],
+              "variants": {
+                {%- if mp.has_only_default_variant -%}
+                  "*": { "id": {{ mp.variants[0].id }}, "price": {{ mp.variants[0].price }}, "compare": {{ mp.variants[0].compare_at_price | default: 0 }}, "available": {{ mp.variants[0].available }} }
+                {%- else -%}
+                  {%- assign k = 0 -%}
+                  {%- for c in sys_colors -%}
+                    {%- assign cname = c | strip | capitalize -%}
+                    {%- for v in mp.variants -%}
+                      {%- if v.option1 == cname -%}
+                        {% if k > 0 %},{% endif %}{{ c | strip | downcase | json }}: { "id": {{ v.id }}, "price": {{ v.price }}, "compare": {{ v.compare_at_price | default: 0 }}, "available": {{ v.available }} }
+                        {%- assign k = k | plus: 1 -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              }
+            }
+            {%- assign m = m | plus: 1 -%}
+          {%- endfor -%}
+        ]
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+{%- endcapture -%}
+
+<section class="tx tx-builder" id="tx-builder" data-section-id="{{ section.id }}">
+  <div class="tx-wrap">
+    <div class="tx-builder__head">
+      {% if section.settings.eyebrow != blank %}<p class="tx-eyebrow tx-reveal">{{ section.settings.eyebrow }}</p>{% endif %}
+      <h2 class="tx-h2 tx-reveal" data-delay="1">{{ section.settings.heading }}</h2>
+      {% if section.settings.lead != blank %}<p class="tx-lead tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
+    </div>
+    <div class="tx-builder__layout tx-reveal" data-delay="2">
+      <div class="tx-stage" data-tx-stage aria-live="polite"><div class="tx-stage__glow"></div></div>
+      <div class="tx-panel">
+        <div class="tx-field">
+          <div class="tx-field__label"><span>System</span></div>
+          <div class="tx-seg" data-tx-systems role="group" aria-label="System"></div>
+        </div>
+        <div class="tx-field">
+          <div class="tx-field__label"><span>Finish</span></div>
+          <div class="tx-colors" data-tx-colors role="group" aria-label="Finish"></div>
+        </div>
+        <div class="tx-field">
+          <div class="tx-field__label"><span>Add modules</span><span>bolt straight on</span></div>
+          <div class="tx-mods" data-tx-mods></div>
+        </div>
+        <div class="tx-total">
+          <ul class="tx-builder__list" data-tx-list></ul>
+          <div class="tx-total__row" style="margin-top:10px"><span>Your setup</span><b class="tx-total__big" data-tx-total>$0</b></div>
+          <div class="tx-total__mo" data-tx-monthly></div>
+          <div class="tx-total__save" data-tx-save></div>
+        </div>
+        <button type="button" class="tx-btn tx-btn--primary" data-tx-add>{{ section.settings.button_text }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        {% if section.settings.note != blank %}<p class="tx-panel__note">{{ section.settings.note }}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-tx-builder-data>{{ builder_json | strip }}</script>
+</section>
+
+{% schema %}
+{
+  "name": "TX Wall builder",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Build your wall" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Start with a base. Add modules as your shop grows." },
+    { "type": "textarea", "id": "lead", "label": "Lead text", "default": "Every TOOSA module shares the same case height, depth and finish, so a hutch, locker or drawer bank bolts straight onto what you already own. Try a combination and see the price live." },
+    { "type": "number", "id": "months", "label": "Financing months for the estimate", "default": 24 },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Add this setup to cart" },
+    { "type": "text", "id": "note", "label": "Note under button", "default": "Each module is added as its own item, so you can still change quantities in the cart." }
+  ],
+  "blocks": [
+    { "type": "system", "name": "System", "settings": [
+      { "type": "text", "id": "system_id", "label": "ID", "default": "ut", "info": "ut draws the 56\" double-bank layout, mm draws the 72\" layout." },
+      { "type": "text", "id": "name", "label": "Name", "default": "Ultra Task 56" },
+      { "type": "text", "id": "dims", "label": "Dimensions line", "default": "Base 56\" W × 22\" D × 44\" H" },
+      { "type": "text", "id": "base_handle", "label": "Base product handle", "default": "ultra-task-56-modular-rolling-tool-chest" },
+      { "type": "text", "id": "base_config", "label": "Base variant option (2nd option)", "default": "Base Only" },
+      { "type": "text", "id": "colors", "label": "Colours (comma list of option values)", "default": "grey,black,red" },
+      { "type": "textarea", "id": "modules", "label": "Modules, one per line", "info": "id | product handle | note | max qty | excludes-id. ids: hutch, locker, locker2, drawers, upper, peg, light", "default": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub with pegboard back\nlocker | ultra-task-side-locker | Tall locker for long tools\ndrawers | ultra-task-side-drawers | Three extra deep drawers" }
+    ] }
+  ],
+  "presets": [ { "name": "TX Wall builder", "blocks": [
+    { "type": "system", "settings": { "system_id": "ut", "name": "Ultra Task 56", "dims": "Base 56\" W × 22\" D × 44\" H · full set 93\" W × 73\" H", "base_handle": "ultra-task-56-modular-rolling-tool-chest", "base_config": "Base Only", "colors": "grey,black,red", "modules": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub, pegboard back, LED-ready\nlocker | ultra-task-side-locker | Tall locker for long tools and gear\ndrawers | ultra-task-side-drawers | Three extra deep drawers on the right" } },
+    { "type": "system", "settings": { "system_id": "mm", "name": "Mega Max 72", "dims": "Base 72\" W × 22\" D · wall up to 96\" W", "base_handle": "ultra-max-72-modular-rolling-tool-box", "base_config": "None", "colors": "black", "modules": "peg | mega-max-pegboard | 72\" × 18\" pegboard back panel\nupper | mega-max-upper-cabinets | 72\" lockable overhead cabinets\nlight | adjustable-lighting-kit-1 | LED strip under the cabinets\nlocker | mega-max-side-locker | Tall locker, left side\nlocker2 | mega-max-side-locker | Tall locker, right side" } }
+  ] } ],
+  "enabled_on": { "templates": ["index"] }
+}
+{% endschema %}
