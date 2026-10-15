@@ -85,6 +85,7 @@
               "note": {{ parts[2] | strip | json }},
               "max": {{ parts[3] | default: '1' | strip | plus: 0 }},
               "excludes": [{% if parts[4] != blank %}{{ parts[4] | strip | json }}{% endif %}],
+              "requires": [{%- if parts[5] != blank -%}{%- assign rq = parts[5] | split: ',' -%}{%- for q in rq -%}{{ q | strip | json }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endif -%}],
               "variants": {
                 {%- if mp.has_only_default_variant -%}
                   "*": { "id": {{ mp.variants[0].id }}, "price": {{ mp.variants[0].price }}, "compare": {{ mp.variants[0].compare_at_price | default: 0 }}, "available": {{ mp.variants[0].available }} }
@@ -175,12 +176,12 @@
       { "type": "text", "id": "full_config", "label": "Full set variant (option 2, e.g. Full Set)" },
       { "type": "text", "id": "full_includes", "label": "Module ids the full set includes (comma separated)" },
       { "type": "text", "id": "colors", "label": "Colours (comma list of option values)", "default": "grey,black,red" },
-      { "type": "textarea", "id": "modules", "label": "Modules, one per line", "info": "id | product handle | note | max qty | excludes-id. ids: hutch, locker, drawers, upper, peg, light. locker and drawers are side modules: the builder offers them for the left and right side.", "default": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub with pegboard back\nlocker | ultra-task-side-locker | Tall locker for long tools\ndrawers | ultra-task-side-drawers | Three extra deep drawers" }
+      { "type": "textarea", "id": "modules", "label": "Modules, one per line", "info": "id | product handle | note | max qty | excludes-id | requires-ids. ids: hutch, locker, drawers, upper, peg, light. locker and drawers are side modules: the builder offers them for the left and right side.", "default": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub with pegboard back\nlocker | ultra-task-side-locker | Tall locker for long tools\ndrawers | ultra-task-side-drawers | Three extra deep drawers" }
     ] }
   ],
   "presets": [ { "name": "TX Wall builder", "blocks": [
-    { "type": "system", "settings": { "system_id": "ut", "name": "Ultra Task 56", "dims": "Base 56 x 22 x 44 in, full set 93 x 73 in", "base_handle": "ultra-task-56-modular-rolling-tool-chest", "base_config": "Base Only", "colors": "grey,black,red", "modules": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub, pegboard back, LED-ready\nlocker | ultra-task-side-locker | Tall locker for long tools and gear\ndrawers | ultra-task-side-drawers | Six extra drawers beside the base" } },
-    { "type": "system", "settings": { "system_id": "mm", "name": "Mega Max 72", "dims": "Base 72 x 22 in, wall up to 96 in wide", "base_handle": "ultra-max-72-modular-rolling-tool-box", "base_config": "None", "colors": "black", "modules": "peg | mega-max-pegboard | 72 x 18 in pegboard back panel\nupper | mega-max-upper-cabinets | 72 in lockable overhead cabinets\nlight | adjustable-lighting-kit-1 | LED strip under the cabinets\nlocker | mega-max-side-locker | Tall locker, left or right" } }
+    { "type": "system", "settings": { "system_id": "ut", "name": "Ultra Task 56", "dims": "Base 56 x 22 x 44 in, full set 93 x 73 in", "base_handle": "ultra-task-56-modular-rolling-tool-chest", "base_config": "Base Only", "colors": "grey,black,red", "modules": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub, pegboard back, LED-ready\nlight | adjustable-lighting-kit-1 | LED strip under the hutch | 1 | | hutch\nlocker | ultra-task-side-locker | Tall locker for long tools and gear\ndrawers | ultra-task-side-drawers | Six extra drawers beside the base" } },
+    { "type": "system", "settings": { "system_id": "mm", "name": "Mega Max 72", "dims": "Base 72 x 22 in, wall up to 96 in wide", "base_handle": "ultra-max-72-modular-rolling-tool-box", "base_config": "None", "colors": "black", "modules": "peg | mega-max-pegboard | 72 x 18 in pegboard back panel\nupper | mega-max-upper-cabinets | 72 in lockable overhead cabinets\nlight | adjustable-lighting-kit-1 | LED strip under the cabinets | 1 | | peg,upper\nlocker | mega-max-side-locker | Tall locker, left or right" } }
   ] } ]
 }
 {% endschema %}

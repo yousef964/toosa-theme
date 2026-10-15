@@ -172,10 +172,10 @@
 .tx-stage__load i { width: 14px; height: 14px; border: 2px solid rgba(255, 255, 255, 0.25); border-top-color: var(--tx-orange); border-radius: 50%; animation: tx-spin 0.8s linear infinite; }
 @keyframes tx-spin { to { transform: rotate(360deg); } }
 .tx-stage__btns { position: absolute; left: 16px; bottom: 12px; display: flex; gap: 8px; }
-.tx-stage__reset, .tx-stage__open { font: 600 12px/1 var(--tx-body); color: #cfd5dc; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+.tx-stage__reset, .tx-stage__open, .tx-stage__foam { font: 600 12px/1 var(--tx-body); color: #cfd5dc; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
 .tx-stage__open { color: #fff; background: rgba(255, 111, 60, 0.22); border-color: rgba(255, 111, 60, 0.5); }
-.tx-stage__reset:hover, .tx-stage__open:hover { background: rgba(255, 255, 255, 0.16); color: #fff; }
-@media (max-width: 759px) { .tx-stage.is-3d { aspect-ratio: 1 / 1; } .tx-stage__dims { font-size: 11px; right: 12px; bottom: 44px; } }
+.tx-stage__reset:hover, .tx-stage__open:hover, .tx-stage__foam:hover { background: rgba(255, 255, 255, 0.16); color: #fff; }
+@media (max-width: 759px) { .tx-stage.is-3d { aspect-ratio: 1 / 1; } .tx-stage__dims { font-size: 11px; right: 12px; bottom: 44px; } .tx-stage__btns { flex-wrap: wrap; right: 12px; } .tx-stage__reset, .tx-stage__open, .tx-stage__foam { padding: 7px 10px; font-size: 11px; } }
 .tx-panel { background: rgba(11, 14, 18, 0.6); border: 1px solid var(--tx-line); border-radius: var(--tx-radius); padding: 22px; display: grid; gap: 20px; align-content: start; backdrop-filter: blur(6px); }
 .tx-field__label { display: flex; justify-content: space-between; font: 700 12px/1 var(--tx-body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--tx-muted); margin-bottom: 10px; }
 .tx-seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; padding: 4px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; }

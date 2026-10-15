@@ -1018,7 +1018,7 @@
             "base_handle": "ultra-task-56-modular-rolling-tool-chest",
             "base_config": "Base Only",
             "colors": "grey,black,red",
-            "modules": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub, pegboard back, LED-ready\nlocker | ultra-task-side-locker | Tall locker with shelves and a bottom drawer\ndrawers | ultra-task-side-drawers | Six extra drawers beside the base",
+            "modules": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub, pegboard back, LED-ready\nlight | adjustable-lighting-kit-1 | LED strip under the hutch | 1 | | hutch\nlocker | ultra-task-side-locker | Tall locker with shelves and a bottom drawer\ndrawers | ultra-task-side-drawers | Six extra drawers beside the base",
             "full_config": "Full Set",
             "full_includes": "hutch,locker,drawers"
           }
@@ -1032,7 +1032,7 @@
             "base_handle": "ultra-max-72-modular-rolling-tool-box",
             "base_config": "None",
             "colors": "black",
-            "modules": "peg | mega-max-pegboard | 72\" × 18\" pegboard back panel\nupper | mega-max-upper-cabinets | 72\" lockable overhead cabinets\nlight | adjustable-lighting-kit-1 | LED strip under the cabinets\nlocker | mega-max-side-locker | Tall locker, fits either side"
+            "modules": "peg | mega-max-pegboard | 72\" × 18\" pegboard back panel\nupper | mega-max-upper-cabinets | 72\" lockable overhead cabinets\nlight | adjustable-lighting-kit-1 | LED strip under the cabinets | 1 | | peg,upper\nlocker | mega-max-side-locker | Tall locker, fits either side"
           }
         }
       },

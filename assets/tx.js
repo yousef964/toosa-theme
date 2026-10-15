@@ -233,11 +233,14 @@
       syncSides();
       modEl.innerHTML = s.modules.filter(function (mod) { return !isSide(mod); }).map(function (mod) {
         var v = variantFor(mod), ok = v && v.available, on = !!state.mods[mod.id];
+        var missing = (mod.requires || []).filter(function (id) { return !state.mods[id]; });
+        var needs = missing.length ? 'Needs the ' + missing.map(function (id) { var m = s.modules.filter(function (x) { return x.id === id; })[0]; return m ? m.name.replace(/^(Ultra Task 56|Ultra Task|Mega Max)\s+/i, '').toLowerCase() : id; }).join(' and ') : '';
+        if (needs) ok = false;
         if (!ok && on) { state.mods[mod.id] = 0; on = false; }
         var qty = mod.max > 1 ? '<span class="tx-qty" data-qty="' + mod.id + '"><button type="button" data-d="-1" aria-label="Fewer">−</button><b>' + (state.mods[mod.id] || 0) + '</b><button type="button" data-d="1" aria-label="More">+</button></span>' : '';
         return '<div class="tx-mod ' + (on ? 'is-on' : '') + (ok ? '' : ' is-off') + '" data-mod="' + mod.id + '" role="checkbox" aria-checked="' + on + '" tabindex="0">' +
           '<span class="tx-mod__box"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>' +
-          '<span class="tx-mod__name">' + mod.name + '<small>' + (ok ? mod.note : 'Out of stock in this colour') + '</small></span>' +
+          '<span class="tx-mod__name">' + mod.name + '<small>' + (ok ? mod.note : (needs || 'Out of stock in this colour')) + '</small></span>' +
           '<span class="tx-mod__price">' + (v ? money(v.price) : '') + qty + '</span></div>';
       }).join('') + sidesHtml;
     }
@@ -295,6 +298,7 @@
     function toggle(id, d) {
       var s = sys(), mod = s.modules.filter(function (m) { return m.id === id; })[0]; if (!mod) return;
       var v = variantFor(mod); if (!v || !v.available) return;
+      if ((mod.requires || []).some(function (r) { return !state.mods[r]; })) return;
       var max = mod.max || 1, cur = state.mods[id] || 0;
       if (typeof d === 'number') cur = Math.max(0, Math.min(max, cur + d)); else cur = cur ? 0 : 1;
       state.mods[id] = cur;
