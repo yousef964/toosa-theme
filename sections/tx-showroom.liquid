@@ -2,6 +2,8 @@
 {%- liquid
   assign address_lines = section.settings.address | newline_to_br | split: '<br />'
   assign tel = section.settings.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+  assign photo_alt = section.settings.image_alt | default: 'TOOSA showroom in Richmond, BC'
+  assign map_title = section.settings.map_title | default: 'Map to the TOOSA showroom'
 -%}
 <section class="tx tx--light tx-showroom" id="tx-showroom-{{ section.id }}">
   <div class="tx-wrap">
@@ -57,9 +59,9 @@
 
       <div class="tx-showroom__map tx-reveal" data-delay="2">
         {% if section.settings.image != blank %}
-          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 900px) 48vw, 100vw', alt: section.settings.image_alt | default: 'TOOSA showroom in Richmond, BC' }}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 900px) 48vw, 100vw', alt: photo_alt }}
         {% elsif section.settings.map_embed != blank %}
-          <iframe src="{{ section.settings.map_embed }}" title="{{ section.settings.map_title | default: 'Map to the TOOSA showroom' }}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="{{ section.settings.map_embed }}" title="{{ map_title }}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
         {% endif %}
         {% if section.settings.directions_text != blank and section.settings.directions_link != blank %}
           <a class="tx-showroom__dir" href="{{ section.settings.directions_link }}" target="_blank" rel="noopener">

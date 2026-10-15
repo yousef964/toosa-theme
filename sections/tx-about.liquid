@@ -1,10 +1,13 @@
 {% comment %} TOOSA redesign: "designed by people who understand workshops" with photo, fact tiles and a short story {% endcomment %}
+{%- liquid
+  assign about_alt = section.settings.image_alt | default: 'The TOOSA team in the Richmond, BC showroom'
+-%}
 <section class="tx tx--light tx-about" id="tx-about-{{ section.id }}">
   <div class="tx-wrap">
     <div class="tx-about__grid">
       <div class="tx-about__media tx-reveal">
         {% if section.settings.image != blank %}
-          {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1400', sizes: '(min-width: 900px) 50vw, 100vw', alt: section.settings.image_alt | default: 'The TOOSA team in the Richmond, BC showroom' }}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1400', sizes: '(min-width: 900px) 50vw, 100vw', alt: about_alt }}
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag: 'tx-about__placeholder' }}
         {% endif %}
