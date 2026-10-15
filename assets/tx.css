@@ -44,8 +44,8 @@
 .tx-btn svg { width: 18px; height: 18px; flex: none; transition: transform 0.18s ease; }
 .tx-btn:hover { transform: translateY(-1px); }
 .tx-btn:hover svg { transform: translateX(3px); }
-.tx-btn--primary { background: var(--tx-orange); color: #fff; }
-.tx-btn--primary:hover { background: var(--tx-hot); color: #fff; }
+.tx-btn--primary, .tx a.tx-btn--primary, .tx a.tx-btn--primary:visited { background: var(--tx-orange); color: #fff !important; }
+.tx-btn--primary:hover, .tx a.tx-btn--primary:hover { background: var(--tx-hot); color: #fff !important; }
 .tx-btn--ghost { background: transparent; color: inherit; border-color: rgba(255, 255, 255, 0.28); }
 .tx-btn--ghost:hover { border-color: rgba(255, 255, 255, 0.7); }
 .tx--light .tx-btn--ghost { border-color: rgba(11, 14, 18, 0.25); }

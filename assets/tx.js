@@ -17,6 +17,21 @@
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     els.forEach(function (e) { io.observe(e); });
+    // safety net: anything already in view after load, or scrolled past, is shown even if the observer misses it
+    var pending = els.slice(), ticking = false;
+    function sweep() {
+      ticking = false;
+      var h = window.innerHeight || 800;
+      pending = pending.filter(function (e) {
+        if (e.classList.contains('is-in')) return false;
+        var r = e.getBoundingClientRect();
+        if (r.top < h * 0.95) { e.classList.add('is-in'); return false; }
+        return true;
+      });
+    }
+    function onScroll() { if (!ticking && pending.length) { ticking = true; requestAnimationFrame(sweep); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    setTimeout(sweep, 1200);
   }
 
   /* ---- hero: colour swatches swap the product photo ---- */
