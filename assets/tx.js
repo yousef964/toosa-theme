@@ -253,7 +253,8 @@
         if (!window.TXWall) return;
         wall = window.TXWall.mount(stage, cfg3d);
         if (wall) wall.update({ system: state.system, color: state.color, mods: state.mods });
-      }).catch(function () { wall = null; });
+        else { stage.classList.remove('is-3d'); renderTotals(); }
+      }).catch(function () { wall = null; stage.classList.remove('is-3d'); renderTotals(); });
     }
     if (cfg3d && 'IntersectionObserver' in window) {
       var io3 = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io3.disconnect(); boot3d(); } }, { rootMargin: '600px 0px' });

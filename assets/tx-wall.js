@@ -65,7 +65,7 @@
       }).then(function (s) { pending--; if (!pending) load.hidden = true; return s; }, function (e) { pending--; if (!pending) load.hidden = true; throw e; });
       return cache[url];
     }
-    function key(sys, mod) { return sys + ':' + mod; }
+    function gkey(sys, mod) { return sys + ':' + mod; }
     function place(sys, mod, obj) {
       var p = (PLACE[sys] || {})[mod] || {};
       var g = new THREE.Group(); g.add(obj);
@@ -74,7 +74,7 @@
       return g;
     }
     function show(sys, mod, on) {
-      var k = key(sys, mod), url = (files[sys] || {})[mod]; if (!url) return;
+      var k = gkey(sys, mod), url = (files[sys] || {})[mod]; if (!url) return;
       if (groups[k]) { animate(groups[k], on, mod); return; }
       if (!on) return;
       groups[k] = { pending: true };
