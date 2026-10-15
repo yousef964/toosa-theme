@@ -43,7 +43,7 @@
     var root = new THREE.Group(); scene.add(root);
 
     var loader = new T.GLTFLoader(); loader.setMeshoptDecoder(T.MeshoptDecoder);
-    var cache = {}, groups = {}, state = { system: null, color: null, mods: {} }, anims = [], pending = 0;
+    var cache = {}, groups = {}, state = { system: null, color: null, mods: {} }, anims = [], pending = 0, active = true;
     var camGoal = { target: new THREE.Vector3(0, 0.6, 0), dist: 4 }, camStart = null, camT = 1, dirty = true, idleTimer = 0;
 
     function paintColor(k) { return PAINT[k] || PAINT.grey; }
@@ -90,6 +90,9 @@
       if (g.visible === on && !g.userData.anim) { return; }
       var from = mod === 'hutch' || mod === 'upper' ? new THREE.Vector3(0, 0.35, 0) : mod === 'peg' ? new THREE.Vector3(0, 0, -0.3) : mod === 'locker' ? new THREE.Vector3(-0.45, 0, 0) : mod === 'locker2' || mod === 'drawers' ? new THREE.Vector3(0.45, 0, 0) : new THREE.Vector3(0, 0, 0);
       var base = g.userData.base || (g.userData.base = g.position.clone());
+      if (!active) { // stage scrolled away (phones): no frames run, so land on the end state at once
+        g.position.copy(base); g.scale.setScalar(1); g.visible = on; delete g.userData.anim; dirty = true; frameCamera(true); return;
+      }
       g.visible = true;
       g.userData.anim = { t: 0, on: on, from: from, base: base, dur: on ? 520 : 320 };
       anims.push(g); dirty = true;
@@ -137,7 +140,7 @@
     }
     // initial camera
     cam.position.set(2.6, 1.3, 3.6); ctl.target.set(0, 0.6, 0); ctl.update();
-    var active = true, last = performance.now();
+    var last = performance.now();
     function tick(now) {
       if (!active) return;
       requestAnimationFrame(tick);
