@@ -1,0 +1,105 @@
+{% comment %} TOOSA redesign: compact showroom block with map or photo, icon facts and one button {% endcomment %}
+{%- liquid
+  assign address_lines = section.settings.address | newline_to_br | split: '<br />'
+  assign tel = section.settings.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+-%}
+<section class="tx tx--light tx-showroom" id="tx-showroom-{{ section.id }}">
+  <div class="tx-wrap">
+    <div class="tx-showroom__grid">
+      <div class="tx-showroom__copy">
+        {% if section.settings.eyebrow != blank %}<p class="tx-eyebrow tx-reveal">{{ section.settings.eyebrow }}</p>{% endif %}
+        <h2 class="tx-h2 tx-reveal" data-delay="1">{{ section.settings.heading }}</h2>
+        {% if section.settings.lead != blank %}<p class="tx-lead tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
+
+        <ul class="tx-showroom__facts tx-reveal" data-delay="3">
+          {% if section.settings.address != blank %}
+            <li class="tx-fact">
+              <span class="tx-fact__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+              <span class="tx-fact__body">
+                <span class="tx-fact__label">{{ section.settings.address_label }}</span>
+                <a class="tx-fact__value" href="{{ section.settings.directions_link | default: '#' }}" target="_blank" rel="noopener">{% for line in address_lines %}{{ line | strip }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</a>
+              </span>
+            </li>
+          {% endif %}
+          {% if section.settings.hours != blank %}
+            <li class="tx-fact">
+              <span class="tx-fact__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+              <span class="tx-fact__body">
+                <span class="tx-fact__label">{{ section.settings.hours_label }}</span>
+                <span class="tx-fact__value">{{ section.settings.hours }}{% if section.settings.hours_2 != blank %}<br>{{ section.settings.hours_2 }}{% endif %}</span>
+              </span>
+            </li>
+          {% endif %}
+          {% if section.settings.phone != blank %}
+            <li class="tx-fact">
+              <span class="tx-fact__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+              <span class="tx-fact__body">
+                <span class="tx-fact__label">{{ section.settings.phone_label }}</span>
+                <a class="tx-fact__value" href="tel:{{ tel }}">{{ section.settings.phone }}</a>
+              </span>
+            </li>
+          {% endif %}
+          {% if section.settings.pickup != blank %}
+            <li class="tx-fact">
+              <span class="tx-fact__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></span>
+              <span class="tx-fact__body">
+                <span class="tx-fact__label">{{ section.settings.pickup_label }}</span>
+                <span class="tx-fact__value">{{ section.settings.pickup }}</span>
+              </span>
+            </li>
+          {% endif %}
+        </ul>
+
+        <div class="tx-actions tx-reveal" data-delay="4">
+          {% if section.settings.button_text != blank %}<a class="tx-btn tx-btn--primary" href="{{ section.settings.button_link | default: '/pages/book-appointments' }}">{{ section.settings.button_text }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>{% endif %}
+        </div>
+      </div>
+
+      <div class="tx-showroom__map tx-reveal" data-delay="2">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 900px) 48vw, 100vw', alt: section.settings.image_alt | default: 'TOOSA showroom in Richmond, BC' }}
+        {% elsif section.settings.map_embed != blank %}
+          <iframe src="{{ section.settings.map_embed }}" title="{{ section.settings.map_title | default: 'Map to the TOOSA showroom' }}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        {% endif %}
+        {% if section.settings.directions_text != blank and section.settings.directions_link != blank %}
+          <a class="tx-showroom__dir" href="{{ section.settings.directions_link }}" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>{{ section.settings.directions_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TX Showroom",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Visit us" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "See it in person." },
+    { "type": "textarea", "id": "lead", "label": "Lead text", "default": "Open the drawers, test the slides, compare colours and talk configurations with the people who designed them, at our Richmond, BC showroom." },
+    { "type": "header", "content": "Facts" },
+    { "type": "text", "id": "address_label", "label": "Address label", "default": "Showroom" },
+    { "type": "textarea", "id": "address", "label": "Address (one line per row)", "default": "Unit 142 - 11566 Eburne Way\nRichmond, BC V6V 2G7" },
+    { "type": "text", "id": "hours_label", "label": "Hours label", "default": "Hours" },
+    { "type": "text", "id": "hours", "label": "Hours", "default": "Mon to Fri, 10:00 to 18:00" },
+    { "type": "text", "id": "hours_2", "label": "Hours, second line", "default": "Sat and Sun closed" },
+    { "type": "text", "id": "phone_label", "label": "Phone label", "default": "Call" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "778-939-9494" },
+    { "type": "text", "id": "pickup_label", "label": "Pickup label", "default": "Local pickup" },
+    { "type": "text", "id": "pickup", "label": "Pickup", "default": "Richmond, BC and Calgary, AB" },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_text", "label": "Button", "default": "Book a showroom visit" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "directions_text", "label": "Directions link text", "default": "Get directions" },
+    { "type": "url", "id": "directions_link", "label": "Directions link" },
+    { "type": "header", "content": "Map or photo" },
+    { "type": "text", "id": "map_embed", "label": "Google Maps embed URL" },
+    { "type": "text", "id": "map_title", "label": "Map title (accessibility)", "default": "Map to the TOOSA showroom in Richmond, BC" },
+    { "type": "image_picker", "id": "image", "label": "Photo (replaces the map)" },
+    { "type": "text", "id": "image_alt", "label": "Photo description", "default": "TOOSA showroom in Richmond, BC" }
+  ],
+  "presets": [ { "name": "TX Showroom" } ]
+}
+{% endschema %}

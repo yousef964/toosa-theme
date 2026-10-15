@@ -1,0 +1,114 @@
+{% comment %} TOOSA redesign: visual "cheap box vs TOOSA" scorecard. Each row is a feature with two meters that fill on scroll. {% endcomment %}
+<section class="tx tx--light tx-compare" id="tx-compare-{{ section.id }}">
+  <div class="tx-wrap">
+    <div class="tx-compare__grid">
+      <div class="tx-compare__head">
+        {% if section.settings.eyebrow != blank %}<p class="tx-eyebrow tx-reveal">{{ section.settings.eyebrow }}</p>{% endif %}
+        <h2 class="tx-h2 tx-reveal" data-delay="1">{{ section.settings.heading }}</h2>
+        {% if section.settings.lead != blank %}<p class="tx-lead tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
+        <ul class="tx-compare__legend tx-reveal" data-delay="3" aria-hidden="true">
+          <li class="tx-compare__legend-item tx-compare__legend-item--them"><i></i>{{ section.settings.them_label }}</li>
+          <li class="tx-compare__legend-item tx-compare__legend-item--us"><i></i>{{ section.settings.us_label }}</li>
+        </ul>
+        {% if section.settings.verdict != blank %}
+          <div class="tx-compare__verdict tx-reveal" data-delay="3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+            <p>{{ section.settings.verdict }}</p>
+          </div>
+        {% endif %}
+        <div class="tx-actions tx-reveal" data-delay="4">
+          {% if section.settings.button_1_text != blank %}<a class="tx-btn tx-btn--primary" href="{{ section.settings.button_1_link | default: '/collections/tool-storage' }}">{{ section.settings.button_1_text }}</a>{% endif %}
+          {% if section.settings.button_2_text != blank %}<a class="tx-btn tx-btn--ghost" href="{{ section.settings.button_2_link | default: '/pages/why-toosa' }}">{{ section.settings.button_2_text }}</a>{% endif %}
+        </div>
+      </div>
+
+      <div class="tx-compare__board" role="table" aria-label="{{ section.settings.heading | escape }}">
+        <div class="tx-compare__cols" role="row">
+          <span role="columnheader" class="tx-compare__col tx-compare__col--feat">{{ section.settings.feature_label }}</span>
+          <span role="columnheader" class="tx-compare__col tx-compare__col--them">{{ section.settings.them_label }}</span>
+          <span role="columnheader" class="tx-compare__col tx-compare__col--us">{{ section.settings.us_label }}</span>
+        </div>
+        {% for block in section.blocks %}
+          {%- liquid
+            assign them_w = block.settings.them_score | default: 30
+            assign us_w = block.settings.us_score | default: 100
+          -%}
+          <div class="tx-compare__row tx-reveal" role="row" data-delay="{{ forloop.index0 | modulo: 4 }}" {{ block.shopify_attributes }}>
+            <div class="tx-compare__feat" role="rowheader">
+              <span class="tx-compare__icon" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'steel' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg>
+                  {% when 'slides' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="6" rx="1.5"/><rect x="3" y="13" width="18" height="6" rx="1.5"/><path d="M10 8h4M10 16h4"/></svg>
+                  {% when 'finish' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11a3 3 0 0 1 3 3v2a2 2 0 0 1-2 2h-3v3a2 2 0 0 1-4 0v-3H4z"/><path d="M4 7v6"/></svg>
+                  {% when 'support' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.1-2.1z"/></svg>
+                  {% when 'addons' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><path d="M17 14v6M14 17h6"/></svg>
+                  {% when 'delivery' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+                  {% else %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+                {% endcase %}
+              </span>
+              <span class="tx-compare__name">{{ block.settings.feature }}</span>
+            </div>
+            <div class="tx-compare__cell" role="cell">
+              <div class="tx-compare__bar tx-compare__bar--them" style="--w: {{ them_w }}%">
+                <i aria-hidden="true"></i>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="tx-sr">{{ section.settings.them_label }}: </span>{{ block.settings.competitor_text }}</span>
+              </div>
+            </div>
+            <div class="tx-compare__cell" role="cell">
+              <div class="tx-compare__bar tx-compare__bar--us" style="--w: {{ us_w }}%">
+                <i aria-hidden="true"></i>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span class="tx-sr">{{ section.settings.us_label }}: </span>{{ block.settings.brand_text }}</span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TX Comparison",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Honest comparison" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why the cheap box costs more in the long run." },
+    { "type": "textarea", "id": "lead", "label": "Lead text", "default": "Spec for spec, this is what the price difference actually buys. The longer bar wins." },
+    { "type": "text", "id": "feature_label", "label": "Feature column label", "default": "Feature" },
+    { "type": "text", "id": "them_label", "label": "Competitor label", "default": "Typical retail tool cabinet" },
+    { "type": "text", "id": "us_label", "label": "Brand label", "default": "TOOSA" },
+    { "type": "text", "id": "verdict", "label": "Verdict line", "default": "Buy it once. Add to it for years." },
+    { "type": "text", "id": "button_1_text", "label": "Primary button", "default": "Shop tool storage" },
+    { "type": "url", "id": "button_1_link", "label": "Primary link" },
+    { "type": "text", "id": "button_2_text", "label": "Secondary button", "default": "Why TOOSA" },
+    { "type": "url", "id": "button_2_link", "label": "Secondary link" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Feature row", "settings": [
+      { "type": "text", "id": "feature", "label": "Feature", "default": "Steel and frame" },
+      { "type": "select", "id": "icon", "label": "Icon", "default": "steel", "options": [
+        { "value": "steel", "label": "Steel frame" },
+        { "value": "slides", "label": "Drawer slides" },
+        { "value": "finish", "label": "Finish" },
+        { "value": "support", "label": "Support and parts" },
+        { "value": "addons", "label": "Add-ons" },
+        { "value": "delivery", "label": "Delivery" },
+        { "value": "check", "label": "Check" }
+      ] },
+      { "type": "text", "id": "competitor_text", "label": "Competitor", "default": "Folded thin-gauge panels, bolted corners" },
+      { "type": "range", "id": "them_score", "label": "Competitor bar length", "min": 10, "max": 100, "step": 5, "unit": "%", "default": 30 },
+      { "type": "text", "id": "brand_text", "label": "TOOSA", "default": "Heavy-gauge steel, welded frame" },
+      { "type": "range", "id": "us_score", "label": "TOOSA bar length", "min": 10, "max": 100, "step": 5, "unit": "%", "default": 100 }
+    ] }
+  ],
+  "presets": [ { "name": "TX Comparison", "blocks": [
+    { "type": "row", "settings": { "feature": "Steel and frame", "icon": "steel", "competitor_text": "Folded thin-gauge panels, bolted corners", "them_score": 30, "brand_text": "Heavy-gauge steel, welded frame", "us_score": 100 } },
+    { "type": "row", "settings": { "feature": "Drawer slides", "icon": "slides", "competitor_text": "Partial extension, sag when loaded", "them_score": 40, "brand_text": "Full-extension ball-bearing slides, soft close, rated per drawer", "us_score": 100 } },
+    { "type": "row", "settings": { "feature": "Finish", "icon": "finish", "competitor_text": "Thin paint that chips on impact and solvents", "them_score": 35, "brand_text": "Textured powder coat, solvent-resistant", "us_score": 100 } },
+    { "type": "row", "settings": { "feature": "Support and parts", "icon": "support", "competitor_text": "Overseas seller, no parts, no replacements", "them_score": 20, "brand_text": "Canadian support, modules and parts in stock", "us_score": 100 } },
+    { "type": "row", "settings": { "feature": "Add-ons", "icon": "addons", "competitor_text": "One-off unit, nothing connects to it", "them_score": 25, "brand_text": "Hutch, lockers and drawer units bolt straight on", "us_score": 100 } },
+    { "type": "row", "settings": { "feature": "Getting it home", "icon": "delivery", "competitor_text": "Freight depot pickup or costly LTL", "them_score": 40, "brand_text": "Fast delivery Canada-wide, inspect before local pickup", "us_score": 100 } }
+  ] } ]
+}
+{% endschema %}
