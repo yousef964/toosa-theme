@@ -104,7 +104,7 @@
       <div class="txp-head">
         <p class="txp-eyebrow txp-reveal">{{ eyebrow }}</p>
         <h2 class="txp-h2 txp-reveal" data-delay="1">{{ heading }}</h2>
-        {%- if lead != blank -%}<p class="txp-lead txp-reveal" data-delay="2">{{ lead }}</p>{%- endif -%}
+        {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- elsif lead != blank and s.show_lead != false -%}<p class="txp-lead txp-reveal" data-delay="2">{{ lead }}</p>{%- endif -%}
         {%- if s.show_chips -%}
           <div class="txpr-overview__badges txp-reveal" data-delay="3">
             {%- if ul_ok == '1' -%}<span class="txpr-chip">{% render 'tx-p-icon', name: 'award' %}{{ s.ul_text | default: 'UL-certified inverter' }}</span>{%- endif -%}
@@ -157,7 +157,11 @@
             {%- if first_char == ':' or first_char == '-' or first_char == ',' or first_char == '–' -%}
               {%- assign text = text | remove_first: first_char | strip -%}
             {%- endif -%}
-            {%- assign text = text | capitalize -%}
+            {%- if text != blank -%}
+              {%- assign t_first = text | slice: 0, 1 | upcase -%}
+              {%- assign t_rest = text | slice: 1, 2000 -%}
+              {%- assign text = t_first | append: t_rest -%}
+            {%- endif -%}
             {%- assign probe = title | append: ' ' | append: text | downcase -%}
             {%- assign icon = s.default_icon | default: 'check' -%}
             {%- if probe contains 'drawer' -%}{%- assign icon = 'drawer' -%}
@@ -206,6 +210,8 @@
     { "type": "select", "id": "theme", "label": "Colour", "default": "paper", "options": [ { "value": "paper", "label": "Paper" }, { "value": "light", "label": "White" } ] },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "At a glance" },
     { "type": "text", "id": "heading", "label": "Heading ([product] = product title)", "default": "What you get with the [product]" },
+    { "type": "checkbox", "id": "show_lead", "label": "Lead from the product description", "default": true },
+    { "type": "richtext", "id": "lead", "label": "Lead (replaces the one from the description)" },
     { "type": "select", "id": "columns", "label": "Beat columns", "default": "2", "options": [ { "value": "2", "label": "Two" }, { "value": "3", "label": "Three" } ] },
     { "type": "range", "id": "max_auto", "label": "Max beats taken from the description", "min": 2, "max": 10, "step": 1, "default": 6 },
     { "type": "select", "id": "default_icon", "label": "Fallback icon", "default": "check", "options": [ { "value": "check", "label": "Check" }, { "value": "star", "label": "Star" }, { "value": "sparkle", "label": "Sparkle" } ] },

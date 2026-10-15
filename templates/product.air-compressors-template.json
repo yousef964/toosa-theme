@@ -1304,7 +1304,9 @@
         "default_icon": "check",
         "show_chips": false,
         "ul_for": "!*",
-        "show_full": false
+        "show_full": false,
+        "show_lead": false,
+        "lead": "<p>A machine this size needs a few things in place. Check these before ordering, and involve a licensed electrician and a compressed-air installer for hookup.</p>"
       }
     },
     "tx_pr_after": {
