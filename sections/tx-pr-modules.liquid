@@ -9,7 +9,7 @@
     assign theme_class = 'txp txp--light'
   endif
 
-  assign chosen = blank
+  assign chosen = false
   for block in section.blocks
     capture ok
       render 'tx-pr-match', rule: block.settings.only_for, product: product
@@ -25,7 +25,7 @@
   assign heading = s.heading
   assign lead = s.lead
   assign note = s.note
-  if chosen != blank
+  if chosen
     assign handles = chosen.settings.handles
     if chosen.settings.eyebrow != blank
       assign eyebrow = chosen.settings.eyebrow
@@ -46,7 +46,7 @@
   comment
     fallback: the product's own collection, skipping catch-alls
   endcomment
-  assign coll = blank
+  assign coll = false
   if handles == blank and s.fallback
     assign skip = s.skip_collections | default: 'all,new-arrivals,frontpage' | split: ','
     for c in product.collections
@@ -65,7 +65,7 @@
         break
       endif
     endfor
-    if coll == blank and s.fallback_collection != blank
+    if coll == false and s.fallback_collection != blank
       assign coll = s.fallback_collection
     endif
   endif
@@ -80,7 +80,7 @@
       {%- if p == blank or p.title == blank -%}{%- continue -%}{%- endif -%}
       {%- render 'tx-pr-card', p: p, badge: s.badge -%}
     {%- endfor -%}
-  {%- elsif coll != blank -%}
+  {%- elsif coll -%}
     {%- assign shown = 0 -%}
     {%- for p in coll.products -%}
       {%- if p.handle == product.handle -%}{%- continue -%}{%- endif -%}
