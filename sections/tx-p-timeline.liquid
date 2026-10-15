@@ -31,7 +31,7 @@
             {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
             {%- if block.settings.stat_big != blank -%}<div class="txp-tl__stat"><b class="txp-count">{{ block.settings.stat_big }}</b><span>{{ block.settings.stat_small }}</span></div>{%- endif -%}
             {%- if block.settings.image != blank -%}
-              <div class="txp-tl__img">{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 900px) 40vw, 92vw', alt: block.settings.image.alt | default: block.settings.title }}</div>
+              <div class="txp-tl__img">{%- assign tx_alt = block.settings.image.alt | default: block.settings.title | escape -%}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 900px) 40vw, 92vw', alt: tx_alt }}</div>
             {%- endif -%}
           </div>
         </li>

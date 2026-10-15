@@ -43,13 +43,13 @@
           {%- assign mp4 = '' -%}
           {%- for source in b.video.sources -%}{%- if source.format == 'mp4' -%}{%- assign mp4 = source.url -%}{%- break -%}{%- endif -%}{%- endfor -%}
           <button type="button" class="txp-gal__item txp-gal__item--video txp-reveal" data-delay="{{ forloop.index0 | modulo: 3 }}" data-txp-kind="video" data-txp-src="{{ mp4 }}" data-txp-cap="{{ b.caption | escape }}" aria-label="Play video{% if b.caption != blank %}: {{ b.caption | escape }}{% endif %}" {{ block.shopify_attributes }}>
-            {%- if b.video.preview_image != blank -%}{{ b.video.preview_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 540px) 46vw, 92vw', alt: b.caption | default: 'TOOSA video' }}{%- endif -%}
+            {%- if b.video.preview_image != blank -%}{%- assign tx_alt = b.caption | default: 'TOOSA video' | escape -%}{{ b.video.preview_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 540px) 46vw, 92vw', alt: tx_alt }}{%- endif -%}
             <span class="txp-gal__play">{% render 'tx-p-icon', name: 'play' %}</span>
             {%- if b.caption != blank -%}<span class="txp-gal__cap">{{ b.caption }}</span>{%- endif -%}
           </button>
         {%- elsif block.type == 'image' and b.image != blank -%}
           <button type="button" class="txp-gal__item txp-reveal" data-delay="{{ forloop.index0 | modulo: 3 }}" data-txp-kind="photo" data-txp-src="{{ b.image | image_url: width: 2000 }}" data-txp-cap="{{ b.caption | escape }}" aria-label="Open photo{% if b.caption != blank %}: {{ b.caption | escape }}{% endif %}" {{ block.shopify_attributes }}>
-            {{ b.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 540px) 46vw, 92vw', alt: b.image.alt | default: b.caption | default: 'TOOSA tool storage in a workshop' }}
+            {%- assign tx_alt = b.image.alt | default: b.caption | default: 'TOOSA tool storage in a workshop' | escape -%}{{ b.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 540px) 46vw, 92vw', alt: tx_alt }}
             {%- if b.caption != blank -%}<span class="txp-gal__cap">{{ b.caption }}</span>{%- endif -%}
           </button>
         {%- endif -%}

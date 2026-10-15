@@ -17,7 +17,7 @@
       {%- if article.excerpt != blank -%}<p class="txp-article__excerpt txp-reveal" data-delay="3">{{ article.excerpt | strip_html }}</p>{%- endif -%}
     </div>
     {%- if article.image != blank and s.show_image -%}
-      <div class="txp-wrap"><div class="txp-article__img txp-reveal" data-delay="3">{{ article.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '800, 1200, 1600, 2000', sizes: '(min-width: 1200px) 1180px, 96vw', alt: article.image.alt | default: article.title }}</div></div>
+      <div class="txp-wrap"><div class="txp-article__img txp-reveal" data-delay="3">{%- assign tx_alt = article.image.alt | default: article.title | escape -%}{{ article.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '800, 1200, 1600, 2000', sizes: '(min-width: 1200px) 1180px, 96vw', alt: tx_alt }}</div></div>
     {%- endif -%}
   </header>
   <div class="txp-wrap txp-wrap--narrow txp-section txp-section--tight">
@@ -99,7 +99,7 @@
               {%- if other.id == article.id or shown >= 3 -%}{%- continue -%}{%- endif -%}
               {%- assign shown = shown | plus: 1 -%}
               <a class="txp-post txp-reveal" data-delay="{{ shown }}" href="{{ other.url }}">
-                <div class="txp-post__img">{%- if other.image != blank -%}{{ other.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 560px) 46vw, 92vw', alt: other.image.alt | default: other.title }}{%- endif -%}</div>
+                <div class="txp-post__img">{%- if other.image != blank -%}{%- assign tx_alt = other.image.alt | default: other.title | escape -%}{{ other.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 560px) 46vw, 92vw', alt: tx_alt }}{%- endif -%}</div>
                 <div class="txp-post__body"><div class="txp-blog__meta"><span>{{ other.published_at | date: '%B %-d, %Y' }}</span></div><h3 class="txp-h3">{{ other.title }}</h3><span class="txp-link">Read more{% render 'tx-p-icon', name: 'arrow' %}</span></div>
               </a>
             {%- endfor -%}

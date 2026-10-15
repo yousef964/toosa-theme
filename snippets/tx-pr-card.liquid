@@ -22,7 +22,7 @@
 -%}
 <a class="txpr-card " href="{{ p.url }}">
   <span class="txpr-card__media">
-    {%- if img != blank -%}{{ img | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', sizes: '(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 46vw', alt: img.alt | default: p.title }}{%- endif -%}
+    {%- if img != blank -%}{%- assign tx_alt = img.alt | default: p.title | escape -%}{{ img | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', sizes: '(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 46vw', alt: tx_alt }}{%- endif -%}
     {%- if badge != blank -%}<span class="txpr-card__tag txpr-card__tag--on">{{ badge }}</span>{%- elsif p.available == false -%}<span class="txpr-card__tag">Sold out</span>{%- endif -%}
   </span>
   <span class="txpr-card__body">

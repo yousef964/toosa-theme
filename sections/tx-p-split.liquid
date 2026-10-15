@@ -39,7 +39,7 @@
           <div class="txp-split__media txp-reveal">
             {%- if b.image != blank -%}
               <div class="{{ frame }}">
-                {{ b.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500, 800, 1100, 1400', sizes: '(min-width: 860px) 46vw, 92vw', alt: b.image.alt | default: b.heading }}
+                {%- assign tx_alt = b.image.alt | default: b.heading | escape -%}{{ b.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500, 800, 1100, 1400', sizes: '(min-width: 860px) 46vw, 92vw', alt: tx_alt }}
                 {%- if b.caption != blank -%}<span class="txp-split__cap">{{ b.caption }}</span>{%- endif -%}
               </div>
             {%- endif -%}

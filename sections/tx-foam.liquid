@@ -8,10 +8,10 @@
   <div class="tx-wrap">
     <div class="tx-foam__grid">
       <div class="tx-foam__media tx-reveal">
-        {% if main_img != blank %}{{ main_img | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: section.settings.image_alt | default: 'TOOSA foam inserts in a tool drawer' }}{% endif %}
+        {% if main_img != blank %}{%- assign tx_alt = section.settings.image_alt | default: 'TOOSA foam inserts in a tool drawer' | escape -%}{{ main_img | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: tx_alt }}{% endif %}
         {% if tiles_product != blank %}
           <div class="tx-foam__tiles">
-            {% for img in tiles_product.images limit: 3 %}<div class="tx-foam__tile">{{ img | image_url: width: 160 | image_tag: loading: 'lazy', alt: img.alt | default: tiles_product.title }}</div>{% endfor %}
+            {% for img in tiles_product.images limit: 3 %}<div class="tx-foam__tile">{%- assign tx_alt = img.alt | default: tiles_product.title | escape -%}{{ img | image_url: width: 160 | image_tag: loading: 'lazy', alt: tx_alt }}</div>{% endfor %}
           </div>
         {% endif %}
       </div>

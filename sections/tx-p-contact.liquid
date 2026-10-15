@@ -100,7 +100,7 @@
           <div class="txp-loc txp-reveal {% if forloop.index > 1 %}txp-loc--alt{% endif %}" data-delay="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
             <div class="txp-loc__brand">
               {%- if b.logo != blank -%}
-                <span class="txp-loc__logo">{{ b.logo | image_url: width: 400 | image_tag: loading: 'lazy', alt: b.logo.alt | default: b.name }}</span>
+                {%- assign logo_alt = b.logo.alt | default: b.name | escape -%}<span class="txp-loc__logo">{{ b.logo | image_url: width: 400 | image_tag: loading: 'lazy', alt: logo_alt }}</span>
               {%- else -%}
                 <span class="txp-loc__mark" aria-hidden="true">{{ b.mark | default: b.name | slice: 0, 3 }}</span>
                 <span class="txp-loc__wordmark">{{ b.wordmark | default: b.name }}</span>

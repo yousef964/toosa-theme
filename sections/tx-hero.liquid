@@ -73,7 +73,7 @@
             {% endif %}
           {% endfor %}
         {% elsif section.settings.fallback_image != blank %}
-          {{ section.settings.fallback_image | image_url: width: 1400 | image_tag: class: 'tx-hero__img is-on', loading: 'eager', alt: section.settings.fallback_image.alt | default: 'TOOSA tool storage' }}
+          {%- assign tx_alt = section.settings.fallback_image.alt | default: 'TOOSA tool storage' | escape -%}{{ section.settings.fallback_image | image_url: width: 1400 | image_tag: class: 'tx-hero__img is-on', loading: 'eager', alt: tx_alt }}
         {% endif %}
         <div class="tx-hero__floor"></div>
         {% if section.settings.chip_1_big != blank %}<div class="tx-chip tx-chip--1"><b>{{ section.settings.chip_1_big }}</b><span>{{ section.settings.chip_1_small }}</span></div>{% endif %}

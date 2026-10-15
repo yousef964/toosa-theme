@@ -23,9 +23,9 @@
               {%- assign n = n | plus: 1 -%}
               <figure class="txp-prod__slide {% if n == 1 %}is-on{% endif %}" data-txp-slide aria-label="Photo {{ n }}">
                 {%- if n == 1 -%}
-                  {{ media | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: media.alt | default: title }}
+                  {%- assign tx_alt = media.alt | default: title | escape -%}{{ media | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: tx_alt }}
                 {%- else -%}
-                  {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: media.alt | default: title }}
+                  {%- assign tx_alt = media.alt | default: title | escape -%}{{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: tx_alt }}
                 {%- endif -%}
               </figure>
             {%- endif -%}

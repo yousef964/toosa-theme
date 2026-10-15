@@ -33,7 +33,7 @@
                 </video>
                 <button type="button" class="txp-quote__play" aria-label="Play video from {{ b.name }}" data-txp-play><span>{% render 'tx-p-icon', name: 'play' %}</span></button>
               {%- else -%}
-                {{ b.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '420px', alt: b.image.alt | default: b.name }}
+                {%- assign tx_alt = b.image.alt | default: b.name | escape -%}{{ b.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '420px', alt: tx_alt }}
               {%- endif -%}
             </div>
           {%- endif -%}

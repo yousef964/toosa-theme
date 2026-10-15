@@ -51,7 +51,7 @@
               </div>
               {%- if b.image != blank -%}
                 <div class="txp-tabpanel__media {% if b.contain %}txp-tabpanel__media--contain{% endif %}">
-                  {{ b.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(min-width: 900px) 40vw, 92vw', alt: b.image.alt | default: b.title }}
+                  {%- assign tx_alt = b.image.alt | default: b.title | escape -%}{{ b.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(min-width: 900px) 40vw, 92vw', alt: tx_alt }}
                   {%- if b.caption != blank -%}<span class="txp-split__cap">{{ b.caption }}</span>{%- endif -%}
                 </div>
               {%- endif -%}
