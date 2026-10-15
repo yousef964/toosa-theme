@@ -42,6 +42,7 @@
 
           {% for block in section.blocks %}
             {% assign testimonial_image = block.settings.image %}
+            {% assign testimonial_alt = testimonial_image.alt | default: block.settings.customer_name | default: 'TOOSA customer workshop' | escape %}
 
             <article
               class="jd-testimonial-card"
@@ -70,7 +71,7 @@
                           widths: '400, 600, 800, 1000',
                           sizes: '(max-width: 749px) 85vw, 33vw',
                           class: 'jd-testimonial-card__image',
-                          alt: testimonial_image.alt
+                          alt: testimonial_alt
                       }}
 
                       <span class="jd-testimonial-card__zoom" aria-hidden="true">
@@ -101,7 +102,7 @@
                           widths: '400, 600, 800, 1000',
                           sizes: '(max-width: 749px) 85vw, 33vw',
                           class: 'jd-testimonial-card__image',
-                          alt: testimonial_image.alt
+                          alt: testimonial_alt
                       }}
 
                       <span class="jd-testimonial-card__play" aria-hidden="true">

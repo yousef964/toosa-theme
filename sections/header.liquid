@@ -194,7 +194,8 @@
                                   {%liquid
                                   if section.settings.primary_menu_collection_image_display
                                       if primary_menu_item.type == "collection_link" and primary_menu_item.object.image
-                                          echo primary_menu_item.object.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: primary_menu_item.object.image.alt | escape
+                                          assign menu_img_alt = primary_menu_item.object.image.alt | default: primary_menu_item.title | escape
+                                          echo primary_menu_item.object.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: menu_img_alt
                                       endif
                                   endif
                                   %}
@@ -227,7 +228,8 @@
                                           {%liquid
                                           if section.settings.primary_menu_collection_image_display
                                           if primary_menu_subitem.type == "collection_link" and primary_menu_subitem.object.image
-                                          echo primary_menu_subitem.object.image | image_url: width: 320 | image_tag: loading: 'lazy', alt: primary_menu_subitem.object.image.alt | escape
+                                          assign menu_img_alt = primary_menu_subitem.object.image.alt | default: primary_menu_subitem.title | escape
+                                          echo primary_menu_subitem.object.image | image_url: width: 320 | image_tag: loading: 'lazy', alt: menu_img_alt
                                           endif
                                           endif
                                           %}
@@ -256,7 +258,8 @@
                                                   {%liquid
                                                       if section.settings.primary_menu_collection_image_display
                                                           if primary_menu_sub_subitem.type == "collection_link" and primary_menu_sub_subitem.object.image
-                                                              echo primary_menu_sub_subitem.object.image | image_url: width: 320 | image_tag: loading: 'lazy', alt: primary_menu_sub_subitem.object.image.alt | escape
+                                                              assign menu_img_alt = primary_menu_sub_subitem.object.image.alt | default: primary_menu_sub_subitem.title | escape
+                                          echo primary_menu_sub_subitem.object.image | image_url: width: 320 | image_tag: loading: 'lazy', alt: menu_img_alt
                                                           endif
                                                       endif
                                                   %}
@@ -289,7 +292,7 @@
 
                                                   %}">
                                                     <div class="section-header-main-menu-card" {{ block.shopify_attributes }}>
-                                                        <div class="section-header-main-menu-card__image">{{ block.settings[mega_menu_card_image] | image_url: width: 320 | image_tag: loading: 'lazy', alt: block.settings[mega_menu_card_image].alt | escape }}</div>
+                                                        <div class="section-header-main-menu-card__image">{%- assign card_img_alt = block.settings[mega_menu_card_image].alt | default: block.settings[mega_menu_card_text_1] | default: shop.name | escape -%}{{ block.settings[mega_menu_card_image] | image_url: width: 320 | image_tag: loading: 'lazy', alt: card_img_alt }}</div>
                                                         <div class="section-header-main-menu-card__title">
                                                           {% if block.settings[mega_menu_card_text_1] != blank %}
                                                             {% if block.settings[mega_menu_card_link] != blank %}

@@ -1,0 +1,47 @@
+{% comment %} Product structured data for search engines (the product templates use theme blocks, which carry none) {% endcomment %}
+{%- liquid
+  assign imgs = product.media | where: 'media_type', 'image'
+  assign v1 = product.selected_or_first_available_variant | default: product.variants.first
+  assign low = product.price_min | money_without_currency | remove: ','
+  assign high = product.price_max | money_without_currency | remove: ','
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "@id": {{ shop.url | append: product.url | append: '#product' | json }},
+  "name": {{ product.title | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  "image": [{% for m in imgs limit: 6 %}{{ m | image_url: width: 1600 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],
+  "description": {{ product.description | strip_html | strip_newlines | truncate: 500 | json }},
+  {%- if v1.sku != blank %}
+  "sku": {{ v1.sku | json }},
+  {%- endif %}
+  "brand": { "@type": "Brand", "name": {{ product.vendor | default: shop.name | json }} },
+  {%- if product.type != blank %}
+  "category": {{ product.type | json }},
+  {%- endif %}
+  "offers": {% if product.variants.size > 1 %}{
+    "@type": "AggregateOffer",
+    "url": {{ shop.url | append: product.url | json }},
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "lowPrice": {{ low | json }},
+    "highPrice": {{ high | json }},
+    "offerCount": {{ product.variants.size }},
+    "availability": {% if product.available %}"https://schema.org/InStock"{% else %}"https://schema.org/OutOfStock"{% endif %},
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": { "@type": "Organization", "name": {{ shop.name | json }} }
+  }{% else %}{
+    "@type": "Offer",
+    "url": {{ shop.url | append: product.url | json }},
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ v1.price | money_without_currency | remove: ',' | json }},
+    "availability": {% if v1.available %}"https://schema.org/InStock"{% else %}"https://schema.org/OutOfStock"{% endif %},
+    "itemCondition": "https://schema.org/NewCondition",
+    {%- if v1.sku != blank %}
+    "sku": {{ v1.sku | json }},
+    {%- endif %}
+    "seller": { "@type": "Organization", "name": {{ shop.name | json }} }
+  }{% endif %}
+}
+</script>

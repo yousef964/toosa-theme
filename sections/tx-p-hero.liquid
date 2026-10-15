@@ -14,6 +14,7 @@
   if img == blank and layout != 'none'
     assign layout = 'none'
   endif
+  assign hero_alt = img.alt | default: title | escape
   assign tag = 'h1'
   if s.use_h2
     assign tag = 'h2'
@@ -21,7 +22,7 @@
 -%}
 <section class="{{ theme_class }} txp-hero txp-hero--{{ layout }}" id="txp-hero-{{ section.id }}">
   {%- if layout == 'bg' and img != blank -%}
-    <div class="txp-hero__bg">{{ img | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '800, 1200, 1600, 2400', sizes: '100vw', alt: img.alt | default: title }}</div>
+    <div class="txp-hero__bg">{{ img | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '800, 1200, 1600, 2400', sizes: '100vw', alt: hero_alt }}</div>
   {%- else -%}
     <div class="txp-hero__grain"></div>
   {%- endif -%}
@@ -52,7 +53,7 @@
       <div class="txp-hero__media txp-reveal" data-delay="2">
         <div class="txp-hero__glow"></div>
         <div class="txp-hero__frame" data-txp-frame>
-          {{ img | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 46vw, 92vw', alt: img.alt | default: title }}
+          {{ img | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 46vw, 92vw', alt: hero_alt }}
           {%- if s.chip_big != blank -%}<div class="txp-hero__chip"><b>{{ s.chip_big }}</b><span>{{ s.chip_small }}</span></div>{%- endif -%}
         </div>
       </div>
