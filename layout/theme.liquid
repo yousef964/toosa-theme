@@ -213,6 +213,10 @@
     {{ 'tx-pages.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'tx-pages.js' | asset_url }}" defer></script>
   {% endif %}
+  {% if request.page_type == 'collection' or request.page_type == 'list-collections' %}
+    {{ 'tx-collection.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  {{ 'tx-footer.css' | asset_url | stylesheet_tag }}
 
 
   {% liquid 

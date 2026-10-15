@@ -1,0 +1,207 @@
+{% comment %} TOOSA redesign: site footer. Styles in assets/tx-footer.css (loaded in layout/theme.liquid). {% endcomment %}
+{%- liquid
+  assign address_lines = section.settings.address | newline_to_br | split: '<br />'
+  assign hours_lines = section.settings.hours | newline_to_br | split: '<br />'
+  assign tel = section.settings.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+  assign logo_style = 'width:' | append: section.settings.logo_width | append: 'px'
+  assign has_social = false
+  if settings.social_facebook_link != blank or settings.social_instagram_link != blank or settings.social_linkedin_link != blank or settings.social_tiktok_link != blank or settings.social_youtube_link != blank or settings.social_pinterest_link != blank or settings.social_twitter_link != blank
+    assign has_social = true
+  endif
+-%}
+<footer class="txf" id="tx-footer-{{ section.id }}" role="contentinfo">
+  <div class="txf__wrap">
+
+    <div class="txf__top">
+      <div class="txf__brand">
+        <a class="txf__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }} home">
+          {% if section.settings.logo != blank %}
+            {{ section.settings.logo | image_url: width: 480 | image_tag: loading: 'lazy', widths: '240, 360, 480', sizes: '240px', alt: shop.name, style: logo_style }}
+          {% else %}
+            <span class="txf__wordmark">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+        {% if section.settings.tagline != blank %}<p class="txf__tagline">{{ section.settings.tagline }}</p>{% endif %}
+        {% if section.settings.show_social and has_social %}
+          <ul class="txf__social" aria-label="Follow TOOSA">
+            {% if settings.social_instagram_link != blank %}<li><a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a></li>{% endif %}
+            {% if settings.social_facebook_link != blank %}<li><a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.2c0-.9.3-1.5 1.5-1.5h1.5V5.1c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8V11H8v3h2.6v7z"/></svg></a></li>{% endif %}
+            {% if settings.social_linkedin_link != blank %}<li><a href="{{ settings.social_linkedin_link }}" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.4 9.5H3.3V21h3.1zM4.9 4a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6zM21 14.1c0-3.4-1.8-4.9-4.2-4.9-1.9 0-2.8 1.1-3.3 1.8V9.5H10.4V21h3.1v-6.4c0-1.7.3-3.3 2.4-3.3 2 0 2 1.9 2 3.4V21H21z"/></svg></a></li>{% endif %}
+            {% if settings.social_youtube_link != blank %}<li><a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z"/></svg></a></li>{% endif %}
+            {% if settings.social_tiktok_link != blank %}<li><a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.3 2.3 1.7 3.8 4 4v3.1c-1.5 0-2.8-.5-4-1.3v6.1a5.6 5.6 0 1 1-4.8-5.5v3.2a2.5 2.5 0 1 0 1.7 2.3V3z"/></svg></a></li>{% endif %}
+            {% if settings.social_pinterest_link != blank %}<li><a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.2-2 0-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.6 2.2-.9 3.4-.2 1 .5 1.9 1.5 1.9 1.8 0 3.2-1.9 3.2-4.7 0-2.5-1.8-4.2-4.3-4.2a4.5 4.5 0 0 0-4.7 4.5c0 .9.3 1.8.8 2.3.1.1.1.2.1.3l-.3 1.1c0 .2-.2.2-.4.1-1.3-.6-2.1-2.4-2.1-3.9 0-3.2 2.3-6.1 6.7-6.1 3.5 0 6.2 2.5 6.2 5.8 0 3.5-2.2 6.3-5.2 6.3-1 0-2-.5-2.3-1.2l-.6 2.4c-.2.9-.8 2-1.2 2.6A10 10 0 1 0 12 2z"/></svg></a></li>{% endif %}
+            {% if settings.social_twitter_link != blank %}<li><a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3l-6.8 7.8L21.5 21h-6.2l-4.9-6.4L4.8 21h-3l7.3-8.3L1.5 3h6.3l4.4 5.8zm-1.1 16.2h1.7L6.7 4.7H4.9z"/></svg></a></li>{% endif %}
+          </ul>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_newsletter %}
+        <div class="txf__news">
+          {% if section.settings.newsletter_title != blank %}<h2 class="txf__news-title">{{ section.settings.newsletter_title }}</h2>{% endif %}
+          {% if section.settings.newsletter_text != blank %}<p class="txf__news-text">{{ section.settings.newsletter_text }}</p>{% endif %}
+          {% form 'customer', class: 'txf__form', id: 'txf-newsletter' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="txf__field">
+              <label class="txf__sr" for="txf-email-{{ section.id }}">{{ 'general.newsletter.email' | t | default: 'Email address' }}</label>
+              <input id="txf-email-{{ section.id }}" class="txf__input" type="email" name="contact[email]" autocomplete="email" required placeholder="{{ section.settings.newsletter_placeholder | default: 'Your email' }}" value="{{ form.email }}">
+              <button class="txf__submit" type="submit">{{ section.settings.newsletter_button | default: 'Subscribe' }}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+            {%- if form.errors -%}<p class="txf__msg txf__msg--error" role="alert">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</p>{%- endif -%}
+            {%- if form.posted_successfully? -%}<p class="txf__msg txf__msg--ok" role="status" tabindex="-1" autofocus>{{ 'general.newsletter.notice.success' | t | default: 'Thanks for subscribing.' }}</p>{%- endif -%}
+          {% endform %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="txf__cols">
+      {% if section.settings.menu_1 != blank %}
+        <nav class="txf__col" aria-label="{{ section.settings.menu_1_title | escape }}">
+          <h3 class="txf__h">{{ section.settings.menu_1_title }}</h3>
+          <ul class="txf__links">
+            {% for link in section.settings.menu_1.links %}<li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>{% endfor %}
+          </ul>
+        </nav>
+      {% endif %}
+      {% if section.settings.menu_2 != blank %}
+        <nav class="txf__col" aria-label="{{ section.settings.menu_2_title | escape }}">
+          <h3 class="txf__h">{{ section.settings.menu_2_title }}</h3>
+          <ul class="txf__links">
+            {% for link in section.settings.menu_2.links %}<li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>{% endfor %}
+          </ul>
+        </nav>
+      {% endif %}
+      <div class="txf__col txf__col--visit">
+        <h3 class="txf__h">{{ section.settings.visit_title }}</h3>
+        <ul class="txf__visit">
+          {% if section.settings.address != blank %}
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <span>{% if section.settings.directions_link != blank %}<a href="{{ section.settings.directions_link }}" target="_blank" rel="noopener">{% endif %}{% for line in address_lines %}{{ line | strip }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}{% if section.settings.directions_link != blank %}</a>{% endif %}</span>
+            </li>
+          {% endif %}
+          {% if section.settings.hours != blank %}
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              <span>{% for line in hours_lines %}{{ line | strip }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</span>
+            </li>
+          {% endif %}
+          {% if section.settings.phone != blank %}
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+              <span><a href="tel:{{ tel }}">{{ section.settings.phone }}</a></span>
+            </li>
+          {% endif %}
+          {% if section.settings.email != blank %}
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <span><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></span>
+            </li>
+          {% endif %}
+        </ul>
+        {% if section.settings.visit_button_text != blank %}
+          <a class="txf__btn" href="{{ section.settings.visit_button_link | default: '/pages/book-appointments' }}">{{ section.settings.visit_button_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.blocks.size > 0 or section.settings.show_payment_icons %}
+      <div class="txf__trust">
+        {% if section.blocks.size > 0 %}
+          <ul class="txf__badges">
+            {% for block in section.blocks %}
+              <li class="txf__badge" {{ block.shopify_attributes }}>
+                <span class="txf__badge-icon{% if block.settings.icon == 'ul' %} txf__badge-icon--ul{% endif %}" aria-hidden="true">
+                  {% case block.settings.icon %}
+                    {% when 'leaf' %}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 3.4 2.6-1-0.6 3.2 3.2-0.4-1.4 2.6 3.4 1.6-2.4 1.8 2.2 2.4-3.2 0.4 0.4 3.2-3-1.2L13 22h-2l-1.8-3.8-3 1.2 0.4-3.2-3.2-0.4 2.2-2.4L3.2 11.4l3.4-1.6L5.2 7.2l3.2 0.4-0.6-3.2 2.6 1z"/></svg>
+                    {% when 'ul' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+                    {% when 'truck' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+                    {% when 'card' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg>
+                    {% when 'steel' %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16M15 4v16"/></svg>
+                    {% else %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+                  {% endcase %}
+                </span>
+                <span>{{ block.settings.text }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 %}
+          <ul class="txf__pay" aria-label="Accepted payment methods">
+            {% for type in shop.enabled_payment_types %}<li>{{ type | payment_type_svg_tag: class: 'txf__pay-icon' }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="txf__bottom">
+      <div class="txf__colophon">{{ section.settings.colophon_text }}</div>
+      {% if section.settings.language_selector and localization.available_languages.size > 1 %}
+        <div class="txf__lang">
+          {% form 'localization', id: 'txf-localization', class: 'txf__lang-form' %}
+            <label class="txf__sr" for="txf-lang-{{ section.id }}">Language</label>
+            <select id="txf-lang-{{ section.id }}" class="txf__select" name="language_code" onchange="this.form.submit()">
+              {% for language in localization.available_languages %}<option value="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>{{ language.endonym_name | capitalize }}</option>{% endfor %}
+            </select>
+          {% endform %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "TX Footer",
+  "tag": "div",
+  "class": "tx-footer-section",
+  "settings": [
+    { "type": "header", "content": "Brand" },
+    { "type": "image_picker", "id": "logo", "label": "Logo (light version)" },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 100, "max": 320, "step": 10, "unit": "px", "default": 200 },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Modular tool storage, shop air and foam. Designed in Richmond, BC and delivered across Canada." },
+    { "type": "checkbox", "id": "show_social", "label": "Show social links (set the links in Theme settings)", "default": true },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter", "default": true },
+    { "type": "text", "id": "newsletter_title", "label": "Title", "default": "Get more from your workshop" },
+    { "type": "text", "id": "newsletter_text", "label": "Text", "default": "New modules, shop tips and showroom days. A few emails a year, no spam." },
+    { "type": "text", "id": "newsletter_placeholder", "label": "Placeholder", "default": "Your email" },
+    { "type": "text", "id": "newsletter_button", "label": "Button", "default": "Subscribe" },
+    { "type": "header", "content": "Menus" },
+    { "type": "text", "id": "menu_1_title", "label": "First menu title", "default": "Shop" },
+    { "type": "link_list", "id": "menu_1", "label": "First menu" },
+    { "type": "text", "id": "menu_2_title", "label": "Second menu title", "default": "Learn" },
+    { "type": "link_list", "id": "menu_2", "label": "Second menu" },
+    { "type": "header", "content": "Visit" },
+    { "type": "text", "id": "visit_title", "label": "Title", "default": "Visit" },
+    { "type": "textarea", "id": "address", "label": "Address (one line per row)", "default": "Unit 142 - 11566 Eburne Way\nRichmond, BC V6V 2G7" },
+    { "type": "url", "id": "directions_link", "label": "Directions link" },
+    { "type": "textarea", "id": "hours", "label": "Hours (one line per row)", "default": "Mon to Fri, 10:00 to 18:00\nSat and Sun closed" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "+1 (778) 939 9494" },
+    { "type": "text", "id": "email", "label": "Email", "default": "Sales@toosa.ca" },
+    { "type": "text", "id": "visit_button_text", "label": "Button", "default": "Book a showroom visit" },
+    { "type": "url", "id": "visit_button_link", "label": "Button link" },
+    { "type": "header", "content": "Bottom bar" },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true },
+    { "type": "checkbox", "id": "language_selector", "label": "Show language selector (when more than one language is published)", "default": true },
+    { "type": "richtext", "id": "colophon_text", "label": "Colophon", "default": "<p>© 2026 TOOSA. All rights reserved. Developed by <a href=\"https://joandigital.com/\" target=\"_blank\">JOAN Digital.</a></p>" }
+  ],
+  "blocks": [
+    { "type": "badge", "name": "Badge", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "check", "options": [
+        { "value": "leaf", "label": "Maple leaf" },
+        { "value": "ul", "label": "Certification shield" },
+        { "value": "truck", "label": "Delivery" },
+        { "value": "card", "label": "Financing" },
+        { "value": "steel", "label": "Steel frame" },
+        { "value": "check", "label": "Check" }
+      ] },
+      { "type": "text", "id": "text", "label": "Text", "default": "Designed in Canada" }
+    ] }
+  ],
+  "presets": [ { "name": "TX Footer", "blocks": [
+    { "type": "badge", "settings": { "icon": "leaf", "text": "Designed in Canada" } },
+    { "type": "badge", "settings": { "icon": "ul", "text": "UL-certified TS-20 compressor" } },
+    { "type": "badge", "settings": { "icon": "truck", "text": "Free shipping over $3,000" } }
+  ] } ]
+}
+{% endschema %}
