@@ -163,7 +163,7 @@
 .tx-stage svg { width: 100%; height: auto; max-height: 560px; position: relative; display: block; }
 .tx-stage__hint { position: absolute; top: 14px; left: 16px; font-size: 12px; color: var(--tx-muted); letter-spacing: 0.08em; text-transform: uppercase; }
 .tx-stage__dims { position: absolute; right: 16px; bottom: 12px; font: 600 12px/1 var(--tx-body); color: var(--tx-muted); letter-spacing: 0.04em; }
-.tx-stage.is-3d { display: block; aspect-ratio: 4 / 3; min-height: 0; cursor: grab; background: radial-gradient(70% 55% at 50% 100%, rgba(255, 111, 60, 0.16), transparent 70%), linear-gradient(180deg, #11161d 0%, #0b0e12 100%); touch-action: none; }
+.tx-stage.is-3d { display: block; aspect-ratio: 4 / 3; min-height: 0; cursor: grab; background: radial-gradient(70% 55% at 50% 100%, rgba(255, 111, 60, 0.16), transparent 70%), linear-gradient(180deg, #11161d 0%, #0b0e12 100%); touch-action: pan-y; }
 .tx-stage.is-3d:active { cursor: grabbing; }
 @media (min-width: 760px) { .tx-stage.is-3d { align-self: start; position: sticky; top: 92px; } }
 .tx-stage__canvas { width: 100% !important; height: 100% !important; display: block; }

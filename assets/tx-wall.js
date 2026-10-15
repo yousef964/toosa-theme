@@ -31,7 +31,7 @@
     renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.domElement.className = 'tx-stage__canvas';
     stage.appendChild(renderer.domElement);
-    var hint = document.createElement('div'); hint.className = 'tx-stage__hint'; hint.textContent = 'Drag to look around · tap a drawer or door to open it'; stage.appendChild(hint);
+    var hint = document.createElement('div'); hint.className = 'tx-stage__hint'; hint.textContent = (window.matchMedia && matchMedia('(pointer: coarse)').matches) ? 'Two fingers to turn · tap a drawer or door to open it' : 'Drag to look around · click, then scroll to zoom · tap a drawer or door'; stage.appendChild(hint);
     var dims = document.createElement('div'); dims.className = 'tx-stage__dims'; stage.appendChild(dims);
     var load = document.createElement('div'); load.className = 'tx-stage__load'; load.innerHTML = '<i></i><span>Loading 3D model…</span>'; stage.appendChild(load);
     var btns = document.createElement('div'); btns.className = 'tx-stage__btns'; stage.appendChild(btns);
@@ -43,7 +43,8 @@
     var pm = new THREE.PMREMGenerator(renderer); scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture; pm.dispose();
     var cam = new THREE.PerspectiveCamera(30, W / H, 0.05, 60);
     var ctl = new T.OrbitControls(cam, renderer.domElement);
-    ctl.enableDamping = true; ctl.dampingFactor = 0.08; ctl.enablePan = false; ctl.minPolarAngle = 0.35; ctl.maxPolarAngle = 1.62; ctl.autoRotate = true; ctl.autoRotateSpeed = 0.6; ctl.minDistance = 1.2; ctl.maxDistance = 12;
+    ctl.enableDamping = true; ctl.dampingFactor = 0.08; ctl.enablePan = false; ctl.enableZoom = false; // wheel zoom only after a click, so scrolling the page never gets caught
+    ctl.touches = { ONE: null, TWO: THREE.TOUCH.DOLLY_ROTATE }; // one finger scrolls the page, two fingers turn and zoom the model ctl.minPolarAngle = 0.35; ctl.maxPolarAngle = 1.62; ctl.autoRotate = true; ctl.autoRotateSpeed = 0.6; ctl.minDistance = 1.2; ctl.maxDistance = 12;
     var key = new THREE.DirectionalLight(0xffffff, 2.6); key.position.set(2.5, 4.5, 3); key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 4; key.shadow.bias = -0.0005;
     key.shadow.camera.left = -3; key.shadow.camera.right = 3; key.shadow.camera.top = 3; key.shadow.camera.bottom = -1; key.shadow.camera.near = 0.5; key.shadow.camera.far = 14; scene.add(key);
     var fill = new THREE.DirectionalLight(0xdfe7ff, 0.6); fill.position.set(-3, 2, -2); scene.add(fill);
@@ -97,7 +98,7 @@
         var pivot = new THREE.Group(); pivot.position.copy(at); obj.add(pivot); pivot.updateMatrixWorld(true);
         p.meshes.forEach(function (m) { pivot.attach(m); });
         var part = { id: id, kind: p.kind, hinge: p.hinge, pivot: pivot, travel: Math.min(0.5, size.z * 0.8), size: size, open: 0, goal: 0,
-          angle: ((p.angle || (p.hinge === 'lift' ? 150 : p.hinge === 'ymax' ? 83 : 100)) * Math.PI) / 180, lift: size.y * 0.72 };
+          angle: ((p.angle || (p.hinge === 'lift' ? 96 : p.hinge === 'ymax' ? 83 : 100)) * Math.PI) / 180, lift: size.y * 0.66, back: size.y * 0.3 };
         if (p.kind === 'drawer') { // a foam insert that rides in the drawer (shown on demand)
           var foam = new THREE.Mesh(new THREE.BoxGeometry(Math.max(0.05, size.x - 0.05), 0.03, Math.max(0.05, size.z - 0.07)), foamMaterial());
           foam.position.set(0, -size.y / 2 + 0.05, -0.01); foam.visible = false; foam.castShadow = false; foam.userData.foam = true; pivot.add(foam); part.foam = foam;
@@ -110,7 +111,7 @@
     function applyPart(p) {
       var e = ease(p.open);
       if (p.kind === 'drawer') p.pivot.position.z = p.pivot.userData.z0 + e * p.travel;
-      else if (p.hinge === 'lift') { p.pivot.rotation.x = -e * p.angle; p.pivot.position.y = p.pivot.userData.y0 + e * p.lift; } // the hutch door rises on its arms and folds up over the top
+      else if (p.hinge === 'lift') { p.pivot.rotation.x = -e * p.angle; p.pivot.position.y = p.pivot.userData.y0 + e * p.lift; p.pivot.position.z = p.pivot.userData.z0 - e * p.back; } // the hutch door rises on its arms and lies over the roof, overhanging the front
       else if (p.hinge === 'ymax') p.pivot.rotation.x = -e * p.angle;      // lids and cabinet doors lift up and out
       else p.pivot.rotation.y = (p.hinge === 'xmax' ? 1 : -1) * e * p.angle; // hinged doors swing out to the front
     }
@@ -303,6 +304,8 @@
     requestAnimationFrame(tick);
     ctl.addEventListener('start', function () { ctl.autoRotate = false; clearTimeout(idleTimer); });
     ctl.addEventListener('end', function () { clearTimeout(idleTimer); idleTimer = setTimeout(function () { ctl.autoRotate = true; }, 7000); });
+    renderer.domElement.addEventListener('pointerdown', function () { ctl.enableZoom = true; });
+    renderer.domElement.addEventListener('pointerleave', function () { ctl.enableZoom = false; });
     reset.addEventListener('click', function () {
       var dir = new THREE.Vector3(0.62, 0.3, 0.7).normalize(); var d = cam.position.distanceTo(ctl.target);
       cam.position.copy(ctl.target).addScaledVector(dir, d); frameCamera(); ctl.autoRotate = true;

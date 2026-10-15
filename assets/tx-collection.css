@@ -137,17 +137,17 @@
 @media (prefers-reduced-motion: reduce) { .txc-cat, .txc-cat__media img, .txc-btn { transition: none; } }
 
 /* ------------------------------------------------------------- compact intro (default): the grid starts in the first screen */
-.txc-intro--compact .txc__wrap { padding-top: clamp(18px, 2.2vw, 28px); padding-bottom: clamp(22px, 2.6vw, 34px); }
-.txc-intro--compact .txc-crumbs { margin-bottom: clamp(16px, 2vw, 24px); }
+.txc-intro--compact .txc__wrap { padding-top: clamp(14px, 1.6vw, 20px); padding-bottom: clamp(16px, 2vw, 24px); }
+.txc-intro--compact .txc-crumbs { margin-bottom: clamp(10px, 1.4vw, 16px); }
 .txc-intro--compact .txc-intro__grid { grid-template-columns: 1fr; gap: 0; }
 .txc-intro--compact .txc-eyebrow { margin-bottom: 10px; }
-.txc-intro--compact .txc-h1 { font-size: clamp(34px, 4.2vw, 56px); }
-.txc-intro--compact .txc-lead { margin-top: 12px; max-width: 70ch; font-size: clamp(15px, 1.1vw, 17px); }
+.txc-intro--compact .txc-h1 { font-size: clamp(30px, 3.4vw, 44px); }
+.txc-intro--compact .txc-lead { margin-top: 8px; max-width: 80ch; font-size: clamp(14px, 1vw, 16px); }
 .txc-lead__count { display: inline-block; margin-left: 10px; padding: 4px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--txc-line); font: 700 11.5px/1 var(--txc-body); letter-spacing: 0.08em; text-transform: uppercase; color: #e3e7ec; vertical-align: 2px; white-space: nowrap; }
-.txc-intro--compact .txc-chips { margin-top: 16px; gap: 8px; }
+.txc-intro--compact .txc-chips { display: none; }
 .txc-intro--compact .txc-chip { padding: 7px 12px 7px 7px; font-size: 12.5px; }
 .txc-intro--compact .txc-chip__icon { width: 24px; height: 24px; }
-.txc-pills { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: clamp(18px, 2.4vw, 28px); padding-top: clamp(16px, 2vw, 22px); border-top: 1px solid var(--txc-line); }
+.txc-pills { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: clamp(12px, 1.6vw, 18px); padding-top: clamp(10px, 1.4vw, 16px); border-top: 1px solid var(--txc-line); }
 .txc-pills__label { font: 700 11.5px/1 var(--txc-body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--txc-muted); flex: none; }
 .txc-pills__list { display: flex; flex-wrap: wrap; gap: 8px; }
 .txc a.txc-pill:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: #e3e7ec; }
