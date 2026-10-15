@@ -30,8 +30,15 @@
     assign cover = section.settings.image
   endif
   assign cover_alt = cover.alt | default: title
+  assign compact = true
+  if section.settings.layout == 'tiles'
+    assign compact = false
+  endif
+  if compact and section.settings.show_image != true
+    assign cover = blank
+  endif
 -%}
-<section class="txc txc-intro" id="txc-intro-{{ section.id }}">
+<section class="txc txc-intro{% if compact %} txc-intro--compact{% endif %}" id="txc-intro-{{ section.id }}">
   <div class="txc__wrap">
     <nav class="txc-crumbs" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
@@ -43,7 +50,7 @@
       <div class="txc-intro__copy">
         {% if section.settings.eyebrow != blank %}<p class="txc-eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}
         <h1 class="txc-h1">{{ title }}</h1>
-        {% if lead != blank %}<p class="txc-lead">{{ lead }}</p>{% endif %}
+        {% if lead != blank %}<p class="txc-lead">{{ lead }}{% if compact and is_coll and collection.products_count > 0 %} <span class="txc-lead__count">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</span>{% endif %}</p>{% endif %}
         {% if section.blocks.size > 0 %}
           <ul class="txc-chips">
             {% for block in section.blocks %}
@@ -67,7 +74,50 @@
       {% endif %}
     </div>
 
-    {% if section.settings.show_categories and section.settings.categories.size > 0 %}
+    {% if compact and section.settings.show_categories and section.settings.categories.size > 0 %}
+      {%- liquid
+        assign all_on = false
+        if is_coll == false or collection.handle == 'all'
+          assign all_on = true
+        endif
+        assign listed = false
+        for cat in section.settings.categories
+          if is_coll and cat.handle == collection.handle
+            assign listed = true
+          endif
+        endfor
+      -%}
+      <nav class="txc-pills" aria-label="{{ section.settings.categories_title | default: 'Browse by range' | escape }}">
+        <span class="txc-pills__label">{{ section.settings.categories_title | default: 'Browse by range' }}</span>
+        <ul class="txc-pills__list">
+          <li><a class="txc-pill{% if all_on %} is-on{% endif %}" href="{{ routes.all_products_collection_url }}"{% if all_on %} aria-current="page"{% endif %}><span class="txc-pill__icon" aria-hidden="true">{% render 'tx-c-icon', name: 'grid' %}</span>{{ section.settings.all_label | default: 'Shop all' }}</a></li>
+          {% for cat in section.settings.categories %}
+            {%- liquid
+              assign icon = 'box'
+              if cat.handle contains 'tool-storage' or cat.handle contains 'chest' or cat.handle contains 'cabinet'
+                assign icon = 'cabinet'
+              elsif cat.handle contains 'air' or cat.handle contains 'compressor'
+                assign icon = 'air'
+              elsif cat.handle contains 'foam'
+                assign icon = 'foam'
+              elsif cat.handle contains 'accessor'
+                assign icon = 'wrench'
+              elsif cat.handle contains 'set' or cat.handle contains 'bundle'
+                assign icon = 'grid'
+              endif
+              assign is_on = false
+              if is_coll and cat.handle == collection.handle
+                assign is_on = true
+              endif
+            -%}
+            <li><a class="txc-pill{% if is_on %} is-on{% endif %}" href="{{ cat.url }}"{% if is_on %} aria-current="page"{% endif %}><span class="txc-pill__icon" aria-hidden="true">{% render 'tx-c-icon', name: icon %}</span>{{ cat.title }}<small>{{ cat.products_count }}</small></a></li>
+          {% endfor %}
+          {% if is_coll and listed == false and all_on == false %}
+            <li><a class="txc-pill is-on" href="{{ collection.url }}" aria-current="page"><span class="txc-pill__icon" aria-hidden="true">{% render 'tx-c-icon', name: 'grid' %}</span>{{ collection.title }}<small>{{ collection.products_count }}</small></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% elsif section.settings.show_categories and section.settings.categories.size > 0 %}
       <div class="txc-cats">
         {% if section.settings.categories_title != blank %}<h2 class="txc-cats__title">{{ section.settings.categories_title }}</h2>{% endif %}
         <ul class="txc-cats__grid">
@@ -136,7 +186,10 @@
     { "type": "text", "id": "heading", "label": "Heading (used when there is no collection)", "default": "Shop TOOSA workshop solutions" },
     { "type": "textarea", "id": "lead", "label": "Lead text (leave empty to use the start of the collection description)" },
     { "type": "image_picker", "id": "image", "label": "Cover image (defaults to the collection image)" },
-    { "type": "checkbox", "id": "show_categories", "label": "Show category tiles", "default": true },
+    { "type": "select", "id": "layout", "label": "Layout", "default": "compact", "options": [ { "value": "compact", "label": "Compact: heading, one line and a row of range pills (products start in the first screen)" }, { "value": "tiles", "label": "Tall: cover image and category tiles" } ] },
+    { "type": "checkbox", "id": "show_image", "label": "Show the cover image in the compact layout", "default": false },
+    { "type": "text", "id": "all_label", "label": "Shop all pill", "default": "Shop all" },
+    { "type": "checkbox", "id": "show_categories", "label": "Show the ranges (pills or tiles)", "default": true },
     { "type": "text", "id": "categories_title", "label": "Category tiles title", "default": "Browse by range" },
     { "type": "collection_list", "id": "categories", "label": "Categories", "limit": 6 }
   ],

@@ -1,0 +1,139 @@
+{% comment %}
+  TOOSA product pages: product cards. Used twice: "Compatible modules" (a block of handles per product family, first matching block wins)
+  and "Related products" (falls back to the product's own collection, skipping catch-all collections).
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp txp--paper'
+  if s.theme == 'light'
+    assign theme_class = 'txp txp--light'
+  endif
+
+  assign chosen = blank
+  for block in section.blocks
+    capture ok
+      render 'tx-pr-match', rule: block.settings.only_for, product: product
+    endcapture
+    if ok == '1'
+      assign chosen = block
+      break
+    endif
+  endfor
+
+  assign handles = ''
+  assign eyebrow = s.eyebrow
+  assign heading = s.heading
+  assign lead = s.lead
+  assign note = s.note
+  if chosen != blank
+    assign handles = chosen.settings.handles
+    if chosen.settings.eyebrow != blank
+      assign eyebrow = chosen.settings.eyebrow
+    endif
+    if chosen.settings.heading != blank
+      assign heading = chosen.settings.heading
+    endif
+    if chosen.settings.lead != blank
+      assign lead = chosen.settings.lead
+    endif
+    if chosen.settings.note != blank
+      assign note = chosen.settings.note
+    endif
+  endif
+  assign heading = heading | replace: '[product]', product.title
+  assign limit = s.limit | default: 4
+
+  comment
+    fallback: the product's own collection, skipping catch-alls
+  endcomment
+  assign coll = blank
+  if handles == blank and s.fallback
+    assign skip = s.skip_collections | default: 'all,new-arrivals,frontpage' | split: ','
+    for c in product.collections
+      assign skip_it = false
+      for sk in skip
+        assign sk_h = sk | strip
+        if c.handle == sk_h
+          assign skip_it = true
+        endif
+      endfor
+      if skip_it
+        continue
+      endif
+      if c.products_count > 1
+        assign coll = c
+        break
+      endif
+    endfor
+    if coll == blank and s.fallback_collection != blank
+      assign coll = s.fallback_collection
+    endif
+  endif
+-%}
+{%- capture cards -%}
+  {%- if handles != blank -%}
+    {%- assign list = handles | split: ',' -%}
+    {%- for h in list -%}
+      {%- assign hh = h | strip -%}
+      {%- if hh == blank or hh == product.handle -%}{%- continue -%}{%- endif -%}
+      {%- assign p = all_products[hh] -%}
+      {%- if p == blank or p.title == blank -%}{%- continue -%}{%- endif -%}
+      {%- render 'tx-pr-card', p: p, badge: s.badge -%}
+    {%- endfor -%}
+  {%- elsif coll != blank -%}
+    {%- assign shown = 0 -%}
+    {%- for p in coll.products -%}
+      {%- if p.handle == product.handle -%}{%- continue -%}{%- endif -%}
+      {%- if shown >= limit -%}{%- break -%}{%- endif -%}
+      {%- render 'tx-pr-card', p: p, badge: '' -%}
+      {%- assign shown = shown | plus: 1 -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- if cards contains 'txpr-card' -%}
+{%- assign card_count = cards | split: 'class="txpr-card ' | size | minus: 1 -%}
+<section class="{{ theme_class }} txpr txpr-section" id="txpr-modules-{{ section.id }}">
+  <div class="txp-wrap">
+    <div class="txp-head txp-head--row">
+      <div>
+        {%- if eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ eyebrow }}</p>{%- endif -%}
+        {%- if heading != blank -%}<h2 class="txp-h2 txp-h2--sm txp-reveal" data-delay="1">{{ heading }}</h2>{%- endif -%}
+        {%- if lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ lead }}</div>{%- endif -%}
+      </div>
+      {%- if s.btn_text != blank -%}<div class="txp-actions txp-reveal" data-delay="2" style="margin-top:0"><a class="txp-btn txp-btn--dark txp-btn--sm" href="{{ s.btn_url }}">{{ s.btn_text }}{% render 'tx-p-icon', name: 'arrow' %}</a></div>{%- endif -%}
+    </div>
+    <div class="txpr-cards {% if card_count == 3 %}txpr-cards--3{% elsif card_count == 2 %}txpr-cards--2{% endif %} txp-reveal" data-delay="1">{{ cards }}</div>
+    {%- if note != blank -%}<div class="txpr-modules__note txp-reveal">{% render 'tx-p-icon', name: 'check' %}{{ note }}</div>{%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "TX Product cards",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "paper", "options": [ { "value": "paper", "label": "Paper" }, { "value": "light", "label": "White" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Build on it" },
+    { "type": "text", "id": "heading", "label": "Heading ([product] = product title)", "default": "Modules that fit the [product]" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "text", "id": "note", "label": "Note under the cards" },
+    { "type": "text", "id": "badge", "label": "Badge on each card (blocks only)", "default": "Fits this unit" },
+    { "type": "text", "id": "btn_text", "label": "Button text" },
+    { "type": "url", "id": "btn_url", "label": "Button link" },
+    { "type": "header", "content": "Fallback when no block matches" },
+    { "type": "checkbox", "id": "fallback", "label": "Show products from the product's own collection", "default": false },
+    { "type": "text", "id": "skip_collections", "label": "Collections to skip (handles)", "default": "all,new-arrivals,frontpage" },
+    { "type": "collection", "id": "fallback_collection", "label": "Collection if the product has none" },
+    { "type": "range", "id": "limit", "label": "Max cards", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ],
+  "blocks": [
+    { "type": "set", "name": "Card set", "settings": [
+      { "type": "text", "id": "only_for", "label": "Only for (rule)", "info": "Handles, tag:…, type:…, template:…, prefix*. Blank = every product. ! excludes." },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow override" },
+      { "type": "text", "id": "heading", "label": "Heading override" },
+      { "type": "richtext", "id": "lead", "label": "Lead override" },
+      { "type": "textarea", "id": "handles", "label": "Product handles, comma separated" },
+      { "type": "text", "id": "note", "label": "Note override" } ] }
+  ],
+  "presets": [ { "name": "TX Product cards" } ]
+}
+{% endschema %}

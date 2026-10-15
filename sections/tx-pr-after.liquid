@@ -1,0 +1,75 @@
+{% comment %} TOOSA product pages: "After you buy" as a compact icon strip on a dark band (delivery, assembly, support, financing, warranty, showroom). Blocks can be limited to products with a rule. {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign count = 0
+  for block in section.blocks
+    capture ok
+      render 'tx-pr-match', rule: block.settings.only_for, product: product
+    endcapture
+    if ok == '1'
+      assign count = count | plus: 1
+    endif
+  endfor
+  assign cols = count
+  if cols > 6
+    assign cols = 6
+  endif
+  if cols < 3
+    assign cols = 3
+  endif
+-%}
+{%- if count > 0 -%}
+<section class="txp txpr txpr-section txpr-after" id="txpr-after-{{ section.id }}">
+  <div class="txp-wrap">
+    <div class="txp-head txp-head--row">
+      <div>
+        {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="txp-h2 txp-h2--sm txp-reveal" data-delay="1">{{ s.heading | replace: '[product]', product.title }}</h2>{%- endif -%}
+        {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      </div>
+      {%- if s.btn_text != blank -%}<div class="txp-actions txp-reveal" data-delay="2" style="margin-top:0"><a class="txp-btn txp-btn--primary txp-btn--sm" href="{{ s.btn_url }}">{{ s.btn_text }}{% render 'tx-p-icon', name: 'arrow' %}</a></div>{%- endif -%}
+    </div>
+    <div class="txpr-steps txpr-steps--{{ cols }} txp-reveal" data-delay="1">
+      {%- assign n = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- capture ok -%}{%- render 'tx-pr-match', rule: block.settings.only_for, product: product -%}{%- endcapture -%}
+        {%- if ok != '1' -%}{%- continue -%}{%- endif -%}
+        {%- assign n = n | plus: 1 -%}
+        <div class="txpr-step" {{ block.shopify_attributes }}>
+          <div class="txpr-step__ic">{% render 'tx-p-icon', name: block.settings.icon %}</div>
+          {%- if s.numbered -%}<span class="txpr-step__num">{{ n | prepend: '0' | slice: -2, 2 }}</span>{%- endif -%}
+          <b>{{ block.settings.title }}</b>
+          {%- if block.settings.text != blank -%}<span>{{ block.settings.text }}</span>{%- endif -%}
+          {%- if block.settings.link_text != blank -%}<a href="{{ block.settings.link_url }}">{{ block.settings.link_text }}{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if s.note != blank -%}<p class="txp-table__note txp-reveal">{{ s.note }}</p>{%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "TX Product after you buy",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "After you buy" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What happens next." },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "checkbox", "id": "numbered", "label": "Number the steps", "default": true },
+    { "type": "text", "id": "btn_text", "label": "Button text" },
+    { "type": "url", "id": "btn_url", "label": "Button link" },
+    { "type": "text", "id": "note", "label": "Footnote" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "text", "id": "only_for", "label": "Only for (rule)", "info": "Handles, tag:…, type:…, template:…, prefix*. Blank = every product. ! excludes." },
+      { "type": "select", "id": "icon", "label": "Icon", "default": "truck", "options": [
+        { "value": "truck", "label": "Truck" }, { "value": "forklift", "label": "Forklift" }, { "value": "box", "label": "Box" }, { "value": "wrench", "label": "Wrench" }, { "value": "phone", "label": "Phone" }, { "value": "chat", "label": "Chat" }, { "value": "card", "label": "Card" }, { "value": "dollar", "label": "Dollar" }, { "value": "shield", "label": "Shield" }, { "value": "pin", "label": "Pin" }, { "value": "eye", "label": "Eye" }, { "value": "calendar", "label": "Calendar" }, { "value": "plug", "label": "Plug" }, { "value": "bolt", "label": "Power" }, { "value": "air", "label": "Air" }, { "value": "cog", "label": "Cog" }, { "value": "key", "label": "Key" }, { "value": "users", "label": "People" }, { "value": "refresh", "label": "Refresh" }, { "value": "undo", "label": "Return" }, { "value": "check", "label": "Check" }, { "value": "home", "label": "Home" }, { "value": "clock", "label": "Clock" } ] },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "textarea", "id": "text", "label": "Text" },
+      { "type": "text", "id": "link_text", "label": "Link text" },
+      { "type": "url", "id": "link_url", "label": "Link" } ] }
+  ],
+  "presets": [ { "name": "TX Product after you buy" } ]
+}
+{% endschema %}

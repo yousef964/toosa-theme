@@ -1,0 +1,230 @@
+{% comment %}
+  TOOSA product pages: "At a glance". Lead line from the description, short beats with icons (curated blocks for a product, or parsed from
+  the Key features list / custom.key_features metafield), colour and option chips, and the full product.description kept in the DOM
+  inside a collapsed panel for SEO.
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp txp--paper'
+  if s.theme == 'light'
+    assign theme_class = 'txp txp--light'
+  endif
+  assign desc = product.description | default: ''
+
+  comment
+    lead: the first real paragraph of the description (skips h6 titles that repeat the product name)
+  endcomment
+  assign lead = ''
+  assign paras = desc | split: '</p>'
+  for para in paras
+    if para contains '<p'
+      assign ptext = para | split: '<p' | last | prepend: '<p' | strip_html | strip
+      assign plen = ptext | size
+      if plen > 40
+        assign lead = ptext
+        break
+      endif
+    endif
+  endfor
+  if lead == blank
+    assign lead = desc | strip_html | strip | truncatewords: 40
+  endif
+  assign lead = lead | truncatewords: 48
+
+  comment
+    curated beats for this product?
+  endcomment
+  assign curated = 0
+  for block in section.blocks
+    capture ok
+      render 'tx-pr-match', rule: block.settings.only_for, product: product
+    endcapture
+    if ok == '1'
+      assign curated = curated | plus: 1
+    endif
+  endfor
+
+  comment
+    auto beats: custom.key_features (rich text) first, else the list under "Key Features", else the first list
+  endcomment
+  assign auto_html = ''
+  if curated == 0
+    assign kf = product.metafields.custom.key_features
+    if kf != blank
+      assign auto_html = kf | metafield_tag
+    elsif desc contains '<ul'
+      if desc contains 'Key Features'
+        assign after = desc | split: 'Key Features' | last
+      elsif desc contains 'Features'
+        assign after = desc | split: 'Features' | last
+      else
+        assign after = desc
+      endif
+      if after contains '<ul'
+        assign auto_html = after | split: '<ul' | slice: 1 | first | split: '</ul>' | first
+      else
+        assign auto_html = desc | split: '<ul' | slice: 1 | first | split: '</ul>' | first
+      endif
+    elsif desc contains '✅' or desc contains '✔'
+      comment
+        checkmark lines inside paragraphs: turn each into a list item
+      endcomment
+      assign marked = desc | replace: '✔', '✅'
+      assign pieces = marked | split: '✅'
+      capture auto_html
+        for piece in pieces offset: 1
+          assign line = piece | split: '<br' | first | split: '</p>' | first | split: '</li>' | first | strip_html | strip
+          if line != blank
+            if line contains ' – '
+              assign lt = line | split: ' – '
+              echo '<li><strong>' | append: lt[0] | append: '</strong> ' | append: lt[1] | append: '</li>'
+            elsif line contains ': '
+              assign lt = line | split: ': '
+              echo '<li><strong>' | append: lt[0] | append: '</strong> ' | append: lt[1] | append: '</li>'
+            else
+              echo '<li>' | append: line | append: '</li>'
+            endif
+          endif
+        endfor
+      endcapture
+    endif
+  endif
+  assign max_auto = s.max_auto | default: 6
+
+  assign heading = s.heading | default: 'What you get' | replace: '[product]', product.title
+  assign eyebrow = s.eyebrow | default: 'At a glance'
+  capture ul_ok
+    render 'tx-pr-match', rule: s.ul_for | default: '!*', product: product
+  endcapture
+-%}
+<section class="{{ theme_class }} txpr txpr-section txpr-overview" id="txpr-overview-{{ section.id }}">
+  <div class="txp-wrap">
+    <div class="txpr-overview__top">
+      <div class="txp-head">
+        <p class="txp-eyebrow txp-reveal">{{ eyebrow }}</p>
+        <h2 class="txp-h2 txp-reveal" data-delay="1">{{ heading }}</h2>
+        {%- if lead != blank -%}<p class="txp-lead txp-reveal" data-delay="2">{{ lead }}</p>{%- endif -%}
+        {%- if s.show_chips -%}
+          <div class="txpr-overview__badges txp-reveal" data-delay="3">
+            {%- if ul_ok == '1' -%}<span class="txpr-chip">{% render 'tx-p-icon', name: 'award' %}{{ s.ul_text | default: 'UL-certified inverter' }}</span>{%- endif -%}
+            {%- for opt in product.options_with_values -%}
+              {%- if opt.name == 'Title' -%}{%- continue -%}{%- endif -%}
+              {%- assign vals = opt.values | join: ' · ' -%}
+              {%- assign icon = 'tag' -%}
+              {%- if opt.name contains 'olor' or opt.name contains 'olour' -%}{%- assign icon = 'spray' -%}{%- elsif opt.name contains 'Size' or opt.name contains 'Thick' -%}{%- assign icon = 'ruler' -%}{%- elsif opt.name contains 'Config' or opt.name contains 'Locker' or opt.name contains 'Side' -%}{%- assign icon = 'grid' -%}{%- elsif opt.name contains 'Tank' -%}{%- assign icon = 'tank' -%}{%- endif -%}
+              <span class="txpr-chip">{% render 'tx-p-icon', name: icon %}{{ opt.name | replace: 'Interchangeable Locker?', 'Locker' | replace: 'Tank Options', 'Tank' }}: {{ vals }}</span>
+            {%- endfor -%}
+            {%- if s.chip_1 != blank -%}<span class="txpr-chip">{% render 'tx-p-icon', name: 'check' %}{{ s.chip_1 }}</span>{%- endif -%}
+            {%- if s.chip_2 != blank -%}<span class="txpr-chip">{% render 'tx-p-icon', name: 'check' %}{{ s.chip_2 }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="txpr-beats {% if s.columns == '3' %}txpr-beats--3{% endif %} txp-reveal" data-delay="2">
+        {%- if curated > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- capture ok -%}{%- render 'tx-pr-match', rule: block.settings.only_for, product: product -%}{%- endcapture -%}
+            {%- if ok != '1' -%}{%- continue -%}{%- endif -%}
+            <div class="txpr-beat {% if block.settings.dark %}txpr-beat--dark{% endif %}" {{ block.shopify_attributes }}>
+              <div class="txpr-beat__ic">{% render 'tx-p-icon', name: block.settings.icon %}</div>
+              <div><b>{{ block.settings.title }}</b>{%- if block.settings.text != blank -%}<span>{{ block.settings.text }}</span>{%- endif -%}</div>
+            </div>
+          {%- endfor -%}
+        {%- elsif auto_html != blank -%}
+          {%- assign items = auto_html | split: '<li' -%}
+          {%- assign shown = 0 -%}
+          {%- for raw in items offset: 1 -%}
+            {%- if shown >= max_auto -%}{%- break -%}{%- endif -%}
+            {%- assign li = raw | split: '</li>' | first | replace_first: '>', '|||' | split: '|||' | last -%}
+            {%- assign full = li | strip_html | strip | replace: '  ', ' ' -%}
+            {%- if full == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign title = full -%}
+            {%- assign text = '' -%}
+            {%- if li contains '<strong' -%}
+              {%- assign title = li | split: '<strong' | slice: 1 | first | split: '</strong>' | first | replace_first: '>', '|||' | split: '|||' | last | strip_html | strip -%}
+              {%- assign text = full | remove_first: title | strip -%}
+            {%- elsif li contains '<b' and li contains '</b>' -%}
+              {%- assign title = li | split: '<b' | slice: 1 | first | split: '</b>' | first | replace_first: '>', '|||' | split: '|||' | last | strip_html | strip -%}
+              {%- assign text = full | remove_first: title | strip -%}
+            {%- endif -%}
+            {%- assign tlen = title | size -%}
+            {%- if tlen > 60 and text == blank -%}
+              {%- assign text = title -%}
+              {%- assign title = title | truncatewords: 5, '' -%}
+            {%- endif -%}
+            {%- assign first_char = text | slice: 0, 1 -%}
+            {%- if first_char == ':' or first_char == '-' or first_char == ',' or first_char == '–' -%}
+              {%- assign text = text | remove_first: first_char | strip -%}
+            {%- endif -%}
+            {%- assign text = text | capitalize -%}
+            {%- assign probe = title | append: ' ' | append: text | downcase -%}
+            {%- assign icon = s.default_icon | default: 'check' -%}
+            {%- if probe contains 'drawer' -%}{%- assign icon = 'drawer' -%}
+            {%- elsif probe contains 'lock' or probe contains 'secur' -%}{%- assign icon = 'lock' -%}
+            {%- elsif probe contains 'shelv' or probe contains 'shelf' -%}{%- assign icon = 'shelf' -%}
+            {%- elsif probe contains 'caster' or probe contains 'wheel' or probe contains 'mobil' or probe contains 'roll' -%}{%- assign icon = 'wheel' -%}
+            {%- elsif probe contains 'pegboard' -%}{%- assign icon = 'grid' -%}
+            {%- elsif probe contains 'light' or probe contains 'led' -%}{%- assign icon = 'light' -%}
+            {%- elsif probe contains 'steel' or probe contains 'weld' or probe contains 'durab' or probe contains 'heavy' -%}{%- assign icon = 'steel' -%}
+            {%- elsif probe contains 'worktop' or probe contains 'work surface' or probe contains 'bench' -%}{%- assign icon = 'bench' -%}
+            {%- elsif probe contains 'left or right' or probe contains 'interchange' or probe contains 'modular' or probe contains 'stand-alone' or probe contains 'standalone' -%}{%- assign icon = 'refresh' -%}
+            {%- elsif probe contains 'mount' or probe contains 'install' -%}{%- assign icon = 'wrench' -%}
+            {%- elsif probe contains 'motor' or probe contains 'power' or probe contains 'usb' or probe contains 'inverter' or probe contains 'vfd' -%}{%- assign icon = 'bolt' -%}
+            {%- elsif probe contains 'air' or probe contains 'cool' or probe contains 'dryer' or probe contains 'tank' -%}{%- assign icon = 'air' -%}
+            {%- elsif probe contains 'noise' or probe contains 'quiet' -%}{%- assign icon = 'volume' -%}
+            {%- elsif probe contains 'foam' or probe contains 'sheet' -%}{%- assign icon = 'foam' -%}
+            {%- elsif probe contains 'colour' or probe contains 'color' -%}{%- assign icon = 'spray' -%}
+            {%- elsif probe contains 'size' or probe contains 'mm' or probe contains '"' -%}{%- assign icon = 'ruler' -%}
+            {%- elsif probe contains 'key' -%}{%- assign icon = 'key' -%}
+            {%- elsif probe contains 'match' or probe contains 'pair' or probe contains 'integrat' -%}{%- assign icon = 'layers' -%}
+            {%- endif -%}
+            <div class="txpr-beat">
+              <div class="txpr-beat__ic">{% render 'tx-p-icon', name: icon %}</div>
+              <div><b>{{ title }}</b>{%- if text != blank -%}<span>{{ text }}</span>{%- endif -%}</div>
+            </div>
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+      {%- if s.show_full and desc != blank -%}
+        <div class="txpr-overview__full txp-reveal" data-delay="1">
+          <details class="txpr-details">
+            <summary><span>{{ s.full_label | default: 'Read the full description' }}<small>{{ desc | strip_html | split: ' ' | size }} words</small></span><span class="txpr-details__ic">{% render 'tx-p-icon', name: 'plus' %}</span></summary>
+            <div class="txpr-details__body"><div class="txp-rt">{{ desc }}</div></div>
+          </details>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Product overview",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "paper", "options": [ { "value": "paper", "label": "Paper" }, { "value": "light", "label": "White" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "At a glance" },
+    { "type": "text", "id": "heading", "label": "Heading ([product] = product title)", "default": "What you get with the [product]" },
+    { "type": "select", "id": "columns", "label": "Beat columns", "default": "2", "options": [ { "value": "2", "label": "Two" }, { "value": "3", "label": "Three" } ] },
+    { "type": "range", "id": "max_auto", "label": "Max beats taken from the description", "min": 2, "max": 10, "step": 1, "default": 6 },
+    { "type": "select", "id": "default_icon", "label": "Fallback icon", "default": "check", "options": [ { "value": "check", "label": "Check" }, { "value": "star", "label": "Star" }, { "value": "sparkle", "label": "Sparkle" } ] },
+    { "type": "checkbox", "id": "show_chips", "label": "Show option chips (colours, sizes, configurations)", "default": true },
+    { "type": "text", "id": "chip_1", "label": "Extra chip" },
+    { "type": "text", "id": "chip_2", "label": "Extra chip" },
+    { "type": "text", "id": "ul_for", "label": "Show the UL chip for (rule)", "info": "Handles, tag:…, type:…, template:…; blank = never", "default": "!*" },
+    { "type": "text", "id": "ul_text", "label": "UL chip text", "default": "UL-certified inverter" },
+    { "type": "checkbox", "id": "show_full", "label": "Keep the full description in a collapsed panel", "default": true },
+    { "type": "text", "id": "full_label", "label": "Collapsed panel label", "default": "Read the full description" }
+  ],
+  "blocks": [
+    { "type": "beat", "name": "Beat (replaces the parsed list for matching products)", "settings": [
+      { "type": "text", "id": "only_for", "label": "Only for (rule)", "info": "Comma list of handles, tag:Name, type:Name, template:name, prefix*. Blank = every product. ! excludes." },
+      { "type": "select", "id": "icon", "label": "Icon", "default": "check", "options": [
+        { "value": "check", "label": "Check" }, { "value": "drawer", "label": "Drawer" }, { "value": "lock", "label": "Lock" }, { "value": "shelf", "label": "Shelf" }, { "value": "wheel", "label": "Wheel" }, { "value": "steel", "label": "Steel" }, { "value": "bench", "label": "Worktop" }, { "value": "grid", "label": "Pegboard" }, { "value": "light", "label": "Light" }, { "value": "key", "label": "Key" }, { "value": "door", "label": "Door" }, { "value": "refresh", "label": "Modular" }, { "value": "layers", "label": "Layers" }, { "value": "bolt", "label": "Power" }, { "value": "plug", "label": "Plug" }, { "value": "air", "label": "Air" }, { "value": "tank", "label": "Tank" }, { "value": "fan", "label": "Fan" }, { "value": "volume", "label": "Noise" }, { "value": "gauge", "label": "Gauge" }, { "value": "droplet", "label": "Droplet" }, { "value": "filter", "label": "Filter" }, { "value": "thermo", "label": "Thermometer" }, { "value": "foam", "label": "Foam" }, { "value": "ruler", "label": "Ruler" }, { "value": "spray", "label": "Finish" }, { "value": "wrench", "label": "Wrench" }, { "value": "shield", "label": "Shield" }, { "value": "award", "label": "Award" }, { "value": "box", "label": "Box" }, { "value": "star", "label": "Star" }, { "value": "sparkle", "label": "Sparkle" }, { "value": "warning", "label": "Warning" }, { "value": "eye", "label": "Eye" }, { "value": "cog", "label": "Cog" }, { "value": "factory", "label": "Factory" }, { "value": "garage", "label": "Garage" }, { "value": "users", "label": "People" }, { "value": "dollar", "label": "Dollar" }, { "value": "truck", "label": "Truck" }, { "value": "forklift", "label": "Forklift" } ] },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "text", "id": "text", "label": "Text" },
+      { "type": "checkbox", "id": "dark", "label": "Dark tile", "default": false } ] }
+  ],
+  "presets": [ { "name": "TX Product overview" } ]
+}
+{% endschema %}

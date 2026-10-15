@@ -1,1 +1,1696 @@
-{"sections":{"rotary_screw_product_hero_Ag98Lc":{"type":"rotary-screw-product-hero","blocks":{"feature_hzRWbz":{"type":"feature","settings":{"text":"100% duty cycle built to run continuously"}},"feature_B3wYDe":{"type":"feature","settings":{"text":"Integrated refrigerated air dryer"}},"feature_jmei83":{"type":"feature","settings":{"text":"500 L receiver tank"}},"feature_Gdy3EU":{"type":"feature","settings":{"text":"Canadian support & service parts"}}},"block_order":["feature_hzRWbz","feature_B3wYDe","feature_jmei83","feature_Gdy3EU"],"disabled":true,"name":"Industrial Product Hero","settings":{"image_position":"left","max_width":1400,"padding_top":60,"padding_bottom":60,"product":"","show_eyebrow":true,"eyebrow":"ROTARY SCREW AIR COMPRESSOR","show_description":true,"payment_text":"or monthly payments with RBC financing · Free shipping across Canada","show_buy_button":true,"buy_button_text":"Buy now","show_quote_button":true,"quote_button_text":"Request a quote","quote_url":"shopify:\/\/pages\/book-appointments","show_showroom_button":true,"showroom_button_text":"Book a showroom visit","showroom_url":"shopify:\/\/pages\/contact","background_color":"#021f4b","heading_color":"#ffffff","text_color":"#ffffff","muted_color":"#ffffff","border_color":"#a5b1c2","accent_color":"#ff6f3c"}},"blocks_kFwFz7":{"type":"_blocks","blocks":{"ai_gen_block_9fbc660_et7AmL":{"type":"ai_gen_block_9fbc660","settings":{"container_width":1400,"gallery_width":50,"column_gap":60,"section_padding_top":40,"section_padding_bottom":40,"image_aspect_ratio":"auto","image_fit":"contain","image_background":"#F5F5F5","image_border_radius":0,"thumbnail_size":80,"thumbnail_spacing":12,"thumbnail_border_radius":0,"thumbnail_active_border":"#1e2a38","show_vendor":true,"show_sku":true,"show_rating":true,"review_count":120,"show_short_description":true,"show_sale_badge":true,"title_font":"manrope_n7","title_font_size":36,"price_font_size":26,"description_font_size":16,"vendor_font_size":12,"title_color":"#000000","text_color":"#000000","price_color":"#1e2a38","vendor_color":"#000000","star_color":"#f6552e","badge_background":"#f6552e","badge_text":"#ffffff","badge_border_radius":4,"variant_background":"#FFFFFF","variant_border_color":"#cccccc","variant_active_background":"#000000","variant_active_border":"#000000","variant_active_text":"#ffffff","variant_border_radius":4,"show_quantity":true,"add_to_cart_text":"Add to cart","sold_out_text":"Sold out","show_buy_now":true,"buy_now_text":"Buy it now","button_padding":16,"button_font_size":14,"button_border_width":1,"button_border_radius":0,"button_text_transform":"uppercase","primary_button_bg":"#f6552e","primary_button_text":"#ffffff","primary_button_hover_bg":"#f6552e","secondary_button_bg":"#ffffff","secondary_button_text":"#000000","secondary_button_border":"#f6552e","secondary_button_hover_bg":"#f6552e","secondary_button_hover_text":"#ffffff","show_availability":true,"show_shipping_info":true,"shipping_text":"Free shipping on $3000 orders and above","show_pickup":true,"pickup_text":"Pickup available at our warehouse","show_payment_info":true,"payment_info_text":"<p>Flexible payment options available. Contact us for financing.<\/p>","info_background":"#f5f5f5","info_border_radius":8,"in_stock_color":"#008060","out_stock_color":"#d82c0d","show_description_accordion":false,"show_shipping_accordion":true,"shipping_accordion_content":"<p>Free shipping on $3000 orders and above.<br\/>Standard delivery takes 3-5 business days. Returns accepted within 30 days.<\/p>","show_details_accordion":true,"details_accordion_content":"<p>High-quality materials. Made in Canada. Warranty included.<\/p>"},"blocks":{}}},"block_order":["ai_gen_block_9fbc660_et7AmL"],"settings":{}},"jd_product_tabs_etttUn":{"type":"jd-product-tabs","blocks":{"tab_yM6z7d":{"type":"tab","settings":{"tab_title":"Description","source_type":"product_description","namespace":"custom","key":"","page":"","content_heading":"","manual_content":""}},"tab_3Q8g8j":{"type":"tab","settings":{"tab_title":"Key Features","source_type":"product_metafield","namespace":"custom","key":"key_features","page":"","content_heading":"","manual_content":""}},"tab_Gt474G":{"type":"tab","settings":{"tab_title":"Documents","source_type":"product_metafield","namespace":"custom","key":"product_pdf_option","page":"","content_heading":"","manual_content":""}},"tab_fUHqCq":{"type":"tab","settings":{"tab_title":"Specifications","source_type":"product_metafield","namespace":"custom","key":"","page":"","content_heading":"","manual_content":""}}},"block_order":["tab_yM6z7d","tab_3Q8g8j","tab_Gt474G","tab_fUHqCq"],"name":"Product Dynamic Tabs","settings":{"heading":"Product Information","description":"Everything you need to know about this product.","max_width":1200,"enable_background":true,"background_color":"#ffffff","heading_color":"#000000","text_color":"#000000","active_color":"#ed5b3b","border_color":"#dddddd","show_pdf_preview":false,"padding_top":20,"padding_bottom":20,"mobile_padding_top":20,"mobile_padding_bottom":20}},"product_video_gallery_eRaBch":{"type":"product-video-gallery","blocks":{"video_kcTxBG":{"type":"video","settings":{"video_url":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/06e47fce079b4daf92613a1761fc2799.mov","title":"","alt_text":"Product video"}},"video_KQMbH6":{"type":"video","settings":{"video_url":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/aeb599bd91fc4751863e070db6dedb98.mp4","title":"","alt_text":"Product video"}},"video_fgcpkC":{"type":"video","settings":{"video_url":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/deac8152c6db4f7ca016ed65cf53ebf0.mov","title":"","alt_text":"Product video"}},"video_rFMhTA":{"type":"video","settings":{"video_url":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/07d425eab77f4b9fae4ae9d87bf434c3.mov","title":"","alt_text":"Product video"}}},"block_order":["video_kcTxBG","video_KQMbH6","video_fgcpkC","video_rFMhTA"],"disabled":true,"name":"Product Video Gallery","settings":{"heading":"Product Videos","description":"","text_alignment":"center","heading_size":36,"mobile_heading_size":28,"container_width":1400,"grid_gap":16,"radius":4,"background_color":"#ffffff","heading_color":"#000000","padding_top":60,"padding_bottom":60,"mobile_padding_top":40,"mobile_padding_bottom":40}},"product_add_accessories_Gwq8XP":{"type":"product-add-accessories","disabled":true,"name":"Product Add Accessories","settings":{"heading":"Add Accessories","description":""}},"machine_specifications_gNpCV7":{"type":"machine-specifications","blocks":{"specification_nHGgAD":{"type":"specification","settings":{"label":"Motor","value":"20 HP electric"}},"specification_9hyXyc":{"type":"specification","settings":{"label":"Pump type","value":"Oil-flooded rotary screw, [single-stage]"}},"specification_qbwTqa":{"type":"specification","settings":{"label":"Air delivery (FAD)","value":"[~80–90 CFM] at [125 psi]"}},"specification_JWULrT":{"type":"specification","settings":{"label":"Maximum pressure","value":"[145 psi \/ 10 bar]"}},"specification_YjCTJb":{"type":"specification","settings":{"label":"Receiver tank","value":"500 L vertical, ASME\/CRN [certified — confirm]"}},"specification_3jWbzL":{"type":"specification","settings":{"label":"Air treatment","value":"Integrated refrigerated air dryer + [pre\/after] filtration"}},"specification_MyKifi":{"type":"specification","settings":{"label":"Duty cycle","value":"100% — continuous operation"}},"specification_tz9Jqx":{"type":"specification","settings":{"label":"Electrical","value":"[3-phase, 208\/230\/460 V — confirm] · [full-load amps]"}},"specification_kTaWG9":{"type":"specification","settings":{"label":"Sound level","value":"[~68–72 dB(A)] at [1 m]"}},"specification_EVygAc":{"type":"specification","settings":{"label":"Dimensions \/ weight","value":"[L × W × H] · [~XXX kg]"}},"specification_gBppdj":{"type":"specification","settings":{"label":"Controller","value":"[Digital controller with hour meter, temperature and service alerts]"}},"specification_U6bRG3":{"type":"specification","settings":{"label":"Warranty","value":"[Airend X years · package Y years — confirm]"}}},"block_order":["specification_nHGgAD","specification_9hyXyc","specification_qbwTqa","specification_JWULrT","specification_YjCTJb","specification_3jWbzL","specification_MyKifi","specification_tz9Jqx","specification_kTaWG9","specification_EVygAc","specification_gBppdj","specification_U6bRG3"],"name":"Machine specifications","settings":{"eyebrow":"specifications","heading":"What's in the machine","description":"[Figures in brackets are placeholders — confirm against the manufacturer spec sheet before publishing.]","max_width":1400,"label_width":20,"heading_size":36,"description_size":18,"row_text_size":18,"padding_top":40,"padding_bottom":40,"mobile_heading_size":28,"mobile_description_size":16,"mobile_row_text_size":14,"mobile_padding_top":30,"mobile_padding_bottom":30,"background_color":"#ffffff","heading_color":"#000000","text_color":"#000000","label_color":"#000000","border_color":"#d9dee3"}},"why_each_type_compressor_mhXm43":{"type":"why-each-type-compressor","blocks":{"buyer_card_4iPTez":{"type":"buyer_card","settings":{"card_title":"DIY & serious home garages","card_subtitle":"BUILD ONCE, NEVER UPGRADE","bullet_1":"<p><strong>The last compressor you'll buy<\/strong> — no working up from a pancake to a 60-gallon to a two-stage as the shop grows<\/p>","bullet_2":"<p><strong>Quiet in an attached garage<\/strong> — an enclosed rotary screw hums where a piston pump hammers<\/p>","bullet_3":"<p><strong>Clean, dry air with nothing to add<\/strong> — the dryer is built in, for paint, plasma and air-tool life<\/p>","bullet_4":"<p><strong>Never waits<\/strong> — run a media blaster, DA sander or tire tools without stopping for the tank to catch up<\/p>"}},"trade_card_JypwC4":{"type":"trade_card","settings":{"card_title":"Small businesses & trade shops","card_subtitle":"ONE MACHINE FOR THE WHOLE SHOP","bullet_1":"<p><strong>Supplies every bay from one unit<\/strong> — no second compressor when you add a lift or a technician<\/p>","bullet_2":"<p><strong>Runs all day<\/strong> — 100% duty cycle avoids the wear that kills piston units in a couple of years<\/p>","bullet_3":"<p><strong>Consistent finish quality<\/strong> — the integrated dryer means fewer paint and coating redos<\/p>","bullet_4":"<p><strong>Monthly payments with RBC<\/strong> — a manageable business asset, not a cash-flow hit<\/p>"}},"production_card_aCjxbL":{"type":"production_card","settings":{"card_title":"Bigger businesses & production","card_subtitle":"UPTIME AND COST PER CFM","bullet_1":"<p><strong>Cheaper to run<\/strong> than banks of piston compressors — more air per horsepower, less energy per CFM<\/p>","bullet_2":"<p><strong>Keeps the line moving<\/strong> — continuous duty plus a digital controller with service alerts<\/p>","bullet_3":"<p><strong>Handles demand spikes<\/strong> — the 500 L receiver covers blasting and several operators at once<\/p>","bullet_4":"<p><strong>Canadian support & parts<\/strong> — no import lead time when production is down<\/p>"}}},"block_order":["buyer_card_4iPTez","trade_card_JypwC4","production_card_aCjxbL"],"name":"Why each type compressor","settings":{"eyebrow":"WHO IT'S FOR","heading":"Why each type of shop buys this compressor","intro_text":"<p>One machine, three very different buyers. Here's the case for each — plus the honest note on power at the end.<\/p>","bottom_note":"<p>A note on power: the 20 HP motor needs <strong>3-phase electricity<\/strong> — standard in commercial buildings, and available to a home shop with a phase converter. Not sure what you have? Send us your tools, bay count and power supply and we'll confirm it fits before you order.<\/p>","background_color":"#f1f3f4","card_background":"#ffffff","card_border":"#dde1e4","text_color":"#000000","muted_color":"#000000","accent_color":"#ff6f3c","max_width":1400,"padding_top":40,"padding_bottom":40}},"compressor_use_cases_6X9mfW":{"type":"compressor-use-cases","blocks":{"tool_cCFGte":{"type":"tool","settings":{"tool":"½” impact wrench","air":"[~4–5 CFM]","notes":"Run several at once across the shop"}},"tool_kpzdiY":{"type":"tool","settings":{"tool":"Air ratchet \/ die grinder","air":"[~4–8 CFM]","notes":"Continuous use, no waiting for recovery"}},"tool_9NFXe9":{"type":"tool","settings":{"tool":"DA \/ orbital sander","air":"[~10–13 CFM]","notes":"Bodywork all day without starving other tools"}},"tool_caKJDd":{"type":"tool","settings":{"tool":"HVLP spray gun","air":"[~10–14 CFM]","notes":"Integrated dryer keeps moisture out of the finish"}},"tool_YqhcBB":{"type":"tool","settings":{"tool":"Plasma cutter (air)","air":"[~6–10 CFM]","notes":"Steady pressure for clean cuts"}},"tool_PktiKb":{"type":"tool","settings":{"tool":"Sandblast \/ media blasting","air":"[~15–30+ CFM]","notes":"High sustained demand — where rotary screw earns its keep"}},"tool_zBg7BK":{"type":"tool","settings":{"tool":"Shop-wide air drops","air":"[add tool CFM together]","notes":"Multiple operators on one system"}}},"block_order":["tool_cCFGte","tool_kpzdiY","tool_9NFXe9","tool_caKJDd","tool_YqhcBB","tool_PktiKb","tool_zBg7BK"],"name":"Compressor use cases","settings":{"eyebrow":"WHAT SHOP AIR IS FOR","heading":"What a compressor this size lets you run","description":"<p>Air tools are rated in CFM at 90 psi. A rotary screw compressor delivers a steady flow, so you can run several demanding tools at once without the pressure dropping. [Tool figures are typical ranges.]<\/p>","tool_heading":"Tool \/ job","air_heading":"Typical air draw","notes_heading":"Notes","background_color":"#ffffff","padding_top":40,"padding_bottom":40,"mobile_padding_top":40,"mobile_padding_bottom":40}},"why_rotary_screw_xbJwEh":{"type":"why-rotary-screw","blocks":{"feature_Dek3Rb":{"type":"feature","settings":{"title":"Continuous duty","text":"A rotary screw runs 100% of the time without overheating. A piston unit is designed to build pressure and rest push it and it wears fast."}},"feature_kMQLaE":{"type":"feature","settings":{"title":"More air per horsepower","text":"Screw compressors deliver more usable CFM for the same motor size, and hold pressure steady instead of cycling up and down."}},"feature_jYfWtX":{"type":"feature","settings":{"title":"Clean, dry air built in","text":"Compressing air makes water. The integrated refrigerated dryer removes it before it reaches your lines protecting finishes, tools and fittings from rust."}},"feature_BcY8hi":{"type":"feature","settings":{"title":"Quieter, and lower running cost","text":"Enclosed and vibration-isolated, it's quieter than an open piston pump and the cost per CFM over its life is lower."}}},"block_order":["feature_Dek3Rb","feature_kMQLaE","feature_jYfWtX","feature_BcY8hi"],"name":"Why rotary screw","settings":{"eyebrow":"WHY ROTARY SCREW","heading":"The difference vs. a piston compressor","description":"Piston (reciprocating) compressors are the value choice for intermittent use. Once air is running for hours at a time, a rotary screw is the tool for the job.","max_width":1400,"padding_top":40,"padding_bottom":40,"background_color":"#f3f4f5","card_background":"#ffffff","card_border":"#dde1e5","heading_color":"#000000","text_color":"#000000","accent_color":"#ff6f3c"}},"power_space_setup_gL7txn":{"type":"power-space-setup","blocks":{"requirement_XmEppn":{"type":"requirement","settings":{"title":"Three-phase power","text":"<p>A 20 HP motor needs [3-phase] service and a correctly sized breaker and feeder. Confirm your building's supply and [full-load amps] with an electrician.<\/p>"}},"requirement_RJJTFz":{"type":"requirement","settings":{"title":"Placement & ventilation","text":"<p>A dry, level, ventilated area with clearance around the enclosure for cooling airflow. Keep it out of freezing temperatures.<\/p>"}},"requirement_tpDPne":{"type":"requirement","settings":{"title":"Air distribution","text":"<p>Hard-piped drops sloped to drip legs, air taken off the top of the line, isolation valves per bay. The 500 L tank buffers demand across the shop.<\/p>"}},"requirement_c9gF94":{"type":"requirement","settings":{"title":"Condensate handling","text":"<p>The dryer and tank produce condensate. Plan a drain line and, where required, an oil-water separator to meet local disposal rules.<\/p>"}}},"block_order":["requirement_XmEppn","requirement_RJJTFz","requirement_tpDPne","requirement_c9gF94"],"name":"Power, space & setup","settings":{"eyebrow":"BEFORE YOU BUY","heading":"Power, space and setup to plan for","description":"<p>A machine this size needs a few things in place. Check these before ordering, and involve a licensed electrician and a compressed-air installer for hookup.<\/p>","padding_top":40,"padding_bottom":40}},"toosa_how_it_works_Eam3Wi":{"type":"toosa-how-it-works","blocks":{"step_jLazwi":{"type":"step","settings":{"number":"01","title":"Free Freight, Canada-wide","text":"<p>Shipped on a pallet to your door, or collect from Richmond, [Vancouver] or Calgary.<\/p>"}},"step_6rBijA":{"type":"step","settings":{"number":"02","title":"Position & Anchor","text":"<p>Move into place with a pallet jack or forklift; set on a level pad with clearance for airflow and service access.<\/p>"}},"step_Q9qjkV":{"type":"step","settings":{"number":"03","title":"Electrical & Air Hookup","text":"<p>Licensed electrician for the 3-phase connection; compressed-air installer for piping, dryer and drains.<\/p>"}},"step_AaVqFB":{"type":"step","settings":{"number":"04","title":"Commission & Support","text":"<p>Initial run-up checks, then ongoing service parts and guidance from the TOOSA team in Canada.<\/p>"}}},"block_order":["step_jLazwi","step_6rBijA","step_Q9qjkV","step_AaVqFB"],"name":"TOOSA: How it works","settings":{"eyebrow":"Getting it Running","heading":"Delivery & Installation","background_color":"#f1f3f4","accent_color":"#ff6f3c","heading_color":"#000000","text_color":"#000000"}},"why_buy_it_from_toosa_LP9HPY":{"type":"why-buy-it-from-toosa","blocks":{"benefit_wx9cyj":{"type":"benefit","settings":{"title":"See & hear it run","text":"Come to the Richmond, BC showroom and stand next to it before you commit."}},"benefit_wGdgwG":{"type":"benefit","settings":{"title":"Pay monthly with RBC","text":"Spread a shop-grade compressor over manageable payments the same financing as our tool storage."}},"benefit_fzVxWi":{"type":"benefit","settings":{"title":"Canadian support","text":"Talk to a person about power, install and service parts. No overseas ticket queue."}},"benefit_rkAKbE":{"type":"benefit","settings":{"title":"Free shipping Canada-wide","text":"Delivered to your door, or collect in Richmond, Vancouver or Calgary."}},"benefit_88Ncrm":{"type":"benefit","settings":{"title":"One workshop, one supplier","text":"Storage, custom foam, lighting, engraving and air from a team that fits out whole shops."}},"benefit_8hDixB":{"type":"benefit","settings":{"title":"Honest sizing help","text":"Send your tool list and shop size; we'll tell you if this is right or if you should wait."}}},"block_order":["benefit_wx9cyj","benefit_wGdgwG","benefit_fzVxWi","benefit_rkAKbE","benefit_88Ncrm","benefit_8hDixB"],"name":"Why buy it from TOOSA","settings":{"eyebrow":"WHY BUY IT FROM TOOSA","heading":"The same shop that builds your storage","description":"<p>A compressor is a 10-year purchase. Buying it from the team already outfitting your workshop means one point of contact for the setup, the support and the payments.<\/p>","max_width":1400,"padding_top":40,"padding_bottom":40,"background_color":"#021f4b","heading_color":"#ffffff","text_color":"#ffffff","item_title_color":"#f1f3f5","border_color":"#3a4857","accent_color":"#ff6f3c"}},"air_compressor_faq_KXnzFF":{"type":"air-compressor-faq","blocks":{"faq_LyN9kr":{"type":"faq","settings":{"question":"What is a rotary screw air compressor?","answer":"<p>A rotary screw compressor uses two interlocking helical rotors to compress air in a continuous flow, instead of a piston pumping in strokes. That lets it run 100% of the time without overheating, hold pressure steady, and deliver more air per horsepower.  which is why it's the standard for shops that use air for hours at a stretch.<\/p>"}},"faq_a4MCbG":{"type":"faq","settings":{"question":"What size air compressor does a busy auto or body shop need?","answer":"<p>Add up the CFM at 90 psi of every air tool you'll run at the same time, then add about 30% headroom. Multi-bay shops running sanders, impacts and spray guns typically land in the [~60– 90 CFM] range. which is what this 20 HP unit is built to supply, with the 500 L tank buffering peaks.<\/p>"}},"faq_HzWenh":{"type":"faq","settings":{"question":"Does this compressor need three-phase power?","answer":"<p>Yes. A 20 HP motor requires [3-phase] electrical service with a properly sized breaker and feeder. Most commercial and industrial buildings have it; confirm your supply with a licensed electrician before ordering.<\/p>"}},"faq_zVMqDD":{"type":"faq","settings":{"question":"Do I need to buy a separate air dryer?","answer":"<p>No. A refrigerated air dryer is built into this package, so you get clean, dry air out of the box important for spray finishing, plasma cutting and the life of your air tools. Additional point-of-use filtration can be added for specific processes.<\/p>"}},"faq_xX6Xky":{"type":"faq","settings":{"question":"Is this worth it for a home garage?","answer":"<p>For a serious home shop restoration, fabrication, a car collection yes: it's quiet, gives you clean dry air with no bolt-on dryer, runs any tool without waiting, and it's the last compressor you'll buy. It does need 3-phase power or a phase converter. For occasional tyre-and-nailer use it's more than you need send us your setup and we'll be straight with you.<\/p>"}},"faq_p7emnH":{"type":"faq","settings":{"question":"How is it delivered and installed?","answer":"<p>It ships free on a pallet anywhere in Canada, or you can pick it up in Richmond, Vancouver or Calgary. Position it with a pallet jack or forklift onto a level pad. Hookup needs a licensed electrician for the 3-phase connection and a compressed-air installer for piping and drains.<\/p>"}},"faq_TJTBUU":{"type":"faq","settings":{"question":"Is financing available?","answer":"<p>Yes, TOOSA offers monthly payment plans through RBC on the compressor, the same as our tool storage. Ask us for terms, or start your order and choose the financing option at checkout.<\/p>"}},"faq_wBFKFc":{"type":"faq","settings":{"question":"CFM vs. PSI, what should I size against?","answer":"<p>PSI is pressure; almost any compressor makes enough. CFM (airflow) at working pressure is what runs your tools continuously size against the combined CFM of everything running at once.<\/p>"}}},"block_order":["faq_LyN9kr","faq_a4MCbG","faq_HzWenh","faq_zVMqDD","faq_xX6Xky","faq_p7emnH","faq_TJTBUU","faq_wBFKFc"],"name":"Air compressor FAQ","settings":{"eyebrow":"ANSWERS","heading":"Air compressor questions, answered","intro":"The questions buyers search before choosing a shop compressor.","note":"","max_width":1400,"background_color":"#f4f5f5","text_color":"#000000","muted_color":"#000000","line_color":"#dfe2e3","accent_color":"#ff6f3c"}},"compressor_cta_wQn6zT":{"type":"compressor-cta","disabled":true,"name":"Compressor CTA","settings":{"accessibility_label":"Compressor call to action","eyebrow":"READY WHEN YOU ARE","heading":"Build it your way.","description":"Order the compressor, request a quote for your shop, or come hear it run at the Richmond showroom.","button_1_text":"Buy now","button_1_link":"shopify:\/\/collections\/tool-storage","button_2_text":"Request a quote","button_2_link":"shopify:\/\/pages\/contact","button_3_text":"Book a showroom visit","button_3_link":"shopify:\/\/pages\/book-appointments","background_color":"#ff6f3c","text_color":"#ffffff","primary_button_color":"#000000","primary_button_text_color":"#ffffff","secondary_button_border_color":"#ffffff","secondary_button_text_color":"#ffffff","bottom_border_color":"#000000"}}},"order":["rotary_screw_product_hero_Ag98Lc","blocks_kFwFz7","jd_product_tabs_etttUn","product_video_gallery_eRaBch","product_add_accessories_Gwq8XP","machine_specifications_gNpCV7","why_each_type_compressor_mhXm43","compressor_use_cases_6X9mfW","why_rotary_screw_xbJwEh","power_space_setup_gL7txn","toosa_how_it_works_Eam3Wi","why_buy_it_from_toosa_LP9HPY","air_compressor_faq_KXnzFF","compressor_cta_wQn6zT"]}
+{
+  "sections": {
+    "blocks_kFwFz7": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_9fbc660_et7AmL": {
+          "type": "ai_gen_block_9fbc660",
+          "settings": {
+            "container_width": 1400,
+            "gallery_width": 50,
+            "column_gap": 60,
+            "section_padding_top": 40,
+            "section_padding_bottom": 40,
+            "image_aspect_ratio": "auto",
+            "image_fit": "contain",
+            "image_background": "#F5F5F5",
+            "image_border_radius": 0,
+            "thumbnail_size": 80,
+            "thumbnail_spacing": 12,
+            "thumbnail_border_radius": 0,
+            "thumbnail_active_border": "#1e2a38",
+            "show_vendor": true,
+            "show_sku": true,
+            "show_rating": true,
+            "review_count": 120,
+            "show_short_description": true,
+            "show_sale_badge": true,
+            "title_font": "manrope_n7",
+            "title_font_size": 36,
+            "price_font_size": 26,
+            "description_font_size": 16,
+            "vendor_font_size": 12,
+            "title_color": "#000000",
+            "text_color": "#000000",
+            "price_color": "#1e2a38",
+            "vendor_color": "#000000",
+            "star_color": "#f6552e",
+            "badge_background": "#f6552e",
+            "badge_text": "#ffffff",
+            "badge_border_radius": 4,
+            "variant_background": "#FFFFFF",
+            "variant_border_color": "#cccccc",
+            "variant_active_background": "#000000",
+            "variant_active_border": "#000000",
+            "variant_active_text": "#ffffff",
+            "variant_border_radius": 4,
+            "show_quantity": true,
+            "add_to_cart_text": "Add to cart",
+            "sold_out_text": "Sold out",
+            "show_buy_now": true,
+            "buy_now_text": "Buy it now",
+            "button_padding": 16,
+            "button_font_size": 14,
+            "button_border_width": 1,
+            "button_border_radius": 0,
+            "button_text_transform": "uppercase",
+            "primary_button_bg": "#f6552e",
+            "primary_button_text": "#ffffff",
+            "primary_button_hover_bg": "#f6552e",
+            "secondary_button_bg": "#ffffff",
+            "secondary_button_text": "#000000",
+            "secondary_button_border": "#f6552e",
+            "secondary_button_hover_bg": "#f6552e",
+            "secondary_button_hover_text": "#ffffff",
+            "show_availability": true,
+            "show_shipping_info": true,
+            "shipping_text": "Free shipping on $3000 orders and above",
+            "show_pickup": true,
+            "pickup_text": "Pickup available at our warehouse",
+            "show_payment_info": true,
+            "payment_info_text": "<p>Flexible payment options available. Contact us for financing.</p>",
+            "info_background": "#f5f5f5",
+            "info_border_radius": 8,
+            "in_stock_color": "#008060",
+            "out_stock_color": "#d82c0d",
+            "show_description_accordion": false,
+            "show_shipping_accordion": true,
+            "shipping_accordion_content": "<p>Free shipping on $3000 orders and above.<br/>Standard delivery takes 3-5 business days. Returns accepted within 30 days.</p>",
+            "show_details_accordion": true,
+            "details_accordion_content": "<p>High-quality materials. Made in Canada. Warranty included.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_9fbc660_et7AmL"
+      ],
+      "settings": {}
+    },
+    "tx_pr_overview": {
+      "type": "tx-pr-overview",
+      "blocks": {
+        "beat_1": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "icon": "drawer",
+            "title": "7 full-extension drawers",
+            "text": "150 lb capacity per pair of sliders, so heavy tools stay put."
+          }
+        },
+        "beat_2": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "icon": "lock",
+            "title": "Metal latch drawers",
+            "text": "Close with a physical click and stay shut while you roll it."
+          }
+        },
+        "beat_3": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "icon": "bolt",
+            "title": "Power tools drawer",
+            "text": "Built-in power bar and USB outlets keep batteries charging in the drawer."
+          }
+        },
+        "beat_4": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "icon": "wheel",
+            "title": "4 × 6 in. casters",
+            "text": "Two fixed, two locking swivel. Easy to move, solid when parked."
+          }
+        },
+        "beat_5": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "icon": "layers",
+            "title": "Uniform heights and finishes",
+            "text": "Every module shares case heights, depths and drawer pulls for a seamless wall."
+          }
+        },
+        "beat_6": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "icon": "key",
+            "title": "Flat keys included",
+            "text": "Lock the whole cabinet when you leave the shop."
+          }
+        },
+        "beat_7": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "icon": "steel",
+            "title": "1 mm heavy-duty steel body",
+            "text": "Thicker gauge that resists flexing under heavy loads and keeps drawers running smoothly."
+          }
+        },
+        "beat_8": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "icon": "spray",
+            "title": "Fully welded, powder-coated",
+            "text": "Welded frame with an anti-fingerprint powder coat that keeps a clean, professional look."
+          }
+        },
+        "beat_9": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "icon": "drawer",
+            "title": "Soft-close drawers rated to 150 lb",
+            "text": "Full extension on every drawer, so the back of the drawer is as usable as the front."
+          }
+        },
+        "beat_10": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "icon": "wheel",
+            "title": "Lockable casters and tubular handle",
+            "text": "Roll it across the garage, shop or job site, then lock it in place to work."
+          }
+        },
+        "beat_11": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "icon": "refresh",
+            "title": "Modular by design",
+            "text": "Start with the base chest, then add a pegboard, upper cabinets, lighting or a side locker later."
+          }
+        },
+        "beat_12": {
+          "type": "beat",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "icon": "door",
+            "title": "Side locker fits either side",
+            "text": "Order it with one locker, two, or none, and add one later if your layout changes."
+          }
+        },
+        "beat_13": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-pegboard",
+            "icon": "ruler",
+            "title": "72 in. × 18 in. × 1 in. panel",
+            "text": "A spacious surface for hooks, bins and holders."
+          }
+        },
+        "beat_14": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-pegboard",
+            "icon": "steel",
+            "title": "Heavy-duty build",
+            "text": "Made for long-lasting daily use in the shop."
+          }
+        },
+        "beat_15": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-pegboard",
+            "icon": "refresh",
+            "title": "Add now or later",
+            "text": "Designed to bolt on to the TOOSA modular tool storage systems."
+          }
+        },
+        "beat_16": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-pegboard",
+            "icon": "wrench",
+            "title": "Quick, easy installation",
+            "text": "Mounts to the back of the chest and keeps everyday tools visible."
+          }
+        },
+        "beat_17": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-upper-cabinets",
+            "icon": "ruler",
+            "title": "72 in. wide × 18 in. tall",
+            "text": "Mounts above the TOOSA modular tool chest to use the vertical space."
+          }
+        },
+        "beat_18": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-upper-cabinets",
+            "icon": "lock",
+            "title": "Three locking compartments",
+            "text": "Each section has its own lock for power tools, safety gear or high-value items."
+          }
+        },
+        "beat_19": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-upper-cabinets",
+            "icon": "steel",
+            "title": "Same heavy-duty construction",
+            "text": "Built like the rest of the TOOSA lineup."
+          }
+        },
+        "beat_20": {
+          "type": "beat",
+          "settings": {
+            "only_for": "mega-max-upper-cabinets",
+            "icon": "light",
+            "title": "Lighting-ready",
+            "text": "Pair it with the adjustable lighting kit to light the worktop below."
+          }
+        },
+        "beat_21": {
+          "type": "beat",
+          "settings": {
+            "only_for": "adjustable-lighting-kit-1",
+            "icon": "light",
+            "title": "LED strip under the upper cabinets",
+            "text": "Bright, even light with fewer shadows and less glare on the worktop."
+          }
+        },
+        "beat_22": {
+          "type": "beat",
+          "settings": {
+            "only_for": "adjustable-lighting-kit-1",
+            "icon": "layers",
+            "title": "Made for the TOOSA bench",
+            "text": "Integrates with the storage tool bench so it becomes a full workstation."
+          }
+        },
+        "beat_23": {
+          "type": "beat",
+          "settings": {
+            "only_for": "adjustable-lighting-kit-1",
+            "icon": "eye",
+            "title": "For detailed work",
+            "text": "Ideal for fine tasks and keeping drawers and the pegboard visible."
+          }
+        },
+        "beat_24": {
+          "type": "beat",
+          "settings": {
+            "only_for": "adjustable-lighting-kit-1",
+            "icon": "garage",
+            "title": "Shop or home garage",
+            "text": "Suits professional garages and home workshops alike."
+          }
+        },
+        "beat_25": {
+          "type": "beat",
+          "settings": {
+            "only_for": "multi-purpose-rotating-bench-vise",
+            "icon": "refresh",
+            "title": "Jaws rotate 360 degrees",
+            "text": "Unlimited workpiece positioning, with a lockable swivel base."
+          }
+        },
+        "beat_26": {
+          "type": "beat",
+          "settings": {
+            "only_for": "multi-purpose-rotating-bench-vise",
+            "icon": "ruler",
+            "title": "5 in. jaws, 5 in. opening",
+            "text": "Holds flat stock and, with the built-in pipe jaws, round stock."
+          }
+        },
+        "beat_27": {
+          "type": "beat",
+          "settings": {
+            "only_for": "multi-purpose-rotating-bench-vise",
+            "icon": "shield",
+            "title": "Removable rubber-faced jaws",
+            "text": "Protect the surfaces of the piece you are working on."
+          }
+        },
+        "beat_28": {
+          "type": "beat",
+          "settings": {
+            "only_for": "multi-purpose-rotating-bench-vise",
+            "icon": "wrench",
+            "title": "Drilling, filing, sawing, gluing",
+            "text": "For a wide range of woodworking and metalwork jobs."
+          }
+        },
+        "beat_29": {
+          "type": "beat",
+          "settings": {
+            "only_for": "assembly-services",
+            "icon": "wrench",
+            "title": "Assembled before it leaves",
+            "text": "TOOSA builds the unit before pick-up or before it ships to your site."
+          }
+        },
+        "beat_30": {
+          "type": "beat",
+          "settings": {
+            "only_for": "assembly-services",
+            "icon": "check",
+            "title": "Ready to roll",
+            "text": "Skip the assembly step and start loading tools."
+          }
+        },
+        "beat_31": {
+          "type": "beat",
+          "settings": {
+            "only_for": "curbside-pick-up",
+            "icon": "pin",
+            "title": "Richmond, BC facility",
+            "text": "Schedule a time and collect your order curbside."
+          }
+        },
+        "beat_32": {
+          "type": "beat",
+          "settings": {
+            "only_for": "curbside-pick-up",
+            "icon": "calendar",
+            "title": "Pick a time that suits you",
+            "text": "We have it ready when you arrive."
+          }
+        },
+        "beat_33": {
+          "type": "beat",
+          "settings": {
+            "only_for": "in-person-product-demo",
+            "icon": "eye",
+            "title": "See the quality first-hand",
+            "text": "A free product demo at the Richmond, BC showroom."
+          }
+        },
+        "beat_34": {
+          "type": "beat",
+          "settings": {
+            "only_for": "in-person-product-demo",
+            "icon": "users",
+            "title": "Walk through it with the team",
+            "text": "Compare chests, hutches, lockers and foam in person."
+          }
+        }
+      },
+      "block_order": [
+        "beat_1",
+        "beat_2",
+        "beat_3",
+        "beat_4",
+        "beat_5",
+        "beat_6",
+        "beat_7",
+        "beat_8",
+        "beat_9",
+        "beat_10",
+        "beat_11",
+        "beat_12",
+        "beat_13",
+        "beat_14",
+        "beat_15",
+        "beat_16",
+        "beat_17",
+        "beat_18",
+        "beat_19",
+        "beat_20",
+        "beat_21",
+        "beat_22",
+        "beat_23",
+        "beat_24",
+        "beat_25",
+        "beat_26",
+        "beat_27",
+        "beat_28",
+        "beat_29",
+        "beat_30",
+        "beat_31",
+        "beat_32",
+        "beat_33",
+        "beat_34"
+      ],
+      "settings": {
+        "theme": "paper",
+        "eyebrow": "At a glance",
+        "heading": "What you get with the [product]",
+        "columns": "2",
+        "max_auto": 6,
+        "default_icon": "check",
+        "show_chips": true,
+        "ul_for": "type:Air Compressors",
+        "ul_text": "UL-certified inverter",
+        "show_full": true,
+        "full_label": "Read the full description"
+      }
+    },
+    "tx_pr_specs": {
+      "type": "tx-pr-specs",
+      "blocks": {
+        "fact_1": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "value": "7",
+            "label": "Drawers"
+          }
+        },
+        "fact_2": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "value": "150 lb",
+            "label": "Per drawer"
+          }
+        },
+        "fact_3": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "value": "56 in.",
+            "label": "Base width"
+          }
+        },
+        "fact_4": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "value": "93 in.",
+            "label": "Full set width"
+          }
+        },
+        "fact_5": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "value": "72 in.",
+            "label": "Base width"
+          }
+        },
+        "fact_6": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "value": "1 mm",
+            "label": "Steel body"
+          }
+        },
+        "fact_7": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "value": "150 lb",
+            "label": "Per drawer"
+          }
+        },
+        "fact_8": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "value": "96 in.",
+            "label": "Wall width, max"
+          }
+        },
+        "fact_9": {
+          "type": "fact",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "value": "20 HP",
+            "label": "Motor"
+          }
+        },
+        "fact_10": {
+          "type": "fact",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "value": "500 L",
+            "label": "Receiver tank"
+          }
+        },
+        "fact_11": {
+          "type": "fact",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "value": "100%",
+            "label": "Duty cycle"
+          }
+        },
+        "fact_12": {
+          "type": "fact",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "value": "UL",
+            "label": "Certified inverter"
+          }
+        },
+        "fact_13": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch",
+            "value": "56 in.",
+            "label": "Wide"
+          }
+        },
+        "fact_14": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch",
+            "value": "Stainless",
+            "label": "Worktop"
+          }
+        },
+        "fact_15": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-side-locker",
+            "value": "4",
+            "label": "Adjustable shelves"
+          }
+        },
+        "fact_16": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-side-locker",
+            "value": "65 in.",
+            "label": "Tall"
+          }
+        },
+        "fact_17": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-side-drawers",
+            "value": "6",
+            "label": "Drawers"
+          }
+        },
+        "fact_18": {
+          "type": "fact",
+          "settings": {
+            "only_for": "ultra-task-side-drawers",
+            "value": "150 lb",
+            "label": "Per drawer"
+          }
+        },
+        "fact_19": {
+          "type": "fact",
+          "settings": {
+            "only_for": "mega-max-side-locker",
+            "value": "3 + 3",
+            "label": "Drawers + shelves"
+          }
+        },
+        "fact_20": {
+          "type": "fact",
+          "settings": {
+            "only_for": "mega-max-side-locker",
+            "value": "150 lb",
+            "label": "Per drawer"
+          }
+        },
+        "fact_21": {
+          "type": "fact",
+          "settings": {
+            "only_for": "mega-max-pegboard, mega-max-upper-cabinets",
+            "value": "72 in.",
+            "label": "Wide"
+          }
+        },
+        "fact_22": {
+          "type": "fact",
+          "settings": {
+            "only_for": "mega-max-pegboard, mega-max-upper-cabinets",
+            "value": "18 in.",
+            "label": "Tall"
+          }
+        },
+        "fact_23": {
+          "type": "fact",
+          "settings": {
+            "only_for": "black-red-peel-foam-sheets-easy-to-cut-tool-organization",
+            "value": "280 × 510",
+            "label": "mm sheet"
+          }
+        },
+        "fact_24": {
+          "type": "fact",
+          "settings": {
+            "only_for": "black-red-peel-foam-sheets-easy-to-cut-tool-organization",
+            "value": "20 / 50",
+            "label": "mm thick"
+          }
+        },
+        "fact_25": {
+          "type": "fact",
+          "settings": {
+            "only_for": "eva-foam-sheets",
+            "value": "3",
+            "label": "Colours"
+          }
+        },
+        "fact_26": {
+          "type": "fact",
+          "settings": {
+            "only_for": "eva-foam-sheets",
+            "value": "20 / 50",
+            "label": "mm thick"
+          }
+        },
+        "spec_27": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "label": "Base cabinet",
+            "value": "56 in. W × 22 in. D × 44 in. H",
+            "note": "With wheels"
+          }
+        },
+        "spec_28": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "label": "Full set, assembled",
+            "value": "93 in. W × 22 in. D × 73 in. H",
+            "note": "Base, centre hutch, side locker and side drawers"
+          }
+        },
+        "spec_29": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "label": "Drawers",
+            "value": "7, full extension, metal latch close",
+            "note": "150 lb per pair of sliders"
+          }
+        },
+        "spec_30": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "label": "Power drawer",
+            "value": "Power bar and USB outlets"
+          }
+        },
+        "spec_31": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "label": "Casters",
+            "value": "4 × 6 in.: 2 fixed, 2 locking swivel"
+          }
+        },
+        "spec_32": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "label": "Keys",
+            "value": "Flat keys included"
+          }
+        },
+        "spec_33": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "label": "Base cabinet",
+            "value": "72 in. W × 22 in. D",
+            "note": "Wall up to 96 in. wide with side lockers"
+          }
+        },
+        "spec_34": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "label": "Body",
+            "value": "1 mm heavy-duty steel, fully welded frame"
+          }
+        },
+        "spec_35": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "label": "Finish",
+            "value": "Anti-fingerprint powder coat"
+          }
+        },
+        "spec_36": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "label": "Drawers",
+            "value": "Soft-close, full extension, rated to 150 lb"
+          }
+        },
+        "spec_37": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "label": "Mobility",
+            "value": "Heavy-duty lockable casters, tubular handle"
+          }
+        },
+        "spec_38": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "label": "Add-ons",
+            "value": "Pegboard, upper cabinets, lighting kit, side locker"
+          }
+        },
+        "spec_39": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch",
+            "label": "Worktop",
+            "value": "Stainless steel"
+          }
+        },
+        "spec_40": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch",
+            "label": "Door",
+            "value": "Locking hutch door"
+          }
+        },
+        "spec_41": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch",
+            "label": "Back panel",
+            "value": "Pegboard with integrated mounting slits",
+            "note": "For monitors, shelves, hooks and accessories"
+          }
+        },
+        "spec_42": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch",
+            "label": "Lighting",
+            "value": "Optional interior lighting kit"
+          }
+        },
+        "spec_43": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch",
+            "label": "Pairs with",
+            "value": "Ultra Task 56 tool cabinet"
+          }
+        },
+        "spec_44": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-side-locker",
+            "label": "Drawer",
+            "value": "1 full-extension drawer"
+          }
+        },
+        "spec_45": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-side-locker",
+            "label": "Shelves",
+            "value": "4 adjustable"
+          }
+        },
+        "spec_46": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-side-locker",
+            "label": "Mounting",
+            "value": "Left or right of the cabinet, or stand-alone",
+            "note": "Pre-drilled caster holes underneath"
+          }
+        },
+        "spec_47": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-side-drawers",
+            "label": "Drawers",
+            "value": "6 full extension, quick-release latch",
+            "note": "150 lb per drawer"
+          }
+        },
+        "spec_48": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-side-drawers",
+            "label": "Mounting",
+            "value": "Left or right of the cabinet, or stand-alone",
+            "note": "Caster mounting holes for optional mobility"
+          }
+        },
+        "spec_49": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-side-locker",
+            "label": "Drawers",
+            "value": "3 soft-close, 150 lb slides each"
+          }
+        },
+        "spec_50": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-side-locker",
+            "label": "Shelves",
+            "value": "3"
+          }
+        },
+        "spec_51": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-side-locker",
+            "label": "Door",
+            "value": "Interchangeable, opens either way"
+          }
+        },
+        "spec_52": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-side-locker",
+            "label": "Mounting",
+            "value": "Beside the Mega Max cabinet, or stand-alone"
+          }
+        },
+        "spec_53": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-pegboard",
+            "label": "Panel",
+            "value": "72 in. W × 18 in. H × 1 in. thick"
+          }
+        },
+        "spec_54": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-pegboard",
+            "label": "Fits",
+            "value": "TOOSA modular tool storage systems"
+          }
+        },
+        "spec_55": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-upper-cabinets",
+            "label": "Cabinet",
+            "value": "72 in. W × 18 in. H"
+          }
+        },
+        "spec_56": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-upper-cabinets",
+            "label": "Compartments",
+            "value": "3, each with its own lock"
+          }
+        },
+        "spec_57": {
+          "type": "spec",
+          "settings": {
+            "only_for": "mega-max-upper-cabinets",
+            "label": "Mounts",
+            "value": "Above the TOOSA modular tool chest"
+          }
+        },
+        "spec_58": {
+          "type": "spec",
+          "settings": {
+            "only_for": "adjustable-lighting-kit-1",
+            "label": "Type",
+            "value": "LED strip, mounted under the upper cabinets"
+          }
+        },
+        "spec_59": {
+          "type": "spec",
+          "settings": {
+            "only_for": "adjustable-lighting-kit-1",
+            "label": "Fits",
+            "value": "TOOSA storage tool benches"
+          }
+        },
+        "spec_60": {
+          "type": "spec",
+          "settings": {
+            "only_for": "multi-purpose-rotating-bench-vise",
+            "label": "Jaws",
+            "value": "5 in. wide, 5 in. maximum opening",
+            "note": "Removable rubber-faced jaws, built-in pipe jaws"
+          }
+        },
+        "spec_61": {
+          "type": "spec",
+          "settings": {
+            "only_for": "multi-purpose-rotating-bench-vise",
+            "label": "Rotation",
+            "value": "360 degrees, lockable swivel base"
+          }
+        },
+        "spec_62": {
+          "type": "spec",
+          "settings": {
+            "only_for": "multi-purpose-rotating-bench-vise",
+            "label": "Mounting",
+            "value": "Bench-mounted"
+          }
+        },
+        "spec_63": {
+          "type": "spec",
+          "settings": {
+            "only_for": "laser-engraving",
+            "label": "Engraving area",
+            "value": "Up to 40 cm × 40 cm"
+          }
+        },
+        "spec_64": {
+          "type": "spec",
+          "settings": {
+            "only_for": "laser-engraving",
+            "label": "Artwork",
+            "value": "Your logo, name or design, submitted with the order"
+          }
+        },
+        "spec_65": {
+          "type": "spec",
+          "settings": {
+            "only_for": "black-red-peel-foam-sheets-easy-to-cut-tool-organization",
+            "label": "Sheet size",
+            "value": "280 mm × 510 mm"
+          }
+        },
+        "spec_66": {
+          "type": "spec",
+          "settings": {
+            "only_for": "black-red-peel-foam-sheets-easy-to-cut-tool-organization",
+            "label": "Colours",
+            "value": "Black surface, red inner layers"
+          }
+        },
+        "spec_67": {
+          "type": "spec",
+          "settings": {
+            "only_for": "black-red-peel-foam-sheets-easy-to-cut-tool-organization",
+            "label": "Method",
+            "value": "Trace the tool, peel the layers to depth"
+          }
+        },
+        "spec_68": {
+          "type": "spec",
+          "settings": {
+            "only_for": "eva-foam-sheets",
+            "label": "Material",
+            "value": "High-density EVA foam, made for CNC machining and laser cutting"
+          }
+        },
+        "spec_69": {
+          "type": "spec",
+          "settings": {
+            "only_for": "eva-foam-sheets",
+            "label": "Custom sizes",
+            "value": "From 400 × 500 mm up to 1500 × 1200 mm"
+          }
+        },
+        "spec_70": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-task-56-foam-bundle-7-sheets-of-cuttable-foam-pads",
+            "label": "Sheets",
+            "value": "6, pre-cut to the Ultra Task drawers",
+            "note": "3 × 20 mm and 3 × 50 mm"
+          }
+        },
+        "spec_71": {
+          "type": "spec",
+          "settings": {
+            "only_for": "ultra-max-72-foam-bundle-15-sheets-of-cuttable-foam-pads",
+            "label": "Sheets",
+            "value": "15, pre-cut to the Mega Max drawers"
+          }
+        },
+        "spec_72": {
+          "type": "spec",
+          "settings": {
+            "only_for": "custom-foam-inserts",
+            "label": "Cutting",
+            "value": "CNC and laser cut to your items"
+          }
+        },
+        "spec_73": {
+          "type": "spec",
+          "settings": {
+            "only_for": "custom-foam-inserts",
+            "label": "Uses",
+            "value": "Case inserts, tool organizers, industrial packaging"
+          }
+        },
+        "spec_74": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Motor",
+            "value": "20 HP permanent magnet, IE4"
+          }
+        },
+        "spec_75": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Air-end",
+            "value": "Hanbell AC-Series rotary screw"
+          }
+        },
+        "spec_76": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Drive",
+            "value": "Variable frequency drive, Innovance UL-certified inverter"
+          }
+        },
+        "spec_77": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Receiver tank",
+            "value": "500 L",
+            "note": "CRN tank or no tank, chosen above"
+          }
+        },
+        "spec_78": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Air treatment",
+            "value": "Integrated refrigerated dryer, dual line filters, automatic drain"
+          }
+        },
+        "spec_79": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Cooling",
+            "value": "Air-cooled"
+          }
+        },
+        "spec_80": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Duty cycle",
+            "value": "100%, continuous operation"
+          }
+        },
+        "spec_81": {
+          "type": "spec",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "label": "Electrical",
+            "value": "3-phase service",
+            "note": "Confirm the supply and breaker size with a licensed electrician"
+          }
+        },
+        "box_82": {
+          "type": "box",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "items": "Ultra Task 56 base cabinet :: 7 drawers, power drawer, casters fitted | Centre work hutch :: Full Set only, pegboard back and shelf | Side locker :: Full Set only, adjustable shelves and bottom drawer | Side drawers :: Full Set only, 6 drawers | Flat keys :: One set per lock"
+          }
+        },
+        "box_83": {
+          "type": "box",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "items": "Mega Max 72 base cabinet :: Casters and handle fitted | Side locker :: One or both sides, as chosen above | Keys :: One set per lock"
+          }
+        },
+        "box_84": {
+          "type": "box",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "items": "Rotary screw compressor :: Hanbell air-end, VFD and controller in one enclosure | 500 L receiver tank :: With CRN Tank option | Refrigerated air dryer :: Integrated | Dual line filters | Automatic drain system | Owner's manual :: Also in Documents"
+          }
+        },
+        "box_85": {
+          "type": "box",
+          "settings": {
+            "only_for": "ultra-task-56-foam-bundle-7-sheets-of-cuttable-foam-pads",
+            "items": "3 × 20 mm foam sheets :: Pre-cut to the drawer size | 3 × 50 mm foam sheets :: Pre-cut to the drawer size"
+          }
+        }
+      },
+      "block_order": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_7",
+        "fact_8",
+        "fact_9",
+        "fact_10",
+        "fact_11",
+        "fact_12",
+        "fact_13",
+        "fact_14",
+        "fact_15",
+        "fact_16",
+        "fact_17",
+        "fact_18",
+        "fact_19",
+        "fact_20",
+        "fact_21",
+        "fact_22",
+        "fact_23",
+        "fact_24",
+        "fact_25",
+        "fact_26",
+        "spec_27",
+        "spec_28",
+        "spec_29",
+        "spec_30",
+        "spec_31",
+        "spec_32",
+        "spec_33",
+        "spec_34",
+        "spec_35",
+        "spec_36",
+        "spec_37",
+        "spec_38",
+        "spec_39",
+        "spec_40",
+        "spec_41",
+        "spec_42",
+        "spec_43",
+        "spec_44",
+        "spec_45",
+        "spec_46",
+        "spec_47",
+        "spec_48",
+        "spec_49",
+        "spec_50",
+        "spec_51",
+        "spec_52",
+        "spec_53",
+        "spec_54",
+        "spec_55",
+        "spec_56",
+        "spec_57",
+        "spec_58",
+        "spec_59",
+        "spec_60",
+        "spec_61",
+        "spec_62",
+        "spec_63",
+        "spec_64",
+        "spec_65",
+        "spec_66",
+        "spec_67",
+        "spec_68",
+        "spec_69",
+        "spec_70",
+        "spec_71",
+        "spec_72",
+        "spec_73",
+        "spec_74",
+        "spec_75",
+        "spec_76",
+        "spec_77",
+        "spec_78",
+        "spec_79",
+        "spec_80",
+        "spec_81",
+        "box_82",
+        "box_83",
+        "box_84",
+        "box_85"
+      ],
+      "settings": {
+        "eyebrow": "Spec sheet",
+        "heading": "The numbers.",
+        "lead": "<p>What is on the unit, what size it is and what comes with it. Options and dimensions are read from the product itself.</p>",
+        "download_text": "Download the manual",
+        "ask_text": "Ask a question",
+        "ask_url": "shopify://pages/contact",
+        "tab_specs": "Specifications",
+        "tab_box": "What's in the box",
+        "tab_docs": "Documents",
+        "auto_dims": true,
+        "dims_label": "Dimensions",
+        "auto_options": true,
+        "auto_weight": true,
+        "auto_sku": false,
+        "auto_type": false,
+        "auto_brand": false,
+        "spec_note": "Dimensions are nominal. Confirm clearances for your space before ordering.",
+        "main_doc_label": "Owner's manual",
+        "docs_empty_title": "No downloads on this page yet",
+        "docs_empty_text": "<p>Need a drawing, a spec sheet or the manual? <a href=\"/pages/contact\">Ask the team</a> and we will send it over.</p>"
+      }
+    },
+    "tx_pr_plan": {
+      "type": "tx-pr-overview",
+      "blocks": {
+        "beat_1": {
+          "type": "beat",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "icon": "plug",
+            "title": "Three-phase power",
+            "text": "A 20 HP motor needs 3-phase service and a correctly sized breaker and feeder. Confirm your building's supply with an electrician."
+          }
+        },
+        "beat_2": {
+          "type": "beat",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "icon": "fan",
+            "title": "Placement and ventilation",
+            "text": "A dry, level, ventilated area with clearance around the enclosure for cooling airflow. Keep it out of freezing temperatures."
+          }
+        },
+        "beat_3": {
+          "type": "beat",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "icon": "air",
+            "title": "Air distribution",
+            "text": "Hard-piped drops sloped to drip legs, air taken off the top of the line, isolation valves per bay. The 500 L tank buffers demand across the shop."
+          }
+        },
+        "beat_4": {
+          "type": "beat",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "icon": "droplet",
+            "title": "Condensate handling",
+            "text": "The dryer and tank produce condensate. Plan a drain line and, where required, an oil-water separator to meet local disposal rules."
+          }
+        }
+      },
+      "block_order": [
+        "beat_1",
+        "beat_2",
+        "beat_3",
+        "beat_4"
+      ],
+      "settings": {
+        "theme": "light",
+        "eyebrow": "Before you buy",
+        "heading": "Power, space and setup to plan for",
+        "columns": "2",
+        "max_auto": 4,
+        "default_icon": "check",
+        "show_chips": false,
+        "ul_for": "!*",
+        "show_full": false
+      }
+    },
+    "tx_pr_after": {
+      "type": "tx-pr-after",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "only_for": "!type:Air Compressors",
+            "icon": "truck",
+            "title": "Delivery or pickup",
+            "text": "Free shipping on orders over $3,000 across Canada, or pick up at the Richmond, BC warehouse.",
+            "link_text": "Delivery and returns",
+            "link_url": "shopify://pages/delivery-returns"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "icon": "truck",
+            "title": "Free freight, Canada-wide",
+            "text": "Ships on a pallet to your door, or collect in Richmond, Vancouver or Calgary.",
+            "link_text": "Delivery and returns",
+            "link_url": "shopify://pages/delivery-returns"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "only_for": "!type:Air Compressors",
+            "icon": "wrench",
+            "title": "Assembly, if you want it",
+            "text": "Add assembly and TOOSA builds the unit before pickup or before it ships to your site.",
+            "link_text": "Assembly service",
+            "link_url": "shopify://products/assembly-services"
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "icon": "forklift",
+            "title": "Position and anchor",
+            "text": "Move it into place with a pallet jack or forklift, on a level pad with clearance for airflow and service access."
+          }
+        },
+        "step_5": {
+          "type": "step",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "icon": "plug",
+            "title": "Electrical and air hookup",
+            "text": "A licensed electrician for the 3-phase connection; a compressed-air installer for piping, dryer and drains."
+          }
+        },
+        "step_6": {
+          "type": "step",
+          "settings": {
+            "icon": "phone",
+            "title": "Support from Canada",
+            "text": "Talk to a person in Richmond, BC about setup, parts and service. Replacement parts are kept in stock in Canada.",
+            "link_text": "Contact the team",
+            "link_url": "shopify://pages/contact"
+          }
+        },
+        "step_7": {
+          "type": "step",
+          "settings": {
+            "icon": "card",
+            "title": "Pay monthly with RBC",
+            "text": "Own it now and spread the cost over monthly payments. Ask us for the terms.",
+            "link_text": "Financing",
+            "link_url": "shopify://pages/contact"
+          }
+        },
+        "step_8": {
+          "type": "step",
+          "settings": {
+            "icon": "shield",
+            "title": "Warranty included",
+            "text": "Every unit ships with a warranty. Ask the team for the terms that apply to yours."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "step_5",
+        "step_6",
+        "step_7",
+        "step_8"
+      ],
+      "settings": {
+        "eyebrow": "After you buy",
+        "heading": "What happens next.",
+        "lead": "<p>No surprises between checkout and the first drawer you load.</p>",
+        "numbered": true,
+        "btn_text": "Book a showroom visit",
+        "btn_url": "shopify://pages/book-appointments"
+      }
+    },
+    "tx_pr_modules": {
+      "type": "tx-pr-modules",
+      "blocks": {
+        "set_1": {
+          "type": "set",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest",
+            "eyebrow": "Build on it",
+            "heading": "Modules that bolt on to the Ultra Task 56",
+            "lead": "<p>Each module shares the Ultra Task heights, depths and finishes. Add them now with the configurator above, or later.</p>",
+            "handles": "ultra-task-56-ultimate-hutch, ultra-task-side-locker, ultra-task-side-drawers, ultra-task-56-foam-bundle-7-sheets-of-cuttable-foam-pads",
+            "note": "Side units fit the left or right of the cabinet and work on their own."
+          }
+        },
+        "set_2": {
+          "type": "set",
+          "settings": {
+            "only_for": "ultra-max-72-modular-rolling-tool-box",
+            "eyebrow": "Build on it",
+            "heading": "Modules that bolt on to the Mega Max 72",
+            "lead": "<p>Start with the base chest and add the wall over time.</p>",
+            "handles": "mega-max-pegboard, mega-max-upper-cabinets, adjustable-lighting-kit-1, mega-max-side-locker",
+            "note": "The side locker fits either side of the cabinet."
+          }
+        },
+        "set_3": {
+          "type": "set",
+          "settings": {
+            "only_for": "ultra-task-56-ultimate-hutch, ultra-task-side-locker, ultra-task-side-drawers, ultra-task-56-foam-bundle-7-sheets-of-cuttable-foam-pads",
+            "eyebrow": "The system",
+            "heading": "Completes the Ultra Task set",
+            "lead": "<p>Built to the same case heights, depths and finishes as the base cabinet.</p>",
+            "handles": "ultra-task-56-modular-rolling-tool-chest, ultra-task-56-ultimate-hutch, ultra-task-side-locker, ultra-task-side-drawers, ultra-task-56-foam-bundle-7-sheets-of-cuttable-foam-pads"
+          }
+        },
+        "set_4": {
+          "type": "set",
+          "settings": {
+            "only_for": "mega-max-pegboard, mega-max-upper-cabinets, adjustable-lighting-kit-1, mega-max-side-locker, ultra-max-72-foam-bundle-15-sheets-of-cuttable-foam-pads",
+            "eyebrow": "The system",
+            "heading": "Completes the Mega Max wall",
+            "lead": "<p>Everything here mounts to the Mega Max 72 base cabinet.</p>",
+            "handles": "ultra-max-72-modular-rolling-tool-box, mega-max-pegboard, mega-max-upper-cabinets, adjustable-lighting-kit-1, mega-max-side-locker, ultra-max-72-foam-bundle-15-sheets-of-cuttable-foam-pads"
+          }
+        },
+        "set_5": {
+          "type": "set",
+          "settings": {
+            "only_for": "tag:Foam Inserts",
+            "eyebrow": "Foam options",
+            "heading": "Other ways to line a drawer",
+            "lead": "<p>Peel-and-trace sheets, machinable EVA, pre-cut bundles or a custom-cut insert made for your tools.</p>",
+            "handles": "black-red-peel-foam-sheets-easy-to-cut-tool-organization, eva-foam-sheets, custom-foam-inserts, ultra-task-56-foam-bundle-7-sheets-of-cuttable-foam-pads, ultra-max-72-foam-bundle-15-sheets-of-cuttable-foam-pads"
+          }
+        },
+        "set_6": {
+          "type": "set",
+          "settings": {
+            "only_for": "laser-engraving, multi-purpose-rotating-bench-vise",
+            "eyebrow": "Goes with",
+            "heading": "Pairs well with",
+            "handles": "ultra-task-56-modular-rolling-tool-chest, ultra-max-72-modular-rolling-tool-box, custom-foam-inserts, mega-max-pegboard"
+          }
+        }
+      },
+      "block_order": [
+        "set_1",
+        "set_2",
+        "set_3",
+        "set_4",
+        "set_5",
+        "set_6"
+      ],
+      "settings": {
+        "theme": "paper",
+        "eyebrow": "Build on it",
+        "heading": "Modules that fit the [product]",
+        "badge": "Fits this unit",
+        "fallback": false,
+        "skip_collections": "all,new-arrivals,frontpage",
+        "limit": 4
+      }
+    },
+    "tx_pr_faq": {
+      "type": "tx-pr-faq",
+      "blocks": {
+        "q_1": {
+          "type": "q",
+          "settings": {
+            "only_for": "!type:Air Compressors",
+            "question": "Can I add modules later?",
+            "answer": "<p>Yes. The hutch, side locker and side drawers bolt on to the base cabinet, and the side units can go on the left or the right. Start with the base and expand when you are ready.</p>"
+          }
+        },
+        "q_2": {
+          "type": "q",
+          "settings": {
+            "only_for": "ultra-task-side-locker, ultra-task-side-drawers, mega-max-side-locker",
+            "question": "Can the side units be used on their own?",
+            "answer": "<p>Yes. The side locker and side drawers work as stand-alone units and have pre-drilled caster holes underneath for optional mobility.</p>"
+          }
+        },
+        "q_3": {
+          "type": "q",
+          "settings": {
+            "only_for": "ultra-task*, ultra-max*, mega-max-side-locker",
+            "question": "How much weight do the drawers hold?",
+            "answer": "<p>Each drawer rides on 150 lb capacity full-extension slides, so heavy tools can live in any drawer, front to back.</p>"
+          }
+        },
+        "q_4": {
+          "type": "q",
+          "settings": {
+            "only_for": "tag:Foam Inserts",
+            "question": "Which foam should I pick?",
+            "answer": "<p>Peel foam is the quick route: trace the tool and peel the layers to depth, no cutting tools needed. High-density EVA sheets are for CNC machining or laser cutting. The pre-cut bundles match the Ultra Task and Mega Max drawers. If you want it done for you, order <a href=\"/products/custom-foam-inserts\">custom foam inserts</a> and send us your tool list.</p>"
+          }
+        },
+        "q_5": {
+          "type": "q",
+          "settings": {
+            "only_for": "!type:Air Compressors",
+            "question": "What does delivery cost?",
+            "answer": "<p>Shipping is free on orders over $3,000 across Canada. Smaller orders are quoted at checkout, or you can pick up at the Richmond, BC warehouse.</p>"
+          }
+        },
+        "q_6": {
+          "type": "q",
+          "settings": {
+            "question": "Is financing available?",
+            "answer": "<p>Yes. TOOSA offers monthly payment plans through RBC. Ask us for the terms, or start your order and choose the financing option at checkout.</p>"
+          }
+        },
+        "q_7": {
+          "type": "q",
+          "settings": {
+            "question": "Can I see it before I buy?",
+            "answer": "<p>Yes. Visit the Richmond, BC showroom to pull the drawers and test the locks and slides. <a href=\"/pages/book-appointments\">Book a visit</a> and someone from the team will walk you through the lineup.</p>"
+          }
+        },
+        "q_8": {
+          "type": "q",
+          "settings": {
+            "only_for": "!type:Air Compressors",
+            "question": "What if a part breaks?",
+            "answer": "<p>Replacement parts are kept in stock in Canada and there is a person in Richmond, BC to call. Contact us with your order number and a photo of the part.</p>"
+          }
+        },
+        "q_9": {
+          "type": "q",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "question": "What is a rotary screw air compressor?",
+            "answer": "<p>A rotary screw compressor uses two interlocking helical rotors to compress air in a continuous flow, instead of a piston pumping in strokes. That lets it run 100% of the time without overheating, hold pressure steady and deliver more air per horsepower, which is why it is the standard for shops that use air for hours at a stretch.</p>"
+          }
+        },
+        "q_10": {
+          "type": "q",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "question": "What size compressor does a busy auto or body shop need?",
+            "answer": "<p>Add up the CFM at 90 psi of every air tool you will run at the same time, then add about 30% headroom. This 20 HP unit is built for multi-bay shops running sanders, impacts and spray guns at once, with the 500 L tank buffering the peaks. Send us your tool list and we will confirm the sizing.</p>"
+          }
+        },
+        "q_11": {
+          "type": "q",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "question": "Does this compressor need three-phase power?",
+            "answer": "<p>Yes. A 20 HP motor requires 3-phase electrical service with a properly sized breaker and feeder. Most commercial and industrial buildings have it; a home shop can use a phase converter. Confirm your supply with a licensed electrician before ordering.</p>"
+          }
+        },
+        "q_12": {
+          "type": "q",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "question": "Do I need to buy a separate air dryer?",
+            "answer": "<p>No. A refrigerated air dryer is built into this package, so you get clean, dry air out of the box. That matters for spray finishing, plasma cutting and the life of your air tools. Point-of-use filtration can be added for specific processes.</p>"
+          }
+        },
+        "q_13": {
+          "type": "q",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "question": "Is this worth it for a home garage?",
+            "answer": "<p>For a serious home shop (restoration, fabrication, a car collection) yes: it is quiet, gives you clean dry air with no bolt-on dryer, runs any tool without waiting, and it is the last compressor you will buy. It does need 3-phase power or a phase converter. For occasional tire-and-nailer use it is more than you need. Send us your setup and we will be straight with you.</p>"
+          }
+        },
+        "q_14": {
+          "type": "q",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "question": "How is it delivered and installed?",
+            "answer": "<p>It ships free on a pallet anywhere in Canada, or you can pick it up in Richmond, Vancouver or Calgary. Position it with a pallet jack or forklift on a level pad. Hookup needs a licensed electrician for the 3-phase connection and a compressed-air installer for piping and drains.</p>"
+          }
+        },
+        "q_15": {
+          "type": "q",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "question": "CFM vs. PSI: what should I size against?",
+            "answer": "<p>PSI is pressure, and almost any compressor makes enough of it. CFM (airflow) at working pressure is what runs your tools continuously, so size against the combined CFM of everything running at once.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_1",
+        "q_2",
+        "q_3",
+        "q_4",
+        "q_5",
+        "q_6",
+        "q_7",
+        "q_8",
+        "q_9",
+        "q_10",
+        "q_11",
+        "q_12",
+        "q_13",
+        "q_14",
+        "q_15"
+      ],
+      "settings": {
+        "theme": "light",
+        "eyebrow": "Good to know",
+        "heading": "Questions people ask before they order.",
+        "open_first": true,
+        "schema": true,
+        "help_title": "Still deciding?",
+        "help_text": "Send us your space and the tools you need to store. We reply the same business day.",
+        "help_btn": "Ask the team",
+        "help_url": "shopify://pages/contact",
+        "phone": "+1 (778) 939-9494"
+      }
+    },
+    "tx_pr_related": {
+      "type": "tx-pr-modules",
+      "blocks": {
+        "set_1": {
+          "type": "set",
+          "settings": {
+            "only_for": "type:Air Compressors",
+            "eyebrow": "One workshop, one supplier",
+            "heading": "The same team builds your storage",
+            "lead": "<p>Storage, custom foam, engraving and air from one Canadian supplier.</p>",
+            "handles": "ultra-task-56-modular-rolling-tool-chest, ultra-max-72-modular-rolling-tool-box, custom-foam-inserts, laser-engraving"
+          }
+        },
+        "set_2": {
+          "type": "set",
+          "settings": {
+            "only_for": "ultra-task-56-modular-rolling-tool-chest, ultra-max-72-modular-rolling-tool-box",
+            "eyebrow": "Also in the shop",
+            "heading": "More for the workshop",
+            "handles": "ultra-max-72-modular-rolling-tool-box, ultra-task-56-modular-rolling-tool-chest, 20-hp-rotary-screw-air-compressor-with-integrated-dryer-500l-tank, custom-foam-inserts, laser-engraving"
+          }
+        }
+      },
+      "block_order": [
+        "set_1",
+        "set_2"
+      ],
+      "settings": {
+        "theme": "light",
+        "eyebrow": "Also in the shop",
+        "heading": "You might also need",
+        "btn_text": "Shop all",
+        "btn_url": "shopify://collections/all",
+        "fallback": true,
+        "skip_collections": "all,new-arrivals,frontpage",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "blocks_kFwFz7",
+    "tx_pr_overview",
+    "tx_pr_specs",
+    "tx_pr_plan",
+    "tx_pr_after",
+    "tx_pr_modules",
+    "tx_pr_faq",
+    "tx_pr_related"
+  ]
+}

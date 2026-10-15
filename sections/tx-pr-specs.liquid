@@ -1,0 +1,222 @@
+{% comment %}
+  TOOSA product pages: spec sheet. Sticky summary on the left (fact tiles, download button), accessible tabs on the right:
+  Specifications (curated rows per product + rows read from the product: options, dimensions, weight, SKU),
+  What's in the box (curated per product) and Documents (custom.product_pdf_option plus any custom.documents list).
+{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign desc = product.description | default: ''
+  assign v = product.selected_or_first_available_variant
+
+  comment
+    dimensions read from the description: the list under a "Dimensions" heading, or a line that looks like W × D × H
+  endcomment
+  assign dims = ''
+  if desc contains 'Dimensions'
+    assign after = desc | split: 'Dimensions' | last
+    if after contains '<li'
+      assign dims = after | split: '<li' | slice: 1 | first | split: '</li>' | first | replace_first: '>', '|||' | split: '|||' | last | strip_html | strip
+    elsif after contains '<p'
+      assign dims = after | split: '<p' | slice: 1 | first | split: '</p>' | first | replace_first: '>', '|||' | split: '|||' | last | strip_html | strip
+    endif
+  endif
+  assign dims = dims | replace: 'W ×', 'W ×' | truncate: 80, ''
+
+  comment
+    documents
+  endcomment
+  assign doc_count = 0
+  assign main_doc = product.metafields.custom.product_pdf_option
+  if main_doc != blank and main_doc.value != blank
+    assign doc_count = doc_count | plus: 1
+  endif
+  assign docs_list = product.metafields.custom.documents
+  if docs_list != blank and docs_list.value != blank
+    assign doc_count = doc_count | plus: docs_list.value.size
+  endif
+
+  comment
+    counts of curated rows that apply
+  endcomment
+  assign spec_count = 0
+  assign box_count = 0
+  assign fact_count = 0
+  for block in section.blocks
+    capture ok
+      render 'tx-pr-match', rule: block.settings.only_for, product: product
+    endcapture
+    if ok != '1'
+      continue
+    endif
+    if block.type == 'spec'
+      assign spec_count = spec_count | plus: 1
+    elsif block.type == 'box'
+      assign box_count = box_count | plus: 1
+    elsif block.type == 'fact'
+      assign fact_count = fact_count | plus: 1
+    endif
+  endfor
+  assign heading = s.heading | default: 'Spec sheet' | replace: '[product]', product.title
+-%}
+<section class="txp txp--light txpr txpr-section" id="txpr-specs-{{ section.id }}">
+  <div class="txp-wrap txpr-specs">
+    <div class="txpr-specs__side">
+      <div class="txp-head">
+        {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        <h2 class="txp-h2 txp-h2--sm txp-reveal" data-delay="1">{{ heading }}</h2>
+        {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      </div>
+      {%- if fact_count > 0 -%}
+        <div class="txpr-specs__facts txp-reveal" data-delay="2">
+          {%- for block in section.blocks -%}
+            {%- if block.type != 'fact' -%}{%- continue -%}{%- endif -%}
+            {%- capture ok -%}{%- render 'tx-pr-match', rule: block.settings.only_for, product: product -%}{%- endcapture -%}
+            {%- if ok != '1' -%}{%- continue -%}{%- endif -%}
+            <div class="txpr-fact" {{ block.shopify_attributes }}><b>{{ block.settings.value }}</b><span>{{ block.settings.label }}</span></div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <div class="txp-actions txp-reveal" data-delay="3">
+        {%- if main_doc != blank and main_doc.value != blank -%}
+          <a class="txp-btn txp-btn--dark txp-btn--sm" href="{{ main_doc.value.url }}" target="_blank" rel="noopener">{{ s.download_text | default: 'Download the manual' }}{% render 'tx-p-icon', name: 'download' %}</a>
+        {%- endif -%}
+        {%- if s.ask_text != blank -%}<a class="txp-btn txp-btn--ghost txp-btn--sm" href="{{ s.ask_url | default: '/pages/contact' }}">{{ s.ask_text }}</a>{%- endif -%}
+      </div>
+    </div>
+
+    <div class="txpr-specs__main txp-reveal" data-delay="1">
+      <div class="txp-tabs-layout txp-tabs-layout--top" data-txp-tabs>
+        <div class="txp-tablist" role="tablist" aria-label="{{ heading | escape }}" aria-orientation="horizontal">
+          <button type="button" role="tab" id="txpr-tab-spec-{{ section.id }}" class="txp-tab is-on" aria-selected="true" aria-controls="txpr-panel-spec-{{ section.id }}" tabindex="0"><span class="txp-tab__ic">{% render 'tx-p-icon', name: 'ruler' %}</span><span class="txp-tab__label"><span>{{ s.tab_specs | default: 'Specifications' }}</span></span></button>
+          {%- if box_count > 0 -%}
+            <button type="button" role="tab" id="txpr-tab-box-{{ section.id }}" class="txp-tab" aria-selected="false" aria-controls="txpr-panel-box-{{ section.id }}" tabindex="-1"><span class="txp-tab__ic">{% render 'tx-p-icon', name: 'box' %}</span><span class="txp-tab__label"><span>{{ s.tab_box | default: "What's in the box" }}</span></span></button>
+          {%- endif -%}
+          <button type="button" role="tab" id="txpr-tab-docs-{{ section.id }}" class="txp-tab" aria-selected="false" aria-controls="txpr-panel-docs-{{ section.id }}" tabindex="-1"><span class="txp-tab__ic">{% render 'tx-p-icon', name: 'file' %}</span><span class="txp-tab__label"><span>{{ s.tab_docs | default: 'Documents' }}{% if doc_count > 0 %} ({{ doc_count }}){% endif %}</span></span></button>
+        </div>
+        <div class="txp-tabpanels">
+          <div role="tabpanel" id="txpr-panel-spec-{{ section.id }}" class="txp-tabpanel is-on" aria-labelledby="txpr-tab-spec-{{ section.id }}" tabindex="0">
+            <div class="txpr-sheet">
+              <table>
+                <tbody>
+                  {%- for block in section.blocks -%}
+                    {%- if block.type != 'spec' -%}{%- continue -%}{%- endif -%}
+                    {%- capture ok -%}{%- render 'tx-pr-match', rule: block.settings.only_for, product: product -%}{%- endcapture -%}
+                    {%- if ok != '1' -%}{%- continue -%}{%- endif -%}
+                    <tr {{ block.shopify_attributes }}><th scope="row">{{ block.settings.label }}</th><td>{{ block.settings.value }}{%- if block.settings.note != blank -%}<small>{{ block.settings.note }}</small>{%- endif -%}</td></tr>
+                  {%- endfor -%}
+                  {%- if s.auto_dims and dims != blank -%}
+                    <tr><th scope="row">{{ s.dims_label | default: 'Dimensions' }}</th><td>{{ dims }}</td></tr>
+                  {%- endif -%}
+                  {%- if s.auto_options -%}
+                    {%- for opt in product.options_with_values -%}
+                      {%- if opt.name == 'Title' -%}{%- continue -%}{%- endif -%}
+                      <tr><th scope="row">{{ opt.name | replace: 'Interchangeable Locker?', 'Side locker' | replace: 'Tank Options', 'Tank' }}</th><td>{{ opt.values | join: ', ' }}</td></tr>
+                    {%- endfor -%}
+                  {%- endif -%}
+                  {%- if s.auto_weight and v.weight > 0 -%}
+                    <tr><th scope="row">Weight</th><td>{{ v.weight | weight_with_unit }}</td></tr>
+                  {%- endif -%}
+                  {%- if s.auto_sku and v.sku != blank -%}
+                    <tr><th scope="row">SKU</th><td>{{ v.sku }}</td></tr>
+                  {%- endif -%}
+                  {%- if product.type != blank and s.auto_type -%}
+                    <tr><th scope="row">Category</th><td>{{ product.type }}</td></tr>
+                  {%- endif -%}
+                  {%- if s.auto_brand -%}
+                    <tr><th scope="row">Brand</th><td>{{ product.vendor | default: 'TOOSA' }}</td></tr>
+                  {%- endif -%}
+                </tbody>
+              </table>
+            </div>
+            {%- if s.spec_note != blank -%}<p class="txp-table__note">{{ s.spec_note }}</p>{%- endif -%}
+          </div>
+
+          {%- if box_count > 0 -%}
+            <div role="tabpanel" id="txpr-panel-box-{{ section.id }}" class="txp-tabpanel" aria-labelledby="txpr-tab-box-{{ section.id }}" tabindex="0" hidden>
+              <ul class="txpr-box">
+                {%- for block in section.blocks -%}
+                  {%- if block.type != 'box' -%}{%- continue -%}{%- endif -%}
+                  {%- capture ok -%}{%- render 'tx-pr-match', rule: block.settings.only_for, product: product -%}{%- endcapture -%}
+                  {%- if ok != '1' -%}{%- continue -%}{%- endif -%}
+                  {%- assign items = block.settings.items | split: '|' -%}
+                  {%- for it in items -%}
+                    {%- assign parts = it | split: '::' -%}
+                    <li {{ block.shopify_attributes }}><span>{% render 'tx-p-icon', name: 'check' %}</span><div><b>{{ parts[0] | strip }}</b>{%- if parts[1] != blank -%}<small>{{ parts[1] | strip }}</small>{%- endif -%}</div></li>
+                  {%- endfor -%}
+                {%- endfor -%}
+              </ul>
+              {%- if s.box_note != blank -%}<p class="txp-table__note">{{ s.box_note }}</p>{%- endif -%}
+            </div>
+          {%- endif -%}
+
+          <div role="tabpanel" id="txpr-panel-docs-{{ section.id }}" class="txp-tabpanel" aria-labelledby="txpr-tab-docs-{{ section.id }}" tabindex="0" hidden>
+            {%- if doc_count > 0 -%}
+              <ul class="txpr-docs">
+                {%- if main_doc != blank and main_doc.value != blank -%}
+                  {%- assign f = main_doc.value -%}
+                  {%- assign fname = f.url | split: '?' | first | split: '/' | last | url_decode | split: '.' | first | replace: '_', ' ' | replace: '-', ' ' -%}
+                  {%- assign ext = f.url | split: '?' | first | split: '.' | last | upcase | truncate: 4, '' -%}
+                  <li class="txpr-doc"><div class="txpr-doc__ic">{% render 'tx-p-icon', name: 'file' %}<i>{{ ext }}</i></div><div><b>{{ s.main_doc_label | default: fname }}</b><small>{{ fname }}</small></div><div class="txpr-doc__actions"><a href="{{ f.url }}" target="_blank" rel="noopener">{% render 'tx-p-icon', name: 'eye' %}View</a><a class="is-primary" href="{{ f.url }}" download>{% render 'tx-p-icon', name: 'download' %}Download</a></div></li>
+                {%- endif -%}
+                {%- if docs_list != blank and docs_list.value != blank -%}
+                  {%- for f in docs_list.value -%}
+                    {%- assign fname = f.url | split: '?' | first | split: '/' | last | url_decode | split: '.' | first | replace: '_', ' ' | replace: '-', ' ' -%}
+                    {%- assign ext = f.url | split: '?' | first | split: '.' | last | upcase | truncate: 4, '' -%}
+                    <li class="txpr-doc"><div class="txpr-doc__ic">{% render 'tx-p-icon', name: 'file' %}<i>{{ ext }}</i></div><div><b>{{ fname }}</b><small>{{ ext }} file</small></div><div class="txpr-doc__actions"><a href="{{ f.url }}" target="_blank" rel="noopener">{% render 'tx-p-icon', name: 'eye' %}View</a><a class="is-primary" href="{{ f.url }}" download>{% render 'tx-p-icon', name: 'download' %}Download</a></div></li>
+                  {%- endfor -%}
+                {%- endif -%}
+              </ul>
+            {%- else -%}
+              <div class="txpr-empty"><div class="txpr-empty__ic">{% render 'tx-p-icon', name: 'file' %}</div><div><b>{{ s.docs_empty_title | default: 'No downloads on this page yet' }}</b>{{ s.docs_empty_text | default: 'Need a drawing, a spec sheet or the manual? <a href="/pages/contact">Ask the team</a> and we will send it over.' }}</div></div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Product spec sheet",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Spec sheet" },
+    { "type": "text", "id": "heading", "label": "Heading ([product] = product title)", "default": "The numbers." },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "text", "id": "download_text", "label": "Download button (shows when custom.product_pdf_option is set)", "default": "Download the manual" },
+    { "type": "text", "id": "ask_text", "label": "Second button text", "default": "Ask a question" },
+    { "type": "url", "id": "ask_url", "label": "Second button link" },
+    { "type": "header", "content": "Tabs" },
+    { "type": "text", "id": "tab_specs", "label": "Specifications tab", "default": "Specifications" },
+    { "type": "text", "id": "tab_box", "label": "In the box tab", "default": "What's in the box" },
+    { "type": "text", "id": "tab_docs", "label": "Documents tab", "default": "Documents" },
+    { "type": "header", "content": "Rows read from the product" },
+    { "type": "checkbox", "id": "auto_dims", "label": "Dimensions from the description", "default": true },
+    { "type": "text", "id": "dims_label", "label": "Dimensions label", "default": "Dimensions (W × D × H)" },
+    { "type": "checkbox", "id": "auto_options", "label": "Options (colours, sizes, configurations)", "default": true },
+    { "type": "checkbox", "id": "auto_weight", "label": "Weight", "default": true },
+    { "type": "checkbox", "id": "auto_sku", "label": "SKU", "default": false },
+    { "type": "checkbox", "id": "auto_type", "label": "Product type", "default": false },
+    { "type": "checkbox", "id": "auto_brand", "label": "Brand", "default": false },
+    { "type": "text", "id": "spec_note", "label": "Note under the table" },
+    { "type": "text", "id": "box_note", "label": "Note under the box list" },
+    { "type": "text", "id": "main_doc_label", "label": "Label for the main document" },
+    { "type": "text", "id": "docs_empty_title", "label": "No documents: title", "default": "No downloads on this page yet" },
+    { "type": "richtext", "id": "docs_empty_text", "label": "No documents: text" }
+  ],
+  "blocks": [
+    { "type": "fact", "name": "Fact tile (left column)", "settings": [
+      { "type": "text", "id": "only_for", "label": "Only for (rule)" },
+      { "type": "text", "id": "value", "label": "Big value" },
+      { "type": "text", "id": "label", "label": "Label" } ] },
+    { "type": "spec", "name": "Spec row", "settings": [
+      { "type": "text", "id": "only_for", "label": "Only for (rule)" },
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "value", "label": "Value" },
+      { "type": "text", "id": "note", "label": "Small note" } ] },
+    { "type": "box", "name": "In the box", "settings": [
+      { "type": "text", "id": "only_for", "label": "Only for (rule)" },
+      { "type": "textarea", "id": "items", "label": "Items, separated by |", "info": "Item :: small note" } ] }
+  ],
+  "presets": [ { "name": "TX Product spec sheet" } ]
+}
+{% endschema %}

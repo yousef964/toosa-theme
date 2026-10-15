@@ -1,0 +1,78 @@
+{%- comment -%}
+  TOOSA product pages: does a block apply to this product?
+  rule: comma-separated list; blank = every product. Items: a product handle, "tag:Foam Inserts", "type:Air Compressors",
+  "template:tool-storage-template", "handle:ultra-*" (prefix match with a trailing *). A leading "!" excludes.
+  Outputs "1" when the block applies, nothing otherwise. Usage: {% capture ok %}{% render 'tx-pr-match', rule: b.only_for, product: product %}{% endcapture %}
+{%- endcomment -%}
+{%- liquid
+  assign rule = rule | default: '' | strip
+  if rule == blank
+    echo '1'
+  else
+    assign items = rule | split: ','
+    assign hit = false
+    assign blocked = false
+    assign has_positive = false
+    for raw in items
+      assign item = raw | strip
+      if item == blank
+        continue
+      endif
+      assign negate = false
+      if item contains '!'
+        assign first = item | slice: 0, 1
+        if first == '!'
+          assign negate = true
+          assign item = item | remove_first: '!' | strip
+        endif
+      endif
+      unless negate
+        assign has_positive = true
+      endunless
+      assign m = false
+      if item contains 'tag:'
+        assign t = item | remove_first: 'tag:' | strip
+        if product.tags contains t
+          assign m = true
+        endif
+      elsif item contains 'type:'
+        assign t = item | remove_first: 'type:' | strip
+        if product.type == t
+          assign m = true
+        endif
+      elsif item contains 'template:'
+        assign t = item | remove_first: 'template:' | strip
+        if product.template_suffix == t
+          assign m = true
+        endif
+      elsif item contains '*'
+        assign t = item | remove_first: 'handle:' | remove: '*' | strip
+        assign prefix = product.handle | slice: 0, t.size
+        if prefix == t
+          assign m = true
+        endif
+      else
+        assign t = item | remove_first: 'handle:' | strip
+        if product.handle == t
+          assign m = true
+        endif
+      endif
+      if m
+        if negate
+          assign blocked = true
+        else
+          assign hit = true
+        endif
+      endif
+    endfor
+    if blocked
+      echo ''
+    elsif hit
+      echo '1'
+    elsif has_positive == false
+      echo '1'
+    else
+      echo ''
+    endif
+  endif
+-%}

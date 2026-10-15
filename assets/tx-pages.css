@@ -874,3 +874,37 @@ body.txp-lb-open { overflow: hidden; }
 .txp-reveal--left { transform: translateX(-26px); }
 .txp-reveal--right { transform: translateX(26px); }
 .txp-reveal.is-in { transform: none; }
+
+/* ------------------------------------------------------------------ contact page contrast (round 4): tinted bands, cards that stand off the page */
+.txp-contact-band { background: var(--txp-paper-2); background-image: linear-gradient(180deg, #e6e9ed 0%, var(--txp-paper) 100%); position: relative; }
+.txp-contact-band::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(11, 14, 18, 0.07) 1px, transparent 1px); background-size: 22px 22px; mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 70%); -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 70%); pointer-events: none; }
+.txp-contact-band > .txp-wrap { position: relative; }
+.txp-contact-band .txp-form { border: 1px solid rgba(11, 14, 18, 0.14); box-shadow: 0 1px 2px rgba(11, 14, 18, 0.05), 0 30px 60px -30px rgba(11, 14, 18, 0.45); border-top: 4px solid var(--txp-orange); }
+.txp-contact-band .txp-field input, .txp-contact-band .txp-field textarea, .txp-contact-band .txp-field select { background: #fff; border-color: rgba(11, 14, 18, 0.18); }
+.txp-contact-band .txp-info { box-shadow: 0 30px 60px -30px rgba(11, 14, 18, 0.7); border: 1px solid rgba(255, 255, 255, 0.06); }
+.txp-contact-band .txp-map { border: 1px solid rgba(11, 14, 18, 0.14); box-shadow: 0 1px 2px rgba(11, 14, 18, 0.05), 0 24px 50px -30px rgba(11, 14, 18, 0.45); background: var(--txp-graphite); }
+.txp-map__fallback { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; text-align: center; padding: 24px; color: var(--txp-text); background: var(--txp-graphite); background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 28px 28px; }
+.txp-map__fallback b { font: 700 15px/1.4 var(--txp-body); color: #fff; max-width: 28ch; }
+.txp-map__fallback > span:last-child { font-size: 12px; color: var(--txp-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.txp-map iframe { position: relative; z-index: 1; }
+.txp-contact-band .txp-loc { box-shadow: 0 1px 2px rgba(11, 14, 18, 0.05), 0 26px 50px -30px rgba(11, 14, 18, 0.45); border-color: rgba(11, 14, 18, 0.14); background: #fff; }
+.txp-contact-band .txp-loc__brand { background: var(--txp-ink); color: #fff; border-bottom: 0; }
+.txp-contact-band .txp-loc__wordmark { color: #fff; }
+.txp-contact-band .txp-loc__badge { background: var(--txp-orange); }
+.txp-contact-band .txp-loc--alt .txp-loc__mark { background: var(--txp-orange); }
+.txp-contact-band .txp-loc__mark { background: rgba(255, 255, 255, 0.12); }
+/* booking on a dark band: the panel and the calendar stay white */
+.txp-book--dark { border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; overflow: hidden; isolation: isolate; }
+.txp-book--dark::after { content: ''; position: absolute; left: -10%; bottom: -30%; width: 44vw; height: 44vw; max-width: 620px; max-height: 620px; background: radial-gradient(closest-side, rgba(255, 111, 60, 0.18), rgba(255, 111, 60, 0)); pointer-events: none; z-index: 0; }
+.txp-book--dark > .txp-wrap { position: relative; z-index: 1; }
+.txp-book--dark .txp-book__panel, .txp-book--dark .txp-book__embed { color: var(--txp-ink); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7); }
+.txp-book--dark .txp-book__panel .txp-h3, .txp-book--dark .txp-book__embed .txp-h4 { color: var(--txp-ink); }
+.txp-book--dark .txp-book__panel p, .txp-book--dark .txp-book__embed-head p { color: #5c6670; }
+.txp-book--dark .txp-book__list li { color: #3b434c; }
+.txp-book--dark .txp-book__talk a { color: var(--txp-ink); }
+.txp-book--dark .txp-book__embed-head { border-bottom-color: var(--txp-line-dark); }
+.txp-book--dark .txp-book__steps { border-top-color: rgba(255, 255, 255, 0.12); }
+.txp-book--dark .txp-book__step { border-bottom-color: rgba(255, 255, 255, 0.12); }
+.txp-book--dark .txp-book__step .txp-h4 { color: #fff; }
+.txp-book--dark .txp-book__step p { color: var(--txp-muted); }
+.txp-book--dark .txp-lead { color: #b7bec7; }

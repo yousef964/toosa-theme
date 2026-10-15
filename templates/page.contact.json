@@ -90,7 +90,8 @@
         "hours": "Monday – Friday, 10 AM – 6 PM",
         "embed_btn": "Pick a time",
         "embed_heading": "Pick a time",
-        "embed_text": "Choose a date and time below. We confirm by email and you can reschedule any time."
+        "embed_text": "Choose a date and time below. We confirm by email and you can reschedule any time.",
+        "theme": "dark"
       },
       "blocks": {
         "step_1": {

@@ -1,0 +1,33 @@
+{%- comment -%} TOOSA product pages: one product card. Usage: {% render 'tx-pr-card', p: product, badge: 'Fits this unit' %} {%- endcomment -%}
+{%- liquid
+  assign text = ''
+  assign paras = p.description | split: '</p>'
+  for para in paras
+    if para contains '<p'
+      assign ptext = para | split: '<p' | last | prepend: '<p' | strip_html | strip
+      assign plen = ptext | size
+      if plen > 30
+        assign text = ptext | truncatewords: 14
+        break
+      endif
+    endif
+  endfor
+  if text == blank
+    assign text = p.description | strip_html | strip | truncatewords: 14
+  endif
+  assign img = p.featured_image
+-%}
+<a class="txpr-card " href="{{ p.url }}">
+  <span class="txpr-card__media">
+    {%- if img != blank -%}{{ img | image_url: width: 720 | image_tag: loading: 'lazy', widths: '360, 540, 720', sizes: '(min-width: 1100px) 22vw, (min-width: 640px) 44vw, 46vw', alt: img.alt | default: p.title }}{%- endif -%}
+    {%- if badge != blank -%}<span class="txpr-card__tag txpr-card__tag--on">{{ badge }}</span>{%- elsif p.available == false -%}<span class="txpr-card__tag">Sold out</span>{%- endif -%}
+  </span>
+  <span class="txpr-card__body">
+    <span class="txpr-card__title">{{ p.title }}</span>
+    {%- if text != blank -%}<span class="txpr-card__text">{{ text }}</span>{%- endif -%}
+    <span class="txpr-card__foot">
+      <span class="txpr-card__price">{%- if p.price_varies -%}<small>From</small>{%- endif -%}{{ p.price_min | money }}{%- if p.compare_at_price_max > p.price_min -%}<s>{{ p.compare_at_price_max | money }}</s>{%- endif -%}</span>
+      <span class="txpr-card__arrow">{% render 'tx-p-icon', name: 'arrow' %}</span>
+    </span>
+  </span>
+</a>

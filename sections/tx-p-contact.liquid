@@ -3,7 +3,7 @@
   assign s = section.settings
   assign map_q = s.map_query | default: s.address | strip_html | url_encode
 -%}
-<section class="txp txp--paper txp-section" id="txp-contact-{{ section.id }}">
+<section class="txp txp--paper txp-section txp-contact-band" id="txp-contact-{{ section.id }}">
   <div class="txp-wrap">
     <div class="txp-contact">
       <div class="txp-form txp-reveal">
@@ -61,6 +61,7 @@
         </div>
         {%- if s.show_map and map_q != blank -%}
           <div class="txp-map txp-reveal" data-delay="2">
+            <div class="txp-map__fallback" aria-hidden="true"><span class="txp-info__ic">{% render 'tx-p-icon', name: 'pin' %}</span><b>{{ s.address | strip_html }}</b><span>Map loads here</span></div>
             <iframe title="Map to the TOOSA showroom" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q={{ map_q }}&z=14&output=embed"></iframe>
             <a class="txp-btn txp-btn--dark txp-btn--sm txp-map__link" href="{{ s.map_link | default: 'https://www.google.com/maps/search/?api=1&query=' | append: map_q }}" target="_blank" rel="noopener">Directions{% render 'tx-p-icon', name: 'arrow' %}</a>
           </div>

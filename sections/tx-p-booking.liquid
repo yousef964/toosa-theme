@@ -2,8 +2,14 @@
 {%- liquid
   assign s = section.settings
   assign tel = s.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', ''
+  assign theme_class = 'txp txp--paper'
+  if s.theme == 'dark'
+    assign theme_class = 'txp txp--graphite txp-book--dark'
+  elsif s.theme == 'light'
+    assign theme_class = 'txp txp--light'
+  endif
 -%}
-<section class="txp txp--paper txp-section" id="txp-booking-{{ section.id }}">
+<section class="{{ theme_class }} txp-section txp-booking" id="txp-booking-{{ section.id }}">
   <div class="txp-wrap txp-book">
     <div>
       {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
@@ -47,6 +53,7 @@
 {
   "name": "TX Booking",
   "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "paper", "options": [ { "value": "paper", "label": "Paper" }, { "value": "light", "label": "White" }, { "value": "dark", "label": "Dark" } ] },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
     { "type": "text", "id": "heading", "label": "Heading" },
     { "type": "richtext", "id": "lead", "label": "Lead" },
