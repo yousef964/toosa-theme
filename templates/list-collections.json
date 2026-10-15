@@ -1,1 +1,220 @@
-{"sections":{"rich-text":{"type":"rich-text","blocks":{"special-heading-1":{"type":"special-heading","settings":{"text":"All collections","text_size":"x-small","text_custom_width":false,"text_width":480}},"description-1":{"type":"richtext","settings":{"text":"<p>Discover high-performance activewear designed for every move—shop our latest collections tailored for comfort, style, and endurance.</p>","text_custom_width":true,"text_width":800}}},"block_order":["special-heading-1","description-1"],"disabled":true,"settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-0","color_scheme":"","inset_choice":"level-5","alignment":"center","gap":true,"gap_choice":"level-4","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":true,"spacing_choice":"level-1","spacing_placement":"2"}},"main":{"type":"main-list-collections","disabled":true,"settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-1","color_scheme":"","inset":true,"inset_choice":"level-2","spacing":true,"spacing_choice":"level-2","spacing_placement":"1"}},"featured_collections_Q7H4JG":{"type":"featured-collections","name":"t:sections.collection_list.presets.collection_list.name","settings":{"fullwidth":true,"width":1320,"color_scheme":"scheme_8","inset_choice":"level-1","text_1":"All Collections","text_1_size":"x-small","text_2":"","text_2_size":"x-small","text_2_newline":false,"button_text":"","button_url":"","button_target":"_self","button_style":"fill","collection_choice":["tool-storage","accessories-2","foam-inserts","air-compressors-1"],"columns_count":4,"columns_offset":true,"total_count":20,"gap":true,"gap_choice":"level-3","collection_aspect_ratio":"auto","collection_count":false,"collection_title_overlay":false,"carousel":false,"per_move":2,"autoplay":false,"interval":4000,"loop":true,"mouse_drag":true,"arrows":true,"dots":false,"speed":400,"progress_bar":true,"separator":false,"separator_width":100,"separator_use_custom_color":true,"separator_custom_color":"#021f4b","spacing":true,"spacing_choice":"level-2","spacing_placement":"1"},"disabled":true},"tx_c_intro":{"type":"tx-c-intro","blocks":{"chip_1":{"type":"chip","settings":{"icon":"steel","text":"Welded heavy-gauge steel"}},"chip_2":{"type":"chip","settings":{"icon":"truck","text":"Free shipping over $3,000"}},"chip_3":{"type":"chip","settings":{"icon":"card","text":"Pay monthly with RBC"}},"chip_4":{"type":"chip","settings":{"icon":"pin","text":"Pickup in Richmond and Calgary"}}},"block_order":["chip_1","chip_2","chip_3","chip_4"],"settings":{"crumb_label":"Shop","eyebrow":"Shop TOOSA","heading":"Shop TOOSA workshop solutions","show_categories":true,"categories_title":"Browse by range","categories":["tool-storage","accessories-2","foam-inserts","air-compressors-1"],"lead":"Everything you need for a cleaner, more organized and more productive workspace: professional tool storage, modular accessories, custom foam organization and industrial shop air, designed for garages, automotive shops, tradespeople and professional facilities."}}},"order":["tx_c_intro","rich-text","main","featured_collections_Q7H4JG"]}
+{
+ "sections": {
+  "rich-text": {
+   "type": "rich-text",
+   "blocks": {
+    "special-heading-1": {
+     "type": "special-heading",
+     "settings": {
+      "text": "All collections",
+      "text_size": "x-small",
+      "text_custom_width": false,
+      "text_width": 480
+     }
+    },
+    "description-1": {
+     "type": "richtext",
+     "settings": {
+      "text": "<p>Discover high-performance activewear designed for every move\u2014shop our latest collections tailored for comfort, style, and endurance.</p>",
+      "text_custom_width": true,
+      "text_width": 800
+     }
+    }
+   },
+   "block_order": [
+    "special-heading-1",
+    "description-1"
+   ],
+   "disabled": true,
+   "settings": {
+    "fullwidth": true,
+    "width": 1320,
+    "side_margin_choice": "level-0",
+    "color_scheme": "",
+    "inset_choice": "level-5",
+    "alignment": "center",
+    "gap": true,
+    "gap_choice": "level-4",
+    "separator": false,
+    "separator_width": 100,
+    "separator_use_custom_color": false,
+    "separator_custom_color": "#cccccc",
+    "spacing": true,
+    "spacing_choice": "level-1",
+    "spacing_placement": "2"
+   }
+  },
+  "main": {
+   "type": "main-list-collections",
+   "disabled": true,
+   "settings": {
+    "fullwidth": true,
+    "width": 1320,
+    "side_margin_choice": "level-1",
+    "color_scheme": "",
+    "inset": true,
+    "inset_choice": "level-2",
+    "spacing": true,
+    "spacing_choice": "level-2",
+    "spacing_placement": "1"
+   }
+  },
+  "featured_collections_Q7H4JG": {
+   "type": "featured-collections",
+   "name": "t:sections.collection_list.presets.collection_list.name",
+   "settings": {
+    "fullwidth": true,
+    "width": 1320,
+    "color_scheme": "scheme_8",
+    "inset_choice": "level-1",
+    "text_1": "All Collections",
+    "text_1_size": "x-small",
+    "text_2": "",
+    "text_2_size": "x-small",
+    "text_2_newline": false,
+    "button_text": "",
+    "button_url": "",
+    "button_target": "_self",
+    "button_style": "fill",
+    "collection_choice": [
+     "tool-storage",
+     "accessories-2",
+     "foam-inserts",
+     "air-compressors-1"
+    ],
+    "columns_count": 4,
+    "columns_offset": true,
+    "total_count": 20,
+    "gap": true,
+    "gap_choice": "level-3",
+    "collection_aspect_ratio": "auto",
+    "collection_count": false,
+    "collection_title_overlay": false,
+    "carousel": false,
+    "per_move": 2,
+    "autoplay": false,
+    "interval": 4000,
+    "loop": true,
+    "mouse_drag": true,
+    "arrows": true,
+    "dots": false,
+    "speed": 400,
+    "progress_bar": true,
+    "separator": false,
+    "separator_width": 100,
+    "separator_use_custom_color": true,
+    "separator_custom_color": "#021f4b",
+    "spacing": true,
+    "spacing_choice": "level-2",
+    "spacing_placement": "1"
+   },
+   "disabled": true
+  },
+  "tx_c_intro": {
+   "type": "tx-c-intro",
+   "blocks": {
+    "chip_1": {
+     "type": "chip",
+     "settings": {
+      "icon": "steel",
+      "text": "Welded heavy-gauge steel"
+     }
+    },
+    "chip_2": {
+     "type": "chip",
+     "settings": {
+      "icon": "truck",
+      "text": "Free shipping over $3,000"
+     }
+    },
+    "chip_3": {
+     "type": "chip",
+     "settings": {
+      "icon": "card",
+      "text": "Pay monthly with RBC"
+     }
+    },
+    "chip_4": {
+     "type": "chip",
+     "settings": {
+      "icon": "pin",
+      "text": "Pickup in Richmond and Calgary"
+     }
+    }
+   },
+   "block_order": [
+    "chip_1",
+    "chip_2",
+    "chip_3",
+    "chip_4"
+   ],
+   "settings": {
+    "crumb_label": "Shop",
+    "eyebrow": "Shop TOOSA",
+    "heading": "Shop TOOSA workshop solutions",
+    "show_categories": true,
+    "categories_title": "Browse by range",
+    "categories": [
+     "tool-storage",
+     "accessories-2",
+     "foam-inserts",
+     "air-compressors-1"
+    ],
+    "lead": "Everything you need for a cleaner, more organized and more productive workspace: professional tool storage, modular accessories, custom foam organization and industrial shop air, designed for garages, automotive shops, tradespeople and professional facilities."
+   }
+  },
+  "tx_all_products": {
+   "type": "featured-products",
+   "settings": {
+    "fullwidth": true,
+    "width": 1320,
+    "color_scheme": "scheme_8",
+    "inset_choice": "level-4",
+    "edge_gradient_top": "",
+    "edge_gradient_bottom": "",
+    "text_1": "Every TOOSA product",
+    "text_1_size": "small",
+    "text_1_choice": "special-heading",
+    "text_2": "",
+    "text_2_size": "large",
+    "text_2_newline": false,
+    "button_text": "",
+    "button_url": "",
+    "button_target": "_self",
+    "button_style": "fill",
+    "collection_choice": "all",
+    "display_style": "large",
+    "product_excerpt_show": false,
+    "columns_count": 4,
+    "columns_offset": true,
+    "total_count": 24,
+    "gap": true,
+    "gap_choice": "level-4",
+    "carousel": false,
+    "per_move": 1,
+    "autoplay": true,
+    "interval": 4000,
+    "loop": true,
+    "mouse_drag": true,
+    "arrows": true,
+    "dots": false,
+    "speed": 400,
+    "progress_bar": true,
+    "separator": false,
+    "separator_width": 100,
+    "separator_use_custom_color": false,
+    "separator_custom_color": "#cccccc",
+    "spacing": true,
+    "spacing_choice": "level-2",
+    "spacing_placement": "1"
+   }
+  }
+ },
+ "order": [
+  "tx_c_intro",
+  "tx_all_products",
+  "rich-text",
+  "main",
+  "featured_collections_Q7H4JG"
+ ]
+}

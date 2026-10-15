@@ -1,131 +1,88 @@
 {
-  "sections": {
-    "hero": {
-      "type": "tx-p-hero",
-      "settings": {
-        "layout": "bg",
-        "theme": "dark",
-        "eyebrow": "Contact",
-        "heading": "Talk to a person who knows the product.",
-        "lead": "<p>Questions, quotes, showroom visits or help choosing a setup. Call, email or send a message and someone in Richmond, BC replies, usually the same business day.</p>",
-        "image": "shopify://shop_images/Tool_Cabinet_auto_shop.png",
-        "show_crumbs": true
-      }
-    },
-    "contact": {
-      "type": "tx-p-contact",
-      "settings": {
-        "form_heading": "Send us a message",
-        "form_sub": "Tell us what you are working on and we'll come back with options, pricing or a time to visit.",
-        "topics": "General question|Help choosing a setup|Quote for a business|Custom foam or engraving|Delivery or pickup|Order support",
-        "button": "Send message",
-        "foot": "We reply by email or phone within one business day.",
-        "success": "Thanks, your message is in. We'll reply within one business day.",
-        "info_heading": "Reach the team",
-        "address": "Unit 142 – 11566 Eburne Way, Richmond, BC V6V 2G7",
-        "address_note": "Showroom and warehouse in one place. Visits by appointment.",
-        "map_query": "TOOSA, 11566 Eburne Way Unit 142, Richmond, BC V6V 2G7",
-        "phone": "+1 (778) 939-9494",
-        "phone_note": "Monday to Friday during business hours",
-        "email": "sales@toosa.ca",
-        "email_note": "Quotes, orders and support",
-        "hours": "Monday – Friday, 10 AM – 6 PM",
-        "hours_note": "Saturday and Sunday closed",
-        "show_social": true,
-        "show_map": true,
-        "loc_eyebrow": "Where to find us",
-        "loc_heading": "Showroom and distributor."
-      },
-      "blocks": {
-        "location_1": {
-          "type": "location",
-          "settings": {
-            "badge": "Showroom & warehouse",
-            "name": "TOOSA, Richmond BC",
-            "text": "See the full lineup, pull the drawers and pick up orders.",
-            "address": "Unit 142 – 11566 Eburne Way, Richmond, BC V6V 2G7",
-            "map_query": "TOOSA, 11566 Eburne Way Unit 142, Richmond, BC V6V 2G7",
-            "phone": "+1 (778) 939-9494",
-            "email": "sales@toosa.ca",
-            "hours": "Monday – Friday, 10 AM – 6 PM",
-            "link_text": "Book a visit",
-            "link_url": "shopify://pages/book-appointments",
-            "logo": "shopify://shop_images/0328f2_06d5e44bee344133ba7a6bad9e4e9480_mv2_1.avif"
-          }
-        },
-        "location_2": {
-          "type": "location",
-          "settings": {
-            "badge": "Distributor",
-            "name": "My Tool Shop, Calgary AB",
-            "text": "Our Alberta partner, with TOOSA units on the floor and local pickup.",
-            "address": "3434 34 Ave NE, Unit 8, Calgary, AB T1Y 6X3",
-            "map_query": "My Tool Shop, 3434 34 Ave NE Unit 8, Calgary, AB T1Y 6X3",
-            "phone": "+1 (825) 413-5102",
-            "email": "info@mytoolshop.ca",
-            "hours": "Monday – Friday, 9 AM – 6 PM",
-            "link_text": "mytoolshop.ca",
-            "link_url": "https://mytoolshop.ca/",
-            "mark": "MTS",
-            "wordmark": "My Tool Shop"
-          }
-        }
-      },
-      "block_order": [
-        "location_1",
-        "location_2"
-      ]
-    },
-    "booking": {
-      "type": "tx-p-booking",
-      "settings": {
-        "eyebrow": "Showroom",
-        "heading": "Visit the showroom.",
-        "lead": "<p>The fastest way to decide is to stand in front of the units. Book a slot and a member of the team will walk you through the lineup and plan your wall with you.</p>",
-        "panel_heading": "Book a showroom visit",
-        "panel_text": "Pick a time that suits you. Visits are free and take about 30 minutes.",
-        "points": "See every size side by side|Test drawers, slides and locks|Plan a modular layout for your space|Talk financing and delivery",
-        "embed": "<div class=\"appointo-custom-btn\" data-appointo-product-handle=\"in-person-product-demo\" type=\"embed\"></div>",
-        "phone": "+1 (778) 939-9494",
-        "hours": "Monday – Friday, 10 AM – 6 PM",
-        "embed_btn": "Pick a time",
-        "embed_heading": "Pick a time",
-        "embed_text": "Choose a date and time below. We confirm by email and you can reschedule any time.",
-        "theme": "dark"
-      },
-      "blocks": {
-        "step_1": {
-          "type": "step",
-          "settings": {
-            "title": "Pick a time",
-            "text": "Choose a slot online. We confirm by email."
-          }
-        },
-        "step_2": {
-          "type": "step",
-          "settings": {
-            "title": "Walk the floor",
-            "text": "Compare chests, hutches, lockers and foam in person."
-          }
-        },
-        "step_3": {
-          "type": "step",
-          "settings": {
-            "title": "Leave with a plan",
-            "text": "A configuration and a quote for your space, with no pressure to buy."
-          }
-        }
-      },
-      "block_order": [
-        "step_1",
-        "step_2",
-        "step_3"
-      ]
-    }
+ "sections": {
+  "hero": {
+   "type": "tx-p-hero",
+   "settings": {
+    "layout": "bg",
+    "theme": "dark",
+    "eyebrow": "Contact",
+    "heading": "Talk to a person who knows the product.",
+    "lead": "<p>Questions, quotes, showroom visits or help choosing a setup. Call, email or send a message and someone in Richmond, BC replies, usually the same business day.</p>",
+    "image": "shopify://shop_images/Tool_Cabinet_auto_shop.png",
+    "show_crumbs": true
+   }
   },
-  "order": [
-    "hero",
-    "contact",
-    "booking"
-  ]
+  "contact": {
+   "type": "tx-p-contact",
+   "settings": {
+    "form_heading": "Send us a message",
+    "form_sub": "Tell us what you are working on and we'll come back with options, pricing or a time to visit.",
+    "topics": "General question|Help choosing a setup|Quote for a business|Custom foam or engraving|Delivery or pickup|Order support",
+    "button": "Send message",
+    "foot": "We reply by email or phone within one business day.",
+    "success": "Thanks, your message is in. We'll reply within one business day.",
+    "info_heading": "Reach the team",
+    "address": "Unit 142 \u2013 11566 Eburne Way, Richmond, BC V6V 2G7",
+    "address_note": "Showroom and warehouse in one place. Visits by appointment.",
+    "map_query": "TOOSA, 11566 Eburne Way Unit 142, Richmond, BC V6V 2G7",
+    "phone": "+1 (778) 939-9494",
+    "phone_note": "Monday to Friday during business hours",
+    "email": "sales@toosa.ca",
+    "email_note": "Quotes, orders and support",
+    "hours": "Monday \u2013 Friday, 10 AM \u2013 6 PM",
+    "hours_note": "Saturday and Sunday closed",
+    "show_social": true,
+    "show_map": true,
+    "loc_eyebrow": "Where to find us",
+    "loc_heading": "Showroom and distributor.",
+    "embed": "<div class=\"appointo-custom-btn\" data-appointo-product-handle=\"in-person-product-demo\" type=\"embed\"></div>",
+    "book_heading": "Book a showroom visit",
+    "book_text": "Free, about 30 minutes. Pick a time below; we confirm by email and you can reschedule any time.",
+    "book_points": "See every size side by side|Test drawers, slides and locks|Leave with a layout and a quote"
+   },
+   "blocks": {
+    "location_1": {
+     "type": "location",
+     "settings": {
+      "badge": "Showroom & warehouse",
+      "name": "TOOSA, Richmond BC",
+      "text": "See the full lineup, pull the drawers and pick up orders.",
+      "address": "Unit 142 \u2013 11566 Eburne Way, Richmond, BC V6V 2G7",
+      "map_query": "TOOSA, 11566 Eburne Way Unit 142, Richmond, BC V6V 2G7",
+      "phone": "+1 (778) 939-9494",
+      "email": "sales@toosa.ca",
+      "hours": "Monday \u2013 Friday, 10 AM \u2013 6 PM",
+      "link_text": "Book a visit",
+      "link_url": "shopify://pages/book-appointments",
+      "logo": "shopify://shop_images/0328f2_06d5e44bee344133ba7a6bad9e4e9480_mv2_1.avif"
+     }
+    },
+    "location_2": {
+     "type": "location",
+     "settings": {
+      "badge": "Distributor",
+      "name": "My Tool Shop, Calgary AB",
+      "text": "Our Alberta partner, with TOOSA units on the floor and local pickup.",
+      "address": "3434 34 Ave NE, Unit 8, Calgary, AB T1Y 6X3",
+      "map_query": "My Tool Shop, 3434 34 Ave NE Unit 8, Calgary, AB T1Y 6X3",
+      "phone": "+1 (825) 413-5102",
+      "email": "info@mytoolshop.ca",
+      "hours": "Monday \u2013 Friday, 9 AM \u2013 6 PM",
+      "link_text": "mytoolshop.ca",
+      "link_url": "https://mytoolshop.ca/",
+      "mark": "MTS",
+      "wordmark": "My Tool Shop"
+     }
+    }
+   },
+   "block_order": [
+    "location_1",
+    "location_2"
+   ]
+  }
+ },
+ "order": [
+  "hero",
+  "contact"
+ ]
 }

@@ -5,8 +5,8 @@
 -%}
 <section class="txp txp--paper txp-section txp-contact-band" id="txp-contact-{{ section.id }}">
   <div class="txp-wrap">
-    <div class="txp-contact">
-      <div class="txp-form txp-reveal">
+    <div class="txp-one txp-reveal">
+      <div class="txp-one__form txp-form">
         {%- form 'contact', id: 'txp-contact-form', class: 'txp-contact-form' -%}
           {%- if s.form_heading != blank -%}<h2 class="txp-h2 txp-h2--sm">{{ s.form_heading }}</h2>{%- endif -%}
           {%- if s.form_sub != blank -%}<p class="txp-form__sub">{{ s.form_sub }}</p>{%- endif -%}
@@ -33,8 +33,8 @@
           </div>
         {%- endform -%}
       </div>
-      <aside class="txp-contact__aside">
-        <div class="txp-info txp-reveal" data-delay="1">
+      <aside class="txp-one__side">
+        <div class="txp-info txp-info--compact">
           {%- if s.info_heading != blank -%}<h2 class="txp-h3">{{ s.info_heading }}</h2>{%- endif -%}
           {%- if s.address != blank -%}
             <div class="txp-info__row"><div class="txp-info__ic">{% render 'tx-p-icon', name: 'pin' %}</div><div><b>Showroom &amp; warehouse</b><a href="{{ s.map_link | default: 'https://www.google.com/maps/search/?api=1&query=' | append: map_q }}" target="_blank" rel="noopener">{{ s.address }}</a>{%- if s.address_note != blank -%}<small>{{ s.address_note }}</small>{%- endif -%}</div></div>
@@ -60,17 +60,33 @@
           {%- endif -%}
         </div>
         {%- if s.show_map and map_q != blank -%}
-          <div class="txp-map txp-reveal" data-delay="2">
+          <div class="txp-map txp-map--sm">
             <div class="txp-map__fallback" aria-hidden="true"><span class="txp-info__ic">{% render 'tx-p-icon', name: 'pin' %}</span><b>{{ s.address | strip_html }}</b><span>Map loads here</span></div>
             <iframe title="Map to the TOOSA showroom" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q={{ map_q }}&z=14&output=embed"></iframe>
             <a class="txp-btn txp-btn--dark txp-btn--sm txp-map__link" href="{{ s.map_link | default: 'https://www.google.com/maps/search/?api=1&query=' | append: map_q }}" target="_blank" rel="noopener">Directions{% render 'tx-p-icon', name: 'arrow' %}</a>
           </div>
         {%- endif -%}
       </aside>
+      {%- if s.embed != blank -%}
+        <div class="txp-one__book" id="pick-a-time">
+          <div class="txp-one__book-head">
+            <span class="txp-book__embed-ic">{% render 'tx-p-icon', name: 'calendar' %}</span>
+            <h2 class="txp-h3">{{ s.book_heading | default: 'Book a showroom visit' }}</h2>
+            {%- if s.book_text != blank -%}<p>{{ s.book_text }}</p>{%- endif -%}
+            {%- if s.book_points != blank -%}
+              <ul class="txp-one__points">
+                {%- assign pts = s.book_points | split: '|' -%}
+                {%- for pt in pts -%}<li>{% render 'tx-p-icon', name: 'check' %}{{ pt | strip }}</li>{%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+          <div class="txp-book__embed-body">{{ s.embed }}</div>
+        </div>
+      {%- endif -%}
     </div>
 
     {%- if section.blocks.size > 0 -%}
-      <div class="txp-head" style="margin-top: var(--txp-pad); margin-bottom: 28px;">
+      <div class="txp-head txp-one__locs-head">
         {%- if s.loc_eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.loc_eyebrow }}</p>{%- endif -%}
         {%- if s.loc_heading != blank -%}<h2 class="txp-h2 txp-h2--sm txp-reveal" data-delay="1">{{ s.loc_heading }}</h2>{%- endif -%}
       </div>
@@ -137,6 +153,11 @@
     { "type": "text", "id": "hours_note", "label": "Hours note" },
     { "type": "checkbox", "id": "show_social", "label": "Show social links", "default": true },
     { "type": "checkbox", "id": "show_map", "label": "Show map", "default": true },
+    { "type": "header", "content": "Booking (shown inside the same card)" },
+    { "type": "text", "id": "book_heading", "label": "Heading", "default": "Book a showroom visit" },
+    { "type": "text", "id": "book_text", "label": "Text" },
+    { "type": "text", "id": "book_points", "label": "Points, separated by |" },
+    { "type": "liquid", "id": "embed", "label": "Booking app embed code", "info": "Paste the booking app's markup. It renders as is, at its own size." },
     { "type": "header", "content": "Locations" },
     { "type": "text", "id": "loc_eyebrow", "label": "Eyebrow" },
     { "type": "text", "id": "loc_heading", "label": "Heading" }

@@ -9,10 +9,10 @@
   // Side modules come as <id>_l / <id>_r; the file is drawn on its native side and mirrored for the other one.
   var PLACE = {
     ut: { base: {}, hutch: {}, locker_l: {}, locker_r: { mirror: true }, drawers_r: {}, drawers_l: { mirror: true } },
-    mm: { base: {}, peg: {}, upper: {}, locker_l: { x: -0.209, z: -0.042 }, locker_r: { x: 0.209, z: -0.042, mirror: true } }
+    mm: { base: {}, peg: {}, upper: {}, locker_l: { x: -0.209, z: -0.125 }, locker_r: { x: 0.209, z: -0.125, mirror: true } } // lockers sit flush with the drawer fronts
   };
   var PAINT = { grey: '#6a6f77', black: '#1b1c1f', red: '#b8222a' };
-  var PART_RE = /^(drawer|door|handle)-([^-]+)(?:-(xmin|xmax|ymax|lift)(\d+)?)?-(\w+)$/; // three.js strips dots from node names, so parts use hyphens; an optional number is the opening angle in degrees
+  var PART_RE = /^(drawer|door|lid|handle)-([^-]+)(?:-(xmin|xmax|ymax|lift|seam|fold)(\d+)?)?-(\w+)$/; // three.js strips dots from node names, so parts use hyphens; an optional number is the opening angle in degrees
   // the lighting kit: an LED bar under the hutch (Ultra Task) or under the upper cabinets (Mega Max), only when those are on the wall
   var LIGHT = { ut: { y: 1.56, z: 0.12, w: 1.3, needs: ['hutch'] }, mm: { y: 1.395, z: -0.05, w: 1.75, needs: ['peg', 'upper'] } };
   var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
@@ -87,20 +87,24 @@
         if (!o.isMesh) return;
         var m = PART_RE.exec(o.name || ''); if (!m) return;
         if (m[1] === 'handle') { (handles[m[2]] || (handles[m[2]] = [])).push(o); return; }
-        var p = byId[m[2]] || (byId[m[2]] = { kind: m[1], hinge: m[3] || '', angle: m[4] ? +m[4] : 0, meshes: [] });
+        var key = m[1] === 'lid' ? 'lid:' + m[2] : m[2];
+        var p = byId[key] || (byId[key] = { kind: m[1], hinge: m[3] || '', angle: m[4] ? +m[4] : 0, meshes: [] });
         p.meshes.push(o);
       });
-      var parts = [];
-      Object.keys(byId).forEach(function (id) {
+      var parts = [], lids = {};
+      Object.keys(byId).sort(function (a, b) { return (a.indexOf('lid:') === 0 ? 0 : 1) - (b.indexOf('lid:') === 0 ? 0 : 1); }).forEach(function (id) {
         var p = byId[id], box = new THREE.Box3();
         p.meshes.forEach(function (m) { box.expandByObject(m); });
         if (box.isEmpty()) return;
         var c = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
-        var at = p.hinge === 'xmin' ? new THREE.Vector3(box.min.x, c.y, box.min.z) : p.hinge === 'xmax' ? new THREE.Vector3(box.max.x, c.y, box.min.z) : (p.hinge === 'ymax' || p.hinge === 'lift') ? new THREE.Vector3(c.x, box.max.y, box.min.z) : c;
+        var at = p.hinge === 'xmin' ? new THREE.Vector3(box.min.x, c.y, box.min.z) : p.hinge === 'xmax' ? new THREE.Vector3(box.max.x, c.y, box.min.z) : (p.hinge === 'ymax' || p.hinge === 'lift' || p.hinge === 'seam') ? new THREE.Vector3(c.x, box.max.y, box.min.z) : p.hinge === 'fold' ? new THREE.Vector3(c.x, box.max.y, box.max.z) : c;
         var pivot = new THREE.Group(); pivot.position.copy(at); obj.add(pivot); pivot.updateMatrixWorld(true);
         p.meshes.forEach(function (m) { pivot.attach(m); });
+        if (p.hinge === 'fold' && lids[id]) { lids[id].pivot.attach(pivot); } // the folding panel rides on its lid
         var part = { id: id, kind: p.kind, hinge: p.hinge, pivot: pivot, travel: Math.min(0.5, size.z * 0.8), size: size, open: 0, goal: 0,
-          angle: ((p.angle || (p.hinge === 'lift' ? 96 : p.hinge === 'ymax' ? 83 : 100)) * Math.PI) / 180, lift: size.y * 0.66, back: size.y * 0.3 };
+          angle: ((p.angle || (p.hinge === 'lift' ? 96 : p.hinge === 'seam' ? 125 : p.hinge === 'fold' ? 150 : p.hinge === 'ymax' ? 83 : 100)) * Math.PI) / 180, lift: size.y * 0.66, back: size.y * 0.3 };
+        if (p.kind === 'lid') lids[id.slice(4)] = part;
+        if (p.hinge === 'fold' && lids[id]) { part.link = lids[id]; lids[id].link = part; } // a lid and its panel open as one
         if (p.kind === 'drawer') { // a foam insert that rides in the drawer (shown on demand)
           var foam = new THREE.Mesh(new THREE.BoxGeometry(Math.max(0.05, size.x - 0.05), 0.03, Math.max(0.05, size.z - 0.07)), foamMaterial());
           foam.position.set(0, -size.y / 2 + 0.05, -0.01); foam.visible = false; foam.castShadow = false; foam.userData.foam = true; pivot.add(foam); part.foam = foam;
@@ -114,7 +118,8 @@
       var e = ease(p.open);
       if (p.kind === 'drawer') p.pivot.position.z = p.pivot.userData.z0 + e * p.travel;
       else if (p.hinge === 'lift') { p.pivot.rotation.x = -e * p.angle; p.pivot.position.y = p.pivot.userData.y0 + e * p.lift; p.pivot.position.z = p.pivot.userData.z0 - e * p.back; } // the hutch door rises on its arms and lies over the roof, overhanging the front
-      else if (p.hinge === 'ymax') p.pivot.rotation.x = -e * p.angle;      // lids and cabinet doors lift up and out
+      else if (p.hinge === 'ymax' || p.hinge === 'seam') p.pivot.rotation.x = -e * p.angle; // lids and cabinet doors lift up and out; the hutch lid swings up and back over the roof
+      else if (p.hinge === 'fold') p.pivot.rotation.x = e * p.angle;          // the hutch's front panel folds in against its lid
       else p.pivot.rotation.y = (p.hinge === 'xmax' ? 1 : -1) * e * p.angle; // hinged doors swing out to the front
     }
     var foamTex = null, foamMat = null;
@@ -214,12 +219,14 @@
     function frameCamera(instant) {
       var b = bbox(); if (!b) return;
       var size = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3());
+      dims.textContent = fmt(size);
+      root.children.forEach(function (g) { (g.userData.parts || []).forEach(function (p) { if (p.kind === 'lid' && p.goal) b.expandByPoint(new THREE.Vector3(c.x, b.max.y + p.size.z * 0.9, b.min.z)); }); }); // an open hutch lid stands above the roof: keep it in frame
+      size = b.getSize(new THREE.Vector3()); c = b.getCenter(new THREE.Vector3());
       // frame the bounding sphere so the model stays inside whatever angle it spins to
       var r = size.length() / 2 + 0.05, vfov = (cam.fov * Math.PI) / 180, hfov = 2 * Math.atan(Math.tan(vfov / 2) * cam.aspect);
       var dist = (r / Math.sin(Math.min(vfov, hfov) / 2)) * 0.96;
       camGoal.target.set(c.x, c.y * 0.96, c.z); camGoal.dist = dist;
       camStart = { target: ctl.target.clone(), dist: cam.position.distanceTo(ctl.target) }; camT = instant ? 1 : 0;
-      dims.textContent = fmt(size);
       dirty = true;
     }
     function fmt(s) {
@@ -248,6 +255,7 @@
     function setOpenAll(on) {
       state.open = on; openBtn.textContent = on ? 'Close everything' : 'Open everything';
       visibleGroups().forEach(function (g) { setOpen(g, on); });
+      frameCamera();
     }
     openBtn.addEventListener('click', function () { setOpenAll(!state.open); });
     foamBtn.addEventListener('click', function () { setFoam(!state.foam); });
@@ -263,7 +271,7 @@
       var hits = ray.intersectObjects(visibleGroups(), true);
       for (var i = 0; i < hits.length; i++) {
         var o = hits[i].object; if (!o.visible || o.userData.foam) continue;
-        var p = o.userData.part; if (p) { p.goal = p.goal ? 0 : 1; dirty = true; }
+        var p = o.userData.part; if (p) { p.goal = p.goal ? 0 : 1; if (p.link) { p.link.goal = p.goal; frameCamera(); } dirty = true; }
         break; // the nearest solid thing decides: a cabinet body in front of a drawer is not a tap on the drawer
       }
     });
