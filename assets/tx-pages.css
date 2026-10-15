@@ -341,7 +341,7 @@ a.txp-card:hover .txp-card__media img { transform: scale(1.04); }
 
 /* ---------------------------------------------------------------- quotes */
 .txp-quotes { position: relative; }
-.txp-quotes__track { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 0 22px; margin: 0 calc(-1 * var(--txp-gutter)); padding-left: var(--txp-gutter); padding-right: var(--txp-gutter); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.txp-quotes__track { position: relative; display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 0 22px; margin: 0 calc(-1 * var(--txp-gutter)); padding-left: var(--txp-gutter); padding-right: var(--txp-gutter); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .txp-quotes__track::-webkit-scrollbar { display: none; }
 .txp-quote { flex: 0 0 min(420px, 84vw); scroll-snap-align: start; display: grid; grid-template-rows: auto 1fr; border-radius: var(--txp-radius); overflow: hidden; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--txp-line); }
 .txp-quote__media { position: relative; aspect-ratio: 4 / 3; background: var(--txp-graphite); }
@@ -611,7 +611,7 @@ body.txp-lb-open { overflow: hidden; }
 .txp-prod__main { position: relative; border-radius: var(--txp-radius); overflow: hidden; aspect-ratio: 1 / 1; background: radial-gradient(70% 70% at 50% 60%, #ffffff, #e9ebee); display: grid; place-items: center; }
 .txp-prod__main img { width: 100%; height: 100%; object-fit: contain; padding: 4%; opacity: 0; transition: opacity 0.3s; position: absolute; inset: 0; }
 .txp-prod__main img.is-on { opacity: 1; position: relative; }
-.txp-prod__thumbs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+.txp-prod__thumbs { position: relative; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
 .txp-prod__thumbs::-webkit-scrollbar { display: none; }
 .txp-prod__thumbs button { flex: none; width: 72px; height: 72px; border-radius: 10px; border: 2px solid transparent; background: var(--txp-white); padding: 4px; cursor: pointer; overflow: hidden; transition: border-color 0.18s; }
 .txp-prod__thumbs button img { width: 100%; height: 100%; object-fit: contain; }
