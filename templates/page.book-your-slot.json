@@ -1,1 +1,142 @@
-{"sections":{"image_banner_kpjnYE":{"type":"image-banner","blocks":{"special_heading_7JacMm":{"type":"special-heading","settings":{"banner_special_heading":"Book a TOOSA Appointment","banner_special_heading_size":"x-small"}},"text_fQ99MJ":{"type":"text","settings":{"banner_text":"See the products, compare your options and get help planning your workspace.","banner_text_size":"small"}}},"block_order":["special_heading_7JacMm","text_fQ99MJ"],"name":"t:sections.image_banner.presets.image_banner.name","settings":{"height_mobile":"460","height":"460","side_margin_choice":"level-0","color_scheme":"scheme_2","background_image_mobile":"shopify:\/\/shop_images\/OTHER.jpg","background_image":"shopify:\/\/shop_images\/OTHER.jpg","background_overlay":true,"background_overlay_color":"#000000","background_overlay_gradient":"","background_overlay_opacity":40,"content_custom_width":true,"content_width":720,"content_position":"center","content_vertical_align":"center","content_horizontal_align":"center","inset_choice":"level-1","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":false,"spacing_choice":"level-3","spacing_placement":"1"}},"rich_text_eNWRrK":{"type":"rich-text","blocks":{"heading_TVrKMQ":{"type":"heading","settings":{"text":"Book Your Slot","text_size":"x-large","text_custom_width":false,"text_width":450}},"richtext_7m7bAz":{"type":"richtext","settings":{"text":"<p>Visit our Richmond showroom or schedule a consultation with the TOOSA team.<\/p>","text_custom_width":false,"text_width":450}}},"block_order":["heading_TVrKMQ","richtext_7m7bAz"],"name":"t:sections.rich_text.presets.rich_text.name","settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-3","color_scheme":"scheme_1","inset_choice":"level-1","alignment":"center","gap":true,"gap_choice":"level-1","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":true,"spacing_choice":"level-5","spacing_placement":"2"}},"custom_liquid_BFRPGF":{"type":"custom-liquid","custom_css":["@media (min-width: 768px) {.appointo-modal-content-embed {width: 80%; }}"],"name":"t:sections.custom_liquid.presets.custom_liquid.name","settings":{"custom_liquid":"<div class=\"appointo-custom-btn\" data-appointo-product-handle=\"in-person-product-demo\" type=\"embed\"><\/div>"}},"rich_text_CpXhxU":{"type":"rich-text","blocks":{"heading_PtkCKT":{"type":"heading","settings":{"text":"Affordable Monthly Plans","text_size":"medium","text_custom_width":false,"text_width":450}},"text_6TA9rx":{"type":"text","settings":{"text":"Buy now and pay for your purchase over time at competitive interest rates.","text_size":"medium","text_custom_width":false,"text_width":450}},"heading_T68kPm":{"type":"heading","settings":{"text":"No Prepayment Penalties","text_size":"medium","text_custom_width":false,"text_width":450}},"text_pKciqm":{"type":"text","settings":{"text":"Pay for your purchase with monthly payments and prepay at any time without penalty.","text_size":"medium","text_custom_width":false,"text_width":450}},"heading_4FeFCk":{"type":"heading","settings":{"text":"Easy Application","text_size":"medium","text_custom_width":false,"text_width":450}},"text_XwTV4b":{"type":"text","settings":{"text":"Get a decision in seconds with no obligation to buy. Checking your rate won't affect your credit score. Your data is safe and encrypted.","text_size":"medium","text_custom_width":false,"text_width":450}},"buttons_7gnb9X":{"type":"buttons","settings":{"button_1_text":"Learn More","button_1_url":"https:\/\/www.rbcroyalbank.com\/payplan\/index.html#section-content-customers","button_1_target":"_self","button_1_style":"fill","button_1_custom_width":false,"button_1_width":200,"button_2_text":"","button_2_url":"","button_2_target":"_self","button_2_style":"fill","button_2_custom_width":false,"button_2_width":200}},"text_WpAV6D":{"type":"text","settings":{"text":"Questions? Check the PayPlan by RBC™ FAQs. Trademark of Royal Bank of Canada. Used under licence. ","text_size":"x-small","text_custom_width":false,"text_width":450}}},"block_order":["heading_PtkCKT","text_6TA9rx","heading_T68kPm","text_pKciqm","heading_4FeFCk","text_XwTV4b","buttons_7gnb9X","text_WpAV6D"],"disabled":true,"name":"t:sections.rich_text.presets.rich_text.name","settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-0","color_scheme":"","inset_choice":"level-4","alignment":"center","gap":true,"gap_choice":"level-4","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":true,"spacing_choice":"level-3","spacing_placement":"1"}},"blocks_mGWrGm":{"type":"_blocks","blocks":{"ai_gen_block_597f27d_ffFwXi":{"type":"ai_gen_block_597f27d","settings":{"show_header":true,"eyebrow_text":"","title":"Flexible Payment Solutions","subtitle":"<p>Make your purchase more affordable with our premium financing options designed for your convenience.<\/p>","text_alignment":"center","benefit_1_enabled":true,"benefit_1_title":"Low Monthly Payments","benefit_1_text":"<p>Spread the cost over time with affordable monthly installments that fit your budget.<\/p>","benefit_2_enabled":true,"benefit_2_title":"Quick Approval","benefit_2_text":"<p>Get approved in minutes with our streamlined application process and instant decisions.<\/p>","benefit_3_enabled":true,"benefit_3_title":"Flexible Terms","benefit_3_text":"<p>Choose from multiple payment plans ranging from 6 to 36 months to suit your needs.<\/p>","benefit_4_enabled":true,"benefit_4_title":"No Hidden Fees","benefit_4_text":"<p>Transparent pricing with no surprise charges or hidden costs throughout your payment term.<\/p>","benefit_5_enabled":true,"benefit_5_title":"Secure & Protected","benefit_5_text":"<p>Your information is protected with bank-level encryption and security protocols.<\/p>","benefit_6_enabled":true,"benefit_6_title":"Instant Access","benefit_6_text":"<p>Start enjoying your purchase immediately while paying over time at your own pace.<\/p>","show_cta":false,"cta_text":"Apply for Financing","cta_link":"shopify:\/\/pages\/contact","container_width":1000,"columns_desktop":3,"columns_tablet":2,"grid_gap":30,"section_padding_top":60,"section_padding_bottom":60,"header_spacing":40,"grid_top_spacing":0,"card_text_alignment":"center","background_color":"#ffffff","eyebrow_color":"#000000","title_color":"#000000","subtitle_color":"#000000","card_background":"#ffffff","card_border_color":"#f6552e","card_accent_color":"#f6552e","icon_background":"#fff5f2","icon_color":"#f6552e","card_title_color":"#000000","card_text_color":"#000000","card_padding":35,"card_border_width":1,"card_border_radius":12,"card_accent_height":4,"card_accent_opacity":1,"enable_card_hover":true,"card_hover_lift":4,"card_hover_border_color":"#ffffff","icon_size":70,"icon_border_radius":50,"icon_spacing":10,"eyebrow_size":12,"title_size":36,"subtitle_size":18,"card_title_size":22,"card_text_size":16,"cta_top_spacing":50,"cta_background":"#ffffff","cta_text_color":"#ffffff","cta_border_color":"#ff6f3c","cta_hover_background":"#000000","cta_hover_text_color":"#ffffff","cta_hover_border_color":"#f6552e","cta_font_size":16,"cta_padding_vertical":14,"cta_padding_horizontal":32,"cta_border_width":2,"cta_border_radius":4},"blocks":{}}},"block_order":["ai_gen_block_597f27d_ffFwXi"],"name":"Financing benefits","settings":{}},"blocks_VrD8Yi":{"type":"_blocks","blocks":{"ai_gen_block_0a75e4b_4rHbGU":{"type":"ai_gen_block_0a75e4b","settings":{"show_heading":true,"heading":"Get in Touch","subtitle":"We're here to help and answer any questions you might have","heading_alignment":"center","heading_size":36,"subtitle_size":16,"heading_spacing":48,"subheading_spacing":12,"show_card_1":true,"card_1_label":"Call Us","card_1_value":"+1 (555) 123-4567","card_1_link":"tel:+1 (555) 123-4567","show_card_2":true,"card_2_label":"Email Us","card_2_value":"hello@toosa.ca","card_2_link":"mailto:hello@toosa.ca","show_card_3":true,"card_3_label":"Visit Us","card_3_value":"123 Main Street, Toronto, ON M5V 3A8","card_3_link":"","show_card_4":true,"card_4_label":"Business Hours","card_4_value":"Mon - Fri: 9:00 AM - 6:00 PM","card_4_link":"","container_width":1200,"columns_desktop":4,"columns_tablet":2,"columns_mobile":"1","grid_gap":24,"grid_top_spacing":0,"card_alignment":"center","card_padding":32,"card_border_radius":12,"card_border_width":1,"enable_card_shadow":true,"enable_card_hover":true,"card_content_gap":16,"content_gap":8,"icon_size":52,"icon_border_radius":10,"heading_font":"manrope_n4","body_font":"inter_n4","label_size":14,"value_size":14,"label_text_transform":"uppercase","background_color":"#ffffff","heading_color":"#000000","subtitle_color":"#000000","card_background":"#ffffff","card_border_color":"#cccccc","card_hover_border_color":"#ffffff","icon_background":"#f6552e","icon_color":"#ffffff","label_color":"#000000","value_color":"#000000","link_color":"#f6552e","link_hover_color":"#000000","section_padding_top":24,"section_padding_bottom":64},"blocks":{}}},"block_order":["ai_gen_block_0a75e4b_4rHbGU"],"name":"JD – Contact Information","settings":{}}},"order":["image_banner_kpjnYE","rich_text_eNWRrK","custom_liquid_BFRPGF","rich_text_CpXhxU","blocks_mGWrGm","blocks_VrD8Yi"]}
+{
+  "sections": {
+    "hero": {
+      "type": "tx-p-hero",
+      "settings": {
+        "layout": "bg",
+        "theme": "dark",
+        "eyebrow": "Showroom",
+        "heading": "See it, pull the drawers, then decide.",
+        "lead": "<p>Book a time at our Richmond, BC showroom, or a virtual walkthrough with the TOOSA team. Compare the sizes, test the slides and leave with a plan for your space.</p>",
+        "image": "shopify://shop_images/OTHER.jpg"
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "big": "Richmond, BC",
+            "small": "Unit 142 – 11566 Eburne Way"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "big": "Free",
+            "small": "in-person and virtual demos"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "big": "~30 min",
+            "small": "is all it takes"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ]
+    },
+    "booking": {
+      "type": "tx-p-booking",
+      "settings": {
+        "eyebrow": "What to expect",
+        "heading": "A visit, not a sales pitch.",
+        "lead": "<p>We built TOOSA for people who like to see things before they buy them. Here's how a visit goes.</p>",
+        "panel_heading": "Book your slot",
+        "panel_text": "Choose a date and time below. We confirm by email and you can reschedule any time.",
+        "points": "Every size side by side|Drawers, slides, locks and finishes|Foam, lighting and engraving samples|Financing and delivery answered on the spot",
+        "embed": "<div class=\"appointo-custom-btn\" data-appointo-product-handle=\"in-person-product-demo\" type=\"embed\"></div>",
+        "phone": "+1 (778) 939-9494",
+        "hours": "Monday – Friday, 10 AM – 6 PM"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Pick a time",
+            "text": "Choose a slot that suits you. Prefer a video call? Choose the virtual option and we'll walk the floor with the camera."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Walk the floor",
+            "text": "Compare tool chests, hutches, side lockers and foam in person. Open every drawer; that's what they're there for."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Plan your setup",
+            "text": "Bring your wall measurements and a photo of the space. We'll configure a layout that fits and grows with you."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Order, finance, deliver",
+            "text": "Buy on the day or later online. Pay monthly with RBC if that helps, and choose delivery or pickup."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ]
+    },
+    "financing": {
+      "type": "tx-p-split",
+      "settings": {
+        "theme": "light",
+        "eyebrow": "Pay over time with RBC",
+        "heading": "Financing now available."
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/RBC_PayPlan_SocialPostSticker_Horizontal_0APRFinancing.psd.png",
+            "contain": true,
+            "flip": true,
+            "heading": "Easy, affordable monthly payments",
+            "text": "<p>We provide easy and affordable financing through our partner, PayPlan by RBC™, so you can pay for your purchase over time.</p><ul><li><strong>Affordable monthly plans.</strong> Buy now and pay over time at competitive interest rates.</li><li><strong>No prepayment penalties.</strong> Pay monthly and prepay at any time without penalty.</li><li><strong>Easy application.</strong> Get a decision in seconds with no obligation to buy. Checking your rate won't affect your credit score, and your data is safe and encrypted.</li></ul><p><em>Questions? Check the PayPlan by RBC™ FAQs. Trademark of Royal Bank of Canada. Used under licence.</em></p>",
+            "link_text": "Learn more about PayPlan by RBC",
+            "link_url": "https://www.rbcroyalbank.com/payplan/index.html#section-content-customers"
+          }
+        }
+      },
+      "block_order": [
+        "row_1"
+      ]
+    },
+    "cta": {
+      "type": "tx-p-cta",
+      "settings": {
+        "theme": "light",
+        "orange": false,
+        "eyebrow": "Talk to us",
+        "heading": "Rather just call?",
+        "lead": "<p>Phone or email and we'll find a time, answer questions or send a quote.</p>",
+        "btn1_text": "Contact us",
+        "btn1_url": "shopify://pages/contact",
+        "btn2_text": "Shop tool storage",
+        "btn2_url": "shopify://collections/tool-storage",
+        "phone": "+1 (778) 939-9494",
+        "email": "sales@toosa.ca",
+        "address": "11566 Eburne Way, Richmond, BC",
+        "address_url": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "booking",
+    "financing",
+    "cta"
+  ]
+}
