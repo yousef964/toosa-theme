@@ -93,8 +93,9 @@
 
   assign heading = s.heading | default: 'What you get' | replace: '[product]', product.title
   assign eyebrow = s.eyebrow | default: 'At a glance'
+  assign ul_rule = s.ul_for | default: '!*'
   capture ul_ok
-    render 'tx-pr-match', rule: s.ul_for | default: '!*', product: product
+    render 'tx-pr-match', rule: ul_rule, product: product
   endcapture
 -%}
 <section class="{{ theme_class }} txpr txpr-section txpr-overview" id="txpr-overview-{{ section.id }}">
