@@ -60,7 +60,8 @@
             "ratio": "portrait",
             "kicker": "Our beginning",
             "heading": "Two engineers with a storage problem",
-            "text": "<p>Founded by&nbsp;<strong>two engineers</strong>, our journey began with a shared passion for creativity and high quality craftsmanship. With a combined skillset and background in metallurgy and mechatronics, we have spent years working and learning from many different crafts such as Precision CNC machining, 3D printing and automotive parts manufacturing just to name a few.</p><p>Throughout our careers, we noticed a recurring&nbsp;<strong>challenge</strong>&nbsp;among working professionals: the need for affordable, yet stylish and professional-looking tool storage solutions. With our combined expertise and determination to make a difference, we decided to take action.</p><p>In&nbsp;<strong>2023</strong>, we founded TOOSA to provide innovative tool storage solutions that cater to the needs of professionals at every level.</p>",
+            "text": "<p>Founded by <strong>two engineers</strong> with a shared passion for creativity and high quality craftsmanship. Between us: metallurgy and mechatronics, and years spent working in precision CNC machining, 3D printing and automotive parts manufacturing.</p><p>Throughout our careers we kept running into the same <strong>challenge</strong>: working professionals need affordable tool storage that still looks stylish and professional. In <strong>2023</strong> we founded TOOSA to build it, for professionals at every level.</p>",
+            "short": true,
             "caption": "The founders",
             "meta": "Metallurgy | Mechatronics | CNC machining | 3D printing"
           }
@@ -71,96 +72,16 @@
             "image": "shopify://shop_images/From_Humble_Beginnings.png",
             "kicker": "The problem",
             "heading": "The storage we wanted didn't exist. So we built it.",
-            "text": "<h3><strong>TOOSA didn't start with a business plan</strong></h3><p>It started with a messy metal fabrication shop that needed to be organized.</p><p>When we were renovating our own workspace, we started looking for tool storage that was high quality, functional, and built around the way we actually worked.</p><h3><strong>What we found was frustrating</strong></h3><p>The options were either expensive, low quality, or lacked the flexibility we were looking for. Some of the solutions we were quoted were in the <strong>$30,000–$40,000 range</strong> — for a setup we believed should cost a fraction of that.</p><h3><strong>So we decided to build our own</strong></h3><p>We designed tool storage around how we wanted to work: integrated work surfaces, easy-access pegboards, concealed upper storage, and a layout that kept everything organized and within reach.</p><h3><strong>The result completely transformed our workspace</strong></h3><p>It was cleaner. More organized. More professional. And, most importantly, we could find our tools when we needed them.</p><p>People started asking us where the storage came from.</p><p>That got us thinking.</p>",
+            "text": "<p>TOOSA didn't start with a business plan. It started with a messy metal fabrication shop that needed to be organized. When we renovated our own workspace, we went looking for tool storage that was high quality, functional and built around the way we actually worked.</p>",
+            "short": true,
+            "beats": "What we found was frustrating :: Expensive, low quality, or not flexible enough. Some quotes were in the $30,000 to $40,000 range for a setup we believed should cost a fraction of that.\nSo we built our own :: Integrated work surfaces, easy-access pegboards, concealed upper storage and a layout that kept everything organized and within reach.\nIt transformed the workspace :: Cleaner, more organized, more professional. We could find our tools when we needed them.\nPeople started asking :: Where did the storage come from? That got us thinking.",
             "caption": "From humble beginnings"
-          }
-        },
-        "row_3": {
-          "type": "row",
-          "settings": {
-            "image": "shopify://shop_images/IMG_5883.heic",
-            "kicker": "The spark",
-            "heading": "What if everyone could have a workspace like this?",
-            "text": "<p>We posted one of our units on Facebook Marketplace just to see what would happen.</p><p>The response was immediate.</p><p>We woke up to more inquiries than we expected, and that was the moment we realized there was a real gap in the market.</p><p>Professionals, businesses, mechanics, fabricators, tradespeople, and DIYers were looking for the same thing we were:</p><p>High-quality tool storage that doesn't cost a fortune and doesn't lock you into one configuration.</p><p>TOOSA launched its first line of products in <strong>February 2024</strong> with that idea at the centre of everything we do</p>",
-            "caption": "The first listing"
-          }
-        },
-        "row_4": {
-          "type": "row",
-          "settings": {
-            "image": "shopify://shop_images/Machine_shop_tool_cabinet.png",
-            "kicker": "Why believe us",
-            "heading": "A workbench is where ideas become things",
-            "text": "<p>At TOOSA, we believe a workbench is more than just a piece of furniture—it’s the&nbsp;<strong>canvas</strong>&nbsp;where your hands bring ideas to life. Whether you’re crafting, repairing, or building, your workbench is a space for creativity, problem-solving, and progress. That’s why we provide solutions that inspire confidence and keep your tools within reach, so you can focus on the art of your craft.</p><p>Our&nbsp;<strong>mission</strong>&nbsp;is simple: to provide high-quality, functional storage solutions that meet the needs of both seasoned professionals and budding enthusiasts alike. We believe that everyone deserves a workspace that inspires creativity and efficiency, without breaking the bank.</p><p>We are dedicated to listening to our customers’ needs, continually innovating our products, and ensuring that you have the best solutions at your disposal to achieve your goals.</p><p>Thank you for being part of our journey. Together, let’s build a better workspace.</p>",
-            "caption": "In a customer shop"
           }
         }
       },
       "block_order": [
         "row_1",
-        "row_2",
-        "row_3",
-        "row_4"
-      ]
-    },
-    "timeline": {
-      "type": "tx-p-timeline",
-      "settings": {
-        "theme": "paper",
-        "eyebrow": "Milestones",
-        "heading": "From one listing to a national customer base.",
-        "lead": "<p>A short company, a lot of drawers. The moments that shaped TOOSA so far.</p>",
-        "link_text": "Why TOOSA",
-        "link_url": "shopify://pages/why-toosa"
-      },
-      "blocks": {
-        "milestone_1": {
-          "type": "milestone",
-          "settings": {
-            "year": "2023",
-            "title": "TOOSA is founded",
-            "text": "Two friends of more than 18 years, both engineers, decide to build the tool storage they could not find: welded steel, modular, fairly priced."
-          }
-        },
-        "milestone_2": {
-          "type": "milestone",
-          "settings": {
-            "year": "2023",
-            "title": "One unit on Facebook Marketplace",
-            "text": "Posted to see what would happen. By morning there were more inquiries than expected, and the gap in the market was obvious."
-          }
-        },
-        "milestone_3": {
-          "type": "milestone",
-          "settings": {
-            "year": "Feb 2024",
-            "title": "First product line launches",
-            "text": "Rolling tool chests, hutches, side lockers and foam, sold from Richmond, BC and delivered across Canada."
-          }
-        },
-        "milestone_4": {
-          "type": "milestone",
-          "settings": {
-            "year": "2025",
-            "title": "Calgary joins the map",
-            "text": "A partnership with My Tool Shop brings TOOSA storage to Alberta, with local pickup and a place to see the units."
-          }
-        },
-        "milestone_5": {
-          "type": "milestone",
-          "settings": {
-            "year": "Today",
-            "title": "1,000+ customers and counting",
-            "text": "Garages, service bays, fabrication shops and retail floors across the country, plus shop air, lighting, engraving and custom foam from one supplier."
-          }
-        }
-      },
-      "block_order": [
-        "milestone_1",
-        "milestone_2",
-        "milestone_3",
-        "milestone_4",
-        "milestone_5"
+        "row_2"
       ]
     },
     "values": {
@@ -213,6 +134,108 @@
         "card_2",
         "card_3",
         "card_4"
+      ]
+    },
+    "story_2": {
+      "type": "tx-p-split",
+      "settings": {
+        "theme": "light"
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/IMG_5883.heic",
+            "kicker": "The spark",
+            "heading": "What if everyone could have a workspace like this?",
+            "text": "<p>We posted one of our units on Facebook Marketplace just to see what would happen. The response was immediate. We woke up to more inquiries than we expected, and that was the moment we realized there was a real gap in the market.</p><p>Professionals, businesses, mechanics, fabricators, tradespeople and DIYers were all looking for the same thing we were: high-quality tool storage that doesn't cost a fortune and doesn't lock you into one configuration.</p>",
+            "short": true,
+            "stat1_big": "Overnight",
+            "stat1_small": "more inquiries than we expected from one listing",
+            "stat2_big": "Feb 2024",
+            "stat2_small": "first product line launched with that idea at the centre",
+            "caption": "The first listing"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/Machine_shop_tool_cabinet.png",
+            "kicker": "Our mission",
+            "heading": "A workbench is where ideas become things",
+            "text": "<p>A workbench is more than a piece of furniture. It's the <strong>canvas</strong> where your hands bring ideas to life, whether you're crafting, repairing or building. We build storage that inspires confidence and keeps your tools within reach, so you can focus on your craft.</p><p>Our <strong>mission</strong> is simple: high-quality, functional storage that meets the needs of seasoned professionals and budding enthusiasts alike, without breaking the bank. We listen to our customers, keep improving the products and make sure you have the best solutions to reach your goals.</p>",
+            "short": true,
+            "quote": "Thank you for being part of our journey. Together, let's build a better workspace.",
+            "caption": "In a customer shop"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2"
+      ]
+    },
+    "timeline": {
+      "type": "tx-p-timeline",
+      "settings": {
+        "theme": "paper",
+        "eyebrow": "Milestones",
+        "heading": "From one listing to a national customer base.",
+        "lead": "<p>A short company, a lot of drawers. The moments that shaped TOOSA so far.</p>",
+        "stats": "1,000+ :: customers across Canada | 2 :: places to see the units: Richmond, BC and Calgary, AB",
+        "link_text": "Why TOOSA",
+        "link_url": "shopify://pages/why-toosa"
+      },
+      "blocks": {
+        "milestone_1": {
+          "type": "milestone",
+          "settings": {
+            "year": "2023",
+            "title": "TOOSA is founded",
+            "text": "Two friends of more than 18 years, both engineers, decide to build the tool storage they could not find: welded steel, modular, fairly priced."
+          }
+        },
+        "milestone_2": {
+          "type": "milestone",
+          "settings": {
+            "year": "2023",
+            "title": "One unit on Facebook Marketplace",
+            "text": "Posted to see what would happen. By morning there were more inquiries than expected, and the gap in the market was obvious."
+          }
+        },
+        "milestone_3": {
+          "type": "milestone",
+          "settings": {
+            "year": "Feb 2024",
+            "title": "First product line launches",
+            "text": "Rolling tool chests, hutches, side lockers and foam, sold from Richmond, BC and delivered across Canada."
+          }
+        },
+        "milestone_4": {
+          "type": "milestone",
+          "settings": {
+            "year": "2025",
+            "title": "Calgary joins the map",
+            "text": "A partnership with My Tool Shop brings TOOSA storage to Alberta, with local pickup and a place to see the units."
+          }
+        },
+        "milestone_5": {
+          "type": "milestone",
+          "settings": {
+            "year": "Today",
+            "title": "1,000+ customers and counting",
+            "text": "Garages, service bays, fabrication shops and retail floors across the country, plus shop air, lighting, engraving and custom foam from one supplier.",
+            "stat_big": "1,000+",
+            "stat_small": "customers and counting"
+          }
+        }
+      },
+      "block_order": [
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4",
+        "milestone_5"
       ]
     },
     "team": {
@@ -404,8 +427,9 @@
   "order": [
     "hero",
     "story",
-    "timeline",
     "values",
+    "story_2",
+    "timeline",
     "team",
     "quotes",
     "cta"

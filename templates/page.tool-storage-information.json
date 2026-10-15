@@ -7,7 +7,7 @@
         "theme": "dark",
         "eyebrow": "Tool storage, explained",
         "heading": "Built to last. Priced for real workshops. Backed by people who answer the phone.",
-        "lead": "<p>Canadians outfitting a garage or a shop are usually choosing between two extremes: a Snap-on truck at premium prices, or an unverified import box from a marketplace like Temu. TOOSA exists for the workshop in between — commercial-grade tool storage, air and organization, at a price a real business or homeowner can justify, with a Canadian team and a showroom behind it.</p>",
+        "lead": "<p>Canadians outfitting a garage or a shop usually choose between two extremes: a Snap-on truck at premium prices, or an unverified import box from a marketplace like Temu. TOOSA exists for the workshop in between: commercial-grade tool storage, air and organization at a price a real business or homeowner can justify, with a Canadian team and a showroom behind it.</p>",
         "image": "shopify://shop_images/Untitled_1024_x_1024_px_21.png",
         "chip_big": "Welded steel",
         "chip_small": "heavy-gauge frame",
@@ -46,45 +46,63 @@
       ]
     },
     "picks": {
-      "type": "tx-p-grid",
+      "type": "tx-p-tabs",
       "settings": {
         "theme": "paper",
-        "style": "cards",
-        "columns": "3",
+        "layout": "top",
+        "cards": true,
         "eyebrow": "Every kind of workshop",
         "heading": "Why each type of customer picks TOOSA.",
-        "lead": "<p>Three very different buyers, three different reasons and the same two alternatives each of them is really weighing us against.</p>"
+        "lead": "<p>Three very different buyers, three different reasons, and the same two alternatives each of them is really weighing us against. Pick yours.</p>"
       },
       "blocks": {
-        "card_1": {
-          "type": "card",
+        "tab_1": {
+          "type": "tab",
           "settings": {
-            "kicker": "Building the garage they actually want to work in",
-            "title": "DIY & Home Garage",
-            "text": "<p><strong>Temu / marketplace boxes:</strong> no way to inspect it first, inconsistent quality between listings, and no one to call if a drawer fails.</p><p><strong>Snap-on:</strong> the gold standard, but a comparable cabinet runs into the thousands — built for a pro's truck route, not a weekend budget.</p><p><strong>With TOOSA:</strong> they get welded steel storage they can see and touch at the Richmond showroom, pay monthly with RBC, and grow the setup over time with foam, lighting and engraving.</p>"
+            "icon": "garage",
+            "title": "DIY & home garage",
+            "kicker": "Building the garage they want to work in",
+            "heading": "The garage you actually want to work in",
+            "text": "<p><strong>Temu / marketplace boxes</strong>No way to inspect it first, inconsistent quality between listings, and no one to call if a drawer fails.</p><p><strong>Snap-on</strong>The gold standard, but a comparable cabinet runs into the thousands. Built for a pro's truck route, not a weekend budget.</p><p><strong>With TOOSA</strong>Welded steel storage you can see and touch at the Richmond showroom, monthly payments with RBC, and a setup that grows over time with foam, lighting and engraving.</p>",
+            "link_text": "Shop tool storage",
+            "link_url": "shopify://collections/tool-storage",
+            "link2_text": "Book a showroom visit",
+            "link2_url": "shopify://pages/book-appointments"
           }
         },
-        "card_2": {
-          "type": "card",
+        "tab_2": {
+          "type": "tab",
           "settings": {
-            "kicker": "Outfitting one to three bays that run every day",
-            "title": "Small Businesses & Trade Shops",
-            "text": "<p><strong>Temu / marketplace boxes:</strong> not built for daily commercial use — a failed drawer or caster becomes shop downtime, with no warranty to fall back on.</p><p><strong>Snap-on:</strong> excellent for daily use, but outfitting several bays at premium pricing ties up capital a small shop needs elsewhere.</p><p><strong>With TOOSA:</strong> they get commercial-duty storage and air at a fraction of premium pricing, RBC financing that protects cash flow, and Canadian parts if something needs replacing.</p>"
+            "icon": "building",
+            "title": "Small businesses & trade shops",
+            "kicker": "One to three bays that run every day",
+            "heading": "Outfitting bays that run every day",
+            "text": "<p><strong>Temu / marketplace boxes</strong>Not built for daily commercial use. A failed drawer or caster becomes shop downtime, with no warranty to fall back on.</p><p><strong>Snap-on</strong>Excellent for daily use, but outfitting several bays at premium pricing ties up capital a small shop needs elsewhere.</p><p><strong>With TOOSA</strong>Commercial-duty storage and air at a fraction of premium pricing, RBC financing that protects cash flow, and Canadian parts if something needs replacing.</p>",
+            "link_text": "Request a quote",
+            "link_url": "shopify://pages/contact",
+            "link2_text": "Shop tool storage",
+            "link2_url": "shopify://collections/tool-storage"
           }
         },
-        "card_3": {
-          "type": "card",
+        "tab_3": {
+          "type": "tab",
           "settings": {
-            "kicker": "Standardizing storage and air across a whole facility",
-            "title": "Bigger Businesses & Production",
-            "text": "<p><strong>Temu / marketplace boxes:</strong> no consistency unit-to-unit, no account support, and no compliance paperwork — not a serious option at scale.</p><p><strong>Snap-on:</strong> capable at scale, but standardizing a whole facility at premium pricing and truck-route lead times is a major capital commitment.</p><p><strong>With TOOSA:</strong> they get one Canadian supplier for storage and industrial air (including the 20 HP rotary-screw compressor), consistent equipment across every bay, and financing to spread the cost.</p>"
+            "icon": "factory",
+            "title": "Bigger businesses & production",
+            "kicker": "Standardizing storage and air across a facility",
+            "heading": "Standardizing a whole facility",
+            "text": "<p><strong>Temu / marketplace boxes</strong>No consistency unit to unit, no account support and no compliance paperwork. Not a serious option at scale.</p><p><strong>Snap-on</strong>Capable at scale, but standardizing a whole facility at premium pricing and truck-route lead times is a major capital commitment.</p><p><strong>With TOOSA</strong>One Canadian supplier for storage and industrial air (including the 20 HP rotary-screw compressor), consistent equipment across every bay, and financing to spread the cost.</p>",
+            "link_text": "Talk to us about a facility",
+            "link_url": "shopify://pages/contact",
+            "link2_text": "See the air compressor",
+            "link2_url": "shopify://pages/air-compressor"
           }
         }
       },
       "block_order": [
-        "card_1",
-        "card_2",
-        "card_3"
+        "tab_1",
+        "tab_2",
+        "tab_3"
       ]
     },
     "position": {
@@ -101,8 +119,9 @@
             "ratio": "auto",
             "kicker": "Where Toosa Sits",
             "heading": "High quality expectations, without the Snap-on invoice",
-            "text": "<p>Positioned the way Canadian workshops actually shop: not the unverified marketplace box, not the premium truck brand — the durable, supported middle that most garages and shops are really looking for.</p><p><em>Illustrative positioning, not to scale — based on published Snap-on features, forum-reported Temu quality issues, and TOOSA's own construction (see sources in the appendix).</em></p>",
-            "caption": "Illustrative, not to scale"
+            "text": "<p>Positioned the way Canadian workshops actually shop: not the unverified marketplace box, not the premium truck brand, but the durable, supported middle that most garages and shops are really looking for.</p><p><em>Illustrative positioning, not to scale. Based on published Snap-on features, forum-reported Temu quality issues and TOOSA's own construction; see the forum notes below.</em></p>",
+            "caption": "Illustrative, not to scale",
+            "short": true
           }
         }
       },
@@ -243,6 +262,7 @@
         "card_1": {
           "type": "card",
           "settings": {
+            "icon": "hammer",
             "title": "Heavy-gauge welded steel",
             "text": "<p>Not folded sheet metal.</p>"
           }
@@ -250,6 +270,7 @@
         "card_2": {
           "type": "card",
           "settings": {
+            "icon": "card",
             "title": "Financing with RBC",
             "text": "<p>Own it now, pay monthly.</p>"
           }
@@ -257,6 +278,7 @@
         "card_3": {
           "type": "card",
           "settings": {
+            "icon": "pin",
             "title": "Richmond, BC showroom",
             "text": "<p>See and test before you buy.</p>"
           }
@@ -264,6 +286,7 @@
         "card_4": {
           "type": "card",
           "settings": {
+            "icon": "phone",
             "title": "Canadian support & parts",
             "text": "<p>A person you can call.</p>"
           }

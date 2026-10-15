@@ -49,7 +49,7 @@
       "type": "tx-p-grid",
       "settings": {
         "theme": "paper",
-        "style": "strip",
+        "style": "tiles",
         "columns": "4",
         "eyebrow": "Why trust us",
         "heading": "Built around how people actually work."
@@ -58,6 +58,7 @@
         "card_1": {
           "type": "card",
           "settings": {
+            "icon": "layers",
             "title": "Modular by design",
             "text": "<p>Start with what you need today and expand as your tools and workspace grow. Add storage, accessories and new configurations without replacing your setup.</p>"
           }
@@ -65,13 +66,15 @@
         "card_2": {
           "type": "card",
           "settings": {
+            "icon": "chat",
             "title": "We listen. Then we build.",
-            "text": "<p>Customer feedback plays a major role in how we develop and improve our products. We listen to what works, what doesn't, and what would make your workspace better.</p>"
+            "text": "<p>Customer feedback plays a major role in how we develop and improve our products: what works, what doesn't, and what would make your workspace better.</p>"
           }
         },
         "card_3": {
           "type": "card",
           "settings": {
+            "icon": "wrench",
             "title": "Built for real work",
             "text": "<p>Designed around the way people use their tools every day. Practical features, durable construction and thoughtful layouts help you work more efficiently.</p>"
           }
@@ -79,8 +82,9 @@
         "card_4": {
           "type": "card",
           "settings": {
+            "icon": "map",
             "title": "Canada-wide support",
-            "text": "<p>Product guidance, ordering help and after-sales support across Canada. Wherever your shop is, our team is here to help you choose the right setup.</p>"
+            "text": "<p>Product guidance, ordering help and after-sales support across Canada. Wherever your shop is, our team helps you choose the right setup.</p>"
           }
         }
       },
@@ -104,6 +108,7 @@
         "card_1": {
           "type": "card",
           "settings": {
+            "icon": "hammer",
             "kicker": "Frame",
             "title": "Heavy-gauge welded steel",
             "text": "<p>No flex, no rattle under a full load. A welded frame, not folded sheet metal.</p>"
@@ -112,6 +117,7 @@
         "card_2": {
           "type": "card",
           "settings": {
+            "icon": "drawer",
             "kicker": "Motion",
             "title": "Full-extension ball-bearing slides",
             "text": "<p>Every drawer opens 100%, so the tools at the back are never lost.</p>"
@@ -120,6 +126,7 @@
         "card_3": {
           "type": "card",
           "settings": {
+            "icon": "sparkle",
             "kicker": "Finish",
             "title": "A finish that takes a beating",
             "text": "<p>Textured powder coat shrugs off brake clean, oil and the impacts that chip cheaper coatings.</p>"
@@ -128,6 +135,7 @@
         "card_4": {
           "type": "card",
           "settings": {
+            "icon": "layers",
             "kicker": "System",
             "title": "Modular by design",
             "text": "<p>Start with one unit. Add lockers, hutches and benches later; they bolt straight on.</p>"
@@ -144,16 +152,25 @@
     "growth": {
       "type": "tx-p-split",
       "settings": {
-        "theme": "light"
+        "theme": "light",
+        "eyebrow": "The community",
+        "heading": "From one listing to 1,000+ customers."
       },
       "blocks": {
         "row_1": {
           "type": "row",
           "settings": {
             "image": "shopify://shop_images/Firefly_Gemini_Flash_change_background_to_tidy_mechanic_shop_change_perspective_to_middle_848296_1.png",
-            "kicker": "The community",
+            "kicker": "Two friends, one business",
             "heading": "1,000+ customers and counting",
-            "text": "<p>From one Marketplace listing to a growing Canadian community. TOOSA was founded by two friends who have known each other for more than <strong>18 years.</strong> We had always talked about starting a business together. TOOSA gave us the opportunity to finally do it. Since launching in February 2024, we've grown from one Marketplace listing into a community of <strong>1,000+ customers</strong> across Canada. And honestly, that's one of the things we're most proud of. Not just the number. It's seeing the garages, shops, fabrication spaces, businesses, and projects our customers have built around their TOOSA systems. Every new customer becomes part of the TOOSA family and every customer gives us another opportunity to make the products better.</p>",
+            "text": "<p>TOOSA was founded by two friends who have known each other for more than <strong>18 years</strong>. We had always talked about starting a business together, and TOOSA gave us the chance to finally do it.</p><p>Since launching in February 2024 we've grown from one Marketplace listing into a community of <strong>1,000+ customers</strong> across Canada. The number matters less than what it stands for: the garages, shops, fabrication spaces and businesses our customers have built around their TOOSA systems. Every new customer joins the TOOSA family and gives us another chance to make the products better.</p>",
+            "short": true,
+            "stat1_big": "18+",
+            "stat1_small": "years the founders have known each other",
+            "stat2_big": "1,000+",
+            "stat2_small": "customers across Canada",
+            "stat3_big": "Feb 2024",
+            "stat3_small": "first product line launched",
             "caption": "A customer shop"
           }
         },
@@ -163,7 +180,9 @@
             "image": "shopify://shop_images/a_2.png",
             "kicker": "What's next",
             "heading": "Build your workspace. Your way.",
-            "text": "<p>We're just getting started. We don't want TOOSA to be just another tool cabinet company. We're building a broader ecosystem of <strong>modular workspace and shop solutions </strong>designed around the people who use them. Tool storage is where we started. But as our customers' needs evolve, so will we. From storage and workspaces to organization, equipment, and accessories, our goal is simple:<strong> Help people build better workspaces.</strong> Whether you're setting up your first home garage, running a professional shop, or growing a business, we want TOOSA to give you the flexibility to build a workspace that works for you. Build your workspace. Your way. <strong>TOOSA</strong></p>",
+            "text": "<p>We're just getting started, and we don't want TOOSA to be just another tool cabinet company. We're building a broader ecosystem of <strong>modular workspace and shop solutions</strong> designed around the people who use them.</p><p>Tool storage is where we started. As our customers' needs evolve, so will we. Whether you're setting up a first home garage, running a professional shop or growing a business, our goal is simple: <strong>help people build better workspaces.</strong></p>",
+            "short": true,
+            "meta": "Storage | Workspaces | Organization | Equipment | Accessories",
             "caption": "Where we are going"
           }
         }
@@ -294,7 +313,11 @@
             "image": "shopify://shop_images/TOOSA_TS-20_Compressor_in_Modern_Workshop.png",
             "flip": true,
             "heading": "Quiet, continuous shop air from the same team",
-            "text": "<p>The person building out a garage or shop is the same person who needs shop air. TOOSA can outfit the whole workshop: storage, foam, lighting, engraving and a compressor from one place, with one point of support and one financing plan.</p><ul><li><strong>Quiet, continuous shop air:</strong> a rotary-screw compressor with a built-in dryer</li><li><strong>Buy once:</strong> sized to grow with the business, not be replaced in two years</li><li><strong>Pay monthly with RBC:</strong> the same financing as the tool storage</li><li><strong>Canadian support:</strong> sizing help before you buy, parts after</li></ul>",
+            "text": "<p>The person building out a garage or shop is the same person who needs shop air. TOOSA can outfit the whole workshop: storage, foam, lighting, engraving and a compressor from one place, with one point of support and one financing plan.</p>",
+            "short": true,
+            "points": "Quiet, continuous shop air: a rotary-screw compressor with a built-in dryer|Buy once: sized to grow with the business, not be replaced in two years|Pay monthly with RBC: the same financing as the tool storage|Canadian support: sizing help before you buy, parts after",
+            "show_ul": true,
+            "ul_text": "TS-20 certified package with a UL-listed inverter",
             "link_text": "See the TOOSA air compressor",
             "link_url": "shopify://pages/air-compressor"
           }
