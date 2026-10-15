@@ -13,6 +13,7 @@
       {%- liquid
         assign base = all_products[block.settings.base_handle]
         assign base_config = block.settings.base_config | strip
+        assign full_config = block.settings.full_config | strip
         assign sys_colors = block.settings.colors | default: 'black' | split: ','
       -%}
       {
@@ -46,6 +47,24 @@
             {%- endfor -%}
           }
         },
+        {%- if full_config != blank and block.settings.full_includes != blank -%}
+        "full": {
+          "includes": [{%- assign inc = block.settings.full_includes | split: ',' -%}{% for i in inc %}{{ i | strip | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],
+          "variants": {
+            {%- assign n = 0 -%}
+            {%- for c in sys_colors -%}
+              {%- assign cname = c | strip | capitalize -%}
+              {%- for v in base.variants -%}
+                {%- if v.option1 == cname and v.option2 == full_config -%}
+                  {% if n > 0 %},{% endif %}{{ c | strip | downcase | json }}: { "id": {{ v.id }}, "price": {{ v.price }}, "compare": {{ v.compare_at_price | default: 0 }}, "available": {{ v.available }} }
+                  {%- assign n = n | plus: 1 -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          }
+        },
+        {%- endif -%}
         "modules": [
           {%- assign mods = block.settings.modules | newline_to_br | split: '<br />' -%}
           {%- assign m = 0 -%}
@@ -97,7 +116,8 @@
       {% if section.settings.lead != blank %}<p class="tx-lead tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
     </div>
     <div class="tx-builder__layout tx-reveal" data-delay="2">
-      <div class="tx-stage" data-tx-stage aria-live="polite"><div class="tx-stage__glow"></div></div>
+      {%- capture three_json -%}{"script": {{ 'tx-3d.js' | asset_url | json }}, "wall": {{ 'tx-wall.js' | asset_url | json }}, "modules": {"ut": ["base","hutch","locker","drawers"], "mm": ["base","peg","upper","locker","locker2"]}, "files": {"ut": {"base": {{ 'ut56-base.glb' | asset_url | json }}, "hutch": {{ 'ut56-hutch.glb' | asset_url | json }}, "locker": {{ 'ut56-locker.glb' | asset_url | json }}, "drawers": {{ 'ut56-sidedrawers.glb' | asset_url | json }}}, "mm": {"base": {{ 'mm72-base.glb' | asset_url | json }}, "peg": {{ 'mm72-pegboard.glb' | asset_url | json }}, "upper": {{ 'mm72-uppercabs.glb' | asset_url | json }}, "locker": {{ 'ut56-locker.glb' | asset_url | json }}, "locker2": {{ 'ut56-locker.glb' | asset_url | json }}}}}{%- endcapture -%}
+      <div class="tx-stage" data-tx-stage aria-live="polite" data-tx-3d="{{ three_json | strip | escape }}"><div class="tx-stage__glow"></div></div>
       <div class="tx-panel">
         <div class="tx-field">
           <div class="tx-field__label"><span>System</span></div>
@@ -144,6 +164,8 @@
       { "type": "text", "id": "dims", "label": "Dimensions line", "default": "Base 56 x 22 x 44 in" },
       { "type": "text", "id": "base_handle", "label": "Base product handle", "default": "ultra-task-56-modular-rolling-tool-chest" },
       { "type": "text", "id": "base_config", "label": "Base variant option (2nd option)", "default": "Base Only" },
+      { "type": "text", "id": "full_config", "label": "Full set variant (option 2, e.g. Full Set)" },
+      { "type": "text", "id": "full_includes", "label": "Module ids the full set includes (comma separated)" },
       { "type": "text", "id": "colors", "label": "Colours (comma list of option values)", "default": "grey,black,red" },
       { "type": "textarea", "id": "modules", "label": "Modules, one per line", "info": "id | product handle | note | max qty | excludes-id. ids: hutch, locker, locker2, drawers, upper, peg, light", "default": "hutch | ultra-task-56-ultimate-hutch | Lockable work hub with pegboard back\nlocker | ultra-task-side-locker | Tall locker for long tools\ndrawers | ultra-task-side-drawers | Three extra deep drawers" }
     ] }

@@ -214,22 +214,51 @@
     }
 
     function renderTotals() {
-      var s = sys(), items = [], total = 0, compare = 0;
+      var s = sys(), items = [], total = 0, compare = 0, separately = 0, bundle = null;
       var bv = variantFor(s.base);
-      if (bv) { items.push({ name: s.base.name, price: bv.price, id: bv.id, qty: 1 }); total += bv.price; compare += bv.compare || bv.price; }
+      // the "Full Set" variant: when every module it includes is ticked, the bundle replaces the separate items
+      var fv = s.full ? (s.full.variants[state.color] || s.full.variants['*']) : null;
+      if (fv && fv.available && s.full.includes.length && s.full.includes.every(function (id) { return state.mods[id]; })) bundle = fv;
+      if (bundle) {
+        items.push({ name: s.base.name + ' · full set', price: bundle.price, id: bundle.id, qty: 1 }); total += bundle.price; compare += bundle.compare || bundle.price;
+        separately += bv ? bv.price : 0;
+      } else if (bv) { items.push({ name: s.base.name, price: bv.price, id: bv.id, qty: 1 }); total += bv.price; compare += bv.compare || bv.price; }
       s.modules.forEach(function (mod) {
         var q = state.mods[mod.id] || 0; if (!q) return;
         var v = variantFor(mod); if (!v) return;
+        if (bundle && s.full.includes.indexOf(mod.id) >= 0) { separately += v.price * q; return; }
         items.push({ name: mod.name, price: v.price * q, id: v.id, qty: q }); total += v.price * q; compare += (v.compare || v.price) * q;
       });
       totalEl.textContent = money(total);
       moEl.innerHTML = 'or about <b>' + money(total / months) + '/mo</b> over ' + months + ' months with RBC financing';
-      saveEl.textContent = compare > total ? 'You save ' + money(compare - total) + ' vs. regular price' : '';
+      var saveTxt = compare > total ? 'You save ' + money(compare - total) + ' vs. regular price' : '';
+      if (bundle && separately > bundle.price) saveTxt = 'Full set bundle: ' + money(separately - bundle.price) + ' less than buying the pieces separately' + (saveTxt ? ' · ' + saveTxt.charAt(0).toLowerCase() + saveTxt.slice(1) : '');
+      saveEl.textContent = saveTxt;
       listEl.innerHTML = items.map(function (it) { return '<li><span>' + it.name + (it.qty > 1 ? ' × ' + it.qty : '') + '</span><span>' + money(it.price) + '</span></li>'; }).join('');
       addBtn.dataset.items = JSON.stringify(items.map(function (it) { return { id: it.id, quantity: it.qty }; }));
       if (dims) dims.textContent = s.dims || '';
-      stage.innerHTML = '<div class="tx-stage__glow"></div>' + renderWall({ system: state.system, color: state.color, mods: state.mods }) + (dims ? '' : '');
+      if (wall) wall.update({ system: state.system, color: state.color, mods: state.mods });
+      else stage.innerHTML = '<div class="tx-stage__glow"></div>' + renderWall({ system: state.system, color: state.color, mods: state.mods });
     }
+
+    /* real 3D models: loaded only when the builder scrolls near, the SVG drawing stands in until then */
+    var wall = null, cfg3d = null;
+    try { cfg3d = JSON.parse(stage.getAttribute('data-tx-3d') || 'null'); } catch (e) { cfg3d = null; }
+    function loadScript(src) { return new Promise(function (res, rej) { var sc = document.createElement('script'); sc.src = src; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc); }); }
+    function boot3d() {
+      if (!cfg3d || wall || !window.WebGLRenderingContext) return;
+      var c = document.createElement('canvas'); if (!(c.getContext('webgl2') || c.getContext('webgl'))) return;
+      cfg3d.started = true;
+      loadScript(cfg3d.script).then(function () { return loadScript(cfg3d.wall); }).then(function () {
+        if (!window.TXWall) return;
+        wall = window.TXWall.mount(stage, cfg3d);
+        if (wall) wall.update({ system: state.system, color: state.color, mods: state.mods });
+      }).catch(function () { wall = null; });
+    }
+    if (cfg3d && 'IntersectionObserver' in window) {
+      var io3 = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io3.disconnect(); boot3d(); } }, { rootMargin: '600px 0px' });
+      io3.observe(stage);
+    } else if (cfg3d) boot3d();
 
     sysEl.addEventListener('click', function (e) { var b = e.target.closest('[data-sys]'); if (!b) return; state.system = b.dataset.sys; state.mods = {}; renderControls(); renderTotals(); });
     colEl.addEventListener('click', function (e) { var b = e.target.closest('[data-color]'); if (!b) return; state.color = b.dataset.color; renderControls(); renderTotals(); });
