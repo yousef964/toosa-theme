@@ -44,7 +44,9 @@
     var cam = new THREE.PerspectiveCamera(30, W / H, 0.05, 60);
     var ctl = new T.OrbitControls(cam, renderer.domElement);
     ctl.enableDamping = true; ctl.dampingFactor = 0.08; ctl.enablePan = false; ctl.enableZoom = false; // wheel zoom only after a click, so scrolling the page never gets caught
-    ctl.touches = { ONE: null, TWO: THREE.TOUCH.DOLLY_ROTATE }; // one finger scrolls the page, two fingers turn and zoom the model ctl.minPolarAngle = 0.35; ctl.maxPolarAngle = 1.62; ctl.autoRotate = true; ctl.autoRotateSpeed = 0.6; ctl.minDistance = 1.2; ctl.maxDistance = 12;
+    ctl.touches = { ONE: null, TWO: THREE.TOUCH.DOLLY_ROTATE }; // one finger scrolls the page, two fingers turn and zoom the model
+    renderer.domElement.style.touchAction = 'pan-y'; // OrbitControls sets 'none', which would trap the finger; the page must keep scrolling
+    ctl.minPolarAngle = 0.35; ctl.maxPolarAngle = 1.62; ctl.autoRotate = true; ctl.autoRotateSpeed = 0.6; ctl.minDistance = 1.2; ctl.maxDistance = 12;
     var key = new THREE.DirectionalLight(0xffffff, 2.6); key.position.set(2.5, 4.5, 3); key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 4; key.shadow.bias = -0.0005;
     key.shadow.camera.left = -3; key.shadow.camera.right = 3; key.shadow.camera.top = 3; key.shadow.camera.bottom = -1; key.shadow.camera.near = 0.5; key.shadow.camera.far = 14; scene.add(key);
     var fill = new THREE.DirectionalLight(0xdfe7ff, 0.6); fill.position.set(-3, 2, -2); scene.add(fill);
