@@ -52,8 +52,8 @@
 
       <div class="tx-hero__stage tx-reveal" data-delay="2">
         <div class="tx-hero__glow"></div>
-        {% if section.settings.video_url != blank %}
-          <video class="tx-hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="{{ section.settings.video_url }}"></video>
+        {% if section.settings.bg_video != blank %}
+          <video class="tx-hero__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="{{ section.settings.bg_video }}"></video>
         {% endif %}
         {% if product != blank %}
           {% for color in colors %}
@@ -119,7 +119,7 @@
     { "type": "checkbox", "id": "show_swatches", "label": "Show colour swatches", "default": true },
     { "type": "text", "id": "swatch_label", "label": "Swatch label", "default": "Pick a finish" },
     { "type": "image_picker", "id": "fallback_image", "label": "Fallback image", "info": "Used only if the product is not found." },
-    { "type": "text", "id": "video_url", "label": "Background video URL (optional)", "info": "An .mp4 link from Content → Files. Shown faintly behind the product." },
+    { "type": "text", "id": "bg_video", "label": "Background video URL (optional)", "info": "An .mp4 link from Content → Files. Shown faintly behind the product." },
     { "type": "header", "content": "Floating spec chips" },
     { "type": "text", "id": "chip_1_big", "label": "Chip 1 value", "default": "150 lb" },
     { "type": "text", "id": "chip_1_small", "label": "Chip 1 label", "default": "per drawer pair" },
