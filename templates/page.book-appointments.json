@@ -50,7 +50,10 @@
         "points": "Every size side by side|Drawers, slides, locks and finishes|Foam, lighting and engraving samples|Financing and delivery answered on the spot",
         "embed": "<div class=\"appointo-custom-btn\" data-appointo-product-handle=\"in-person-product-demo\" type=\"embed\"></div>",
         "phone": "+1 (778) 939-9494",
-        "hours": "Monday – Friday, 10 AM – 6 PM"
+        "hours": "Monday – Friday, 10 AM – 6 PM",
+        "embed_btn": "Pick a time",
+        "embed_heading": "Choose your slot",
+        "embed_text": "Pick a date and time below. We confirm by email and you can reschedule any time."
       },
       "blocks": {
         "step_1": {

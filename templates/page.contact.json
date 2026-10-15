@@ -40,7 +40,6 @@
         "location_1": {
           "type": "location",
           "settings": {
-            "image": "shopify://shop_images/From_Humble_Beginnings.png",
             "badge": "Showroom & warehouse",
             "name": "TOOSA, Richmond BC",
             "text": "See the full lineup, pull the drawers and pick up orders.",
@@ -50,13 +49,13 @@
             "email": "sales@toosa.ca",
             "hours": "Monday – Friday, 10 AM – 6 PM",
             "link_text": "Book a visit",
-            "link_url": "shopify://pages/book-appointments"
+            "link_url": "shopify://pages/book-appointments",
+            "logo": "shopify://shop_images/0328f2_06d5e44bee344133ba7a6bad9e4e9480_mv2_1.avif"
           }
         },
         "location_2": {
           "type": "location",
           "settings": {
-            "image": "shopify://shop_images/Tool_Cabinet_auto_shop.png",
             "badge": "Distributor",
             "name": "My Tool Shop, Calgary AB",
             "text": "Our Alberta partner, with TOOSA units on the floor and local pickup.",
@@ -66,7 +65,9 @@
             "email": "info@mytoolshop.ca",
             "hours": "Monday – Friday, 9 AM – 6 PM",
             "link_text": "mytoolshop.ca",
-            "link_url": "https://mytoolshop.ca/"
+            "link_url": "https://mytoolshop.ca/",
+            "mark": "MTS",
+            "wordmark": "My Tool Shop"
           }
         }
       },
@@ -86,7 +87,10 @@
         "points": "See every size side by side|Test drawers, slides and locks|Plan a modular layout for your space|Talk financing and delivery",
         "embed": "<div class=\"appointo-custom-btn\" data-appointo-product-handle=\"in-person-product-demo\" type=\"embed\"></div>",
         "phone": "+1 (778) 939-9494",
-        "hours": "Monday – Friday, 10 AM – 6 PM"
+        "hours": "Monday – Friday, 10 AM – 6 PM",
+        "embed_btn": "Pick a time",
+        "embed_heading": "Pick a time",
+        "embed_text": "Choose a date and time below. We confirm by email and you can reschedule any time."
       },
       "blocks": {
         "step_1": {

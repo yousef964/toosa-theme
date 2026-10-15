@@ -14,13 +14,14 @@
       "type": "tx-p-grid",
       "settings": {
         "theme": "paper",
-        "style": "strip",
+        "style": "tiles",
         "columns": "4"
       },
       "blocks": {
         "card_1": {
           "type": "card",
           "settings": {
+            "icon": "truck",
             "title": "Lower Mainland delivery",
             "text": "<p>Flat $100 to Vancouver, Richmond, the Tri-Cities and nearby.</p>"
           }
@@ -28,6 +29,7 @@
         "card_2": {
           "type": "card",
           "settings": {
+            "icon": "map",
             "title": "Canada-wide shipping",
             "text": "<p>Rates calculated at checkout from your postal code. Free on orders over $3,000.</p>"
           }
@@ -35,6 +37,7 @@
         "card_3": {
           "type": "card",
           "settings": {
+            "icon": "box",
             "title": "Free pickup",
             "text": "<p>Curbside at the Richmond warehouse, or through our Calgary partner.</p>"
           }
@@ -42,6 +45,7 @@
         "card_4": {
           "type": "card",
           "settings": {
+            "icon": "eye",
             "title": "Try before you buy",
             "text": "<p>Free in-person and virtual demos, so you order the right unit the first time.</p>"
           }
@@ -55,76 +59,102 @@
       ]
     },
     "policy": {
-      "type": "tx-p-rich",
+      "type": "tx-p-tabs",
       "settings": {
         "theme": "light",
-        "use_page": false,
+        "layout": "side",
         "eyebrow": "The details",
         "heading": "Delivery, pickup, assembly and returns.",
-        "help_title": "Questions about an order?",
-        "help_text": "Have your order number handy and call or email the team.",
-        "help_btn": "Contact us",
-        "help_url": "shopify://pages/contact"
+        "lead": "<p>Short answers for each step, from checkout to your shop floor.</p>"
       },
       "blocks": {
-        "section_1": {
-          "type": "section",
+        "tab_1": {
+          "type": "tab",
           "settings": {
+            "icon": "truck",
             "title": "Local delivery",
-            "text": "<p>We deliver in the Lower Mainland, including Vancouver, Richmond and the Tri-Cities, for a flat rate of $100. Our team brings your new workbench or cabinet to your door so it arrives safely and quickly.</p><p>Orders over $3,000 qualify for free shipping.</p>"
+            "kicker": "Lower Mainland, flat $100",
+            "text": "<p>We deliver in the Lower Mainland, including Vancouver, Richmond and the Tri-Cities, for a flat rate of $100. Our team brings your new workbench or cabinet to your door so it arrives safely and quickly.</p>",
+            "points": "Flat $100 to Vancouver, Richmond, the Tri-Cities and nearby|Delivered by the TOOSA team|Orders over $3,000 qualify for free shipping"
           }
         },
-        "section_2": {
-          "type": "section",
+        "tab_2": {
+          "type": "tab",
           "settings": {
+            "icon": "map",
             "title": "Shipping across Canada",
-            "text": "<p>Outside the Lower Mainland, rates are calculated for every delivery location in Canada and added automatically at checkout once you enter your postal code. Larger units ship on a pallet; please let us know if your address needs a lift-gate or has limited truck access.</p><p>Need a quote for a business order or a tricky location? <a href=\"/pages/contact\">Contact us</a> and we'll price it for you.</p>"
+            "kicker": "Rates at checkout",
+            "text": "<p>Outside the Lower Mainland, rates are calculated for every delivery location in Canada and added automatically at checkout once you enter your postal code.</p>",
+            "points": "Larger units ship on a pallet|Tell us if your address needs a lift-gate or has limited truck access|Free shipping on orders over $3,000",
+            "note": "Need a quote for a business order or a tricky location? We'll price it for you.",
+            "link_text": "Contact us",
+            "link_url": "shopify://pages/contact"
           }
         },
-        "section_3": {
-          "type": "section",
+        "tab_3": {
+          "type": "tab",
           "settings": {
+            "icon": "box",
             "title": "Pickup",
-            "text": "<p>Free local curbside pickup is available from our Richmond, BC warehouse at Unit 142 – 11566 Eburne Way. Place your order online, then schedule your pickup time with us. In Alberta, orders can be collected through our Calgary distributor, My Tool Shop.</p>"
+            "kicker": "Free in Richmond or Calgary",
+            "text": "<p>Free local curbside pickup is available from our Richmond, BC warehouse at Unit 142 – 11566 Eburne Way. Place your order online, then schedule your pickup time with us.</p>",
+            "points": "Richmond, BC warehouse, curbside|Order online, then book a pickup time with us|In Alberta, collect through our Calgary distributor, My Tool Shop"
           }
         },
-        "section_4": {
-          "type": "section",
+        "tab_4": {
+          "type": "tab",
           "settings": {
-            "title": "Assembly and installation",
-            "text": "<p>Base units arrive assembled where shipping allows; add-ons such as hutches, side lockers and pegboards bolt on with basic hand tools. Instructions and hardware are included where applicable.</p><p>Professional assembly is available on eligible products for an additional charge. Ask us when you order.</p>"
+            "icon": "wrench",
+            "title": "Assembly & installation",
+            "kicker": "Bolt-on with hand tools",
+            "text": "<p>Base units arrive assembled where shipping allows. Add-ons such as hutches, side lockers and pegboards bolt on with basic hand tools, and instructions and hardware are included where applicable.</p>",
+            "points": "Professional assembly is available on eligible products for an additional charge; ask us when you order|Air compressor: a licensed electrician for the 3-phase connection and a compressed-air installer for piping, dryer and drains",
+            "show_ul": true,
+            "ul_text": "The TS-20 compressor is a UL-certified package with a UL-listed inverter"
           }
         },
-        "section_5": {
-          "type": "section",
+        "tab_5": {
+          "type": "tab",
           "settings": {
-            "title": "Returns and exchanges",
-            "text": "<p>We provide free in-person and virtual product demos so you can be sure you're choosing the right TOOSA product for your workspace before you buy. Because of this, we do not offer returns or exchanges after purchase.</p><p>We believe in the quality of our workbenches, cabinets and workstands, and we're confident they will meet your needs. Not sure which configuration is right? <a href=\"/pages/book-appointments\">Book a demo</a> first.</p>"
+            "icon": "undo",
+            "title": "Returns & exchanges",
+            "kicker": "Demo first, no returns",
+            "text": "<p>We provide free in-person and virtual product demos so you can be sure you're choosing the right TOOSA product for your workspace before you buy. Because of this, we do not offer returns or exchanges after purchase.</p><p>We believe in the quality of our workbenches, cabinets and workstands, and we're confident they will meet your needs. Not sure which configuration is right? Book a demo first.</p>",
+            "link_text": "Book a demo",
+            "link_url": "shopify://pages/book-appointments"
           }
         },
-        "section_6": {
-          "type": "section",
+        "tab_6": {
+          "type": "tab",
           "settings": {
+            "icon": "shield",
             "title": "Warranty",
-            "text": "<p>TOOSA products come with a one-year limited warranty covering manufacturing defects. Product-specific warranties may vary, particularly for specialised equipment such as air compressors; the exact terms are listed with the product.</p>"
+            "kicker": "One-year limited",
+            "text": "<p>TOOSA products come with a one-year limited warranty covering manufacturing defects.</p>",
+            "points": "Product-specific warranties may vary, particularly for specialised equipment such as air compressors|The exact terms are listed with each product"
           }
         },
-        "section_7": {
-          "type": "section",
+        "tab_7": {
+          "type": "tab",
           "settings": {
+            "icon": "warning",
             "title": "Damaged or incorrect items",
-            "text": "<p>Inspect your delivery when it arrives. If anything is damaged in transit or not what you ordered, contact us as soon as possible with your order number and photos, and we'll sort it out.</p>"
+            "kicker": "Tell us right away",
+            "text": "<p>Inspect your delivery when it arrives. If anything is damaged in transit or not what you ordered, contact us as soon as possible and we'll sort it out.</p>",
+            "points": "Have your order number handy|Send photos of the damage or the item",
+            "link_text": "Contact us",
+            "link_url": "shopify://pages/contact"
           }
         }
       },
       "block_order": [
-        "section_1",
-        "section_2",
-        "section_3",
-        "section_4",
-        "section_5",
-        "section_6",
-        "section_7"
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4",
+        "tab_5",
+        "tab_6",
+        "tab_7"
       ]
     },
     "cta": {
