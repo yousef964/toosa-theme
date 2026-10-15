@@ -32,6 +32,30 @@
 
   {%- liquid
     assign meta_desc = page_description
+    if meta_desc == blank and template.name == 'page'
+      case page.handle
+        when 'contact'
+          assign meta_desc = 'Contact TOOSA in Richmond, BC: call 778-939-9494, email sales@toosa.ca, send a message or book a showroom visit to see the tool storage lineup in person.'
+        when 'our-story'
+          assign meta_desc = 'How TOOSA started: a Richmond, BC shop building modular tool chests, hutches, lockers and foam inserts for people who work with their hands every day.'
+        when 'why-toosa'
+          assign meta_desc = 'Why workshops choose TOOSA: welded heavy-gauge steel, modular add-ons that bolt on later, Canadian support and showroom pricing without the dealer markup.'
+        when 'faqs'
+          assign meta_desc = 'Answers about TOOSA tool chests, modules, foam inserts, delivery across Canada, financing and warranty, straight from the Richmond, BC showroom.'
+        when 'toosa-gallery'
+          assign meta_desc = 'Photos of TOOSA tool storage in real garages, auto shops and industrial workshops across Canada: Mega Max, Ultra Task, hutches, lockers and foam.'
+        when 'book-appointments'
+          assign meta_desc = 'Book a free 30-minute visit to the TOOSA showroom in Richmond, BC. See every size side by side, test the drawers and leave with a layout and a quote.'
+        when 'tool-storage'
+          assign meta_desc = 'TOOSA modular tool storage: Mega Max 72 and Ultra Task 56 rolling tool chests with hutches, lockers, side drawers and lighting that bolt on as you grow.'
+        when 'air-compressor'
+          assign meta_desc = 'The TOOSA TS-20 rotary screw air compressor: 20 HP, integrated dryer and 500 L tank in one UL-certified package built for busy shops, delivered in Canada.'
+        when 'custom-foam-inquiry'
+          assign meta_desc = 'Custom-cut foam tool inserts from TOOSA: send us your drawer size and tools, get a quote, and keep every tool in its place. Shipped across Canada.'
+        when 'delivery-returns'
+          assign meta_desc = 'TOOSA delivery and returns: shipping across Canada, free over $3,000, pickup in Richmond, BC, and how returns and exchanges work.'
+      endcase
+    endif
     if meta_desc == blank and template.name == 'page' and page.content != blank
       assign meta_desc = page.content | strip_html | strip_newlines | truncate: 158
     endif
