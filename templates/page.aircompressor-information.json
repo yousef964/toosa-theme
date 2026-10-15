@@ -16,7 +16,10 @@
         "btn2_url": "shopify://pages/contact",
         "btn3_text": "Book a showroom visit",
         "btn3_url": "shopify://pages/book-appointments",
-        "open_first": true
+        "open_first": true,
+        "show_ul": true,
+        "ul_text": "Certified package, UL-listed inverter",
+        "ul_note": "UL certification on the compressor package and its Innovance inverter, as listed with the product."
       },
       "blocks": {
         "chip_1": {
@@ -60,247 +63,388 @@
       ]
     },
     "specs": {
-      "type": "tx-p-table",
+      "type": "tx-p-specs",
       "settings": {
         "theme": "paper",
-        "side": true,
         "eyebrow": "Specifications",
         "heading": "What's in the machine.",
-        "lead": "<p>Hanbell AC-Series air-end, Innovance UL-certified inverter, IE4 permanent-magnet motor. Figures in brackets are being confirmed against the manufacturer spec sheet.</p>",
+        "lead": "<p>A Hanbell AC-Series air end, an IE4 permanent-magnet motor and a UL-listed Innovance inverter, packaged with the tank, dryer and filters you would otherwise buy separately.</p>",
+        "show_ul": true,
+        "ul_text": "Certified package, UL-listed inverter",
         "link_text": "Ask for the full spec sheet",
         "link_url": "shopify://pages/contact",
-        "row_label": "Specification",
-        "col1": "TS-20"
+        "note": "<p>Flow, pressure, sound level, dimensions and warranty terms are on the manufacturer spec sheet. Ask us and we'll send it with your quote.</p>"
       },
       "blocks": {
-        "row_1": {
-          "type": "row",
+        "spec_1": {
+          "type": "spec",
           "settings": {
+            "icon": "bolt",
             "label": "Motor",
-            "v1": "20 HP electric"
+            "value": "20 HP",
+            "note": "IE4 permanent-magnet, continuous duty",
+            "big": true
           }
         },
-        "row_2": {
-          "type": "row",
+        "spec_2": {
+          "type": "spec",
           "settings": {
-            "label": "Pump type",
-            "v1": "Oil-flooded rotary screw, [single-stage]"
-          }
-        },
-        "row_3": {
-          "type": "row",
-          "settings": {
-            "label": "Air delivery (FAD)",
-            "v1": "[~80–90 CFM] at [125 psi]"
-          }
-        },
-        "row_4": {
-          "type": "row",
-          "settings": {
-            "label": "Maximum pressure",
-            "v1": "[145 psi / 10 bar]"
-          }
-        },
-        "row_5": {
-          "type": "row",
-          "settings": {
+            "icon": "tank",
             "label": "Receiver tank",
-            "v1": "500 L vertical, ASME/CRN [certified — confirm]"
+            "value": "500 L",
+            "note": "Vertical tank, part of the package",
+            "big": true
           }
         },
-        "row_6": {
-          "type": "row",
+        "spec_3": {
+          "type": "spec",
           "settings": {
-            "label": "Air treatment",
-            "v1": "Integrated refrigerated air dryer + [pre/after] filtration"
-          }
-        },
-        "row_7": {
-          "type": "row",
-          "settings": {
+            "icon": "refresh",
             "label": "Duty cycle",
-            "v1": "100% — continuous operation"
+            "value": "100%",
+            "note": "Built to run all day",
+            "big": true
           }
         },
-        "row_8": {
-          "type": "row",
+        "spec_4": {
+          "type": "spec",
           "settings": {
+            "icon": "cog",
+            "label": "Air end",
+            "value": "Hanbell AC-Series",
+            "note": "Industrial rotary screw, oil-flooded"
+          }
+        },
+        "spec_5": {
+          "type": "spec",
+          "settings": {
+            "icon": "gauge",
+            "label": "Drive",
+            "value": "VFD with UL inverter",
+            "note": "Innovance inverter for stable pressure and energy savings"
+          }
+        },
+        "spec_6": {
+          "type": "spec",
+          "settings": {
+            "icon": "droplet",
+            "label": "Air treatment",
+            "value": "Refrigerated dryer",
+            "note": "Plus dual line filters and automatic drain"
+          }
+        },
+        "spec_7": {
+          "type": "spec",
+          "settings": {
+            "icon": "fan",
+            "label": "Cooling",
+            "value": "Air-cooled",
+            "note": "Simpler installation and maintenance"
+          }
+        },
+        "spec_8": {
+          "type": "spec",
+          "settings": {
+            "icon": "volume",
+            "label": "Noise",
+            "value": "Low noise, enclosed",
+            "note": "Compact footprint for workshops"
+          }
+        },
+        "spec_9": {
+          "type": "spec",
+          "settings": {
+            "icon": "plug",
             "label": "Electrical",
-            "v1": "[3-phase, 208/230/460 V — confirm] · [full-load amps]"
+            "value": "3-phase supply",
+            "note": "Licensed electrician for the hookup"
           }
         },
-        "row_9": {
-          "type": "row",
+        "spec_10": {
+          "type": "spec",
           "settings": {
-            "label": "Sound level",
-            "v1": "[~68–72 dB(A)] at [1 m]"
+            "icon": "award",
+            "label": "Certification",
+            "value": "UL certified",
+            "note": "Compressor package and inverter"
           }
         },
-        "row_10": {
-          "type": "row",
+        "spec_11": {
+          "type": "spec",
           "settings": {
-            "label": "Dimensions / weight",
-            "v1": "[L × W × H] · [~XXX kg]"
+            "icon": "phone",
+            "label": "Support",
+            "value": "Canadian parts & service",
+            "note": "From the TOOSA team in Richmond, BC"
           }
         },
-        "row_11": {
-          "type": "row",
+        "spec_12": {
+          "type": "spec",
           "settings": {
-            "label": "Controller",
-            "v1": "[Digital controller with hour meter, temperature and service alerts]"
-          }
-        },
-        "row_12": {
-          "type": "row",
-          "settings": {
-            "label": "Warranty",
-            "v1": "[Airend X years · package Y years — confirm]"
+            "icon": "card",
+            "label": "Financing",
+            "value": "Pay monthly with RBC",
+            "note": "Same financing as the tool storage"
           }
         }
       },
       "block_order": [
-        "row_1",
-        "row_2",
-        "row_3",
-        "row_4",
-        "row_5",
-        "row_6",
-        "row_7",
-        "row_8",
-        "row_9",
-        "row_10",
-        "row_11",
-        "row_12"
+        "spec_1",
+        "spec_2",
+        "spec_3",
+        "spec_4",
+        "spec_5",
+        "spec_6",
+        "spec_7",
+        "spec_8",
+        "spec_9",
+        "spec_10",
+        "spec_11",
+        "spec_12"
+      ]
+    },
+    "inside": {
+      "type": "tx-p-tabs",
+      "settings": {
+        "theme": "light",
+        "layout": "top",
+        "eyebrow": "Inside the package",
+        "heading": "One machine, five jobs done.",
+        "lead": "<p>Everything that normally gets bolted together on site is already in the enclosure. Tap through what each part does.</p>"
+      },
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "icon": "cog",
+            "title": "Air end",
+            "heading": "Hanbell AC-Series screw air end",
+            "text": "<p>An industrial-grade Hanbell AC-Series rotary screw air end, designed for durability and long service life. Two interlocking rotors compress air in a continuous flow instead of a piston pumping in strokes, which is why it runs 100% of the time without overheating and holds pressure steady.</p>",
+            "points": "Continuous duty, no rest cycle|Steady pressure instead of cycling up and down|More usable air per horsepower",
+            "image": "shopify://shop_images/TS-20_open_door.png",
+            "contain": true,
+            "caption": "Open enclosure"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "icon": "bolt",
+            "title": "Motor & drive",
+            "heading": "20 HP IE4 motor with a UL-listed inverter",
+            "text": "<p>A 20 HP permanent-magnet motor with IE4 efficiency, driven by a variable frequency drive built around an Innovance UL inverter. The drive matches motor speed to demand for stable pressure control and lower energy consumption.</p>",
+            "points": "Variable frequency drive (VFD)|Reduced energy consumption|Stable pressure control",
+            "show_ul": true,
+            "ul_text": "UL-listed inverter in a UL-certified package",
+            "image": "shopify://shop_images/TS-20__certified_air_compressor.png",
+            "contain": true,
+            "caption": "UL certified"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "icon": "droplet",
+            "title": "Air treatment",
+            "heading": "Refrigerated dryer, dual filters, automatic drain",
+            "text": "<p>Compressing air makes water. The integrated refrigerated air dryer removes it before it reaches your lines, dual line filters clean what's left, and the automatic drain system handles the condensate. Clean, dry air out of the box, for spray finishing, plasma cutting and the life of your air tools.</p>",
+            "points": "Integrated refrigerated air dryer|Dual line filters|Automatic drain system",
+            "image": "shopify://shop_images/TS_20_Air_Compressor_Side.png",
+            "contain": true,
+            "caption": "Dryer side"
+          }
+        },
+        "tab_4": {
+          "type": "tab",
+          "settings": {
+            "icon": "tank",
+            "title": "Tank & package",
+            "heading": "500 L receiver in one quiet enclosure",
+            "text": "<p>The 500 L receiver tank buffers demand so several operators can draw air at once without the pressure dropping. The air-cooled design keeps installation and maintenance simple, and the enclosed, compact footprint keeps the noise down in workshops where space and quiet matter.</p>",
+            "points": "500 L receiver tank|Air-cooled design|Low noise, compact footprint",
+            "image": "shopify://shop_images/TS-20_Side.png",
+            "contain": true,
+            "caption": "Side view"
+          }
+        },
+        "tab_5": {
+          "type": "tab",
+          "settings": {
+            "icon": "phone",
+            "title": "Support",
+            "heading": "Canadian support and service parts",
+            "text": "<p>Sizing help before you buy, service parts and guidance after, from the TOOSA team in Richmond, BC. Monthly payments with RBC are available on the compressor, the same as the tool storage.</p>",
+            "points": "See and hear it run at the Richmond showroom|Service parts and guidance in Canada|Pay monthly with RBC",
+            "image": "shopify://shop_images/TOOSA_TS-20_Compressor_in_Modern_Workshop.png",
+            "caption": "In a workshop",
+            "link_text": "Request a quote",
+            "link_url": "shopify://pages/contact",
+            "link2_text": "Book a showroom visit",
+            "link2_url": "shopify://pages/book-appointments"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4",
+        "tab_5"
       ]
     },
     "who": {
+      "type": "tx-p-tabs",
+      "settings": {
+        "theme": "paper",
+        "layout": "side",
+        "eyebrow": "Who it's for",
+        "heading": "Why each type of shop buys this compressor.",
+        "lead": "<p>One machine, three very different buyers. Here's the case for each, plus the honest note on power.</p>",
+        "note": "<p>A note on power: the 20 HP motor needs <strong>3-phase electricity</strong>, standard in commercial buildings and available to a home shop with a phase converter. Not sure what you have? Send us your tools, bay count and power supply and we'll confirm it fits before you order.</p>"
+      },
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "icon": "garage",
+            "title": "DIY & serious home garages",
+            "kicker": "Build once, never upgrade",
+            "heading": "The last compressor you'll buy",
+            "text": "<p>For a serious home shop, a restoration bay or a car collection: quiet, clean air with nothing to add, and no working up from a pancake to a 60-gallon to a two-stage as the shop grows.</p>",
+            "points": "Quiet in an attached garage: an enclosed rotary screw hums where a piston pump hammers|Clean, dry air with nothing to add: the dryer is built in, for paint, plasma and air-tool life|Never waits: run a media blaster, DA sander or tire tools without stopping for the tank to catch up|Needs 3-phase power or a phase converter",
+            "image": "shopify://shop_images/TS-20photo.png",
+            "contain": true
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "icon": "building",
+            "title": "Small businesses & trade shops",
+            "kicker": "One machine for the whole shop",
+            "heading": "One machine for the whole shop",
+            "text": "<p>Supplies every bay from one unit, so there is no second compressor to buy when you add a lift or a technician, and no piston unit worn out in a couple of years.</p>",
+            "points": "Runs all day: 100% duty cycle avoids the wear that kills piston units|Consistent finish quality: the integrated dryer means fewer paint and coating redos|One unit for every bay, with the 500 L tank covering peaks|Monthly payments with RBC: a manageable business asset, not a cash-flow hit",
+            "image": "shopify://shop_images/TOOSA_TS-20_Compressor_in_Modern_Workshop.png"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "icon": "factory",
+            "title": "Bigger businesses & production",
+            "kicker": "Uptime and cost per CFM",
+            "heading": "Uptime and cost per CFM",
+            "text": "<p>Cheaper to run than banks of piston compressors, with more air per horsepower and less energy per CFM, and Canadian parts when production can't wait on an import lead time.</p>",
+            "points": "Keeps the line moving: continuous duty plus a digital controller with service alerts|Handles demand spikes: the 500 L receiver covers blasting and several operators at once|Canadian support and parts, no import lead time when production is down|Pay monthly with RBC and spread the cost",
+            "image": "shopify://shop_images/TS-20_Side.png",
+            "contain": true,
+            "link_text": "Talk to us about your facility",
+            "link_url": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ]
+    },
+    "use": {
       "type": "tx-p-grid",
       "settings": {
         "theme": "light",
-        "style": "cards",
-        "columns": "3",
-        "eyebrow": "Who it's for",
-        "heading": "Why each type of shop buys this compressor.",
-        "lead": "<p>One machine, three very different buyers. Here's the case for each — plus the honest note on power at the end.</p>",
-        "note": "<p>A note on power: the 20 HP motor needs <strong>3-phase electricity</strong> — standard in commercial buildings, and available to a home shop with a phase converter. Not sure what you have? Send us your tools, bay count and power supply and we'll confirm it fits before you order.</p>"
+        "style": "list",
+        "columns": "2",
+        "eyebrow": "What shop air is for",
+        "heading": "What a compressor this size lets you run.",
+        "lead": "<p>Air tools are rated in CFM at 90 psi. A rotary screw compressor delivers a steady flow, so you can run several demanding tools at once without the pressure dropping. Add up the CFM of everything running at the same time, then add about 30% headroom.</p>"
       },
       "blocks": {
         "card_1": {
           "type": "card",
           "settings": {
-            "kicker": "Build Once, Never Upgrade",
-            "title": "DIY & serious home garages",
-            "text": "<ul><li><strong>The last compressor you'll buy</strong> — no working up from a pancake to a 60-gallon to a two-stage as the shop grows</li><li><strong>Quiet in an attached garage</strong> — an enclosed rotary screw hums where a piston pump hammers</li><li><strong>Clean, dry air with nothing to add</strong> — the dryer is built in, for paint, plasma and air-tool life</li><li><strong>Never waits</strong> — run a media blaster, DA sander or tire tools without stopping for the tank to catch up</li></ul>"
+            "icon": "wrench",
+            "title": "½\" impact wrench",
+            "text": "<p>Run several at once across the shop.</p>"
           }
         },
         "card_2": {
           "type": "card",
           "settings": {
-            "kicker": "One Machine For The Whole Shop",
-            "title": "Small businesses & trade shops",
-            "text": "<ul><li><strong>Supplies every bay from one unit</strong> — no second compressor when you add a lift or a technician</li><li><strong>Runs all day</strong> — 100% duty cycle avoids the wear that kills piston units in a couple of years</li><li><strong>Consistent finish quality</strong> — the integrated dryer means fewer paint and coating redos</li><li><strong>Monthly payments with RBC</strong> — a manageable business asset, not a cash-flow hit</li></ul>"
+            "icon": "cog",
+            "title": "Air ratchet and die grinder",
+            "text": "<p>Continuous use, no waiting for recovery.</p>"
           }
         },
         "card_3": {
           "type": "card",
           "settings": {
-            "kicker": "Uptime And Cost Per Cfm",
-            "title": "Bigger businesses & production",
-            "text": "<ul><li><strong>Cheaper to run</strong> than banks of piston compressors — more air per horsepower, less energy per CFM</li><li><strong>Keeps the line moving</strong> — continuous duty plus a digital controller with service alerts</li><li><strong>Handles demand spikes</strong> — the 500 L receiver covers blasting and several operators at once</li><li><strong>Canadian support & parts</strong> — no import lead time when production is down</li></ul>"
+            "icon": "refresh",
+            "title": "DA / orbital sander",
+            "text": "<p>Bodywork all day without starving other tools.</p>"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "icon": "spray",
+            "title": "HVLP spray gun",
+            "text": "<p>The integrated dryer keeps moisture out of the finish.</p>"
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "icon": "bolt",
+            "title": "Plasma cutter",
+            "text": "<p>Steady pressure for clean cuts.</p>"
+          }
+        },
+        "card_6": {
+          "type": "card",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Sandblasting and media blasting",
+            "text": "<p>High sustained demand, where a rotary screw earns its keep.</p>"
+          }
+        },
+        "card_7": {
+          "type": "card",
+          "settings": {
+            "icon": "grid",
+            "title": "Shop-wide air drops",
+            "text": "<p>Multiple operators on one system.</p>"
+          }
+        },
+        "card_8": {
+          "type": "card",
+          "settings": {
+            "icon": "chat",
+            "title": "Not sure it's enough?",
+            "text": "<p>Send your tool list and shop size and we'll tell you if this is right or if you should wait.</p>",
+            "link_text": "Get sizing help",
+            "link_url": "shopify://pages/contact",
+            "tone": "accent"
           }
         }
       },
       "block_order": [
         "card_1",
         "card_2",
-        "card_3"
-      ]
-    },
-    "use": {
-      "type": "tx-p-table",
-      "settings": {
-        "theme": "paper",
-        "side": true,
-        "eyebrow": "What shop air is for",
-        "heading": "What a compressor this size lets you run.",
-        "lead": "<p>Air tools are rated in CFM at 90 psi. A rotary screw compressor delivers a steady flow, so you can run several demanding tools at once without the pressure dropping. [Tool figures are typical ranges.]</p>",
-        "row_label": "Tool / job",
-        "col1": "Typical air draw",
-        "col2": "Notes"
-      },
-      "blocks": {
-        "row_1": {
-          "type": "row",
-          "settings": {
-            "label": "½” impact wrench",
-            "v1": "[~4–5 CFM]",
-            "v2": "Run several at once across the shop"
-          }
-        },
-        "row_2": {
-          "type": "row",
-          "settings": {
-            "label": "Air ratchet / die grinder",
-            "v1": "[~4–8 CFM]",
-            "v2": "Continuous use, no waiting for recovery"
-          }
-        },
-        "row_3": {
-          "type": "row",
-          "settings": {
-            "label": "DA / orbital sander",
-            "v1": "[~10–13 CFM]",
-            "v2": "Bodywork all day without starving other tools"
-          }
-        },
-        "row_4": {
-          "type": "row",
-          "settings": {
-            "label": "HVLP spray gun",
-            "v1": "[~10–14 CFM]",
-            "v2": "Integrated dryer keeps moisture out of the finish"
-          }
-        },
-        "row_5": {
-          "type": "row",
-          "settings": {
-            "label": "Plasma cutter (air)",
-            "v1": "[~6–10 CFM]",
-            "v2": "Steady pressure for clean cuts"
-          }
-        },
-        "row_6": {
-          "type": "row",
-          "settings": {
-            "label": "Sandblast / media blasting",
-            "v1": "[~15–30+ CFM]",
-            "v2": "High sustained demand — where rotary screw earns its keep"
-          }
-        },
-        "row_7": {
-          "type": "row",
-          "settings": {
-            "label": "Shop-wide air drops",
-            "v1": "[add tool CFM together]",
-            "v2": "Multiple operators on one system"
-          }
-        }
-      },
-      "block_order": [
-        "row_1",
-        "row_2",
-        "row_3",
-        "row_4",
-        "row_5",
-        "row_6",
-        "row_7"
+        "card_3",
+        "card_4",
+        "card_5",
+        "card_6",
+        "card_7",
+        "card_8"
       ]
     },
     "why": {
       "type": "tx-p-grid",
       "settings": {
         "theme": "dark",
-        "style": "cards",
+        "style": "tiles",
         "columns": "4",
         "eyebrow": "Why rotary screw",
         "heading": "The difference vs. a piston compressor.",
@@ -310,6 +454,7 @@
         "card_1": {
           "type": "card",
           "settings": {
+            "icon": "refresh",
             "title": "Continuous duty",
             "text": "<p>A rotary screw runs 100% of the time without overheating. A piston unit is designed to build pressure and rest; push it and it wears fast.</p>"
           }
@@ -317,6 +462,7 @@
         "card_2": {
           "type": "card",
           "settings": {
+            "icon": "gauge",
             "title": "More air per horsepower",
             "text": "<p>Screw compressors deliver more usable CFM for the same motor size, and hold pressure steady instead of cycling up and down.</p>"
           }
@@ -324,6 +470,7 @@
         "card_3": {
           "type": "card",
           "settings": {
+            "icon": "droplet",
             "title": "Clean, dry air built in",
             "text": "<p>Compressing air makes water. The integrated refrigerated dryer removes it before it reaches your lines, protecting finishes, tools and fittings from rust.</p>"
           }
@@ -331,8 +478,9 @@
         "card_4": {
           "type": "card",
           "settings": {
+            "icon": "volume",
             "title": "Quieter, and lower running cost",
-            "text": "<p>Enclosed and vibration-isolated, it's quieter than an open piston pump and the cost per CFM over its life is lower.</p>"
+            "text": "<p>Enclosed and vibration-isolated, it's quieter than an open piston pump, and the cost per CFM over its life is lower.</p>"
           }
         }
       },
@@ -347,24 +495,26 @@
       "type": "tx-p-grid",
       "settings": {
         "theme": "paper",
-        "style": "cards",
-        "columns": "4",
+        "style": "check",
+        "columns": "2",
         "eyebrow": "Before you buy",
         "heading": "Power, space and setup to plan for.",
-        "lead": "<p>A machine this size needs a few things in place. Check these before ordering, and involve a licensed electrician and a compressed-air installer for hookup.</p>"
+        "lead": "<p>A machine this size needs a few things in place. Check these before ordering, and involve a licensed electrician and a compressed-air installer for the hookup.</p>"
       },
       "blocks": {
         "card_1": {
           "type": "card",
           "settings": {
             "title": "Three-phase power",
-            "text": "<p>A 20 HP motor needs [3-phase] service and a correctly sized breaker and feeder. Confirm your building's supply and [full-load amps] with an electrician.</p>"
+            "text": "<p>A 20 HP motor needs 3-phase service and a correctly sized breaker and feeder. Confirm your building's supply with an electrician.</p>",
+            "show_ul": true,
+            "ul_text": "UL-certified package, UL-listed inverter"
           }
         },
         "card_2": {
           "type": "card",
           "settings": {
-            "title": "Placement & ventilation",
+            "title": "Placement and ventilation",
             "text": "<p>A dry, level, ventilated area with clearance around the enclosure for cooling airflow. Keep it out of freezing temperatures.</p>"
           }
         },
@@ -397,34 +547,37 @@
         "style": "steps",
         "columns": "4",
         "eyebrow": "Getting it running",
-        "heading": "Delivery and installation."
+        "heading": "Delivery and installation.",
+        "lead": "<p>Four steps from our warehouse to the first tool running.</p>"
       },
       "blocks": {
         "card_1": {
           "type": "card",
           "settings": {
-            "title": "Free Freight, Canada-wide",
-            "text": "<p>Shipped on a pallet to your door, or collect from Richmond, [Vancouver] or Calgary.</p>"
+            "title": "Free freight, Canada-wide",
+            "text": "<p>Shipped on a pallet to your door, or collect from Richmond, Vancouver or Calgary.</p>"
           }
         },
         "card_2": {
           "type": "card",
           "settings": {
-            "title": "Position & Anchor",
+            "title": "Position and anchor",
             "text": "<p>Move into place with a pallet jack or forklift; set on a level pad with clearance for airflow and service access.</p>"
           }
         },
         "card_3": {
           "type": "card",
           "settings": {
-            "title": "Electrical & Air Hookup",
-            "text": "<p>Licensed electrician for the 3-phase connection; compressed-air installer for piping, dryer and drains.</p>"
+            "title": "Electrical and air hookup",
+            "text": "<p>Licensed electrician for the 3-phase connection; compressed-air installer for piping, dryer and drains.</p>",
+            "show_ul": true,
+            "ul_text": "UL-certified package"
           }
         },
         "card_4": {
           "type": "card",
           "settings": {
-            "title": "Commission & Support",
+            "title": "Commission and support",
             "text": "<p>Initial run-up checks, then ongoing service parts and guidance from the TOOSA team in Canada.</p>"
           }
         }
@@ -440,7 +593,7 @@
       "type": "tx-p-grid",
       "settings": {
         "theme": "paper",
-        "style": "cards",
+        "style": "tiles",
         "columns": "3",
         "eyebrow": "Why buy it from TOOSA",
         "heading": "The same shop that builds your storage.",
@@ -526,35 +679,35 @@
           "type": "qa",
           "settings": {
             "question": "What is a rotary screw air compressor?",
-            "answer": "<p>A rotary screw compressor uses two interlocking helical rotors to compress air in a continuous flow, instead of a piston pumping in strokes. That lets it run 100% of the time without overheating, hold pressure steady, and deliver more air per horsepower.  which is why it's the standard for shops that use air for hours at a stretch.</p>"
+            "answer": "<p>A rotary screw compressor uses two interlocking helical rotors to compress air in a continuous flow, instead of a piston pumping in strokes. That lets it run 100% of the time without overheating, hold pressure steady and deliver more air per horsepower, which is why it's the standard for shops that use air for hours at a stretch.</p>"
           }
         },
         "qa_2": {
           "type": "qa",
           "settings": {
             "question": "What size air compressor does a busy auto or body shop need?",
-            "answer": "<p>Add up the CFM at 90 psi of every air tool you'll run at the same time, then add about 30% headroom. Multi-bay shops running sanders, impacts and spray guns typically land in the [~60– 90 CFM] range. which is what this 20 HP unit is built to supply, with the 500 L tank buffering peaks.</p>"
+            "answer": "<p>Add up the CFM at 90 psi of every air tool you'll run at the same time, then add about 30% headroom. Multi-bay shops running sanders, impacts and spray guns all day are what this 20 HP unit is built to supply, with the 500 L tank buffering peaks.</p>"
           }
         },
         "qa_3": {
           "type": "qa",
           "settings": {
             "question": "Does this compressor need three-phase power?",
-            "answer": "<p>Yes. A 20 HP motor requires [3-phase] electrical service with a properly sized breaker and feeder. Most commercial and industrial buildings have it; confirm your supply with a licensed electrician before ordering.</p>"
+            "answer": "<p>Yes. A 20 HP motor requires 3-phase electrical service with a properly sized breaker and feeder. Most commercial and industrial buildings have it; confirm your supply with a licensed electrician before ordering.</p>"
           }
         },
         "qa_4": {
           "type": "qa",
           "settings": {
             "question": "Do I need to buy a separate air dryer?",
-            "answer": "<p>No. A refrigerated air dryer is built into this package, so you get clean, dry air out of the box important for spray finishing, plasma cutting and the life of your air tools. Additional point-of-use filtration can be added for specific processes.</p>"
+            "answer": "<p>No. A refrigerated air dryer is built into this package, so you get clean, dry air out of the box, which matters for spray finishing, plasma cutting and the life of your air tools. Additional point-of-use filtration can be added for specific processes.</p>"
           }
         },
         "qa_5": {
           "type": "qa",
           "settings": {
             "question": "Is this worth it for a home garage?",
-            "answer": "<p>For a serious home shop restoration, fabrication, a car collection yes: it's quiet, gives you clean dry air with no bolt-on dryer, runs any tool without waiting, and it's the last compressor you'll buy. It does need 3-phase power or a phase converter. For occasional tyre-and-nailer use it's more than you need send us your setup and we'll be straight with you.</p>"
+            "answer": "<p>For a serious home shop (restoration, fabrication, a car collection), yes: it's quiet, gives you clean dry air with no bolt-on dryer, runs any tool without waiting, and it's the last compressor you'll buy. It does need 3-phase power or a phase converter. For occasional tyre-and-nailer use it's more than you need; send us your setup and we'll be straight with you.</p>"
           }
         },
         "qa_6": {
@@ -575,7 +728,7 @@
           "type": "qa",
           "settings": {
             "question": "CFM vs. PSI, what should I size against?",
-            "answer": "<p>PSI is pressure; almost any compressor makes enough. CFM (airflow) at working pressure is what runs your tools continuously size against the combined CFM of everything running at once.</p>"
+            "answer": "<p>PSI is pressure; almost any compressor makes enough. CFM (airflow) at working pressure is what runs your tools continuously, so size against the combined CFM of everything running at once.</p>"
           }
         }
       },
@@ -612,6 +765,7 @@
   "order": [
     "product",
     "specs",
+    "inside",
     "who",
     "use",
     "why",
