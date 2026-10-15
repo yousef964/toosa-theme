@@ -33,6 +33,7 @@
       {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
       <{{ tag }} class="txp-h1 txp-hero__title txp-reveal" data-delay="1">{{ title }}</{{ tag }}>
       {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      {%- if s.show_ul -%}<div class="txp-hero__badge txp-reveal" data-delay="3">{% render 'tx-p-ul', size: 'md', text: s.ul_text, tone: 'dark' %}</div>{%- endif -%}
       {%- if s.btn1_text != blank or s.btn2_text != blank -%}
         <div class="txp-actions txp-reveal" data-delay="3">
           {%- if s.btn1_text != blank -%}<a class="txp-btn txp-btn--primary" href="{{ s.btn1_url }}">{{ s.btn1_text }}{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
@@ -42,7 +43,7 @@
       {%- if section.blocks.size > 0 -%}
         <div class="txp-hero__stats txp-reveal" data-delay="4">
           {%- for block in section.blocks -%}
-            <div class="txp-hero__stat" {{ block.shopify_attributes }}><b>{{ block.settings.big }}</b><span>{{ block.settings.small }}</span></div>
+            <div class="txp-hero__stat" {{ block.shopify_attributes }}><b class="txp-count">{{ block.settings.big }}</b><span>{{ block.settings.small }}</span></div>
           {%- endfor -%}
         </div>
       {%- endif -%}
@@ -77,6 +78,8 @@
     { "type": "product", "id": "product", "label": "Or use a product's featured image" },
     { "type": "text", "id": "chip_big", "label": "Image chip, big text" },
     { "type": "text", "id": "chip_small", "label": "Image chip, small text" },
+    { "type": "checkbox", "id": "show_ul", "label": "Show the UL badge", "default": false },
+    { "type": "text", "id": "ul_text", "label": "UL badge line" },
     { "type": "text", "id": "btn1_text", "label": "Primary button" },
     { "type": "url", "id": "btn1_url", "label": "Primary link" },
     { "type": "text", "id": "btn2_text", "label": "Secondary button" },

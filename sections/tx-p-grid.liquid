@@ -19,6 +19,12 @@
   endif
   if s.style == 'strip'
     assign grid_class = grid_class | append: ' txp-grid--strip'
+  elsif s.style == 'list'
+    assign grid_class = grid_class | append: ' txp-grid--list'
+  elsif s.style == 'check'
+    assign grid_class = grid_class | append: ' txp-grid--check'
+  elsif s.style == 'tiles'
+    assign grid_class = grid_class | append: ' txp-grid--tiles'
   endif
   assign pad_class = 'txp-section'
   if s.style == 'strip'
@@ -65,16 +71,22 @@
           {%- endif -%}
           {%- if s.style == 'steps' -%}
             <div class="txp-card__num">{{ b.kicker | default: forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+          {%- elsif s.style == 'check' -%}
+            <div class="txp-card__icon txp-card__icon--check">{% render 'tx-p-icon', name: 'check' %}</div>
+            {%- if b.kicker != blank -%}<div class="txp-kicker">{{ b.kicker }}</div>{%- endif -%}
           {%- elsif b.icon != blank and b.icon != 'none' -%}
             <div class="txp-card__icon">{% render 'tx-p-icon', name: b.icon %}</div>
             {%- if b.kicker != blank -%}<div class="txp-kicker">{{ b.kicker }}</div>{%- endif -%}
           {%- elsif b.kicker != blank -%}
             <div class="txp-kicker">{{ b.kicker }}</div>
           {%- endif -%}
+          {%- if s.style == 'list' or s.style == 'check' -%}<div class="txp-card__body">{%- endif -%}
           {%- if b.title != blank -%}<h3 class="txp-h3">{{ b.title }}</h3>{%- endif -%}
           {%- if b.text != blank -%}<div class="txp-card__text">{{ b.text }}</div>{%- endif -%}
+          {%- if b.show_ul -%}<div class="txp-card__badge">{% render 'tx-p-ul', size: 'sm', text: b.ul_text %}</div>{%- endif -%}
           {%- if b.link_text != blank -%}<a class="txp-link txp-card__link" href="{{ b.link_url }}">{{ b.link_text }}{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
           {%- if b.foot != blank -%}<div class="txp-card__foot">{{ b.foot }}</div>{%- endif -%}
+          {%- if s.style == 'list' or s.style == 'check' -%}</div>{%- endif -%}
         </{{ el }}>
       {%- endfor -%}
     </div>
@@ -88,7 +100,7 @@
     { "type": "select", "id": "theme", "label": "Colour", "default": "paper", "options": [
       { "value": "light", "label": "White" }, { "value": "paper", "label": "Paper" }, { "value": "dark", "label": "Dark" }, { "value": "graphite", "label": "Graphite" } ] },
     { "type": "select", "id": "style", "label": "Style", "default": "cards", "options": [
-      { "value": "cards", "label": "Cards" }, { "value": "steps", "label": "Numbered steps" }, { "value": "strip", "label": "Hairline strip" }, { "value": "notes", "label": "Notes / quotes" } ] },
+      { "value": "cards", "label": "Cards" }, { "value": "steps", "label": "Numbered steps" }, { "value": "strip", "label": "Hairline strip" }, { "value": "notes", "label": "Notes / quotes" }, { "value": "list", "label": "Compact icon rows" }, { "value": "check", "label": "Checklist" }, { "value": "tiles", "label": "Small tiles" } ] },
     { "type": "select", "id": "columns", "label": "Columns", "default": "3", "options": [
       { "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" }, { "value": "5", "label": "5" } ] },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
@@ -103,11 +115,13 @@
     { "type": "card", "name": "Card", "settings": [
       { "type": "image_picker", "id": "image", "label": "Image (optional)" },
       { "type": "select", "id": "icon", "label": "Icon", "default": "none", "options": [
-        { "value": "none", "label": "None" }, { "value": "check", "label": "Check" }, { "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "box", "label": "Box" }, { "value": "wrench", "label": "Wrench" }, { "value": "card", "label": "Card" }, { "value": "bolt", "label": "Bolt" }, { "value": "layers", "label": "Layers" }, { "value": "chat", "label": "Chat" }, { "value": "eye", "label": "Eye" }, { "value": "pin", "label": "Pin" }, { "value": "clock", "label": "Clock" }, { "value": "calendar", "label": "Calendar" }, { "value": "phone", "label": "Phone" }, { "value": "mail", "label": "Mail" }, { "value": "star", "label": "Star" } ] },
+        { "value": "none", "label": "None" }, { "value": "check", "label": "Check" }, { "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "box", "label": "Box" }, { "value": "wrench", "label": "Wrench" }, { "value": "card", "label": "Card" }, { "value": "bolt", "label": "Bolt" }, { "value": "layers", "label": "Layers" }, { "value": "chat", "label": "Chat" }, { "value": "eye", "label": "Eye" }, { "value": "pin", "label": "Pin" }, { "value": "clock", "label": "Clock" }, { "value": "calendar", "label": "Calendar" }, { "value": "phone", "label": "Phone" }, { "value": "mail", "label": "Mail" }, { "value": "star", "label": "Star" }, { "value": "map", "label": "Map" }, { "value": "home", "label": "Home" }, { "value": "gauge", "label": "Gauge" }, { "value": "droplet", "label": "Droplet" }, { "value": "fan", "label": "Fan" }, { "value": "volume", "label": "Volume" }, { "value": "plug", "label": "Plug" }, { "value": "ruler", "label": "Ruler" }, { "value": "thermo", "label": "Thermometer" }, { "value": "filter", "label": "Filter" }, { "value": "tank", "label": "Tank" }, { "value": "factory", "label": "Factory" }, { "value": "garage", "label": "Garage" }, { "value": "building", "label": "Building" }, { "value": "award", "label": "Award" }, { "value": "users", "label": "People" }, { "value": "tag", "label": "Tag" }, { "value": "hammer", "label": "Hammer" }, { "value": "sparkle", "label": "Sparkle" }, { "value": "refresh", "label": "Refresh" }, { "value": "lock", "label": "Lock" }, { "value": "grid", "label": "Grid" }, { "value": "warning", "label": "Warning" }, { "value": "drawer", "label": "Drawer" }, { "value": "cog", "label": "Cog" }, { "value": "spray", "label": "Spray gun" }, { "value": "dollar", "label": "Dollar" }, { "value": "undo", "label": "Return" }, { "value": "camera", "label": "Camera" }, { "value": "forklift", "label": "Forklift" } ] },
       { "type": "text", "id": "kicker", "label": "Kicker / step number" },
       { "type": "text", "id": "title", "label": "Title" },
       { "type": "richtext", "id": "text", "label": "Text" },
       { "type": "text", "id": "foot", "label": "Footnote / source" },
+      { "type": "checkbox", "id": "show_ul", "label": "Show the UL badge", "default": false },
+      { "type": "text", "id": "ul_text", "label": "UL badge line" },
       { "type": "text", "id": "link_text", "label": "Link text" },
       { "type": "url", "id": "link_url", "label": "Link" },
       { "type": "select", "id": "tone", "label": "Tone", "default": "plain", "options": [

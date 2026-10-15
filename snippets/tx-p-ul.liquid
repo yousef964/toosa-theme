@@ -1,0 +1,10 @@
+{%- comment -%} TOOSA inner pages: UL certification badge. Usage: {% render 'tx-p-ul', size: 'md', text: 'UL-listed inverter', tone: 'dark' %} {%- endcomment -%}
+{%- liquid
+  assign sz = size | default: 'md'
+  assign label = title | default: 'UL certified'
+  assign sub = text | default: 'Certified package, UL-listed inverter'
+-%}
+<span class="txp-ul txp-ul--{{ sz }} {% if tone == 'dark' %}txp-ul--dark{% elsif tone == 'orange' %}txp-ul--orange{% endif %}" role="img" aria-label="{{ label }}{% if sub != blank %}: {{ sub }}{% endif %}">
+  <span class="txp-ul__mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3"/><text x="24" y="30" text-anchor="middle" font-size="18" font-weight="800" fill="currentColor" font-family="Manrope, Inter, system-ui, sans-serif" letter-spacing="-0.5">UL</text></svg></span>
+  {%- unless sz == 'mark' -%}<span class="txp-ul__text"><b>{{ label }}</b>{%- if sub != blank -%}<small>{{ sub }}</small>{%- endif -%}</span>{%- endunless -%}
+</span>

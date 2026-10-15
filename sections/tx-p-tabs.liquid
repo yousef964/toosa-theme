@@ -1,0 +1,104 @@
+{% comment %} TOOSA inner pages: accessible tabs (every panel stays in the DOM). Tab bar on top or down the side; each tab holds copy, a checklist, an image, a UL badge and a link. {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp txp--light'
+  if s.theme == 'paper'
+    assign theme_class = 'txp txp--paper'
+  elsif s.theme == 'dark'
+    assign theme_class = 'txp'
+  elsif s.theme == 'graphite'
+    assign theme_class = 'txp txp--graphite'
+  endif
+  assign layout = s.layout | default: 'top'
+-%}
+<section class="{{ theme_class }} txp-section" id="txp-tabs-{{ section.id }}">
+  <div class="txp-wrap">
+    {%- if s.eyebrow != blank or s.heading != blank -%}
+      <div class="txp-head {% if s.center %}txp-head--center{% endif %}">
+        {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="txp-h2 {% if layout == 'side' %}txp-h2--sm{% endif %} txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="txp-tabs-layout txp-tabs-layout--{{ layout }} {% if s.cards %}txp-tabs-layout--cards{% endif %} txp-reveal" data-delay="1" data-txp-tabs>
+      <div class="txp-tablist" role="tablist" aria-label="{{ s.heading | default: 'Topics' | escape }}" aria-orientation="{% if layout == 'side' %}vertical{% else %}horizontal{% endif %}">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          <button type="button" role="tab" id="txp-tab-{{ block.id }}" class="txp-tab {% if forloop.first %}is-on{% endif %}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="txp-panel-{{ block.id }}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" {{ block.shopify_attributes }}>
+            {%- if s.numbered -%}<b class="txp-tab__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</b>{%- elsif b.icon != blank and b.icon != 'none' -%}<span class="txp-tab__ic">{% render 'tx-p-icon', name: b.icon %}</span>{%- endif -%}
+            <span class="txp-tab__label"><span>{{ b.title }}</span>{%- if b.kicker != blank -%}<small>{{ b.kicker }}</small>{%- endif -%}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div class="txp-tabpanels">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          <div role="tabpanel" id="txp-panel-{{ block.id }}" class="txp-tabpanel {% if forloop.first %}is-on{% endif %}" aria-labelledby="txp-tab-{{ block.id }}" tabindex="0" {% unless forloop.first %}hidden{% endunless %}>
+            <div class="txp-tabpanel__grid {% if b.image != blank %}has-media{% endif %}">
+              <div class="txp-tabpanel__copy">
+                {%- if b.kicker != blank and layout == 'side' -%}<div class="txp-kicker">{{ b.kicker }}</div>{%- endif -%}
+                <h3 class="txp-h3">{{ b.heading | default: b.title }}</h3>
+                {%- if b.text != blank -%}<div class="txp-rt txp-tabpanel__rt">{{ b.text }}</div>{%- endif -%}
+                {%- if b.points != blank -%}
+                  <ul class="txp-checks">
+                    {%- assign pts = b.points | split: '|' -%}
+                    {%- for p in pts -%}<li><span>{% render 'tx-p-icon', name: 'check' %}</span>{{ p | strip }}</li>{%- endfor -%}
+                  </ul>
+                {%- endif -%}
+                {%- if b.show_ul -%}<div class="txp-tabpanel__badge">{% render 'tx-p-ul', size: 'md', text: b.ul_text %}</div>{%- endif -%}
+                {%- if b.note != blank -%}<p class="txp-tabpanel__note">{{ b.note }}</p>{%- endif -%}
+                {%- if b.link_text != blank -%}<div class="txp-actions txp-actions--tight"><a class="txp-btn txp-btn--primary txp-btn--sm" href="{{ b.link_url }}">{{ b.link_text }}{% render 'tx-p-icon', name: 'arrow' %}</a>{%- if b.link2_text != blank -%}<a class="txp-btn txp-btn--ghost txp-btn--sm" href="{{ b.link2_url }}">{{ b.link2_text }}</a>{%- endif -%}</div>{%- endif -%}
+              </div>
+              {%- if b.image != blank -%}
+                <div class="txp-tabpanel__media {% if b.contain %}txp-tabpanel__media--contain{% endif %}">
+                  {{ b.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(min-width: 900px) 40vw, 92vw', alt: b.image.alt | default: b.title }}
+                  {%- if b.caption != blank -%}<span class="txp-split__cap">{{ b.caption }}</span>{%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- if s.note != blank -%}<div class="txp-table__note txp-reveal">{{ s.note }}</div>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Tabs",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "light", "options": [
+      { "value": "light", "label": "White" }, { "value": "paper", "label": "Paper" }, { "value": "dark", "label": "Dark" }, { "value": "graphite", "label": "Graphite" } ] },
+    { "type": "select", "id": "layout", "label": "Tab bar", "default": "top", "options": [
+      { "value": "top", "label": "Across the top" }, { "value": "side", "label": "Down the side" } ] },
+    { "type": "checkbox", "id": "numbered", "label": "Number the tabs", "default": false },
+    { "type": "checkbox", "id": "cards", "label": "Show paragraphs that start in bold as cards", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "checkbox", "id": "center", "label": "Centre the heading", "default": false },
+    { "type": "richtext", "id": "note", "label": "Footnote" }
+  ],
+  "blocks": [
+    { "type": "tab", "name": "Tab", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "none", "options": [
+        { "value": "none", "label": "None" }, { "value": "check", "label": "Check" }, { "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "box", "label": "Box" }, { "value": "wrench", "label": "Wrench" }, { "value": "card", "label": "Card" }, { "value": "bolt", "label": "Bolt" }, { "value": "layers", "label": "Layers" }, { "value": "chat", "label": "Chat" }, { "value": "eye", "label": "Eye" }, { "value": "pin", "label": "Pin" }, { "value": "clock", "label": "Clock" }, { "value": "calendar", "label": "Calendar" }, { "value": "phone", "label": "Phone" }, { "value": "mail", "label": "Mail" }, { "value": "star", "label": "Star" }, { "value": "map", "label": "Map" }, { "value": "home", "label": "Home" }, { "value": "gauge", "label": "Gauge" }, { "value": "droplet", "label": "Droplet" }, { "value": "fan", "label": "Fan" }, { "value": "volume", "label": "Volume" }, { "value": "plug", "label": "Plug" }, { "value": "ruler", "label": "Ruler" }, { "value": "thermo", "label": "Thermometer" }, { "value": "filter", "label": "Filter" }, { "value": "tank", "label": "Tank" }, { "value": "factory", "label": "Factory" }, { "value": "garage", "label": "Garage" }, { "value": "building", "label": "Building" }, { "value": "award", "label": "Award" }, { "value": "users", "label": "People" }, { "value": "tag", "label": "Tag" }, { "value": "hammer", "label": "Hammer" }, { "value": "sparkle", "label": "Sparkle" }, { "value": "refresh", "label": "Refresh" }, { "value": "lock", "label": "Lock" }, { "value": "grid", "label": "Grid" }, { "value": "warning", "label": "Warning" }, { "value": "drawer", "label": "Drawer" }, { "value": "cog", "label": "Cog" }, { "value": "spray", "label": "Spray gun" }, { "value": "dollar", "label": "Dollar" }, { "value": "undo", "label": "Return" }, { "value": "camera", "label": "Camera" }, { "value": "forklift", "label": "Forklift" } ] },
+      { "type": "text", "id": "title", "label": "Tab label" },
+      { "type": "text", "id": "kicker", "label": "Small line under the label" },
+      { "type": "text", "id": "heading", "label": "Panel heading (defaults to the label)" },
+      { "type": "richtext", "id": "text", "label": "Text" },
+      { "type": "text", "id": "points", "label": "Checklist, separated by |" },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "checkbox", "id": "contain", "label": "Fit whole image (no crop)", "default": false },
+      { "type": "text", "id": "caption", "label": "Image caption chip" },
+      { "type": "checkbox", "id": "show_ul", "label": "Show the UL badge", "default": false },
+      { "type": "text", "id": "ul_text", "label": "UL badge line" },
+      { "type": "text", "id": "note", "label": "Small note" },
+      { "type": "text", "id": "link_text", "label": "Button text" },
+      { "type": "url", "id": "link_url", "label": "Button link" },
+      { "type": "text", "id": "link2_text", "label": "Second button text" },
+      { "type": "url", "id": "link2_url", "label": "Second button link" } ] }
+  ],
+  "presets": [ { "name": "TX Tabs" } ]
+}
+{% endschema %}

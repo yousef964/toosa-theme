@@ -1,4 +1,4 @@
-/* TOOSA inner pages (tx-p-* sections): reveal, FAQ search, gallery lightbox, quote carousel, product gallery. No dependencies. */
+/* TOOSA inner pages (tx-p-* sections): reveal, counters, timeline, tabs, FAQ search, gallery lightbox, quote carousel, product gallery. No dependencies. */
 (function () {
   'use strict';
   function $(s, r) { return (r || document).querySelector(s); }
@@ -186,13 +186,143 @@
     $$('[data-txp-product]', root).forEach(function (sec) {
       var slides = $$('[data-txp-slide]', sec);
       var thumbs = $$('[data-txp-thumb]', sec);
-      if (!slides.length) return;
-      function go(i) {
-        slides.forEach(function (s, k) { s.classList.toggle('is-on', k === i); });
-        thumbs.forEach(function (t, k) { t.classList.toggle('is-on', k === i); });
+      var main = $('[data-txp-main]', sec);
+      var label = $('[data-txp-count-label]', sec);
+      if (slides.length < 2) return;
+      var i = 0;
+      function go(n) {
+        i = (n + slides.length) % slides.length;
+        slides.forEach(function (sl, k) { sl.classList.toggle('is-on', k === i); });
+        thumbs.forEach(function (t, k) { t.classList.toggle('is-on', k === i); if (k === i) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
+        if (label) label.textContent = (i + 1) + ' / ' + slides.length;
+        var t = thumbs[i];
+        if (t && t.scrollIntoView) { try { t.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); } catch (e) { /* older browsers */ } }
       }
       thumbs.forEach(function (t, k) { t.addEventListener('click', function () { go(k); }); });
+      var prev = $('[data-txp-prev]', sec), next = $('[data-txp-next]', sec);
+      if (prev) prev.addEventListener('click', function () { go(i - 1); });
+      if (next) next.addEventListener('click', function () { go(i + 1); });
+      if (main) {
+        main.addEventListener('keydown', function (ev) {
+          if (ev.key === 'ArrowLeft') { ev.preventDefault(); go(i - 1); }
+          if (ev.key === 'ArrowRight') { ev.preventDefault(); go(i + 1); }
+        });
+        var sx = 0, sy = 0;
+        main.addEventListener('touchstart', function (ev) { sx = ev.touches[0].clientX; sy = ev.touches[0].clientY; }, { passive: true });
+        main.addEventListener('touchend', function (ev) {
+          var dx = ev.changedTouches[0].clientX - sx, dy = ev.changedTouches[0].clientY - sy;
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(i + (dx < 0 ? 1 : -1));
+        }, { passive: true });
+      }
       go(0);
+    });
+  }
+
+  /* ------------------------------------------------------------ tabs */
+  function tabs(root) {
+    $$('[data-txp-tabs]', root).forEach(function (box) {
+      var list = $('[role="tablist"]', box);
+      var tabsEl = $$('[role="tab"]', box);
+      var panels = $$('[role="tabpanel"]', box);
+      if (!tabsEl.length) return;
+      var vertical = list && list.getAttribute('aria-orientation') === 'vertical';
+      function select(n, focus) {
+        tabsEl.forEach(function (t, k) {
+          var on = k === n;
+          t.classList.toggle('is-on', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.setAttribute('tabindex', on ? '0' : '-1');
+          if (on && focus) t.focus();
+        });
+        panels.forEach(function (p, k) {
+          var on = k === n;
+          if (on) { p.hidden = false; p.classList.remove('is-on'); void p.offsetWidth; p.classList.add('is-on'); } else { p.hidden = true; p.classList.remove('is-on'); }
+        });
+        if (list && tabsEl[n] && tabsEl[n].scrollIntoView) { try { tabsEl[n].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); } catch (e) { /* older browsers */ } }
+      }
+      tabsEl.forEach(function (t, k) {
+        t.addEventListener('click', function () { select(k, false); });
+        t.addEventListener('keydown', function (ev) {
+          var nextKey = vertical ? 'ArrowDown' : 'ArrowRight', prevKey = vertical ? 'ArrowUp' : 'ArrowLeft';
+          var n = null;
+          if (ev.key === nextKey || (!vertical && ev.key === 'ArrowDown')) n = (k + 1) % tabsEl.length;
+          else if (ev.key === prevKey || (!vertical && ev.key === 'ArrowUp')) n = (k - 1 + tabsEl.length) % tabsEl.length;
+          else if (ev.key === 'Home') n = 0;
+          else if (ev.key === 'End') n = tabsEl.length - 1;
+          if (n === null) return;
+          ev.preventDefault();
+          select(n, true);
+        });
+      });
+      // deep link: #txp-panel-<id> or #txp-tab-<id>
+      var hash = location.hash.replace('#', '');
+      if (hash) {
+        var idx = -1;
+        tabsEl.forEach(function (t, k) { if (t.id === hash || t.getAttribute('aria-controls') === hash) idx = k; });
+        if (idx > -1) select(idx, false);
+      }
+    });
+  }
+
+  /* -------------------------------------------------------- counters */
+  function counters(root) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = $$('.txp-count', root).filter(function (e) { return !e.hasAttribute('data-txp-counted'); });
+    els.forEach(function (el) {
+      el.setAttribute('data-txp-counted', '1');
+      var txt = el.textContent.trim();
+      var m = txt.match(/^([^\d]*)([\d,]+(?:\.\d+)?)(.*)$/);
+      if (!m) return;
+      var num = parseFloat(m[2].replace(/,/g, ''));
+      if (isNaN(num)) return;
+      if (num >= 1900 && num <= 2100 && m[2].indexOf(',') === -1 && m[2].indexOf('.') === -1) return; // a year
+      if (reduce) return;
+      var dec = (m[2].split('.')[1] || '').length;
+      var grouped = m[2].indexOf(',') !== -1;
+      function fmt(v) {
+        var str = v.toFixed(dec);
+        if (grouped) { var parts = str.split('.'); parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ','); str = parts.join('.'); }
+        return m[1] + str + m[3];
+      }
+      el.textContent = fmt(0);
+      function run() {
+        var t0 = null, dur = 1400;
+        function step(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min(1, (ts - t0) / dur);
+          var e = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(num * e);
+          if (p < 1) requestAnimationFrame(step); else el.textContent = txt;
+        }
+        requestAnimationFrame(step);
+      }
+      if (!('IntersectionObserver' in window)) { el.textContent = txt; return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { io.unobserve(el); run(); } });
+      }, { threshold: 0.4 });
+      io.observe(el);
+      setTimeout(function () { if (el.textContent === fmt(0)) { io.unobserve(el); run(); } }, 4000);
+    });
+  }
+
+  /* -------------------------------------------------------- timeline */
+  function timeline(root) {
+    $$('[data-txp-timeline]', root).forEach(function (ol) {
+      var items = $$('.txp-tl__item', ol);
+      var ticking = false;
+      function update() {
+        ticking = false;
+        var r = ol.getBoundingClientRect();
+        var focus = window.innerHeight * 0.6;
+        var p = (focus - r.top) / Math.max(1, r.height);
+        p = Math.max(0, Math.min(1, p));
+        ol.style.setProperty('--txp-tl-p', p.toFixed(4));
+        items.forEach(function (it) { var ir = it.getBoundingClientRect(); it.classList.toggle('is-past', ir.top + 12 < focus); });
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      update();
     });
   }
 
@@ -207,7 +337,7 @@
     });
   }
 
-  function init(root) { reveal(root); faq(root); gallery(root); quotes(root); product(root); misc(root); }
+  function init(root) { reveal(root); counters(root); timeline(root); tabs(root); faq(root); gallery(root); quotes(root); product(root); misc(root); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(document); }); else init(document);
   document.addEventListener('shopify:section:load', function (ev) { init(ev.target); });
 })();

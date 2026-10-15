@@ -1,0 +1,70 @@
+{% comment %} TOOSA inner pages: visual spec sheet. Sticky intro beside a grid of spec tiles (icon, label, value, note); big tiles for the headline figures. {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp txp--paper'
+  if s.theme == 'light'
+    assign theme_class = 'txp txp--light'
+  elsif s.theme == 'dark'
+    assign theme_class = 'txp'
+  elsif s.theme == 'graphite'
+    assign theme_class = 'txp txp--graphite'
+  endif
+-%}
+<section class="{{ theme_class }} txp-section" id="txp-specs-{{ section.id }}">
+  <div class="txp-wrap txp-specs-layout">
+    <div class="txp-specs-layout__side">
+      {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.heading != blank -%}<h2 class="txp-h2 txp-h2--sm txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
+      {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      {%- if s.show_ul -%}<div class="txp-specs__badge txp-reveal" data-delay="2">{% render 'tx-p-ul', size: 'lg', text: s.ul_text %}</div>{%- endif -%}
+      {%- if s.chips != blank -%}
+        <div class="txp-split__meta txp-reveal" data-delay="3">{%- assign chips = s.chips | split: '|' -%}{%- for c in chips -%}<span>{{ c | strip }}</span>{%- endfor -%}</div>
+      {%- endif -%}
+      {%- if s.link_text != blank -%}<div class="txp-actions txp-reveal" data-delay="3"><a class="txp-btn txp-btn--primary txp-btn--sm" href="{{ s.link_url }}">{{ s.link_text }}{% render 'tx-p-icon', name: 'arrow' %}</a></div>{%- endif -%}
+    </div>
+    <div>
+      <div class="txp-specs">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          <div class="txp-spec txp-reveal {% if b.big %}txp-spec--big{% endif %}" data-delay="{{ forloop.index0 | modulo: 4 }}" {{ block.shopify_attributes }}>
+            {%- if b.icon != blank and b.icon != 'none' -%}<div class="txp-spec__ic">{% render 'tx-p-icon', name: b.icon %}</div>{%- endif -%}
+            <div class="txp-spec__body">
+              <div class="txp-spec__label">{{ b.label }}</div>
+              <div class="txp-spec__value">{{ b.value }}</div>
+              {%- if b.note != blank -%}<div class="txp-spec__note">{{ b.note }}</div>{%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if s.note != blank -%}<div class="txp-table__note txp-reveal">{{ s.note }}</div>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Spec sheet",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "paper", "options": [
+      { "value": "paper", "label": "Paper" }, { "value": "light", "label": "White" }, { "value": "dark", "label": "Dark" }, { "value": "graphite", "label": "Graphite" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "checkbox", "id": "show_ul", "label": "Show the UL badge", "default": false },
+    { "type": "text", "id": "ul_text", "label": "UL badge line" },
+    { "type": "text", "id": "chips", "label": "Chips, separated by |" },
+    { "type": "text", "id": "link_text", "label": "Button text" },
+    { "type": "url", "id": "link_url", "label": "Button link" },
+    { "type": "richtext", "id": "note", "label": "Footnote" }
+  ],
+  "blocks": [
+    { "type": "spec", "name": "Spec", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "none", "options": [
+        { "value": "none", "label": "None" }, { "value": "check", "label": "Check" }, { "value": "shield", "label": "Shield" }, { "value": "box", "label": "Box" }, { "value": "wrench", "label": "Wrench" }, { "value": "bolt", "label": "Bolt" }, { "value": "layers", "label": "Layers" }, { "value": "clock", "label": "Clock" }, { "value": "gauge", "label": "Gauge" }, { "value": "droplet", "label": "Droplet" }, { "value": "fan", "label": "Fan" }, { "value": "volume", "label": "Volume" }, { "value": "plug", "label": "Plug" }, { "value": "ruler", "label": "Ruler" }, { "value": "thermo", "label": "Thermometer" }, { "value": "filter", "label": "Filter" }, { "value": "tank", "label": "Tank" }, { "value": "award", "label": "Award" }, { "value": "refresh", "label": "Refresh" }, { "value": "cog", "label": "Cog" }, { "value": "truck", "label": "Truck" }, { "value": "card", "label": "Card" }, { "value": "phone", "label": "Phone" } ] },
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "text", "id": "value", "label": "Value" },
+      { "type": "text", "id": "note", "label": "Note" },
+      { "type": "checkbox", "id": "big", "label": "Headline tile (bigger)", "default": false } ] }
+  ],
+  "presets": [ { "name": "TX Spec sheet" } ]
+}
+{% endschema %}

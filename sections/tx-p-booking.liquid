@@ -29,11 +29,19 @@
           {%- for p in pts -%}<li><span>{% render 'tx-p-icon', name: 'check' %}</span>{{ p | strip }}</li>{%- endfor -%}
         </ul>
       {%- endif -%}
-      {%- if s.embed != blank -%}<div class="txp-book__embed">{{ s.embed }}</div>{%- endif -%}
+      {%- if s.embed != blank -%}<a class="txp-btn txp-btn--primary" href="#txp-book-embed-{{ section.id }}">{{ s.embed_btn | default: 'Pick a time' }}{% render 'tx-p-icon', name: 'calendar' %}</a>{%- endif -%}
       {%- if s.btn_text != blank -%}<a class="txp-btn txp-btn--primary" href="{{ s.btn_url }}">{{ s.btn_text }}{% render 'tx-p-icon', name: 'calendar' %}</a>{%- endif -%}
-      {%- if s.phone != blank -%}<p>Prefer to talk? <a href="tel:{{ tel }}" style="color: inherit; font-weight: 700;">{{ s.phone }}</a>{%- if s.hours != blank -%} · {{ s.hours }}{%- endif -%}</p>{%- endif -%}
+      {%- if s.phone != blank -%}<p class="txp-book__talk">Prefer to talk? <a href="tel:{{ tel }}">{{ s.phone }}</a>{% if s.hours != blank %}<span> · {{ s.hours }}</span>{% endif %}</p>{%- endif -%}
     </div>
   </div>
+  {%- if s.embed != blank -%}
+    <div class="txp-wrap">
+      <div class="txp-book__embed txp-reveal" id="txp-book-embed-{{ section.id }}">
+        {%- if s.embed_heading != blank -%}<div class="txp-book__embed-head"><span class="txp-book__embed-ic">{% render 'tx-p-icon', name: 'calendar' %}</span><div><h3 class="txp-h4">{{ s.embed_heading }}</h3>{%- if s.embed_text != blank -%}<p>{{ s.embed_text }}</p>{%- endif -%}</div></div>{%- endif -%}
+        <div class="txp-book__embed-body">{{ s.embed }}</div>
+      </div>
+    </div>
+  {%- endif -%}
 </section>
 {% schema %}
 {
@@ -46,7 +54,10 @@
     { "type": "text", "id": "panel_heading", "label": "Panel heading" },
     { "type": "text", "id": "panel_text", "label": "Panel text" },
     { "type": "text", "id": "points", "label": "Checklist, separated by |" },
-    { "type": "liquid", "id": "embed", "label": "Booking app embed code", "info": "Paste the booking app's embed markup here. It is rendered as is." },
+    { "type": "liquid", "id": "embed", "label": "Booking app embed code", "info": "Paste the booking app's embed markup here. It is rendered as is, in a full-width panel under the intro." },
+    { "type": "text", "id": "embed_btn", "label": "Panel button that jumps to the calendar", "default": "Pick a time" },
+    { "type": "text", "id": "embed_heading", "label": "Calendar heading" },
+    { "type": "text", "id": "embed_text", "label": "Calendar sub-line" },
     { "type": "text", "id": "btn_text", "label": "Fallback button text" },
     { "type": "url", "id": "btn_url", "label": "Fallback button link" },
     { "type": "text", "id": "phone", "label": "Phone" },

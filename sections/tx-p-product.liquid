@@ -15,22 +15,38 @@
 <section class="{{ theme_class }} txp-section" id="txp-product-{{ section.id }}" data-txp-product>
   <div class="txp-wrap txp-prod">
     <div class="txp-prod__gallery txp-reveal">
-      <div class="txp-prod__main" data-txp-main>
+      <div class="txp-prod__main" data-txp-main tabindex="0" aria-roledescription="carousel" aria-label="Product photos">
         {%- if product != blank and product.media.size > 0 -%}
+          {%- assign n = 0 -%}
           {%- for media in product.media -%}
             {%- if media.media_type == 'image' -%}
-              {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: media.alt | default: title, class: 'txp-prod__img', data-txp-slide: forloop.index0 }}
+              {%- assign n = n | plus: 1 -%}
+              <figure class="txp-prod__slide {% if n == 1 %}is-on{% endif %}" data-txp-slide aria-label="Photo {{ n }}">
+                {%- if n == 1 -%}
+                  {{ media | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: media.alt | default: title }}
+                {%- else -%}
+                  {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: media.alt | default: title }}
+                {%- endif -%}
+              </figure>
             {%- endif -%}
           {%- endfor -%}
+          {%- if n > 1 -%}
+            <button type="button" class="txp-prod__arrow txp-prod__arrow--prev" data-txp-prev aria-label="Previous photo">{% render 'tx-p-icon', name: 'arrow-left' %}</button>
+            <button type="button" class="txp-prod__arrow txp-prod__arrow--next" data-txp-next aria-label="Next photo">{% render 'tx-p-icon', name: 'arrow' %}</button>
+            <span class="txp-prod__count" data-txp-count-label aria-live="polite">1 / {{ n }}</span>
+          {%- endif -%}
         {%- elsif s.image != blank -%}
-          {{ s.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: title, class: 'txp-prod__img is-on' }}
+          <figure class="txp-prod__slide is-on" data-txp-slide>{{ s.image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: title }}</figure>
         {%- endif -%}
+        {%- if s.show_ul -%}<div class="txp-prod__ul">{% render 'tx-p-ul', size: 'mark', text: s.ul_text %}</div>{%- endif -%}
       </div>
       {%- if product != blank and product.media.size > 1 -%}
-        <div class="txp-prod__thumbs" data-txp-thumbs>
+        <div class="txp-prod__thumbs" data-txp-thumbs role="group" aria-label="Choose a photo">
+          {%- assign n = 0 -%}
           {%- for media in product.media -%}
             {%- if media.media_type == 'image' -%}
-              <button type="button" data-txp-thumb="{{ forloop.index0 }}" aria-label="Photo {{ forloop.index }}">{{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
+              {%- assign n = n | plus: 1 -%}
+              <button type="button" class="{% if n == 1 %}is-on{% endif %}" data-txp-thumb aria-label="Photo {{ n }}" {% if n == 1 %}aria-current="true"{% endif %}>{{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
             {%- endif -%}
           {%- endfor -%}
         </div>
@@ -48,6 +64,7 @@
           {%- if s.price_note != blank -%}<small>{{ s.price_note }}</small>{%- endif -%}
         </div>
       {%- endif -%}
+      {%- if s.show_ul -%}<div class="txp-prod__cert txp-reveal" data-delay="2">{% render 'tx-p-ul', size: 'md', text: s.ul_text %}{%- if s.ul_note != blank -%}<span class="txp-prod__cert-note">{{ s.ul_note }}</span>{%- endif -%}</div>{%- endif -%}
       {%- assign chips = section.blocks | where: 'type', 'chip' -%}
       {%- if chips.size > 0 -%}
         <ul class="txp-prod__chips txp-reveal" data-delay="3">
@@ -94,7 +111,11 @@
     { "type": "url", "id": "btn2_url", "label": "Second link" },
     { "type": "text", "id": "btn3_text", "label": "Third button" },
     { "type": "url", "id": "btn3_url", "label": "Third link" },
-    { "type": "checkbox", "id": "open_first", "label": "Open the first accordion", "default": true }
+    { "type": "checkbox", "id": "open_first", "label": "Open the first accordion", "default": true },
+    { "type": "header", "content": "UL badge" },
+    { "type": "checkbox", "id": "show_ul", "label": "Show the UL badge", "default": false },
+    { "type": "text", "id": "ul_text", "label": "Badge line", "default": "Certified package, UL-listed inverter" },
+    { "type": "text", "id": "ul_note", "label": "Note beside the badge" }
   ],
   "blocks": [
     { "type": "chip", "name": "Highlight chip", "settings": [ { "type": "text", "id": "text", "label": "Text" } ] },

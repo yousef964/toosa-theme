@@ -14,15 +14,22 @@
       {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
       {%- if s.heading != blank -%}<h2 class="txp-h2 txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
       {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      {%- if s.stats != blank -%}
+        <div class="txp-tl__side-stats txp-reveal" data-delay="3">
+          {%- assign st = s.stats | split: '|' -%}
+          {%- for item in st -%}{%- assign kv = item | split: '::' -%}<div><b class="txp-count">{{ kv[0] | strip }}</b><span>{{ kv[1] | strip }}</span></div>{%- endfor -%}
+        </div>
+      {%- endif -%}
       {%- if s.link_text != blank -%}<div class="txp-actions txp-reveal" data-delay="3"><a class="txp-btn txp-btn--ghost txp-btn--sm" href="{{ s.link_url }}">{{ s.link_text }}{% render 'tx-p-icon', name: 'arrow' %}</a></div>{%- endif -%}
     </div>
-    <ol class="txp-tl">
+    <ol class="txp-tl" data-txp-timeline>
       {%- for block in section.blocks -%}
         <li class="txp-tl__item txp-reveal" {{ block.shopify_attributes }}>
           <div class="txp-tl__year">{{ block.settings.year }}</div>
           <div class="txp-tl__body">
             <h3 class="txp-h3">{{ block.settings.title }}</h3>
             {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+            {%- if block.settings.stat_big != blank -%}<div class="txp-tl__stat"><b class="txp-count">{{ block.settings.stat_big }}</b><span>{{ block.settings.stat_small }}</span></div>{%- endif -%}
             {%- if block.settings.image != blank -%}
               <div class="txp-tl__img">{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 900px) 40vw, 92vw', alt: block.settings.image.alt | default: block.settings.title }}</div>
             {%- endif -%}
@@ -41,6 +48,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
     { "type": "text", "id": "heading", "label": "Heading" },
     { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "text", "id": "stats", "label": "Side stats: big :: small | big :: small" },
     { "type": "text", "id": "link_text", "label": "Link text" },
     { "type": "url", "id": "link_url", "label": "Link" }
   ],
@@ -49,6 +57,8 @@
       { "type": "text", "id": "year", "label": "Year or label" },
       { "type": "text", "id": "title", "label": "Title" },
       { "type": "textarea", "id": "text", "label": "Text" },
+      { "type": "text", "id": "stat_big", "label": "Pull-out number" },
+      { "type": "text", "id": "stat_small", "label": "Pull-out label" },
       { "type": "image_picker", "id": "image", "label": "Image (optional)" } ] }
   ],
   "presets": [ { "name": "TX Timeline" } ]

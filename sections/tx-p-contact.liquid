@@ -80,12 +80,17 @@
             assign bq = b.map_query | default: b.address | strip_html | url_encode
             assign btel = b.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', ''
           -%}
-          <div class="txp-loc txp-reveal" data-delay="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
-            {%- if b.image != blank -%}
-              <div class="txp-loc__media">{{ b.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(min-width: 640px) 46vw, 92vw', alt: b.image.alt | default: b.name }}{%- if b.badge != blank -%}<span class="txp-loc__badge {% if forloop.index > 1 %}txp-loc__badge--alt{% endif %}">{{ b.badge }}</span>{%- endif -%}</div>
-            {%- endif -%}
+          <div class="txp-loc txp-reveal {% if forloop.index > 1 %}txp-loc--alt{% endif %}" data-delay="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <div class="txp-loc__brand">
+              {%- if b.logo != blank -%}
+                <span class="txp-loc__logo">{{ b.logo | image_url: width: 400 | image_tag: loading: 'lazy', alt: b.logo.alt | default: b.name }}</span>
+              {%- else -%}
+                <span class="txp-loc__mark" aria-hidden="true">{{ b.mark | default: b.name | slice: 0, 3 }}</span>
+                <span class="txp-loc__wordmark">{{ b.wordmark | default: b.name }}</span>
+              {%- endif -%}
+              {%- if b.badge != blank -%}<span class="txp-loc__badge">{{ b.badge }}</span>{%- endif -%}
+            </div>
             <div class="txp-loc__body">
-              {%- if b.image == blank and b.badge != blank -%}<div class="txp-kicker">{{ b.badge }}</div>{%- endif -%}
               <h3 class="txp-h3">{{ b.name }}</h3>
               {%- if b.text != blank -%}<p class="txp-card__text">{{ b.text }}</p>{%- endif -%}
               <div class="txp-loc__rows">
@@ -137,7 +142,10 @@
   ],
   "blocks": [
     { "type": "location", "name": "Location", "settings": [
-      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "image_picker", "id": "logo", "label": "Logo (shown instead of a photo)" },
+      { "type": "text", "id": "mark", "label": "Monogram when there is no logo (2 or 3 letters)" },
+      { "type": "text", "id": "wordmark", "label": "Wordmark text when there is no logo" },
+      { "type": "image_picker", "id": "image", "label": "Photo (no longer shown; kept for older settings)" },
       { "type": "text", "id": "badge", "label": "Badge (Showroom, Distributor)" },
       { "type": "text", "id": "name", "label": "Name" },
       { "type": "text", "id": "text", "label": "One line about it" },
