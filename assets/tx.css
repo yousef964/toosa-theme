@@ -289,8 +289,10 @@
 
 /* ------------------------------------------------------------ comparison */
 .tx-compare { background: var(--tx-white); padding: clamp(64px, 9vw, 120px) 0; }
-.tx-compare__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
-.tx-compare__head { position: sticky; top: 96px; }
+.tx-compare__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); grid-template-areas: "head board" "foot board"; gap: 0 clamp(28px, 5vw, 72px); align-items: start; }
+.tx-compare__head { grid-area: head; }
+.tx-compare__board { grid-area: board; }
+.tx-compare__foot { grid-area: foot; align-self: end; position: sticky; bottom: 24px; }
 .tx-compare__legend { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 26px 0 0; padding: 0; list-style: none; }
 .tx-compare__legend-item { display: inline-flex; align-items: center; gap: 9px; font: 600 13px/1 var(--tx-body); color: #3b434c; }
 .tx-compare__legend-item i { width: 26px; height: 10px; border-radius: 5px; background: #cfd4da; }
@@ -331,8 +333,10 @@
   .tx-compare__name { font-size: 14px; }
 }
 @media (max-width: 989px) {
-  .tx-compare__grid { grid-template-columns: 1fr; }
-  .tx-compare__head { position: static; }
+  .tx-compare__grid { grid-template-columns: 1fr; grid-template-areas: "head" "board" "foot"; }
+  .tx-compare__head { margin-bottom: 28px; }
+  .tx-compare__foot { position: static; margin-top: 28px; }
+  .tx-compare__foot .tx-compare__verdict { margin-top: 0; }
 }
 @media (max-width: 720px) {
   .tx-compare__cols { display: none; }

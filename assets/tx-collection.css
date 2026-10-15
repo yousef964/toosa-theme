@@ -97,6 +97,7 @@
 .txc-about { background: var(--txc-paper); color: var(--txc-ink); padding: clamp(56px, 8vw, 104px) 0; border-top: 1px solid var(--txc-line-dark); }
 .txc-about__grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
 .txc-about__side { position: sticky; top: 96px; }
+.txc-about__side .txc-h2 { margin-bottom: 24px; }
 .txc-about__facts { display: grid; gap: 10px; margin-top: 26px; }
 .txc-about__facts li { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; background: #fff; border: 1px solid var(--txc-line-dark); }
 .txc-about__facts b { display: block; font: 700 14.5px/1.3 var(--txc-body); color: var(--txc-ink); }

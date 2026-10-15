@@ -10,16 +10,6 @@
           <li class="tx-compare__legend-item tx-compare__legend-item--them"><i></i>{{ section.settings.them_label }}</li>
           <li class="tx-compare__legend-item tx-compare__legend-item--us"><i></i>{{ section.settings.us_label }}</li>
         </ul>
-        {% if section.settings.verdict != blank %}
-          <div class="tx-compare__verdict tx-reveal" data-delay="3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
-            <p>{{ section.settings.verdict }}</p>
-          </div>
-        {% endif %}
-        <div class="tx-actions tx-reveal" data-delay="4">
-          {% if section.settings.button_1_text != blank %}<a class="tx-btn tx-btn--primary" href="{{ section.settings.button_1_link | default: '/collections/tool-storage' }}">{{ section.settings.button_1_text }}</a>{% endif %}
-          {% if section.settings.button_2_text != blank %}<a class="tx-btn tx-btn--ghost" href="{{ section.settings.button_2_link | default: '/pages/why-toosa' }}">{{ section.settings.button_2_text }}</a>{% endif %}
-        </div>
       </div>
 
       <div class="tx-compare__board" role="table" aria-label="{{ section.settings.heading | escape }}">
@@ -62,6 +52,19 @@
             </div>
           </div>
         {% endfor %}
+      </div>
+
+      <div class="tx-compare__foot">
+        {% if section.settings.verdict != blank %}
+          <div class="tx-compare__verdict tx-reveal" data-delay="3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+            <p>{{ section.settings.verdict }}</p>
+          </div>
+        {% endif %}
+        <div class="tx-actions tx-reveal" data-delay="4">
+          {% if section.settings.button_1_text != blank %}<a class="tx-btn tx-btn--primary" href="{{ section.settings.button_1_link | default: '/collections/tool-storage' }}">{{ section.settings.button_1_text }}</a>{% endif %}
+          {% if section.settings.button_2_text != blank %}<a class="tx-btn tx-btn--ghost" href="{{ section.settings.button_2_link | default: '/pages/why-toosa' }}">{{ section.settings.button_2_text }}</a>{% endif %}
+        </div>
       </div>
     </div>
   </div>
