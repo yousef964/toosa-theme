@@ -205,7 +205,7 @@
   {{ 'theme' | append: rtl_suffix | append:'.css' | asset_url | stylesheet_tag }}
 
   {{ 'photoswipe' | append: rtl_suffix | append:'.css' | asset_url | stylesheet_tag }}
-  {% if request.page_type == 'index' %}
+  {% if request.page_type == 'index' or request.page_type == 'product' %}
     {{ 'tx.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'tx.js' | asset_url }}" defer></script>
   {% endif %}

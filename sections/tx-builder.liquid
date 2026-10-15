@@ -9,7 +9,11 @@
 {
   "months": {{ section.settings.months | default: 24 }},
   "systems": [
+    {%- assign shown = 0 -%}
     {% for block in section.blocks %}
+      {%- if section.settings.product_only and block.settings.base_handle != product.handle -%}{%- continue -%}{%- endif -%}
+      {%- if shown > 0 -%},{%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
       {%- liquid
         assign base = all_products[block.settings.base_handle]
         assign base_config = block.settings.base_config | strip
@@ -102,17 +106,19 @@
             {%- assign m = m | plus: 1 -%}
           {%- endfor -%}
         ]
-      }{% unless forloop.last %},{% endunless %}
+      }
     {% endfor %}
   ]
 }
 {%- endcapture -%}
+{%- if section.settings.product_only and shown == 0 -%}{%- comment -%}not one of the configurable cabinets{%- endcomment -%}
+{%- else -%}
 
 <section class="tx tx-builder" id="tx-builder" data-section-id="{{ section.id }}">
   <div class="tx-wrap">
     <div class="tx-builder__head">
       {% if section.settings.eyebrow != blank %}<p class="tx-eyebrow tx-reveal">{{ section.settings.eyebrow }}</p>{% endif %}
-      <h2 class="tx-h2 tx-reveal" data-delay="1">{{ section.settings.heading }}</h2>
+      <h2 class="tx-h2 tx-reveal" data-delay="1">{{ section.settings.heading | replace: '[product]', product.title }}</h2>
       {% if section.settings.lead != blank %}<p class="tx-lead tx-reveal" data-delay="2">{{ section.settings.lead }}</p>{% endif %}
     </div>
     <div class="tx-builder__layout tx-reveal" data-delay="2">
@@ -144,6 +150,7 @@
   </div>
   <script type="application/json" data-tx-builder-data>{{ builder_json | strip }}</script>
 </section>
+{%- endif -%}
 
 {% schema %}
 {
@@ -154,6 +161,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Start with a base. Add modules as your shop grows." },
     { "type": "textarea", "id": "lead", "label": "Lead text", "default": "Every TOOSA module shares the same case height, depth and finish, so a hutch, locker or drawer bank bolts straight onto what you already own. Try a combination and see the price live." },
     { "type": "number", "id": "months", "label": "Financing months for the estimate", "default": 24 },
+    { "type": "checkbox", "id": "product_only", "label": "On a product page, show only this product's system", "default": false, "info": "Tick this on product templates: the builder then appears only on the Ultra Task and Mega Max cabinet pages." },
     { "type": "text", "id": "button_text", "label": "Button text", "default": "Add this setup to cart" },
     { "type": "text", "id": "note", "label": "Note under button", "default": "Each module is added as its own item, so you can still change quantities in the cart." }
   ],

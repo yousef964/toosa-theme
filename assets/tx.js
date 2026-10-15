@@ -186,6 +186,7 @@
     if (!dataEl) return;
     var DATA;
     try { DATA = JSON.parse(dataEl.textContent); } catch (e) { return; }
+    if (!DATA.systems || !DATA.systems.length) return;
     var SIDE_IDS = { locker: 1, drawers: 1 }; // modules that bolt onto the left or right of the base
     var state = { system: DATA.systems[0].id, color: DATA.systems[0].colors[0], mods: {}, sides: { l: '', r: '' } };
     var stage = $('[data-tx-stage]', sec), sysEl = $('[data-tx-systems]', sec), colEl = $('[data-tx-colors]', sec), modEl = $('[data-tx-mods]', sec);
@@ -208,6 +209,7 @@
 
     function renderControls() {
       var s = sys();
+      if (DATA.systems.length < 2 && sysEl.closest('.tx-field')) sysEl.closest('.tx-field').hidden = true; // product pages show one system
       sysEl.innerHTML = DATA.systems.map(function (o) { return '<button type="button" data-sys="' + o.id + '" class="' + (o.id === state.system ? 'is-on' : '') + '">' + o.name + '</button>'; }).join('');
       if (s.colors.indexOf(state.color) < 0) state.color = s.colors[0];
       colEl.innerHTML = s.colors.map(function (k) {
