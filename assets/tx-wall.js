@@ -14,7 +14,9 @@
 
   function mount(stage, cfg) {
     var files = cfg.files || {};
-    var W = stage.clientWidth || 800, H = stage.clientHeight || 600;
+    stage.innerHTML = '';
+    stage.classList.add('is-3d'); // the CSS aspect ratio applies from here, so measure after it
+    var W = stage.clientWidth || 800, H = stage.clientHeight || Math.round(W * 0.75);
     var renderer;
     try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) { return null; }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -22,8 +24,6 @@
     renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
     renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.domElement.className = 'tx-stage__canvas';
-    stage.innerHTML = '';
-    stage.classList.add('is-3d');
     stage.appendChild(renderer.domElement);
     var hint = document.createElement('div'); hint.className = 'tx-stage__hint'; hint.textContent = 'Drag to look around · pinch or scroll to zoom'; stage.appendChild(hint);
     var dims = document.createElement('div'); dims.className = 'tx-stage__dims'; stage.appendChild(dims);
@@ -110,7 +110,7 @@
       var size = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3());
       // frame the bounding sphere so the model stays inside whatever angle it spins to
       var r = size.length() / 2 + 0.05, vfov = (cam.fov * Math.PI) / 180, hfov = 2 * Math.atan(Math.tan(vfov / 2) * cam.aspect);
-      var dist = (r / Math.sin(Math.min(vfov, hfov) / 2)) * 1.04;
+      var dist = (r / Math.sin(Math.min(vfov, hfov) / 2)) * 0.96;
       camGoal.target.set(c.x, c.y * 0.96, c.z); camGoal.dist = dist;
       camStart = { target: ctl.target.clone(), dist: cam.position.distanceTo(ctl.target) }; camT = instant ? 1 : 0;
       dims.textContent = fmt(size);
@@ -173,6 +173,8 @@
       renderer.setSize(w, h); cam.aspect = w / h; cam.updateProjectionMatrix(); dirty = true;
     }
     window.addEventListener('resize', resize);
+    if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); }).observe(stage);
+    requestAnimationFrame(resize);
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (en) { var vis = en[0].isIntersecting; if (vis && !active) { active = true; last = performance.now(); requestAnimationFrame(tick); } else if (!vis) active = false; }, { threshold: 0.02 }).observe(stage);
     }
