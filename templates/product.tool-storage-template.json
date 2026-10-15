@@ -1273,7 +1273,7 @@
       "settings": {
         "eyebrow": "Spec sheet",
         "heading": "The numbers.",
-        "lead": "<p>What is on the unit, what size it is and what comes with it. Options and dimensions are read from the product itself.</p>",
+        "lead": "<p>What is on the unit, what size it is and what comes with it. Options and dimensions come from the product itself.</p>",
         "download_text": "Download the manual",
         "ask_text": "Ask a question",
         "ask_url": "shopify://pages/contact",
