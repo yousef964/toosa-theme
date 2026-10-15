@@ -178,6 +178,12 @@
   .txpr-cards, .txpr-cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .txpr-faq .txp-faq-layout { grid-template-columns: 1fr; }
 }
+@media (max-width: 760px) {
+  .txpr .txp-head--row { flex-direction: column; align-items: flex-start; }
+  .txpr .txp-head--row .txp-actions { margin-top: 18px !important; }
+  .txpr-specs__main .txp-tablist { flex-wrap: wrap; }
+  .txpr-specs__main .txp-tab { flex: 1 1 auto; justify-content: center; }
+}
 @media (max-width: 640px) {
   .txpr-beats, .txpr-beats--3, .txpr-box { grid-template-columns: 1fr; }
   .txpr-beat { padding: 16px; grid-template-columns: 40px 1fr; gap: 12px; }
@@ -202,7 +208,6 @@
   .txpr-doc { grid-template-columns: 46px 1fr; }
   .txpr-doc__actions { grid-column: 1 / -1; }
   .txpr-doc__actions a { flex: 1; justify-content: center; }
-  .txpr-specs__main .txp-tablist { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .txpr-details summary { padding: 16px 18px; }
   .txpr-details__body { padding: 4px 18px 22px; }
 }
