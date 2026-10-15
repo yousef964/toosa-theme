@@ -1,0 +1,73 @@
+{% comment %} TOOSA inner pages: blog listing with a featured first post, grid and pagination {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign per = s.per_page | default: 10
+-%}
+<section class="txp txp--paper txp-section" id="txp-blog-{{ section.id }}">
+  <div class="txp-wrap">
+    {%- paginate blog.articles by per -%}
+      {%- if blog.articles.size == 0 -%}
+        <p class="txp-blog__empty">No articles yet. Check back soon.</p>
+      {%- endif -%}
+      {%- for article in blog.articles -%}
+        {%- if forloop.first and paginate.current_page == 1 and s.feature_first -%}
+          <a class="txp-blog__feat txp-reveal" href="{{ article.url }}">
+            <div class="txp-blog__feat-img">
+              {%- if article.image != blank -%}{{ article.image | image_url: width: 1400 | image_tag: loading: 'eager', widths: '600, 900, 1400', sizes: '(min-width: 760px) 55vw, 92vw', alt: article.image.alt | default: article.title }}{%- endif -%}
+            </div>
+            <div>
+              <div class="txp-blog__meta">
+                <span class="txp-tag">{{ s.feature_label | default: 'Latest' }}</span>
+                <span>{{ article.published_at | date: '%B %-d, %Y' }}</span>
+                {%- if s.show_author and article.author != blank -%}<span>{{ article.author }}</span>{%- endif -%}
+              </div>
+              <h2 class="txp-h2 txp-h2--sm">{{ article.title }}</h2>
+              {%- if article.excerpt_or_content != blank -%}<p class="txp-excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 40 }}</p>{%- endif -%}
+              <span class="txp-link">{{ s.read_more | default: 'Read the article' }}{% render 'tx-p-icon', name: 'arrow' %}</span>
+            </div>
+          </a>
+          <div class="txp-blog__grid">
+        {%- else -%}
+          {%- if forloop.first -%}<div class="txp-blog__grid">{%- endif -%}
+          <a class="txp-post txp-reveal" data-delay="{{ forloop.index0 | modulo: 3 }}" href="{{ article.url }}">
+            <div class="txp-post__img">
+              {%- if article.image != blank -%}{{ article.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 560px) 46vw, 92vw', alt: article.image.alt | default: article.title }}{%- endif -%}
+            </div>
+            <div class="txp-post__body">
+              <div class="txp-blog__meta"><span>{{ article.published_at | date: '%B %-d, %Y' }}</span>{%- if article.tags.size > 0 -%}<span>{{ article.tags.first }}</span>{%- endif -%}</div>
+              <h3 class="txp-h3">{{ article.title }}</h3>
+              {%- if article.excerpt_or_content != blank -%}<p>{{ article.excerpt_or_content | strip_html | truncatewords: 24 }}</p>{%- endif -%}
+              <span class="txp-link">{{ s.read_more_short | default: 'Read more' }}{% render 'tx-p-icon', name: 'arrow' %}</span>
+            </div>
+          </a>
+        {%- endif -%}
+        {%- if forloop.last -%}</div>{%- endif -%}
+      {%- endfor -%}
+      {%- if paginate.pages > 1 -%}
+        <nav class="txp-pager" aria-label="Pagination">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" aria-label="Previous page">{% render 'tx-p-icon', name: 'arrow-left' %}</a>{%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+            {%- elsif part.title == paginate.current_page -%}<span class="is-on" aria-current="page">{{ part.title }}</span>
+            {%- else -%}<span class="is-gap">{{ part.title }}</span>{%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}" aria-label="Next page">{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Blog list",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Articles per page", "min": 4, "max": 24, "step": 1, "default": 10 },
+    { "type": "checkbox", "id": "feature_first", "label": "Feature the newest article", "default": true },
+    { "type": "text", "id": "feature_label", "label": "Featured label", "default": "Latest" },
+    { "type": "checkbox", "id": "show_author", "label": "Show author", "default": true },
+    { "type": "text", "id": "read_more", "label": "Featured link text", "default": "Read the article" },
+    { "type": "text", "id": "read_more_short", "label": "Card link text", "default": "Read more" }
+  ],
+  "presets": [ { "name": "TX Blog list" } ]
+}
+{% endschema %}

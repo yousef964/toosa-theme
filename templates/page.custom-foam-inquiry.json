@@ -1,1 +1,122 @@
-{"sections":{"main":{"type":"main-page","settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-4","title_size":"medium","alignment":"center","content_size":"large","content_custom_width":true,"content_width":1080,"spacing":true,"spacing_choice":"level-3","spacing_placement":"1"}},"custom_liquid_HiPmY9":{"type":"custom-liquid","disabled":true,"name":"t:sections.custom_liquid.presets.custom_liquid.name","settings":{"custom_liquid":"<section class=\"custom-form-section\">\n  <div class=\"form-wrapper\" style=\"max-width:700px; margin:auto; padding:20px;\">\n    <h2>Custom Foam Insert Request<\/h2>\n\n    <form method=\"post\" action=\"\/contact#contact_form\" id=\"contact_form\" accept-charset=\"UTF-8\" enctype=\"multipart\/form-data\" class=\"custom-form\">\n      <input type=\"hidden\" name=\"form_type\" value=\"contact\" \/>\n      <input type=\"hidden\" name=\"utf8\" value=\"✓\" \/>\n\n      <!-- First Name -->\n      <label for=\"first_name\">First Name <span style=\"color:red;\">*<\/span><\/label>\n      <input type=\"text\" id=\"first_name\" name=\"contact[first_name]\" required>\n\n      <!-- Last Name -->\n      <label for=\"last_name\">Last Name <span style=\"color:red;\">*<\/span><\/label>\n      <input type=\"text\" id=\"last_name\" name=\"contact[last_name]\" required>\n\n      <!-- Email -->\n      <label for=\"email\">Email <span style=\"color:red;\">*<\/span><\/label>\n      <input type=\"email\" id=\"email\" name=\"contact[email]\" required>\n\n      <!-- Company -->\n      <label for=\"company\">Company Name<\/label>\n      <input type=\"text\" id=\"company\" name=\"contact[company]\">\n\n      <!-- Foam Colour -->\n      <label for=\"foam_colour\">Choose Foam Colours<\/label>\n      <select id=\"foam_colour\" name=\"contact[foam_colour]\">\n        <option value=\"Black\">Black<\/option>\n        <option value=\"Red\">Red<\/option>\n        <option value=\"Blue\">Blue<\/option>\n        <option value=\"Custom\">Custom<\/option>\n      <\/select>\n\n      <!-- Items -->\n      <label for=\"items\">Please list items to include <span style=\"color:red;\">*<\/span><\/label>\n      <textarea id=\"items\" name=\"contact[items]\" rows=\"4\" required placeholder=\"Tools, knives, firearms, watches, drone parts, cameras, etc...\"><\/textarea>\n\n      <!-- Quantity -->\n      <label for=\"quantity\">Expected Quantity<\/label>\n      <input type=\"number\" id=\"quantity\" name=\"contact[quantity]\" min=\"1\">\n\n      <!-- File Upload -->\n      <label for=\"file\">Upload File (images, drawings, etc.)<\/label>\n      <input type=\"file\" id=\"file\" name=\"contact[file]\">\n\n      <!-- Project Details -->\n      <label for=\"details\">Tell us more details about your project<\/label>\n      <textarea id=\"details\" name=\"contact[details]\" rows=\"5\"><\/textarea>\n\n      <!-- Submit -->\n      <button type=\"submit\" style=\"margin-top:15px; background:#004aad; color:#fff; padding:10px 20px; border:none; border-radius:5px;\">\n        Submit Request\n      <\/button>\n    <\/form>\n  <\/div>\n<\/section>"}},"1755654506901b5925":{"type":"apps","blocks":{"hulk_form_builder_form_block_hQ63Yb":{"type":"shopify:\/\/apps\/hulk-form-builder\/blocks\/form-block\/b6b8dd14-356b-4725-a4ed-77232212b3c3","settings":{"form_uuid":"uQzS-0GwAIJChunQsnrHrQ","form_settings":false,"font_color":"#000000","size":14,"input_background_color":"#FFF","input_background_color_focus":"#F4DADA","input_border_radius":1,"input_border_color":"#ebe9e9","input_border_color_focus":"#2D2727","input_font_color":"#3D3131","input_size":14,"border_color":"#121212","border_radius":2,"border":1,"fill_color":"#EBE9E9","padding":35,"form_width":600,"btn_text":"Submit","sub_btn_txt_color":"#F3F3F3","sub_btn_bg_color":"#3F3333","sub_btn_font_size":14,"sub_btn_bdr_color":"#FFFFFF","sub_btn_bdr_rad":3,"sub_btn_bdr_width":1,"fonts":"Times New Roman"}}},"block_order":["hulk_form_builder_form_block_hQ63Yb"],"settings":{}}},"order":["main","custom_liquid_HiPmY9","1755654506901b5925"]}
+{
+  "sections": {
+    "hero": {
+      "type": "tx-p-hero",
+      "settings": {
+        "layout": "right",
+        "theme": "dark",
+        "eyebrow": "Custom foam",
+        "heading": "Every tool in its place. Cut to your drawer.",
+        "lead": "<p>Precision-cut foam layouts based on your tools, your dimensions or a design you supply. Tools stay put, missing ones stand out, and the drawer looks the way a professional kit should.</p>",
+        "product": "custom-foam-inserts",
+        "chip_big": "CNC-cut",
+        "chip_small": "high-density foam",
+        "btn1_text": "Start an inquiry",
+        "btn1_url": "#txp-appform",
+        "btn2_text": "Shop foam sheets",
+        "btn2_url": "shopify://collections/foam-inserts"
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "big": "Any drawer",
+            "small": "TOOSA or other brands"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "big": "Two-tone",
+            "small": "missing tools show at a glance"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "big": "Richmond, BC",
+            "small": "designed and cut in house"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ]
+    },
+    "appform": {
+      "type": "tx-p-appform",
+      "settings": {
+        "eyebrow": "Custom foam inserts",
+        "heading": "Tell us about your tools.",
+        "lead": "<p>Send the list, a photo or a tracing of the drawer and we design a layout with every tool in its own labelled pocket, CNC-cut from high-density foam in Richmond, BC.</p>",
+        "step1": "Send the details :: Tool list, drawer dimensions and a photo, or a tracing on paper.",
+        "step2": "We design the layout :: A pocket for every tool, finger notches where you need them, a proof to approve.",
+        "step3": "CNC-cut in Richmond :: Two-tone high-density foam, so a missing tool shows at a glance.",
+        "step4": "Drop it in :: Ships with your order or on its own. Fits TOOSA drawers and most other brands.",
+        "note": "<p>Prefer email? Send everything to <a href=\"mailto:sales@toosa.ca\">sales@toosa.ca</a>.</p>",
+        "panel_heading": "Custom foam inquiry",
+        "fallback_email": "sales@toosa.ca"
+      },
+      "blocks": {
+        "hulk_form_builder_form_block_hQ63Yb": {
+          "type": "shopify://apps/hulk-form-builder/blocks/form-block/b6b8dd14-356b-4725-a4ed-77232212b3c3",
+          "settings": {
+            "form_uuid": "uQzS-0GwAIJChunQsnrHrQ",
+            "form_settings": false,
+            "font_color": "#000000",
+            "size": 14,
+            "input_background_color": "#FFF",
+            "input_background_color_focus": "#F4DADA",
+            "input_border_radius": 1,
+            "input_border_color": "#ebe9e9",
+            "input_border_color_focus": "#2D2727",
+            "input_font_color": "#3D3131",
+            "input_size": 14,
+            "border_color": "#121212",
+            "border_radius": 2,
+            "border": 1,
+            "fill_color": "#EBE9E9",
+            "padding": 35,
+            "form_width": 600,
+            "btn_text": "Submit",
+            "sub_btn_txt_color": "#F3F3F3",
+            "sub_btn_bg_color": "#3F3333",
+            "sub_btn_font_size": 14,
+            "sub_btn_bdr_color": "#FFFFFF",
+            "sub_btn_bdr_rad": 3,
+            "sub_btn_bdr_width": 1,
+            "fonts": "Times New Roman"
+          }
+        }
+      },
+      "block_order": [
+        "hulk_form_builder_form_block_hQ63Yb"
+      ]
+    },
+    "cta": {
+      "type": "tx-p-cta",
+      "settings": {
+        "theme": "paper",
+        "orange": false,
+        "eyebrow": "Showroom",
+        "heading": "Want to see foam in a drawer first?",
+        "lead": "<p>The showroom has finished inserts you can handle, and the team can measure your drawers on the spot.</p>",
+        "btn1_text": "Book a showroom visit",
+        "btn1_url": "shopify://pages/book-appointments",
+        "btn2_text": "Shop foam sheets",
+        "btn2_url": "shopify://collections/foam-inserts",
+        "phone": "+1 (778) 939-9494",
+        "email": "sales@toosa.ca",
+        "address": "11566 Eburne Way, Richmond, BC",
+        "address_url": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "appform",
+    "cta"
+  ]
+}

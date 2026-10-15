@@ -1,0 +1,154 @@
+{% comment %} TOOSA inner pages: contact form + sticky info card + map, then locations {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign map_q = s.map_query | default: s.address | strip_html | url_encode
+-%}
+<section class="txp txp--paper txp-section" id="txp-contact-{{ section.id }}">
+  <div class="txp-wrap">
+    <div class="txp-contact">
+      <div class="txp-form txp-reveal">
+        {%- form 'contact', id: 'txp-contact-form', class: 'txp-contact-form' -%}
+          {%- if s.form_heading != blank -%}<h2 class="txp-h2 txp-h2--sm">{{ s.form_heading }}</h2>{%- endif -%}
+          {%- if s.form_sub != blank -%}<p class="txp-form__sub">{{ s.form_sub }}</p>{%- endif -%}
+          {%- if form.posted_successfully? -%}
+            <div class="txp-form__ok" role="status">{{ s.success | default: "Thanks, your message is in. We'll reply within one business day." }}</div>
+          {%- elsif form.errors -%}
+            <div class="txp-form__err" role="alert">Please check the form:<ul>{%- for field in form.errors -%}<li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>{%- endfor -%}</ul></div>
+          {%- endif -%}
+          <div class="txp-form__grid">
+            <div class="txp-field"><label for="txp-c-name">Name</label><input type="text" id="txp-c-name" name="contact[name]" autocomplete="name" placeholder="Your name" value="{{ form.name }}" required></div>
+            <div class="txp-field"><label for="txp-c-email">Email</label><input type="email" id="txp-c-email" name="contact[email]" autocomplete="email" placeholder="you@company.com" value="{{ form.email }}" required></div>
+            <div class="txp-field"><label for="txp-c-phone">Phone</label><input type="tel" id="txp-c-phone" name="contact[phone]" autocomplete="tel" placeholder="Optional" value="{{ form.phone }}"></div>
+            <div class="txp-field"><label for="txp-c-topic">Topic</label>
+              <select id="txp-c-topic" name="contact[topic]">
+                {%- assign topics = s.topics | split: '|' -%}
+                {%- for t in topics -%}<option value="{{ t | strip }}">{{ t | strip }}</option>{%- endfor -%}
+              </select>
+            </div>
+            <div class="txp-field txp-field--full"><label for="txp-c-body">Message</label><textarea id="txp-c-body" name="contact[body]" placeholder="{{ s.message_placeholder | default: 'Tell us about your space, the tools you need to store and when you need it by.' }}" required>{{ form.body }}</textarea></div>
+          </div>
+          <div class="txp-form__foot">
+            <button type="submit" class="txp-btn txp-btn--primary">{{ s.button | default: 'Send message' }}{% render 'tx-p-icon', name: 'arrow' %}</button>
+            {%- if s.foot != blank -%}<small>{{ s.foot }}</small>{%- endif -%}
+          </div>
+        {%- endform -%}
+      </div>
+      <aside class="txp-contact__aside">
+        <div class="txp-info txp-reveal" data-delay="1">
+          {%- if s.info_heading != blank -%}<h2 class="txp-h3">{{ s.info_heading }}</h2>{%- endif -%}
+          {%- if s.address != blank -%}
+            <div class="txp-info__row"><div class="txp-info__ic">{% render 'tx-p-icon', name: 'pin' %}</div><div><b>Showroom &amp; warehouse</b><a href="{{ s.map_link | default: 'https://www.google.com/maps/search/?api=1&query=' | append: map_q }}" target="_blank" rel="noopener">{{ s.address }}</a>{%- if s.address_note != blank -%}<small>{{ s.address_note }}</small>{%- endif -%}</div></div>
+          {%- endif -%}
+          {%- if s.phone != blank -%}
+            {%- assign tel = s.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' -%}
+            <div class="txp-info__row"><div class="txp-info__ic">{% render 'tx-p-icon', name: 'phone' %}</div><div><b>Call or text</b><a href="tel:{{ tel }}">{{ s.phone }}</a>{%- if s.phone_note != blank -%}<small>{{ s.phone_note }}</small>{%- endif -%}</div></div>
+          {%- endif -%}
+          {%- if s.email != blank -%}
+            <div class="txp-info__row"><div class="txp-info__ic">{% render 'tx-p-icon', name: 'mail' %}</div><div><b>Email</b><a href="mailto:{{ s.email }}">{{ s.email }}</a>{%- if s.email_note != blank -%}<small>{{ s.email_note }}</small>{%- endif -%}</div></div>
+          {%- endif -%}
+          {%- if s.hours != blank -%}
+            <div class="txp-info__row"><div class="txp-info__ic">{% render 'tx-p-icon', name: 'clock' %}</div><div><b>Hours</b><span>{{ s.hours }}</span>{%- if s.hours_note != blank -%}<small>{{ s.hours_note }}</small>{%- endif -%}</div></div>
+          {%- endif -%}
+          {%- if s.show_social -%}
+            <div class="txp-info__social">
+              {%- if settings.social_instagram_link != blank -%}<a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'tx-p-icon', name: 'instagram' %}</a>{%- endif -%}
+              {%- if settings.social_facebook_link != blank -%}<a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'tx-p-icon', name: 'facebook' %}</a>{%- endif -%}
+              {%- if settings.social_linkedin_link != blank -%}<a href="{{ settings.social_linkedin_link }}" target="_blank" rel="noopener" aria-label="LinkedIn">{% render 'tx-p-icon', name: 'linkedin' %}</a>{%- endif -%}
+              {%- if settings.social_youtube_link != blank -%}<a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">{% render 'tx-p-icon', name: 'youtube' %}</a>{%- endif -%}
+              {%- if settings.social_tiktok_link != blank -%}<a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'tx-p-icon', name: 'tiktok' %}</a>{%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if s.show_map and map_q != blank -%}
+          <div class="txp-map txp-reveal" data-delay="2">
+            <iframe title="Map to the TOOSA showroom" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q={{ map_q }}&z=14&output=embed"></iframe>
+            <a class="txp-btn txp-btn--dark txp-btn--sm txp-map__link" href="{{ s.map_link | default: 'https://www.google.com/maps/search/?api=1&query=' | append: map_q }}" target="_blank" rel="noopener">Directions{% render 'tx-p-icon', name: 'arrow' %}</a>
+          </div>
+        {%- endif -%}
+      </aside>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="txp-head" style="margin-top: var(--txp-pad); margin-bottom: 28px;">
+        {%- if s.loc_eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.loc_eyebrow }}</p>{%- endif -%}
+        {%- if s.loc_heading != blank -%}<h2 class="txp-h2 txp-h2--sm txp-reveal" data-delay="1">{{ s.loc_heading }}</h2>{%- endif -%}
+      </div>
+      <div class="txp-locs">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign bq = b.map_query | default: b.address | strip_html | url_encode
+            assign btel = b.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', ''
+          -%}
+          <div class="txp-loc txp-reveal" data-delay="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            {%- if b.image != blank -%}
+              <div class="txp-loc__media">{{ b.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(min-width: 640px) 46vw, 92vw', alt: b.image.alt | default: b.name }}{%- if b.badge != blank -%}<span class="txp-loc__badge {% if forloop.index > 1 %}txp-loc__badge--alt{% endif %}">{{ b.badge }}</span>{%- endif -%}</div>
+            {%- endif -%}
+            <div class="txp-loc__body">
+              {%- if b.image == blank and b.badge != blank -%}<div class="txp-kicker">{{ b.badge }}</div>{%- endif -%}
+              <h3 class="txp-h3">{{ b.name }}</h3>
+              {%- if b.text != blank -%}<p class="txp-card__text">{{ b.text }}</p>{%- endif -%}
+              <div class="txp-loc__rows">
+                {%- if b.address != blank -%}<div>{% render 'tx-p-icon', name: 'pin' %}<span>{{ b.address }}</span></div>{%- endif -%}
+                {%- if b.phone != blank -%}<div>{% render 'tx-p-icon', name: 'phone' %}<a href="tel:{{ btel }}">{{ b.phone }}</a></div>{%- endif -%}
+                {%- if b.email != blank -%}<div>{% render 'tx-p-icon', name: 'mail' %}<a href="mailto:{{ b.email }}">{{ b.email }}</a></div>{%- endif -%}
+                {%- if b.hours != blank -%}<div>{% render 'tx-p-icon', name: 'clock' %}<span>{{ b.hours }}</span></div>{%- endif -%}
+              </div>
+              <div class="txp-loc__actions">
+                {%- if bq != blank -%}<a class="txp-btn txp-btn--ghost txp-btn--sm" href="https://www.google.com/maps/search/?api=1&query={{ bq }}" target="_blank" rel="noopener">Directions{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
+                {%- if b.link_text != blank -%}<a class="txp-btn txp-btn--primary txp-btn--sm" href="{{ b.link_url }}" {% if b.link_url contains 'http' %}target="_blank" rel="noopener"{% endif %}>{{ b.link_text }}</a>{%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Contact",
+  "settings": [
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Send us a message" },
+    { "type": "text", "id": "form_sub", "label": "Form sub-line" },
+    { "type": "text", "id": "topics", "label": "Topics, separated by |", "default": "General question|Help choosing a setup|Quote for a business|Custom foam or engraving|Delivery or pickup|Order support" },
+    { "type": "text", "id": "message_placeholder", "label": "Message placeholder" },
+    { "type": "text", "id": "button", "label": "Button text", "default": "Send message" },
+    { "type": "text", "id": "foot", "label": "Note under the button" },
+    { "type": "text", "id": "success", "label": "Success message" },
+    { "type": "header", "content": "Info card" },
+    { "type": "text", "id": "info_heading", "label": "Heading", "default": "Reach the team" },
+    { "type": "text", "id": "address", "label": "Address" },
+    { "type": "text", "id": "address_note", "label": "Address note" },
+    { "type": "text", "id": "map_query", "label": "Map search text (defaults to the address)" },
+    { "type": "url", "id": "map_link", "label": "Directions link (optional)" },
+    { "type": "text", "id": "phone", "label": "Phone" },
+    { "type": "text", "id": "phone_note", "label": "Phone note" },
+    { "type": "text", "id": "email", "label": "Email" },
+    { "type": "text", "id": "email_note", "label": "Email note" },
+    { "type": "text", "id": "hours", "label": "Hours" },
+    { "type": "text", "id": "hours_note", "label": "Hours note" },
+    { "type": "checkbox", "id": "show_social", "label": "Show social links", "default": true },
+    { "type": "checkbox", "id": "show_map", "label": "Show map", "default": true },
+    { "type": "header", "content": "Locations" },
+    { "type": "text", "id": "loc_eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "loc_heading", "label": "Heading" }
+  ],
+  "blocks": [
+    { "type": "location", "name": "Location", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "text", "id": "badge", "label": "Badge (Showroom, Distributor)" },
+      { "type": "text", "id": "name", "label": "Name" },
+      { "type": "text", "id": "text", "label": "One line about it" },
+      { "type": "text", "id": "address", "label": "Address" },
+      { "type": "text", "id": "map_query", "label": "Map search text (optional)" },
+      { "type": "text", "id": "phone", "label": "Phone" },
+      { "type": "text", "id": "email", "label": "Email" },
+      { "type": "text", "id": "hours", "label": "Hours" },
+      { "type": "text", "id": "link_text", "label": "Button text" },
+      { "type": "url", "id": "link_url", "label": "Button link" } ] }
+  ],
+  "presets": [ { "name": "TX Contact" } ]
+}
+{% endschema %}

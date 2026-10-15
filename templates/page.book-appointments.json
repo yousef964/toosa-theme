@@ -1,1 +1,142 @@
-{"sections":{"image_with_text_carousel_RrDy6b":{"type":"image-with-text-carousel","blocks":{"slide_6gfYdN":{"type":"slide","settings":{"image_content_width_split":50,"image":"shopify:\/\/shop_images\/RBC_PayPlan_SocialPostSticker_Horizontal_0APRFinancing.psd.png","image_aspect_ratio":"auto","image_placement":"left","content_custom_width":false,"content_width":650,"content_horizontal_align":"flex-start","content_vertical_align":"flex-start","content_text_align":"left","text_1":"Pay Over Time with RBC","text_1_size":"x-small","text_2":"Financing Now Available1","text_2_size":"medium","text_3":"We provide easy and affordable financing through our partner, PayPlan by RBC™, so you can pay for your purchase over time.","text_3_size":"large","button_text":"Learn More","button_url":"https:\/\/www.rbcroyalbank.com\/payplan\/index.html","button_target":"_blank","button_style":"fill"}}},"block_order":["slide_6gfYdN"],"name":"t:sections.image_with_text_slider.presets.image_with_text_slider.name","settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-0","color_scheme":"","inset":true,"inset_choice":"level-4","gap":true,"gap_choice":"level-6","carousel":true,"autoplay":true,"interval":4000,"loop":true,"mouse_drag":true,"arrows":true,"speed":400,"separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":true,"spacing_choice":"level-3","spacing_placement":"1"}},"rich_text_eNWRrK":{"type":"rich-text","blocks":{"heading_ekgLyJ":{"type":"heading","settings":{"text":"Affordable Monthly Plans","text_size":"medium","text_custom_width":false,"text_width":450}},"text_JgQbNg":{"type":"text","settings":{"text":"Buy now and pay for your purchase over time at competitive interest rates.","text_size":"medium","text_custom_width":false,"text_width":450}},"heading_K68cEW":{"type":"heading","settings":{"text":"No Prepayment Penalties","text_size":"medium","text_custom_width":false,"text_width":450}},"text_pdYafC":{"type":"text","settings":{"text":"Pay for your purchase with monthly payments and prepay at any time without penalty.","text_size":"medium","text_custom_width":false,"text_width":450}},"heading_zaf7Ln":{"type":"heading","settings":{"text":"Easy Application","text_size":"medium","text_custom_width":false,"text_width":450}},"text_hbDbLF":{"type":"text","settings":{"text":"Get a decision in seconds with no obligation to buy. Checking your rate won't affect your credit score. Your data is safe and encrypted.","text_size":"medium","text_custom_width":false,"text_width":450}},"buttons_Fhf3wr":{"type":"buttons","settings":{"button_1_text":"Learn More","button_1_url":"https:\/\/www.rbcroyalbank.com\/payplan\/index.html#section-content-customers","button_1_target":"_self","button_1_style":"fill","button_1_custom_width":false,"button_1_width":200,"button_2_text":"","button_2_url":"","button_2_target":"_self","button_2_style":"fill","button_2_custom_width":false,"button_2_width":200}},"text_bG87EN":{"type":"text","settings":{"text":"Questions? Check the PayPlan by RBC™ FAQs. Trademark of Royal Bank of Canada. Used under licence. ","text_size":"x-small","text_custom_width":false,"text_width":450}}},"block_order":["heading_ekgLyJ","text_JgQbNg","heading_K68cEW","text_pdYafC","heading_zaf7Ln","text_hbDbLF","buttons_Fhf3wr","text_bG87EN"],"name":"t:sections.rich_text.presets.rich_text.name","settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-0","color_scheme":"","inset_choice":"level-4","alignment":"center","gap":true,"gap_choice":"level-4","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":true,"spacing_choice":"level-3","spacing_placement":"1"}}},"order":["image_with_text_carousel_RrDy6b","rich_text_eNWRrK"]}
+{
+  "sections": {
+    "hero": {
+      "type": "tx-p-hero",
+      "settings": {
+        "layout": "bg",
+        "theme": "dark",
+        "eyebrow": "Showroom",
+        "heading": "See it, pull the drawers, then decide.",
+        "lead": "<p>Book a time at our Richmond, BC showroom, or a virtual walkthrough with the TOOSA team. Compare the sizes, test the slides and leave with a plan for your space.</p>",
+        "image": "shopify://shop_images/OTHER.jpg"
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "big": "Richmond, BC",
+            "small": "Unit 142 – 11566 Eburne Way"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "big": "Free",
+            "small": "in-person and virtual demos"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "big": "~30 min",
+            "small": "is all it takes"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ]
+    },
+    "booking": {
+      "type": "tx-p-booking",
+      "settings": {
+        "eyebrow": "What to expect",
+        "heading": "A visit, not a sales pitch.",
+        "lead": "<p>We built TOOSA for people who like to see things before they buy them. Here's how a visit goes.</p>",
+        "panel_heading": "Book your slot",
+        "panel_text": "Choose a date and time below. We confirm by email and you can reschedule any time.",
+        "points": "Every size side by side|Drawers, slides, locks and finishes|Foam, lighting and engraving samples|Financing and delivery answered on the spot",
+        "embed": "<div class=\"appointo-custom-btn\" data-appointo-product-handle=\"in-person-product-demo\" type=\"embed\"></div>",
+        "phone": "+1 (778) 939-9494",
+        "hours": "Monday – Friday, 10 AM – 6 PM"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Pick a time",
+            "text": "Choose a slot that suits you. Prefer a video call? Choose the virtual option and we'll walk the floor with the camera."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Walk the floor",
+            "text": "Compare tool chests, hutches, side lockers and foam in person. Open every drawer; that's what they're there for."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Plan your setup",
+            "text": "Bring your wall measurements and a photo of the space. We'll configure a layout that fits and grows with you."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Order, finance, deliver",
+            "text": "Buy on the day or later online. Pay monthly with RBC if that helps, and choose delivery or pickup."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ]
+    },
+    "financing": {
+      "type": "tx-p-split",
+      "settings": {
+        "theme": "light",
+        "eyebrow": "Pay over time with RBC",
+        "heading": "Financing now available."
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/RBC_PayPlan_SocialPostSticker_Horizontal_0APRFinancing.psd.png",
+            "contain": true,
+            "flip": true,
+            "heading": "Easy, affordable monthly payments",
+            "text": "<p>We provide easy and affordable financing through our partner, PayPlan by RBC™, so you can pay for your purchase over time.</p><ul><li><strong>Affordable monthly plans.</strong> Buy now and pay over time at competitive interest rates.</li><li><strong>No prepayment penalties.</strong> Pay monthly and prepay at any time without penalty.</li><li><strong>Easy application.</strong> Get a decision in seconds with no obligation to buy. Checking your rate won't affect your credit score, and your data is safe and encrypted.</li></ul><p><small>Questions? Check the PayPlan by RBC™ FAQs. Trademark of Royal Bank of Canada. Used under licence.</small></p>",
+            "link_text": "Learn more about PayPlan by RBC",
+            "link_url": "https://www.rbcroyalbank.com/payplan/index.html#section-content-customers"
+          }
+        }
+      },
+      "block_order": [
+        "row_1"
+      ]
+    },
+    "cta": {
+      "type": "tx-p-cta",
+      "settings": {
+        "theme": "light",
+        "orange": false,
+        "eyebrow": "Talk to us",
+        "heading": "Rather just call?",
+        "lead": "<p>Phone or email and we'll find a time, answer questions or send a quote.</p>",
+        "btn1_text": "Contact us",
+        "btn1_url": "shopify://pages/contact",
+        "btn2_text": "Shop tool storage",
+        "btn2_url": "shopify://collections/tool-storage",
+        "phone": "+1 (778) 939-9494",
+        "email": "sales@toosa.ca",
+        "address": "11566 Eburne Way, Richmond, BC",
+        "address_url": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "booking",
+    "financing",
+    "cta"
+  ]
+}

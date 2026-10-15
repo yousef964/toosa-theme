@@ -1,0 +1,129 @@
+{% comment %} TOOSA inner pages: article layout with sticky share column, prev/next, comments and more from the journal {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign share_url = shop.url | append: article.url
+-%}
+<article class="txp txp--light txp-article" id="txp-article-{{ section.id }}">
+  <header class="txp-article__hero">
+    <div class="txp-wrap txp-wrap--narrow">
+      <nav class="txp-crumbs txp-reveal" aria-label="Breadcrumb"><a href="/">Home</a><span><a href="{{ blog.url }}">{{ blog.title }}</a></span></nav>
+      <div class="txp-blog__meta txp-reveal" data-delay="1">
+        {%- if article.tags.size > 0 -%}<span class="txp-tag">{{ article.tags.first }}</span>{%- endif -%}
+        <span>{{ article.published_at | date: '%B %-d, %Y' }}</span>
+        {%- if s.show_author and article.author != blank -%}<span>By {{ article.author }}</span>{%- endif -%}
+        {%- if s.show_time -%}{%- assign words = article.content | strip_html | split: ' ' | size -%}<span>{{ words | divided_by: 200 | at_least: 1 }} min read</span>{%- endif -%}
+      </div>
+      <h1 class="txp-h1 txp-reveal" data-delay="2">{{ article.title }}</h1>
+      {%- if article.excerpt != blank -%}<p class="txp-article__excerpt txp-reveal" data-delay="3">{{ article.excerpt | strip_html }}</p>{%- endif -%}
+    </div>
+    {%- if article.image != blank and s.show_image -%}
+      <div class="txp-wrap"><div class="txp-article__img txp-reveal" data-delay="3">{{ article.image | image_url: width: 2000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '800, 1200, 1600, 2000', sizes: '(min-width: 1200px) 1180px, 96vw', alt: article.image.alt | default: article.title }}</div></div>
+    {%- endif -%}
+  </header>
+  <div class="txp-wrap txp-wrap--narrow txp-section txp-section--tight">
+    <div class="txp-article__layout">
+      <div class="txp-article__body">
+        <div class="txp-rt txp-reveal">{{ article.content }}</div>
+        {%- if article.tags.size > 0 and s.show_tags -%}
+          <div class="txp-article__tags">{%- for tag in article.tags -%}<a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{%- endfor -%}</div>
+        {%- endif -%}
+        {%- if blog.previous_article or blog.next_article -%}
+          <nav class="txp-article__nav" aria-label="More articles">
+            {%- if blog.previous_article -%}<a href="{{ blog.previous_article.url }}"><small>Previous</small><b>{{ blog.previous_article.title }}</b></a>{%- else -%}<span></span>{%- endif -%}
+            {%- if blog.next_article -%}<a href="{{ blog.next_article.url }}"><small>Next</small><b>{{ blog.next_article.title }}</b></a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+        {%- if blog.comments_enabled? -%}
+          <div class="txp-comments" id="comments">
+            {%- paginate article.comments by 10 -%}
+              {%- if article.comments_count > 0 -%}
+                <h2 class="txp-h3">{{ article.comments_count }} {% if article.comments_count == 1 %}comment{% else %}comments{% endif %}</h2>
+                {%- for comment in article.comments -%}
+                  <div class="txp-comment" id="{{ comment.id }}"><b>{{ comment.author }}</b><small>{{ comment.created_at | date: '%B %-d, %Y' }}</small><div>{{ comment.content }}</div></div>
+                {%- endfor -%}
+                {%- if paginate.pages > 1 -%}
+                  <nav class="txp-pager" aria-label="Comment pages">{%- for part in paginate.parts -%}{%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>{%- elsif part.title == paginate.current_page -%}<span class="is-on">{{ part.title }}</span>{%- else -%}<span class="is-gap">{{ part.title }}</span>{%- endif -%}{%- endfor -%}</nav>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endpaginate -%}
+            <div class="txp-form">
+              {%- form 'new_comment', article -%}
+                <h2 class="txp-h3" style="margin-bottom: 8px;">Leave a comment</h2>
+                {%- if form.posted_successfully? -%}
+                  <div class="txp-form__ok" role="status">{% if blog.moderated? %}Thanks. Your comment will show once it has been approved.{% else %}Thanks, your comment is posted.{% endif %}</div>
+                {%- elsif form.errors -%}
+                  <div class="txp-form__err" role="alert">Please check the form:<ul>{%- for field in form.errors -%}<li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>{%- endfor -%}</ul></div>
+                {%- endif -%}
+                <div class="txp-form__grid">
+                  <div class="txp-field"><label for="txp-cm-name">Name</label><input type="text" id="txp-cm-name" name="comment[author]" value="{{ form.author }}" required></div>
+                  <div class="txp-field"><label for="txp-cm-email">Email</label><input type="email" id="txp-cm-email" name="comment[email]" value="{{ form.email }}" required></div>
+                  <div class="txp-field txp-field--full"><label for="txp-cm-body">Comment</label><textarea id="txp-cm-body" name="comment[body]" required>{{ form.body }}</textarea></div>
+                </div>
+                <div class="txp-form__foot"><button type="submit" class="txp-btn txp-btn--primary">Post comment</button>{% if blog.moderated? %}<small>Comments are moderated before they appear.</small>{% endif %}</div>
+              {%- endform -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <aside class="txp-article__side txp-reveal" data-delay="1">
+        {%- if s.show_author and article.author != blank -%}
+          <div class="txp-article__author"><b>{{ article.author }}</b><span>{{ s.author_line | default: 'TOOSA team' }}</span></div>
+        {%- endif -%}
+        <div class="txp-share">
+          <b>Share</b>
+          <div>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on Facebook">{% render 'tx-p-icon', name: 'facebook' %}</a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">{% render 'tx-p-icon', name: 'linkedin' %}</a>
+            <a href="https://twitter.com/intent/tweet?url={{ share_url | url_encode }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" aria-label="Share on X">{% render 'tx-p-icon', name: 'x' %}</a>
+            <button type="button" data-txp-copy="{{ share_url }}" aria-label="Copy link">{% render 'tx-p-icon', name: 'link' %}</button>
+          </div>
+        </div>
+        {%- if s.side_title != blank -%}
+          <div class="txp-faq__help">
+            <h3 class="txp-h4">{{ s.side_title }}</h3>
+            {%- if s.side_text != blank -%}<p>{{ s.side_text }}</p>{%- endif -%}
+            {%- if s.side_btn != blank -%}<a class="txp-btn txp-btn--primary txp-btn--sm" href="{{ s.side_url }}">{{ s.side_btn }}{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </aside>
+    </div>
+    {%- if s.show_more -%}
+      {%- assign others = 0 -%}
+      {%- for other in blog.articles limit: 4 -%}{%- unless other.id == article.id -%}{%- assign others = others | plus: 1 -%}{%- endunless -%}{%- endfor -%}
+      {%- if others > 0 -%}
+        <div class="txp-more">
+          <div class="txp-head txp-head--row"><div><p class="txp-eyebrow">{{ blog.title }}</p><h2 class="txp-h2 txp-h2--sm">More from the journal</h2></div><a class="txp-btn txp-btn--ghost txp-btn--sm" href="{{ blog.url }}">All articles{% render 'tx-p-icon', name: 'arrow' %}</a></div>
+          <div class="txp-blog__grid">
+            {%- assign shown = 0 -%}
+            {%- for other in blog.articles limit: 4 -%}
+              {%- if other.id == article.id or shown >= 3 -%}{%- continue -%}{%- endif -%}
+              {%- assign shown = shown | plus: 1 -%}
+              <a class="txp-post txp-reveal" data-delay="{{ shown }}" href="{{ other.url }}">
+                <div class="txp-post__img">{%- if other.image != blank -%}{{ other.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 560px) 46vw, 92vw', alt: other.image.alt | default: other.title }}{%- endif -%}</div>
+                <div class="txp-post__body"><div class="txp-blog__meta"><span>{{ other.published_at | date: '%B %-d, %Y' }}</span></div><h3 class="txp-h3">{{ other.title }}</h3><span class="txp-link">Read more{% render 'tx-p-icon', name: 'arrow' %}</span></div>
+              </a>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</article>
+{% schema %}
+{
+  "name": "TX Article",
+  "settings": [
+    { "type": "checkbox", "id": "show_image", "label": "Show the featured image", "default": true },
+    { "type": "checkbox", "id": "show_author", "label": "Show author", "default": true },
+    { "type": "text", "id": "author_line", "label": "Line under the author", "default": "TOOSA team" },
+    { "type": "checkbox", "id": "show_time", "label": "Show reading time", "default": true },
+    { "type": "checkbox", "id": "show_tags", "label": "Show tags", "default": true },
+    { "type": "checkbox", "id": "show_more", "label": "Show more articles", "default": true },
+    { "type": "text", "id": "side_title", "label": "Side box title" },
+    { "type": "text", "id": "side_text", "label": "Side box text" },
+    { "type": "text", "id": "side_btn", "label": "Side box button" },
+    { "type": "url", "id": "side_url", "label": "Side box link" }
+  ],
+  "presets": [ { "name": "TX Article" } ]
+}
+{% endschema %}

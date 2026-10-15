@@ -209,6 +209,10 @@
     {{ 'tx.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'tx.js' | asset_url }}" defer></script>
   {% endif %}
+  {% if request.page_type == 'page' or request.page_type == 'blog' or request.page_type == 'article' or request.page_type == '404' or request.page_type == 'search' %}
+    {{ 'tx-pages.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'tx-pages.js' | asset_url }}" defer></script>
+  {% endif %}
 
 
   {% liquid 

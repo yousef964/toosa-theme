@@ -1,1 +1,47 @@
-{"sections":{"main-404-1":{"type":"main-404","blocks":{"text-1":{"type":"special-heading","settings":{}},"text-2":{"type":"richtext","settings":{}},"button-1":{"type":"button","settings":{}}},"block_order":["text-1","text-2","button-1"],"settings":{}}},"order":["main-404-1"]}
+{
+  "sections": {
+    "main": {
+      "type": "tx-p-404",
+      "settings": {
+        "eyebrow": "Page not found",
+        "heading": "That drawer's empty.",
+        "text": "<p>The page you were after has moved or never existed. Try a search, or jump straight to the good stuff.</p>",
+        "placeholder": "Search tool chests, foam, compressors"
+      },
+      "blocks": {
+        "link_1": {
+          "type": "link",
+          "settings": {
+            "title": "Shop tool storage",
+            "text": "Rolling chests, hutches, lockers and foam",
+            "url": "shopify://collections/tool-storage"
+          }
+        },
+        "link_2": {
+          "type": "link",
+          "settings": {
+            "title": "Why TOOSA",
+            "text": "What we build and how we build it",
+            "url": "shopify://pages/why-toosa"
+          }
+        },
+        "link_3": {
+          "type": "link",
+          "settings": {
+            "title": "Contact us",
+            "text": "Call, email or book a showroom visit",
+            "url": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "link_1",
+        "link_2",
+        "link_3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

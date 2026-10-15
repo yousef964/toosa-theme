@@ -1,0 +1,41 @@
+{% comment %} TOOSA inner pages: 404 with search and quick links {% endcomment %}
+{%- assign s = section.settings -%}
+<section class="txp txp-404" id="txp-404-{{ section.id }}">
+  <div class="txp-hero__grain"></div>
+  <div class="txp-404__big" aria-hidden="true">404</div>
+  <div class="txp-wrap">
+    <div class="txp-404__copy">
+      <p class="txp-eyebrow txp-reveal">{{ s.eyebrow | default: 'Page not found' }}</p>
+      <h1 class="txp-h1 txp-reveal" data-delay="1">{{ s.heading | default: "That drawer's empty." }}</h1>
+      <div class="txp-lead txp-reveal" data-delay="2">{{ s.text | default: '<p>The page you were after has moved or never existed. Try a search, or jump straight to the good stuff.</p>' }}</div>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="txp-search txp-reveal" data-delay="3">
+        {% render 'tx-p-icon', name: 'search' %}
+        <input type="search" name="q" placeholder="{{ s.placeholder | default: 'Search tool chests, foam, compressors' }}" aria-label="Search">
+        <input type="hidden" name="options[prefix]" value="last">
+      </form>
+      <div class="txp-404__links txp-reveal" data-delay="4">
+        {%- for block in section.blocks -%}
+          <a href="{{ block.settings.url }}" {{ block.shopify_attributes }}><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX 404",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Page not found" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "That drawer's empty." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "placeholder", "label": "Search placeholder" }
+  ],
+  "blocks": [
+    { "type": "link", "name": "Quick link", "limit": 3, "settings": [
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "text", "id": "text", "label": "Text" },
+      { "type": "url", "id": "url", "label": "Link" } ] }
+  ],
+  "presets": [ { "name": "TX 404" } ]
+}
+{% endschema %}

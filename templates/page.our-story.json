@@ -1,1 +1,413 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-4","title_size":"medium","alignment":"center","content_size":"large","content_custom_width":true,"content_width":1080,"spacing":true,"spacing_choice":"level-3","spacing_placement":"1"}},"image_banner_bKcE4b":{"type":"image-banner","blocks":{"special_heading_yiNfyy":{"type":"special-heading","settings":{"banner_special_heading":"About Us","banner_special_heading_size":"x-small"}},"text_y7XqdG":{"type":"text","settings":{"banner_text":"Built from real shop needs, designed for better work.","banner_text_size":"small"}}},"block_order":["special_heading_yiNfyy","text_y7XqdG"],"name":"t:sections.image_banner.presets.image_banner.name","settings":{"height_mobile":"460","height":"460","side_margin_choice":"level-0","color_scheme":"scheme_2","background_image_mobile":"shopify:\/\/shop_images\/From_Humble_Beginnings.png","background_overlay":true,"background_overlay_color":"#000000","background_overlay_gradient":"","background_overlay_opacity":32,"content_custom_width":false,"content_width":720,"content_position":"center","content_vertical_align":"center","content_horizontal_align":"center","inset_choice":"level-1","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":false,"spacing_choice":"level-3","spacing_placement":"1"}},"1786099252d5946e53":{"type":"_blocks","settings":{}},"1786103179876d31f7":{"type":"_blocks","blocks":{"ai_gen_block_3207d25_z7fiAm":{"type":"ai_gen_block_3207d25","settings":{"container_width":1400,"image_position":"left","grid_gap":50,"mobile_gap":40,"image":"shopify:\/\/shop_images\/Founder.jpg","image_aspect_ratio":"auto","image_border_radius":20,"eyebrow":"","heading":"Our Beginning","text":"<p>Founded by&nbsp;<strong>two engineers<\/strong>, our journey began with a shared passion for creativity and high quality craftsmanship. With a combined skillset and background in metallurgy and mechatronics, we have spent years working and learning from many different crafts such as Precision CNC machining, 3D printing and automotive parts manufacturing just to name a few.<\/p><p>Throughout our careers, we noticed a recurring&nbsp;<strong>challenge<\/strong>&nbsp;among working professionals: the need for affordable, yet stylish and professional-looking tool storage solutions. With our combined expertise and determination to make a difference, we decided to take action.<\/p><p>In&nbsp;<strong>2023<\/strong>, we founded TOOSA to provide innovative tool storage solutions that cater to the needs of professionals at every level.<\/p>","content_padding":20,"mobile_content_padding":10,"eyebrow_font":"inter_n4","eyebrow_size":14,"eyebrow_color":"#ff6f3c","eyebrow_transform":"uppercase","eyebrow_spacing":0.1,"eyebrow_margin":15,"heading_font":"manrope_n7","heading_size":36,"heading_color":"#000000","heading_line_height":1.2,"heading_margin":25,"text_font":"inter_n4","text_size":18,"text_color":"#000000","text_line_height":1.6,"paragraph_spacing":20,"spacing_top":40,"spacing_bottom":0,"mobile_spacing_top":30,"mobile_spacing_bottom":30},"blocks":{}},"ai_gen_block_3207d25_xVDx93":{"type":"ai_gen_block_3207d25","settings":{"container_width":1400,"image_position":"right","grid_gap":60,"mobile_gap":40,"image":"shopify:\/\/shop_images\/Red_TOOSA_Workstation_in_a_CNC_Shop.png","image_aspect_ratio":"auto","image_border_radius":20,"eyebrow":"","heading":"Why Believe Us","text":"<p>At TOOSA, we believe a workbench is more than just a piece of furniture—it’s the&nbsp;<strong>canvas<\/strong>&nbsp;where your hands bring ideas to life. Whether you’re crafting, repairing, or building, your workbench is a space for creativity, problem-solving, and progress. That’s why we provide solutions that inspire confidence and keep your tools within reach, so you can focus on the art of your craft.<\/p><p>Our&nbsp;<strong>mission<\/strong>&nbsp;is simple: to provide high-quality, functional storage solutions that meet the needs of both seasoned professionals and budding enthusiasts alike. We believe that everyone deserves a workspace that inspires creativity and efficiency, without breaking the bank.<\/p><p>We are dedicated to listening to our customers’ needs, continually innovating our products, and ensuring that you have the best solutions at your disposal to achieve your goals.<\/p><p>Thank you for being part of our journey. Together, let’s build a better workspace.<\/p>","content_padding":20,"mobile_content_padding":10,"eyebrow_font":"inter_n4","eyebrow_size":14,"eyebrow_color":"#ff6f3c","eyebrow_transform":"uppercase","eyebrow_spacing":0.1,"eyebrow_margin":15,"heading_font":"manrope_n7","heading_size":36,"heading_color":"#000000","heading_line_height":1.2,"heading_margin":25,"text_font":"inter_n4","text_size":18,"text_color":"#000000","text_line_height":1.6,"paragraph_spacing":20,"spacing_top":50,"spacing_bottom":50,"mobile_spacing_top":40,"mobile_spacing_bottom":40},"blocks":{}},"ai_gen_block_3207d25_PAxcAb":{"type":"ai_gen_block_3207d25","settings":{"container_width":1400,"image_position":"left","grid_gap":50,"mobile_gap":40,"image":"shopify:\/\/shop_images\/IMG_5883.heic","image_aspect_ratio":"auto","image_border_radius":20,"eyebrow":"","heading":"What If Everyone Could Have A Workspace Like This?&nbsp;","text":"<p>We posted one of our units on Facebook Marketplace just to see what would happen.<\/p><p>The response was immediate.<\/p><p>We woke up to more inquiries than we expected, and that was the moment we realized there was a real gap in the market.<\/p><p>Professionals, businesses, mechanics, fabricators, tradespeople, and DIYers were looking for the same thing we were:<\/p><p>High-quality tool storage that doesn't cost a fortune and doesn't lock you into one configuration.<\/p><p>TOOSA launched its first line of products in <strong>February 2024<\/strong> with that idea at the centre of everything we do<\/p>","content_padding":20,"mobile_content_padding":10,"eyebrow_font":"inter_n4","eyebrow_size":14,"eyebrow_color":"#ff6f3c","eyebrow_transform":"uppercase","eyebrow_spacing":0.1,"eyebrow_margin":15,"heading_font":"manrope_n7","heading_size":36,"heading_color":"#000000","heading_line_height":1.2,"heading_margin":25,"text_font":"inter_n4","text_size":18,"text_color":"#000000","text_line_height":1.6,"paragraph_spacing":20,"spacing_top":40,"spacing_bottom":30,"mobile_spacing_top":30,"mobile_spacing_bottom":30},"blocks":{}}},"block_order":["ai_gen_block_3207d25_z7fiAm","ai_gen_block_3207d25_xVDx93","ai_gen_block_3207d25_PAxcAb"],"settings":{}},"1786102526776d2776":{"type":"_blocks","blocks":{"ai_gen_block_4de4888_a43nqT":{"type":"ai_gen_block_4de4888","settings":{"show_header":true,"eyebrow_text":"Our Story","heading":"Crafting Excellence Since Day One","intro_text":"<p>At TOOSA, we're driven by a passion for innovation and a commitment to delivering professional-grade tools that empower craftsmen worldwide.<\/p>","header_alignment":"center","header_spacing":80,"show_row_1":true,"row_1_reverse":false,"row_1_card_label":"Our Journey","row_1_card_title":"Built on Passion and Precision","row_1_card_text":"<p>From humble beginnings to industry leaders, TOOSA has always been about pushing boundaries and redefining what's possible in professional tooling.<\/p>","row_1_show_stats":true,"row_1_stat_1_number":"25+","row_1_stat_1_label":"Years Experience","row_1_stat_2_number":"50K+","row_1_stat_2_label":"Professionals Served","show_row_2":true,"row_2_reverse":true,"row_2_card_label":"Innovation","row_2_card_title":"Engineering the Future","row_2_card_text":"<p>Our commitment to innovation drives us to constantly evolve, integrating cutting-edge technology with time-tested craftsmanship.<\/p>","row_2_show_stats":true,"row_2_stat_1_number":"100+","row_2_stat_1_label":"Products Designed","row_2_stat_2_number":"15","row_2_stat_2_label":"Countries Worldwide","show_row_3":true,"row_3_reverse":false,"row_3_card_label":"Commitment","row_3_card_title":"Quality Without Compromise","row_3_card_text":"<p>Every TOOSA product undergoes rigorous testing and quality control, ensuring that professionals receive tools they can trust in any situation.<\/p>","row_3_show_stats":true,"row_3_stat_1_number":"99%","row_3_stat_1_label":"Customer Satisfaction","row_3_stat_2_number":"24\/7","row_3_stat_2_label":"Support Available","container_width":1400,"section_padding_top":80,"section_padding_bottom":80,"content_gap":100,"row_gap":60,"text_padding":40,"background_color":"#ffffff","eyebrow_color":"#ff6f3c","heading_color":"#1e2a38","intro_color":"#1e2a38","card_background":"#f8f9fa","card_border_color":"#ff6f3c","card_label_color":"#ff6f3c","card_title_color":"#1e2a38","card_text_color":"#1e2a38","stat_number_color":"#ff6f3c","stat_label_color":"#1e2a38","eyebrow_size":12,"heading_size":48,"intro_size":18,"card_label_size":12,"card_title_size":28,"card_text_size":16,"stat_number_size":42,"stat_label_size":12,"image_aspect_ratio":"4 \/ 3","image_border_radius":8,"card_padding":30,"card_border_radius":8,"card_border_width":4},"blocks":{}}},"block_order":["ai_gen_block_4de4888_a43nqT"],"disabled":true,"settings":{}},"custom_liquid_C4bKe9":{"type":"custom-liquid","disabled":true,"name":"t:sections.custom_liquid.presets.custom_liquid.name","settings":{"custom_liquid":"<style>\n  .about-wrapper {\n    max-width: 1200px;\n    margin: 0 auto;\n    padding: 0;\n  }\n\n  .about-flex {\n    display: flex;\n    flex-wrap: wrap;\n    align-items: stretch;\n    border: 1px solid #000;\n  }\n\n  .about-text,\n  .about-image {\n    flex: 1 1 50%;\n    box-sizing: border-box;\n  }\n\n  .about-text {\n    padding: 40px;\n  }\n\n  \/* MOBILE FIX *\/\n  @media (max-width: 768px) {\n    .about-text,\n    .about-image {\n      flex: 1 1 100%;\n      padding: 20px;\n      text-align: left;\n    }\n  }\n<\/style>\n\n<div class=\"about-wrapper\">\n  <div class=\"about-flex\">\n\n    <div class=\"about-text\">\n      <p>\n        Founded by <strong>two engineers<\/strong>, our journey began with a shared passion for creativity and high quality craftsmanship. With a combined skillset and background in metallurgy and mechatronics, we have spent years working and learning from many different crafts such as Precision CNC machining, 3D printing and automotive parts manufacturing just to name a few.\n      <\/p>\n      <p>\n        Throughout our careers, we noticed a recurring <strong>challenge<\/strong> among working professionals: the need for affordable, yet stylish and professional-looking tool storage solutions. With our combined expertise and determination to make a difference, we decided to take action.\n      <\/p>\n      <p>\n        In <strong>2023<\/strong>, we founded TOOSA to provide innovative tool storage solutions that cater to the needs of professionals at every level.\n      <\/p>\n    <\/div>\n\n    <div class=\"about-image\">\n      <img \n        src=\"https:\/\/static.wixstatic.com\/media\/7893f7_55429fc0086849029f03d34353efc060~mv2.jpg\" \n        alt=\"About Us\" \n        style=\"max-width: 100%; height: auto; display: block;\"\n      >\n    <\/div>\n\n  <\/div>\n<\/div>"}},"custom_liquid_bHwLy4":{"type":"custom-liquid","disabled":true,"name":"t:sections.custom_liquid.presets.custom_liquid.name","settings":{"custom_liquid":"<style>\n  .toosa-section-wrapper {\n    max-width: 1200px;\n    margin: 0 auto 60px auto;\n    padding: 0;\n  }\n\n  .toosa-section-flex {\n    display: flex;\n    flex-wrap: wrap;\n    align-items: stretch;\n    border: 1px solid #000;\n  }\n\n  .toosa-image,\n  .toosa-text {\n    flex: 1 1 50%;\n    box-sizing: border-box;\n  }\n\n  .toosa-image {\n    min-height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n  }\n\n  .toosa-image img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    display: block;\n  }\n\n  .toosa-text {\n    padding: 60px;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n  }\n\n  \/* 📱 MOBILE FIX *\/\n  @media (max-width: 768px) {\n    .toosa-image,\n    .toosa-text {\n      flex: 1 1 100%;\n      padding: 20px;\n    }\n\n    .toosa-image img {\n      height: auto;\n      object-fit: contain;\n    }\n  }\n<\/style>\n\n<div class=\"toosa-section-wrapper\">\n  <div class=\"toosa-section-flex\">\n\n    <!-- Left Column (Image) -->\n    <div class=\"toosa-image\">\n      <img \n        src=\"https:\/\/static.wixstatic.com\/media\/7893f7_58cc16382add470cb687cf7a560b69e0~mv2.png\" \n        alt=\"Workbench\">\n    <\/div>\n\n    <!-- Right Column (Text) -->\n    <div class=\"toosa-text\">\n      <p>\n        At TOOSA, we believe a workbench is more than just a piece of furniture—it’s the <strong>canvas<\/strong> where your hands bring ideas to life. Whether you’re crafting, repairing, or building, your workbench is a space for creativity, problem-solving, and progress. That’s why we provide solutions that inspire confidence and keep your tools within reach, so you can focus on the art of your craft.\n      <\/p>\n      <p>\n        Our <strong>mission<\/strong> is simple: to provide high-quality, functional storage solutions that meet the needs of both seasoned professionals and budding enthusiasts alike. We believe that everyone deserves a workspace that inspires creativity and efficiency, without breaking the bank.\n      <\/p>\n      <p>\n        We are dedicated to listening to our customers’ needs, continually innovating our products, and ensuring that you have the best solutions at your disposal to achieve your goals.\n      <\/p>\n      <p>\n        Thank you for being part of our journey. Together, let’s build a better workspace.\n      <\/p>\n    <\/div>\n\n  <\/div>\n<\/div>"}},"team_cards_rq4kCT":{"type":"team-cards","blocks":{"team_member_GffwE9":{"type":"team_member","settings":{"image":"shopify:\/\/shop_images\/Omid_Toussi.jpg","name":"Omid Toussi","designation":"Co-Founder & Sales Director","bio":"UBC Engineering graduate, Omid comes from a background scaling innovative technologies across North America. At TOOSA, he plays a critical role in blending technical sales, marketing, and product development to turn ideas into real-world solutions.","phone":"+1 000 000 0000","email":"hello@example.com","linkedin":""}},"team_member_wgeMpV":{"type":"team_member","settings":{"image":"shopify:\/\/shop_images\/Yousef_Saheb_Javaher_Shopify.jpg","name":"Yousef Saheb Javaher","designation":"Co-Founder","bio":"SFU Mechatronics graduate, Yousef brings over a decade of experience in custom manufacturing, automation, and material fabrication. He plays a key role in turning concepts into practical, well-engineered products with precision.","phone":"+1 000 000 0000","email":"hello@example.com","linkedin":""}},"team_member_EyETkj":{"type":"team_member","settings":{"image":"shopify:\/\/shop_images\/Jeremy_Headshot.png","name":"Jeremy Malins","designation":"Manufacturing & Craftsmanship","bio":"With a decade of hands-on experience in machining and craftsmanship, Jeremy helps ensure every TOOSA product is built with care, durability, and uncompromising attention to quality.","phone":"","email":"","linkedin":""}}},"block_order":["team_member_GffwE9","team_member_wgeMpV","team_member_EyETkj"],"name":"Team Cards","settings":{"heading":"Meet The Team","description":"<p><strong>The People Behind TOOSA<\/strong><br\/>TOOSA is built by a small team of people who believe good products come from combining real-world experience, technical knowledge, and a willingness to listen.<\/p>","background_color":"#ff6f3c","background_color_2":"#ff6f3c","accent_color":"#ffffff","text_color":"#ffffff","muted_color":"#ffffff","card_color":"#ffffff0f","card_border_color":"#ffffff21","team_max_width":"1400","team_card_radius":"20","team_padding_top":"40","team_padding_bottom":"40","team_mobile_padding_top":"30","team_mobile_padding_bottom":"30"}},"17861011536586441e":{"type":"_blocks","blocks":{"ai_gen_block_af0f4ed_Ggx6pN":{"type":"ai_gen_block_af0f4ed","disabled":true,"settings":{"show_header":false,"eyebrow":"","title":"The TOOSA Journey","subtitle":"From humble beginnings to industry leadership, discover how we've grown and evolved to serve you better.","show_stats":false,"stat_1_number":"15+","stat_1_label":"Years in Business","stat_2_number":"50000+","stat_2_label":"Happy Customers","stat_3_number":"98%","stat_3_label":"Customer Satisfaction","stat_4_number":"25","stat_4_label":"Countries Served","show_timeline":false,"timeline_title":"Meet The Team","milestone_1_year":"#","milestone_1_title":"The People Behind Toosa","milestone_1_description":"TOOSA is built by a small team of people who believe good products come from combining real-world experience, technical knowledge, and a willingness to listen.","milestone_2_year":"Omid Toussi","milestone_2_title":"Co-Founder & Sales Director","milestone_2_description":"UBC Engineering graduate, Omid comes from a background scaling innovative technologies across North America. At TOOSA, he plays a critical role in blending technical sales, marketing, and product development to turn ideas into real-world solutions.","milestone_3_year":"Yousef Saheb Javaher","milestone_3_title":"Co-Founder","milestone_3_description":"SFU Mechatronics graduate, Yousef brings over a decade of experience in custom manufacturing, automation, and material fabrication. He plays a key role in turning concepts into practical, well-engineered products with precision.","milestone_4_year":"Jeremy Malins","milestone_4_title":"Manufacturing & Craftsmanship","milestone_4_description":"With a decade of hands-on experience in machining and craftsmanship, Jeremy helps ensure every TOOSA product is built with care, durability, and uncompromising attention to quality.","milestone_5_year":"","milestone_5_title":"","milestone_5_description":"","show_challenges":true,"challenges_title":"Challenges We Overcame","challenge_1_icon":"1","challenge_1_title":"Supply Chain Disruption","challenge_1_description":"Global supply chain challenges threatened our ability to deliver on time.","challenge_1_solution":"Built local partnerships and diversified suppliers to ensure reliability and faster delivery.","challenge_2_icon":"2","challenge_2_title":"Market Competition","challenge_2_description":"Intense competition from established players in a saturated market.","challenge_2_solution":"Focused on innovation, quality, and exceptional customer service to differentiate ourselves.","challenge_3_icon":"3","challenge_3_title":"Sustainability Goals","challenge_3_description":"Balancing growth with environmental responsibility and sustainable practices.","challenge_3_solution":"Invested in green technology and implemented circular economy principles across operations.","show_vision":true,"vision_title":"Our Vision for Tomorrow","vision_text":"We're committed to leading the industry into a sustainable future. Our vision is to create products that not only meet the highest standards of quality but also contribute positively to our planet and communities. Together, we're building a legacy of innovation, trust, and responsibility.","container_width":1400,"section_padding_top":0,"section_padding_bottom":40,"border_radius":12,"background_color":"#ffffff","text_color":"#000000","heading_color":"#000000","accent_color":"#ff6f3c","icon_color":"#ffffff","card_bg_color":"#eeeeee","stats_bg_color":"#eeeeee","vision_bg_color":"#f8f9fa","border_color":"#cccccc","timeline_line_color":"#f6552e","eyebrow_size":12,"title_size":36,"subtitle_size":18,"section_title_size":36,"stat_number_size":24,"stat_label_size":14,"timeline_year_size":20,"timeline_heading_size":20,"timeline_text_size":14,"challenge_heading_size":22,"challenge_text_size":15,"vision_text_size":18},"blocks":{}},"ai_gen_block_7f1b72f_6rV4Dd":{"type":"ai_gen_block_7f1b72f","settings":{"show_header":true,"eyebrow":"","title":"Mission & Vision","subtitle":"<p>Driving innovation and excellence in everything we do, while building a sustainable future for our community and industry.<\/p>","header_spacing":20,"show_mission":true,"mission_label":"Mission","mission_title":"Empowering Excellence","mission_description":"<p>To deliver exceptional quality and innovative solutions that exceed expectations, while fostering sustainable growth and creating lasting value for our customers and partners.<\/p>","show_vision":true,"vision_label":"Vision","vision_title":"Leading the Future","vision_description":"<p>To be the industry leader recognized for innovation, quality, and customer-centric solutions that shape the future of our field and inspire positive change.<\/p>","show_values":true,"values_label":"Values","values_title":"Core Principles","values_description":"<p>Integrity, innovation, and excellence guide every decision we make. We believe in transparency, collaboration, and continuous improvement to deliver outstanding results.<\/p>","container_width":1400,"columns_desktop":"3","columns_tablet":"2","text_alignment":"center","grid_spacing":50,"card_gap":25,"card_padding":40,"card_border_width":1,"card_border_radius":8,"card_hover_lift":8,"card_shadow_opacity":0.1,"show_accent":true,"accent_width":3,"accent_hover_width":4,"accent_color":"#ff6f3c","show_icons":true,"icon_size":50,"icon_border_radius":50,"icon_background":"#f6552e","icon_color":"#ffffff","eyebrow_size":12,"title_size":36,"subtitle_size":18,"label_size":12,"card_title_size":22,"card_description_size":16,"background_color":"#ffffff","eyebrow_color":"#ff6f3c","title_color":"#000000","subtitle_color":"#000000","card_background":"#ffffff","card_border_color":"#e6e8eb","card_border_hover_color":"#ff6f3c","label_color":"#ff6f3c","card_title_color":"#1e2a38","card_description_color":"#000000","padding_top":40,"padding_bottom":40},"blocks":{}}},"block_order":["ai_gen_block_af0f4ed_Ggx6pN","ai_gen_block_7f1b72f_6rV4Dd"],"settings":{}},"toosa_about_story_qUgdf8":{"type":"toosa-about-story","disabled":true,"name":"TOOSA About Story","settings":{"eyebrow":"OUR STORY","heading":"Built by people who use tools. Designed around the people who get things done.","intro_text":"<p>TOOSA was born from a real workshop problem: finding better tool storage without compromising quality, function or value.<\/p>","story":"<h3><strong>TOOSA didn't start with a business plan<\/strong><\/h3><p>It started with a messy metal fabrication shop that needed to be organized.<\/p><p>When we were renovating our own workspace, we started looking for tool storage that was high quality, functional, and built around the way we actually worked.<\/p><h3><strong>What we found was frustrating<\/strong><\/h3><p>The options were either expensive, low quality, or lacked the flexibility we were looking for. Some of the solutions we were quoted were in the <strong>$30,000–$40,000 range<\/strong> — for a setup we believed should cost a fraction of that.<\/p><h3><strong>So we decided to build our own<\/strong><\/h3><p>We designed tool storage around how we wanted to work: integrated work surfaces, easy-access pegboards, concealed upper storage, and a layout that kept everything organized and within reach.<\/p><h3><strong>The result completely transformed our workspace<\/strong><\/h3><p>It was cleaner. More organized. More professional. And, most importantly, we could find our tools when we needed them.<\/p><p>People started asking us where the storage came from.<\/p><p>That got us thinking.<\/p>","show_number":false,"number_text":"BUILT FROM A REAL WORKSHOP NEED","button_label":"Explore TOOSA","button_link":"","background_color":"#ffffff","text_color":"#171717","muted_color":"#666666","accent_color":"#e53935","max_width":1300,"padding_top":100,"padding_bottom":100}},"jd_testimonials_container_DNfAdP":{"type":"jd-testimonials-container","blocks":{"image_qWHqeF":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/zytsddrpJ3.webp","rating":5,"customer_name":"Terry M.","review":"<p>Best purchase ever! The team at Toosa was fantastic. 100% would recommend them. One of the easiest and smoothest online purchase and delivery I have ever had, especially considering it was delivered to Vancouver Island.<\/p>"}},"image_Q9FQiY":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/645579106_1886673896056266_872765453306288593_n_1.jpg","rating":5,"customer_name":"Jay M.","review":"<p>Insane amount of storage & heavy duty built was a no brainer at this price point. Very happy with my purchase &&nbsp;the support from TOOSA, answering all of my questions & concerns regarding the purchase.&nbsp;<\/p>"}},"video_nrqYxH":{"type":"video","settings":{"video":"shopify:\/\/files\/videos\/Copy of 10.1 Louie Toosa reel 01-.mp4","image":"shopify:\/\/shop_images\/568a41e3f0bf460bbc0f4304497f2a9c.thumbnail.0000000000.webp","rating":5,"customer_name":"Cloud E-Bikes","review":"<p>Having a professional tool box in our retail store makes our store look more presentable, builds more trust with our clients & saves time for our service team which in turn saves us money! Highly Recommend TOOSA for retail.&nbsp;<\/p>"}},"video_YpgLJp":{"type":"video","settings":{"video":"shopify:\/\/files\/videos\/Copy of Desy Testimonial Toosa_f80135a8-cf99-4804-97b0-9200872390be.mp4","image":"shopify:\/\/shop_images\/95ce318214334d41a663d8e45afad947.thumbnail.0000000000.webp","rating":5,"customer_name":"Desy B.","review":"<p>Organize all your tools & gear with the heavy-duty, professional-grade TOOSA Mega Max Rolling Tool Box. The soft-close feature on this unit is so satisfying & gives it such a premium feel. Would recommend adding the lighting kit.&nbsp;<\/p>"}},"image_NgME3C":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/5e53c105-509f-4715-a85a-3620fa1ed2fb.jpg","rating":5,"customer_name":"David K.","review":"<p>This tool cabinet transformed my workshop completely! It's nice to know exactly where my tools are and being able to lock them away securely in a shared work space. Great communication from the TOOSA team from start to fininsh.<\/p>"}},"image_XVJz67":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/091e6c608c43bdfbb6c805773649d863.jpg","rating":5,"customer_name":"Tay J.","review":"<p>Excellent guys to deal with !<br\/><br\/>Very happy with the tool cabinet and a very reasonable price compared to others.<\/p>"}},"video_4UbQrp":{"type":"video","settings":{"video":"shopify:\/\/files\/videos\/Copy of 10.4 Louie Toosa reel 04.mp4","image":"shopify:\/\/shop_images\/1320dae550e348a58066a91aa294fb27.thumbnail.0000000000.webp","rating":5,"customer_name":"Cloud E-Bikes","review":"<p>TOOSA's tool cabinets have been a game changer for our service teams. They help us maintain a smooth workflow and quickly access tools to serve customers faster.&nbsp;<\/p>"}},"image_Cqmc3K":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/IMG_1425.heic","rating":5,"customer_name":"Sarah P.","review":"<p>Perfect addition to my workspace. The product is as described and top quality.<\/p>"}},"image_RQg4eN":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/367B5BpG5B.webp","rating":5,"customer_name":"James R.","review":"<p>I recently ordered a toolbox from Toosa, and I’m seriously impressed. &nbsp;I expected the quality to be similar to the cheaper Husky floor models you see at Home Depot, but the Toosa box completely blew me away.&nbsp;<\/p>"}},"video_Nc9gea":{"type":"video","settings":{"video":"shopify:\/\/files\/videos\/Copy of 10.3 Louie Toosa reel 03.mp4","image":"shopify:\/\/shop_images\/0c589830e1f64d7e973c3fa1e0ef960e.thumbnail.0000000000.webp","rating":5,"customer_name":"Coud E-Bikes","review":"<p>TOOSA's adjustable lighting kit is the perfect addition to the existing high quality work top.&nbsp;<\/p><p>Work faster and see clearly at night with integrated, high-visibility toolbox lights.<\/p>"}},"image_UYkLFz":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/Glossy_Red_Workshop_Tool_Cabinet.png","rating":5,"customer_name":"Arian F.","review":"<p>Just rolled in our new tool cabinet<\/p>"}},"image_gTGWYd":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/c3c2751d-a315-4bcc-a88e-e85541c4c6d8.jpg","rating":5,"customer_name":"Bilal N.","review":"<p>This product has completely changed my experience. I highly recommend TOOSA is awesome! They really know how to make a workspace both efficient and stylish.<\/p>"}}},"block_order":["image_qWHqeF","image_Q9FQiY","video_nrqYxH","video_YpgLJp","image_NgME3C","image_XVJz67","video_4UbQrp","image_Cqmc3K","image_RQg4eN","video_Nc9gea","image_UYkLFz","image_gTGWYd"],"name":"JD Testimonial Slider","settings":{"heading":"But don't take our word for it...","subheading":"","heading_alignment":"center","desktop_columns":4,"mobile_columns":"1","card_gap":20,"show_dots":true,"background_color":"rgba(0,0,0,0)","card_background":"#eeeeee","text_color":"#000000","star_color":"#f5a623","card_radius":12,"container_width":1400,"padding_top":40,"padding_bottom":40,"mobile_padding_top":30,"mobile_padding_bottom":30}}},"order":["main","image_banner_bKcE4b","1786099252d5946e53","1786103179876d31f7","1786102526776d2776","custom_liquid_C4bKe9","custom_liquid_bHwLy4","team_cards_rq4kCT","17861011536586441e","toosa_about_story_qUgdf8","jd_testimonials_container_DNfAdP"]}
+{
+  "sections": {
+    "hero": {
+      "type": "tx-p-hero",
+      "settings": {
+        "layout": "right",
+        "theme": "dark",
+        "eyebrow": "About TOOSA",
+        "heading": "Built from real shop needs. Designed for better work.",
+        "lead": "<p>Two engineers, one messy fabrication shop and a storage problem nobody had solved well. TOOSA is what we built instead, and since 2023 it has grown into a Canadian community of more than a thousand workshops.</p>",
+        "image": "shopify://shop_images/Red_TOOSA_Workstation_in_a_CNC_Shop.png",
+        "chip_big": "Richmond, BC",
+        "chip_small": "Showroom & warehouse",
+        "btn1_text": "Meet the team",
+        "btn1_url": "#txp-team",
+        "btn2_text": "Book a showroom visit",
+        "btn2_url": "shopify://pages/book-appointments"
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "big": "2023",
+            "small": "founded by two engineers in Richmond, BC"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "big": "Feb 2024",
+            "small": "first product line launched"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "big": "1,000+",
+            "small": "customers across Canada"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ]
+    },
+    "story": {
+      "type": "tx-p-split",
+      "settings": {
+        "theme": "light",
+        "eyebrow": "Our story",
+        "heading": "It started with our own shop."
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/Founder.jpg",
+            "ratio": "portrait",
+            "kicker": "Our beginning",
+            "heading": "Two engineers with a storage problem",
+            "text": "<p>Founded by&nbsp;<strong>two engineers</strong>, our journey began with a shared passion for creativity and high quality craftsmanship. With a combined skillset and background in metallurgy and mechatronics, we have spent years working and learning from many different crafts such as Precision CNC machining, 3D printing and automotive parts manufacturing just to name a few.</p><p>Throughout our careers, we noticed a recurring&nbsp;<strong>challenge</strong>&nbsp;among working professionals: the need for affordable, yet stylish and professional-looking tool storage solutions. With our combined expertise and determination to make a difference, we decided to take action.</p><p>In&nbsp;<strong>2023</strong>, we founded TOOSA to provide innovative tool storage solutions that cater to the needs of professionals at every level.</p>",
+            "caption": "The founders",
+            "meta": "Metallurgy | Mechatronics | CNC machining | 3D printing"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/From_Humble_Beginnings.png",
+            "kicker": "The problem",
+            "heading": "TOOSA didn't start with a business plan",
+            "text": "<h3><strong>TOOSA didn't start with a business plan</strong></h3><p>It started with a messy metal fabrication shop that needed to be organized.</p><p>When we were renovating our own workspace, we started looking for tool storage that was high quality, functional, and built around the way we actually worked.</p><h3><strong>What we found was frustrating</strong></h3><p>The options were either expensive, low quality, or lacked the flexibility we were looking for. Some of the solutions we were quoted were in the <strong>$30,000–$40,000 range</strong> — for a setup we believed should cost a fraction of that.</p><h3><strong>So we decided to build our own</strong></h3><p>We designed tool storage around how we wanted to work: integrated work surfaces, easy-access pegboards, concealed upper storage, and a layout that kept everything organized and within reach.</p><h3><strong>The result completely transformed our workspace</strong></h3><p>It was cleaner. More organized. More professional. And, most importantly, we could find our tools when we needed them.</p><p>People started asking us where the storage came from.</p><p>That got us thinking.</p>",
+            "caption": "From humble beginnings"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/IMG_5883.heic",
+            "kicker": "The spark",
+            "heading": "What if everyone could have a workspace like this?",
+            "text": "<p>We posted one of our units on Facebook Marketplace just to see what would happen.</p><p>The response was immediate.</p><p>We woke up to more inquiries than we expected, and that was the moment we realized there was a real gap in the market.</p><p>Professionals, businesses, mechanics, fabricators, tradespeople, and DIYers were looking for the same thing we were:</p><p>High-quality tool storage that doesn't cost a fortune and doesn't lock you into one configuration.</p><p>TOOSA launched its first line of products in <strong>February 2024</strong> with that idea at the centre of everything we do</p>",
+            "caption": "The first listing"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/Machine_shop_tool_cabinet.png",
+            "kicker": "Why believe us",
+            "heading": "A workbench is where ideas become things",
+            "text": "<p>At TOOSA, we believe a workbench is more than just a piece of furniture—it’s the&nbsp;<strong>canvas</strong>&nbsp;where your hands bring ideas to life. Whether you’re crafting, repairing, or building, your workbench is a space for creativity, problem-solving, and progress. That’s why we provide solutions that inspire confidence and keep your tools within reach, so you can focus on the art of your craft.</p><p>Our&nbsp;<strong>mission</strong>&nbsp;is simple: to provide high-quality, functional storage solutions that meet the needs of both seasoned professionals and budding enthusiasts alike. We believe that everyone deserves a workspace that inspires creativity and efficiency, without breaking the bank.</p><p>We are dedicated to listening to our customers’ needs, continually innovating our products, and ensuring that you have the best solutions at your disposal to achieve your goals.</p><p>Thank you for being part of our journey. Together, let’s build a better workspace.</p>",
+            "caption": "In a customer shop"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4"
+      ]
+    },
+    "timeline": {
+      "type": "tx-p-timeline",
+      "settings": {
+        "theme": "paper",
+        "eyebrow": "Milestones",
+        "heading": "From one listing to a national customer base.",
+        "lead": "<p>A short company, a lot of drawers. The moments that shaped TOOSA so far.</p>",
+        "link_text": "Why TOOSA",
+        "link_url": "shopify://pages/why-toosa"
+      },
+      "blocks": {
+        "milestone_1": {
+          "type": "milestone",
+          "settings": {
+            "year": "2023",
+            "title": "TOOSA is founded",
+            "text": "Two friends of more than 18 years, both engineers, decide to build the tool storage they could not find: welded steel, modular, fairly priced."
+          }
+        },
+        "milestone_2": {
+          "type": "milestone",
+          "settings": {
+            "year": "2023",
+            "title": "One unit on Facebook Marketplace",
+            "text": "Posted to see what would happen. By morning there were more inquiries than expected, and the gap in the market was obvious."
+          }
+        },
+        "milestone_3": {
+          "type": "milestone",
+          "settings": {
+            "year": "Feb 2024",
+            "title": "First product line launches",
+            "text": "Rolling tool chests, hutches, side lockers and foam, sold from Richmond, BC and delivered across Canada."
+          }
+        },
+        "milestone_4": {
+          "type": "milestone",
+          "settings": {
+            "year": "2025",
+            "title": "Calgary joins the map",
+            "text": "A partnership with My Tool Shop brings TOOSA storage to Alberta, with local pickup and a place to see the units."
+          }
+        },
+        "milestone_5": {
+          "type": "milestone",
+          "settings": {
+            "year": "Today",
+            "title": "1,000+ customers and counting",
+            "text": "Garages, service bays, fabrication shops and retail floors across the country, plus shop air, lighting, engraving and custom foam from one supplier."
+          }
+        }
+      },
+      "block_order": [
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4",
+        "milestone_5"
+      ]
+    },
+    "values": {
+      "type": "tx-p-grid",
+      "settings": {
+        "theme": "dark",
+        "style": "cards",
+        "columns": "4",
+        "eyebrow": "What we stand for",
+        "heading": "Quality. Value. Flexibility.",
+        "lead": "<p>Everything we build comes back to three principles, and one habit: we listen before we design.</p>"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "icon": "shield",
+            "title": "Quality",
+            "text": "<p>Heavy-gauge welded steel, full-extension ball-bearing slides and a textured powder coat that shrugs off brake clean and oil. Built to work hard every day.</p>"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "icon": "card",
+            "title": "Value",
+            "text": "<p>Commercial-grade storage at a price a real business or homeowner can justify, with monthly payments through RBC when that helps.</p>"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "icon": "layers",
+            "title": "Flexibility",
+            "text": "<p>Modular by design. Start with one unit and add lockers, hutches, benches, lighting and foam later. They bolt straight on.</p>"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "icon": "chat",
+            "title": "We listen. Then we build.",
+            "text": "<p>Customer feedback drives what we develop and improve. We hear what works, what does not, and what would make your workspace better.</p>",
+            "tone": "orange"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ]
+    },
+    "team": {
+      "type": "tx-p-team",
+      "settings": {
+        "theme": "light",
+        "eyebrow": "Meet the team",
+        "heading": "The people behind TOOSA.",
+        "lead": "<p>A small team that believes good products come from combining real-world experience, technical knowledge and a willingness to listen.</p>"
+      },
+      "blocks": {
+        "member_1": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Omid_Toussi.jpg",
+            "name": "Omid Toussi",
+            "role": "Co-founder & Sales Director",
+            "bio": "UBC Engineering graduate with a background scaling innovative technologies across North America. At TOOSA, Omid blends technical sales, marketing and product development to turn ideas into real-world solutions."
+          }
+        },
+        "member_2": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Yousef_Saheb_Javaher_Shopify.jpg",
+            "name": "Yousef Saheb Javaher",
+            "role": "Co-founder",
+            "bio": "SFU Mechatronics graduate with more than a decade in custom manufacturing, automation and material fabrication. Yousef turns concepts into practical, well-engineered products with precision."
+          }
+        },
+        "member_3": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Jeremy_Headshot.png",
+            "name": "Jeremy Malins",
+            "role": "Manufacturing & Craftsmanship",
+            "bio": "A decade of hands-on machining and craftsmanship. Jeremy makes sure every TOOSA product is built with care, durability and uncompromising attention to quality."
+          }
+        }
+      },
+      "block_order": [
+        "member_1",
+        "member_2",
+        "member_3"
+      ]
+    },
+    "quotes": {
+      "type": "tx-p-quotes",
+      "settings": {
+        "theme": "paper",
+        "eyebrow": "Customers",
+        "heading": "But don't take our word for it."
+      },
+      "blocks": {
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "name": "Terry M.",
+            "review": "<p>Best purchase ever! The team at Toosa was fantastic. 100% would recommend them. One of the easiest and smoothest online purchase and delivery I have ever had, especially considering it was delivered to Vancouver Island.</p>",
+            "image": "shopify://shop_images/zytsddrpJ3.webp"
+          }
+        },
+        "quote_2": {
+          "type": "quote",
+          "settings": {
+            "name": "Jay M.",
+            "review": "<p>Insane amount of storage & heavy duty built was a no brainer at this price point. Very happy with my purchase &&nbsp;the support from TOOSA, answering all of my questions & concerns regarding the purchase.&nbsp;</p>",
+            "image": "shopify://shop_images/645579106_1886673896056266_872765453306288593_n_1.jpg"
+          }
+        },
+        "quote_3": {
+          "type": "quote",
+          "settings": {
+            "name": "Cloud E-Bikes",
+            "review": "<p>Having a professional tool box in our retail store makes our store look more presentable, builds more trust with our clients & saves time for our service team which in turn saves us money! Highly Recommend TOOSA for retail.&nbsp;</p>",
+            "image": "shopify://shop_images/568a41e3f0bf460bbc0f4304497f2a9c.thumbnail.0000000000.webp",
+            "video": "shopify://files/videos/Copy of 10.1 Louie Toosa reel 01-.mp4"
+          }
+        },
+        "quote_4": {
+          "type": "quote",
+          "settings": {
+            "name": "Desy B.",
+            "review": "<p>Organize all your tools & gear with the heavy-duty, professional-grade TOOSA Mega Max Rolling Tool Box. The soft-close feature on this unit is so satisfying & gives it such a premium feel. Would recommend adding the lighting kit.&nbsp;</p>",
+            "image": "shopify://shop_images/95ce318214334d41a663d8e45afad947.thumbnail.0000000000.webp",
+            "video": "shopify://files/videos/Copy of Desy Testimonial Toosa_f80135a8-cf99-4804-97b0-9200872390be.mp4"
+          }
+        },
+        "quote_5": {
+          "type": "quote",
+          "settings": {
+            "name": "David K.",
+            "review": "<p>This tool cabinet transformed my workshop completely! It's nice to know exactly where my tools are and being able to lock them away securely in a shared work space. Great communication from the TOOSA team from start to fininsh.</p>",
+            "image": "shopify://shop_images/5e53c105-509f-4715-a85a-3620fa1ed2fb.jpg"
+          }
+        },
+        "quote_6": {
+          "type": "quote",
+          "settings": {
+            "name": "Tay J.",
+            "review": "<p>Excellent guys to deal with !<br/><br/>Very happy with the tool cabinet and a very reasonable price compared to others.</p>",
+            "image": "shopify://shop_images/091e6c608c43bdfbb6c805773649d863.jpg"
+          }
+        },
+        "quote_7": {
+          "type": "quote",
+          "settings": {
+            "name": "Cloud E-Bikes",
+            "review": "<p>TOOSA's tool cabinets have been a game changer for our service teams. They help us maintain a smooth workflow and quickly access tools to serve customers faster.&nbsp;</p>",
+            "image": "shopify://shop_images/1320dae550e348a58066a91aa294fb27.thumbnail.0000000000.webp",
+            "video": "shopify://files/videos/Copy of 10.4 Louie Toosa reel 04.mp4"
+          }
+        },
+        "quote_8": {
+          "type": "quote",
+          "settings": {
+            "name": "Sarah P.",
+            "review": "<p>Perfect addition to my workspace. The product is as described and top quality.</p>",
+            "image": "shopify://shop_images/IMG_1425.heic"
+          }
+        },
+        "quote_9": {
+          "type": "quote",
+          "settings": {
+            "name": "James R.",
+            "review": "<p>I recently ordered a toolbox from Toosa, and I’m seriously impressed. &nbsp;I expected the quality to be similar to the cheaper Husky floor models you see at Home Depot, but the Toosa box completely blew me away.&nbsp;</p>",
+            "image": "shopify://shop_images/367B5BpG5B.webp"
+          }
+        },
+        "quote_10": {
+          "type": "quote",
+          "settings": {
+            "name": "Cloud E-Bikes",
+            "review": "<p>TOOSA's adjustable lighting kit is the perfect addition to the existing high quality work top.&nbsp;</p><p>Work faster and see clearly at night with integrated, high-visibility toolbox lights.</p>",
+            "image": "shopify://shop_images/0c589830e1f64d7e973c3fa1e0ef960e.thumbnail.0000000000.webp",
+            "video": "shopify://files/videos/Copy of 10.3 Louie Toosa reel 03.mp4"
+          }
+        },
+        "quote_11": {
+          "type": "quote",
+          "settings": {
+            "name": "Arian F.",
+            "review": "<p>Just rolled in our new tool cabinet</p>",
+            "image": "shopify://shop_images/Glossy_Red_Workshop_Tool_Cabinet.png"
+          }
+        },
+        "quote_12": {
+          "type": "quote",
+          "settings": {
+            "name": "Bilal N.",
+            "review": "<p>This product has completely changed my experience. I highly recommend TOOSA is awesome! They really know how to make a workspace both efficient and stylish.</p>",
+            "image": "shopify://shop_images/c3c2751d-a315-4bcc-a88e-e85541c4c6d8.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "quote_1",
+        "quote_2",
+        "quote_3",
+        "quote_4",
+        "quote_5",
+        "quote_6",
+        "quote_7",
+        "quote_8",
+        "quote_9",
+        "quote_10",
+        "quote_11",
+        "quote_12"
+      ]
+    },
+    "cta": {
+      "type": "tx-p-cta",
+      "settings": {
+        "theme": "paper",
+        "orange": false,
+        "eyebrow": "Ready when you are",
+        "heading": "Come and pull the drawers.",
+        "lead": "<p>The showroom is the best way to judge a TOOSA. Book a time, or call and ask us anything.</p>",
+        "btn1_text": "Book a showroom visit",
+        "btn1_url": "shopify://pages/book-appointments",
+        "btn2_text": "Shop tool storage",
+        "btn2_url": "shopify://collections/tool-storage",
+        "phone": "+1 (778) 939-9494",
+        "email": "sales@toosa.ca",
+        "address": "11566 Eburne Way, Richmond, BC",
+        "address_url": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "story",
+    "timeline",
+    "values",
+    "team",
+    "quotes",
+    "cta"
+  ]
+}

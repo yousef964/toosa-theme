@@ -1,1 +1,196 @@
-{"sections":{"custom_liquid_6eRwWt":{"type":"custom-liquid","disabled":true,"name":"t:sections.custom_liquid.presets.custom_liquid.name","settings":{"custom_liquid":"<div class=\"faq-banner\">\n  Frequently Asked Questions\n<\/div>\n\n<style>\n.faq-banner {\n  background-color: #01204e;\n  border-top: 3px solid #ff5e1f; \/* thin orange line at the top *\/\n  color: white;\n  font-family: \nmarcellus, ;\n  font-size: 25px;\n  text-align: center;\n  padding: 25px 15px;\n  font-weight: bold;\n  line-height: 1.4;\n}\n<\/style>"}},"custom_liquid_AB6Xmx":{"type":"custom-liquid","disabled":true,"name":"t:sections.custom_liquid.presets.custom_liquid.name","settings":{"custom_liquid":"<div class=\"faq-tabs-wrapper\">\n  <div class=\"faq-tabs-container\">\n    <ul class=\"tab-buttons\">\n      <li class=\"active\" data-tab=\"delivery\">Delivery<\/li>\n      <li data-tab=\"assembly\">Assembly<\/li>\n      <li data-tab=\"warranty\">Warranty<\/li>\n      <li data-tab=\"payment\">Payment<\/li>\n    <\/ul>\n  <\/div>\n\n  <div class=\"tab-contents\">\n    <!-- DELIVERY -->\n    <div id=\"delivery\" class=\"tab-content active\">\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">What are the delivery options for TOOSA products?<\/button>\n        <div class=\"faq-answer\">\n          We offer free local curbside pick up after your purchase with TOOSA. Book your desired pick up time from the appointment's tab on our website to schedule your curbside pick up from our warehouse after placing your order!<br><br>\n          Flat shipping fee of $100 CAD within lower mainlands. Outside of lower mainlands? Contact sales@toosa.ca for a quote. Delivery times: 1–5 business days.\n        <\/div>\n      <\/div>\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">Do you have a physical store?<\/button>\n        <div class=\"faq-answer\">We have a showroom in Richmond, BC, where you can preview items before purchase.<\/div>\n      <\/div>\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">How much does delivery cost?<\/button>\n        <div class=\"faq-answer\">Varies by location and order size. Orders over $3000 qualify for free shipping.<\/div>\n      <\/div>\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">How do I track my order?<\/button>\n        <div class=\"faq-answer\">Once shipped, you'll get a tracking number via email. It may take 48 hours before updates appear.<\/div>\n      <\/div>\n    <\/div>\n\n    <!-- ASSEMBLY -->\n    <div id=\"assembly\" class=\"tab-content\">\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">Do the workbenches and tool storage solutions require assembly?<\/button>\n        <div class=\"faq-answer\">\n          Yes, our products come with easy-to-follow instructions and all necessary hardware for assembly. Assembly services are also available upon request for an additional fee.<br><br>\n          Watch the video below to see how easy it is to assemble your new TOOSA product!<br><br>\n          If you still have questions, give us a call or send us an email at sales@toosa.ca<br><br>\n          <video controls style=\"max-width:40%; margin-top:0px;\">\n            <source src=\"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/c3d48534dc954eabbb31bdae647a36b0.mp4\" type=\"video\/mp4\">\n          <\/video>\n        <\/div>\n      <\/div>\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">Can I get assistance if I encounter issues during assembly?<\/button>\n        <div class=\"faq-answer\">Yes — email sales@toosa.ca or call 778-939-9494.<\/div>\n      <\/div>\n    <\/div>\n\n    <!-- WARRANTY -->\n    <div id=\"warranty\" class=\"tab-content\">\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">What is your warranty policy?<\/button>\n        <div class=\"faq-answer\">All TOOSA products have a 1-year limited warranty covering manufacturing defects.<\/div>\n      <\/div>\n    <\/div>\n\n    <!-- PAYMENT -->\n    <div id=\"payment\" class=\"tab-content\">\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">What payment methods do you accept?<\/button>\n        <div class=\"faq-answer\">Visa, MasterCard, American Express, PayPal, and Apple Pay.<\/div>\n      <\/div>\n      <div class=\"faq-item\">\n        <button class=\"faq-question\">Is my payment information secure?<\/button>\n        <div class=\"faq-answer\">Yes, transactions are encrypted and secure.<\/div>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/div>\n\n<style>\n.faq-tabs-wrapper {\n  background-color: #01204e;\n  padding: 50px 20px;\n  color: #fff;\n}\n\n.faq-tabs-container {\n  position: sticky;\n  top: 0;\n  background-color: #01204e;\n  z-index: 999;\n  padding-bottom: 15px;\n  overflow-x: auto;\n  -webkit-overflow-scrolling: touch;\n}\n\n.tab-buttons {\n  display: flex;\n  justify-content: center;\n  gap: 40px;\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  border-bottom: 2px solid rgba(255,255,255,0.2);\n  overflow-x: auto;\n  scroll-behavior: smooth;\n  white-space: nowrap;\n}\n\n.tab-buttons li {\n  flex-shrink: 0;\n  padding: 10px 15px;\n  cursor: pointer;\n  font-size: 18px;\n  border-bottom: 3px solid transparent;\n  transition: all 0.3s;\n  white-space: nowrap;\n}\n\n.tab-buttons li.active {\n  border-color: #ff5e1f;\n  font-weight: bold;\n}\n\n.tab-content {\n  display: none;\n  max-width: 900px;\n  margin: 0 auto;\n}\n.tab-content.active {\n  display: block;\n}\n\n.faq-item {\n  border-bottom: 1px solid rgba(255,255,255,0.2);\n}\n\n.faq-question {\n  width: 100%;\n  padding: 15px;\n  background: none;\n  border: none;\n  text-align: left;\n  color: #fff;\n  font-size: 16px;\n  cursor: pointer;\n}\n\n.faq-answer {\n  display: none;\n  padding: 0 15px 15px;\n  font-size: 14px;\n  color: #fff;\n}\n\n.faq-item.active .faq-answer {\n  display: block;\n}\n\n\/* Make video responsive *\/\n.faq-answer video {\n  max-width: 100% !important;\n  height: auto !important;\n  margin-top: 15px;\n  border-radius: 6px;\n}\n\n\/* Mobile responsiveness *\/\n@media (max-width: 768px) {\n  .tab-buttons {\n    justify-content: flex-start;\n    gap: 20px;\n    padding: 0 10px;\n  }\n\n  .tab-buttons li {\n    font-size: 15px;\n    padding: 8px 12px;\n  }\n\n  .faq-question {\n    font-size: 15px;\n  }\n\n  .faq-answer {\n    font-size: 13px;\n  }\n}\n<\/style>\n\n<script>\ndocument.addEventListener(\"DOMContentLoaded\", function(){\n  \/\/ Tab switching\n  document.querySelectorAll(\".tab-buttons li\").forEach(tab => {\n    tab.addEventListener(\"click\", function(){\n      document.querySelectorAll(\".tab-buttons li\").forEach(t => t.classList.remove(\"active\"));\n      document.querySelectorAll(\".tab-content\").forEach(c => c.classList.remove(\"active\"));\n      tab.classList.add(\"active\");\n      document.getElementById(tab.getAttribute(\"data-tab\")).classList.add(\"active\");\n    });\n  });\n\n  \/\/ Accordion toggle for each question\n  document.querySelectorAll(\".faq-question\").forEach(q => {\n    q.addEventListener(\"click\", function(){\n      q.parentElement.classList.toggle(\"active\");\n    });\n  });\n});\n<\/script>"}},"image_banner_Ca3c6e":{"type":"image-banner","blocks":{"special_heading_riBt4R":{"type":"special-heading","settings":{"banner_special_heading":"{{ page.title }}","banner_special_heading_size":"x-small"}},"text_jKhYrd":{"type":"text","settings":{"banner_text":"Discover high-performance activewear designed for every move—shop our latest collections tailored for comfort, style, and endurance.","banner_text_size":"small"}}},"block_order":["special_heading_riBt4R","text_jKhYrd"],"name":"t:sections.image_banner.presets.image_banner.name","settings":{"height_mobile":"460","height":"460","side_margin_choice":"level-0","color_scheme":"scheme_2","background_image_mobile":"shopify:\/\/shop_images\/OTHER.jpg","background_overlay":true,"background_overlay_color":"#000000","background_overlay_gradient":"","background_overlay_opacity":20,"content_custom_width":false,"content_width":720,"content_position":"center","content_vertical_align":"center","content_horizontal_align":"center","inset_choice":"level-1","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":false,"spacing_choice":"level-3","spacing_placement":"1"}},"wonderment_faq_kaPHjK":{"type":"wonderment-faq","blocks":{"section_heading_wk3MYA":{"type":"section_heading","settings":{"title":"Getting started"}},"question_GTDDac":{"type":"question","settings":{"title":"Where are your products manufactured?","text":"<p>We are a local company and all merchandise is made with love here on the moon.<\/p>"}},"question_kUDBnC":{"type":"question","settings":{"title":"How do your sizes work?","text":"<p>Please take a look at our size chart for more information and how to take accurate measurements.<\/p>"}},"section_heading_hf4GHc":{"type":"section_heading","settings":{"title":"Shipping"}},"question_WPX8iz":{"type":"question","settings":{"title":"Do you ship internationally?","text":"<p>Currently we are only shipping to USA and Canada.<\/p>"}},"question_CAmQgw":{"type":"question","settings":{"title":"How much is shipping?","text":"<p>If you spend over $100, shipping is always free. For any other purchases, shipping will be calculated at checkout.<\/p>"}},"question_ghqknW":{"type":"question","settings":{"title":"What is your return policy?","text":"<p>Merchandise that is unworn and in the original packaging can be returned within 30 days with the packing slip included with the product.<\/p>"}}},"block_order":["section_heading_wk3MYA","question_GTDDac","question_kUDBnC","section_heading_hf4GHc","question_WPX8iz","question_CAmQgw","question_ghqknW"],"disabled":true,"name":"📦 FAQ","settings":{"show_answers":false,"text_size":100,"alignment":"center","text_color":"#000000","background_color":"linear-gradient(184deg, rgba(255, 255, 255, 1) 7%, rgba(255, 255, 255, 1) 94%)","border_color":"#eeeeee","base_width":80,"max_width":"","inner_padding":10,"outer_margin":0,"custom_css":"","mobile_custom_css":"","override_theme_font":true,"heading_font":"manrope_n4","main_font":"inter_n4"}},"1787203228711b9b73":{"type":"_blocks","blocks":{"ai_gen_block_00346b8_bhHD9c":{"type":"ai_gen_block_00346b8","settings":{"eyebrow":"","heading":"Frequently Asked Questions","description":"Find answers about TOOSA tool storage, delivery, assembly, warranties, showroom visits and custom services.","text_alignment":"center","max_width":1000,"padding_top":40,"padding_bottom":40,"desktop_spacing":30,"mobile_spacing":30,"background_color":"#ffffff","text_color":"#000000","accent_color":"#f6552e","divider_color":"#cccccc","answer_background_color":"#ffffff","show_category_headings":true,"category_title_size":20,"category_spacing":12,"question_font_size":16,"answer_font_size":14,"question_font_weight":"500","show_dividers":true,"divider_thickness":1,"border_radius":0,"allow_multiple_open":false,"animation_speed":300,"category_1":"Ordering","category_2":"Assembly","category_3":"Customization","category_4":"Delivery & Pickup","category_5":"Warranty","category_6":"Payment","faq_1_category":"Ordering","faq_1_question":"What products does TOOSA offer?","faq_1_answer":"<p>TOOSA offers modular tool storage systems, rolling tool chests, workshop accessories, foam organization products, custom foam inserts and industrial air compressor solutions.<\/p>","faq_1_open":false,"faq_2_category":"Ordering","faq_2_question":"Can I see TOOSA products before purchasing?","faq_2_answer":"<p>Yes. Selected products can be viewed at our Richmond, BC showroom. We recommend booking an appointment before visiting.<\/p>","faq_2_open":false,"faq_3_category":"Ordering","faq_3_question":"Can you help me choose the right tool storage system?","faq_3_answer":"<p>Yes. Contact our team with information about your workspace, storage requirements and the tools you need to organize. We can help you compare available configurations.<\/p>","faq_3_open":true,"faq_4_category":"Assembly","faq_4_question":"Do TOOSA tool chests require assembly?","faq_4_answer":"<p>Some TOOSA storage products require assembly. Instructions and the required hardware are provided where applicable.<\/p>","faq_4_open":false,"faq_5_category":"Assembly","faq_5_question":"Can TOOSA assemble my product for me?","faq_5_answer":"<p>Professional assembly services are available on eligible products for an additional charge.<\/p>","faq_5_open":false,"faq_6_category":"Customization","faq_6_question":"Can I add my company logo to my tool box?","faq_6_answer":"<p>Laser engraving is available for eligible TOOSA products. Contact us or submit your design to discuss your requirements.<\/p>","faq_6_open":false,"faq_7_category":"Customization","faq_7_question":"Do you make custom foam tool inserts?","faq_7_answer":"<p>Yes. TOOSA can create precision-cut custom foam layouts based on your tools, dimensions or supplied design.<\/p>","faq_7_open":false,"faq_8_category":"Delivery & Pickup","faq_8_question":"Can I pick up my order?","faq_8_answer":"<p>Yes. Free local curbside pickup is available from our Richmond warehouse. Schedule your pickup after placing your order.<\/p>","faq_8_open":false,"faq_9_category":"Delivery & Pickup","faq_9_question":"Do you deliver outside the Lower Mainland?","faq_9_answer":"<p>Yes. Contact TOOSA for a delivery quote based on your destination and order requirements.<\/p>","faq_9_open":false,"faq_10_category":"Delivery & Pickup","faq_10_question":"How much does delivery cost?","faq_10_answer":"<p>Local Lower Mainland delivery is currently listed at $100 CAD. Orders above $3,000 qualify for free shipping, while other locations may require a custom quote.<\/p>","faq_10_open":false,"faq_11_category":"Warranty","faq_11_question":"Do TOOSA products include a warranty?","faq_11_answer":"<p>TOOSA currently provides a one-year limited warranty covering manufacturing defects on its products. Product-specific warranties may vary, particularly for specialized equipment such as air compressors.<\/p>","faq_11_open":false,"faq_12_category":"Payment","faq_12_question":"What payment methods do you accept?","faq_12_answer":"<p>TOOSA currently accepts major payment methods including Visa, Mastercard, American Express, PayPal and Apple Pay.<\/p>","faq_12_open":false},"blocks":{}}},"block_order":["ai_gen_block_00346b8_bhHD9c"],"settings":{}}},"order":["custom_liquid_6eRwWt","custom_liquid_AB6Xmx","image_banner_Ca3c6e","wonderment_faq_kaPHjK","1787203228711b9b73"]}
+{
+  "sections": {
+    "hero": {
+      "type": "tx-p-hero",
+      "settings": {
+        "layout": "none",
+        "theme": "dark",
+        "eyebrow": "FAQ",
+        "heading": "Answers, straight from the shop floor.",
+        "lead": "<p>Everything people ask us about TOOSA tool storage: ordering, assembly, custom work, delivery and pickup, warranty and payment. Can't find it? Ask us directly.</p>"
+      }
+    },
+    "faq": {
+      "type": "tx-p-faq",
+      "settings": {
+        "theme": "light",
+        "side": true,
+        "search": true,
+        "search_placeholder": "Search the answers",
+        "open_first": true,
+        "schema": true,
+        "eyebrow": "Topics",
+        "heading": "Frequently asked questions",
+        "help_title": "Still have a question?",
+        "help_text": "Call, email or send a message. A real person in Richmond, BC replies within one business day.",
+        "help_btn": "Contact us",
+        "help_url": "shopify://pages/contact"
+      },
+      "blocks": {
+        "group_1": {
+          "type": "group",
+          "settings": {
+            "title": "Ordering"
+          }
+        },
+        "qa_2": {
+          "type": "qa",
+          "settings": {
+            "question": "What products does TOOSA offer?",
+            "answer": "<p>TOOSA offers modular tool storage systems, rolling tool chests, workshop accessories, foam organization products, custom foam inserts and industrial air compressor solutions.</p>"
+          }
+        },
+        "qa_3": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I see TOOSA products before purchasing?",
+            "answer": "<p>Yes. Selected products can be viewed at our Richmond, BC showroom. We recommend booking an appointment before visiting.</p>"
+          }
+        },
+        "qa_4": {
+          "type": "qa",
+          "settings": {
+            "question": "Can you help me choose the right tool storage system?",
+            "answer": "<p>Yes. Contact our team with information about your workspace, storage requirements and the tools you need to organize. We can help you compare available configurations.</p>"
+          }
+        },
+        "group_5": {
+          "type": "group",
+          "settings": {
+            "title": "Assembly"
+          }
+        },
+        "qa_6": {
+          "type": "qa",
+          "settings": {
+            "question": "Do TOOSA tool chests require assembly?",
+            "answer": "<p>Some TOOSA storage products require assembly. Instructions and the required hardware are provided where applicable.</p>"
+          }
+        },
+        "qa_7": {
+          "type": "qa",
+          "settings": {
+            "question": "Can TOOSA assemble my product for me?",
+            "answer": "<p>Professional assembly services are available on eligible products for an additional charge.</p>"
+          }
+        },
+        "group_8": {
+          "type": "group",
+          "settings": {
+            "title": "Customization"
+          }
+        },
+        "qa_9": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I add my company logo to my tool box?",
+            "answer": "<p>Laser engraving is available for eligible TOOSA products. Contact us or submit your design to discuss your requirements.</p>"
+          }
+        },
+        "qa_10": {
+          "type": "qa",
+          "settings": {
+            "question": "Do you make custom foam tool inserts?",
+            "answer": "<p>Yes. TOOSA can create precision-cut custom foam layouts based on your tools, dimensions or supplied design.</p>"
+          }
+        },
+        "group_11": {
+          "type": "group",
+          "settings": {
+            "title": "Delivery & Pickup"
+          }
+        },
+        "qa_12": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I pick up my order?",
+            "answer": "<p>Yes. Free local curbside pickup is available from our Richmond warehouse. Schedule your pickup after placing your order.</p>"
+          }
+        },
+        "qa_13": {
+          "type": "qa",
+          "settings": {
+            "question": "Do you deliver outside the Lower Mainland?",
+            "answer": "<p>Yes. Contact TOOSA for a delivery quote based on your destination and order requirements.</p>"
+          }
+        },
+        "qa_14": {
+          "type": "qa",
+          "settings": {
+            "question": "How much does delivery cost?",
+            "answer": "<p>Local Lower Mainland delivery is currently listed at $100 CAD. Orders above $3,000 qualify for free shipping, while other locations may require a custom quote.</p>"
+          }
+        },
+        "group_15": {
+          "type": "group",
+          "settings": {
+            "title": "Warranty"
+          }
+        },
+        "qa_16": {
+          "type": "qa",
+          "settings": {
+            "question": "Do TOOSA products include a warranty?",
+            "answer": "<p>TOOSA currently provides a one-year limited warranty covering manufacturing defects on its products. Product-specific warranties may vary, particularly for specialized equipment such as air compressors.</p>"
+          }
+        },
+        "group_17": {
+          "type": "group",
+          "settings": {
+            "title": "Payment"
+          }
+        },
+        "qa_18": {
+          "type": "qa",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>TOOSA currently accepts major payment methods including Visa, Mastercard, American Express, PayPal and Apple Pay.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "group_1",
+        "qa_2",
+        "qa_3",
+        "qa_4",
+        "group_5",
+        "qa_6",
+        "qa_7",
+        "group_8",
+        "qa_9",
+        "qa_10",
+        "group_11",
+        "qa_12",
+        "qa_13",
+        "qa_14",
+        "group_15",
+        "qa_16",
+        "group_17",
+        "qa_18"
+      ]
+    },
+    "cta": {
+      "type": "tx-p-cta",
+      "settings": {
+        "theme": "light",
+        "orange": false,
+        "eyebrow": "Ready when you are",
+        "heading": "See it before you decide.",
+        "lead": "<p>Selected products are on the floor at our Richmond, BC showroom. Book a time and we'll walk you through the lineup.</p>",
+        "btn1_text": "Book a showroom visit",
+        "btn1_url": "shopify://pages/book-appointments",
+        "btn2_text": "Shop tool storage",
+        "btn2_url": "shopify://collections/tool-storage",
+        "phone": "+1 (778) 939-9494",
+        "email": "sales@toosa.ca",
+        "address": "11566 Eburne Way, Richmond, BC",
+        "address_url": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "faq",
+    "cta"
+  ]
+}

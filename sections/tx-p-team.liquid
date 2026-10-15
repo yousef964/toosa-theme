@@ -1,0 +1,62 @@
+{% comment %} TOOSA inner pages: team {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp txp--light'
+  if s.theme == 'paper'
+    assign theme_class = 'txp txp--paper'
+  elsif s.theme == 'dark'
+    assign theme_class = 'txp'
+  endif
+-%}
+<section class="{{ theme_class }} txp-section" id="txp-team-{{ section.id }}">
+  <div class="txp-wrap">
+    <div class="txp-head">
+      {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.heading != blank -%}<h2 class="txp-h2 txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
+      {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+    </div>
+    <div class="txp-team">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <div class="txp-member txp-reveal" data-delay="{{ forloop.index0 | modulo: 4 }}" {{ block.shopify_attributes }}>
+          <div class="txp-member__photo">
+            {%- if b.image != blank -%}{{ b.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 860px) 30vw, (min-width: 540px) 46vw, 92vw', alt: b.image.alt | default: b.name }}{%- endif -%}
+          </div>
+          <div class="txp-member__body">
+            {%- if b.role != blank -%}<div class="txp-member__role">{{ b.role }}</div>{%- endif -%}
+            <h3 class="txp-h3">{{ b.name }}</h3>
+            {%- if b.bio != blank -%}<p class="txp-member__bio">{{ b.bio }}</p>{%- endif -%}
+            {%- if b.linkedin != blank or b.email != blank -%}
+              <div class="txp-member__links">
+                {%- if b.linkedin != blank -%}<a href="{{ b.linkedin }}" target="_blank" rel="noopener" aria-label="{{ b.name }} on LinkedIn">{% render 'tx-p-icon', name: 'linkedin' %}</a>{%- endif -%}
+                {%- if b.email != blank -%}<a href="mailto:{{ b.email }}" aria-label="Email {{ b.name }}">{% render 'tx-p-icon', name: 'mail' %}</a>{%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Team",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "light", "options": [
+      { "value": "light", "label": "White" }, { "value": "paper", "label": "Paper" }, { "value": "dark", "label": "Dark" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "lead", "label": "Lead" }
+  ],
+  "blocks": [
+    { "type": "member", "name": "Team member", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "text", "id": "name", "label": "Name" },
+      { "type": "text", "id": "role", "label": "Role" },
+      { "type": "textarea", "id": "bio", "label": "Bio" },
+      { "type": "url", "id": "linkedin", "label": "LinkedIn" },
+      { "type": "text", "id": "email", "label": "Email" } ] }
+  ],
+  "presets": [ { "name": "TX Team" } ]
+}
+{% endschema %}

@@ -1,0 +1,89 @@
+{% comment %} TOOSA inner pages: masonry gallery of photos and videos with filter tabs and a lightbox {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp'
+  if s.theme == 'light'
+    assign theme_class = 'txp txp--light'
+  elsif s.theme == 'paper'
+    assign theme_class = 'txp txp--paper'
+  endif
+  assign photos = 0
+  assign videos = 0
+  for block in section.blocks
+    if block.type == 'video'
+      assign videos = videos | plus: 1
+    else
+      assign photos = photos | plus: 1
+    endif
+  endfor
+-%}
+<section class="{{ theme_class }} txp-section" id="txp-gallery-{{ section.id }}" data-txp-gallery>
+  <div class="txp-wrap">
+    {%- if s.eyebrow != blank or s.heading != blank -%}
+      <div class="txp-head">
+        {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="txp-h2 txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="txp-gal__bar txp-reveal">
+      {%- if photos > 0 and videos > 0 -%}
+        <div class="txp-tabs" role="tablist">
+          <button type="button" class="is-on" data-txp-filter="all" role="tab" aria-selected="true">All <small>{{ section.blocks.size }}</small></button>
+          <button type="button" data-txp-filter="photo" role="tab" aria-selected="false">{{ s.photo_label | default: 'Photos' }} <small>{{ photos }}</small></button>
+          <button type="button" data-txp-filter="video" role="tab" aria-selected="false">{{ s.video_label | default: 'Videos' }} <small>{{ videos }}</small></button>
+        </div>
+      {%- else -%}<span></span>{%- endif -%}
+      <span class="txp-gal__count">Click any item to open it full size</span>
+    </div>
+    <div class="txp-gal">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- if block.type == 'video' and b.video != blank -%}
+          {%- assign mp4 = '' -%}
+          {%- for source in b.video.sources -%}{%- if source.format == 'mp4' -%}{%- assign mp4 = source.url -%}{%- break -%}{%- endif -%}{%- endfor -%}
+          <button type="button" class="txp-gal__item txp-gal__item--video txp-reveal" data-delay="{{ forloop.index0 | modulo: 3 }}" data-txp-kind="video" data-txp-src="{{ mp4 }}" data-txp-cap="{{ b.caption | escape }}" aria-label="Play video{% if b.caption != blank %}: {{ b.caption | escape }}{% endif %}" {{ block.shopify_attributes }}>
+            {%- if b.video.preview_image != blank -%}{{ b.video.preview_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 540px) 46vw, 92vw', alt: b.caption | default: 'TOOSA video' }}{%- endif -%}
+            <span class="txp-gal__play">{% render 'tx-p-icon', name: 'play' %}</span>
+            {%- if b.caption != blank -%}<span class="txp-gal__cap">{{ b.caption }}</span>{%- endif -%}
+          </button>
+        {%- elsif block.type == 'image' and b.image != blank -%}
+          <button type="button" class="txp-gal__item txp-reveal" data-delay="{{ forloop.index0 | modulo: 3 }}" data-txp-kind="photo" data-txp-src="{{ b.image | image_url: width: 2000 }}" data-txp-cap="{{ b.caption | escape }}" aria-label="Open photo{% if b.caption != blank %}: {{ b.caption | escape }}{% endif %}" {{ block.shopify_attributes }}>
+            {{ b.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, (min-width: 540px) 46vw, 92vw', alt: b.image.alt | default: b.caption | default: 'TOOSA tool storage in a workshop' }}
+            {%- if b.caption != blank -%}<span class="txp-gal__cap">{{ b.caption }}</span>{%- endif -%}
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="txp-lb" data-txp-lb aria-hidden="true" role="dialog" aria-label="Gallery viewer">
+    <button type="button" class="txp-lb__btn txp-lb__close" data-txp-lb-close aria-label="Close">{% render 'tx-p-icon', name: 'close' %}</button>
+    <button type="button" class="txp-lb__btn txp-lb__prev" data-txp-lb-prev aria-label="Previous">{% render 'tx-p-icon', name: 'arrow-left' %}</button>
+    <button type="button" class="txp-lb__btn txp-lb__next" data-txp-lb-next aria-label="Next">{% render 'tx-p-icon', name: 'arrow' %}</button>
+    <div class="txp-lb__stage" data-txp-lb-stage></div>
+    <div class="txp-lb__cap" data-txp-lb-cap></div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Gallery",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "dark", "options": [
+      { "value": "dark", "label": "Dark" }, { "value": "light", "label": "White" }, { "value": "paper", "label": "Paper" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "text", "id": "photo_label", "label": "Photo tab label" },
+    { "type": "text", "id": "video_label", "label": "Video tab label" }
+  ],
+  "blocks": [
+    { "type": "image", "name": "Photo", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "text", "id": "caption", "label": "Caption" } ] },
+    { "type": "video", "name": "Video", "settings": [
+      { "type": "video", "id": "video", "label": "Video" },
+      { "type": "text", "id": "caption", "label": "Caption" } ] }
+  ],
+  "presets": [ { "name": "TX Gallery" } ]
+}
+{% endschema %}

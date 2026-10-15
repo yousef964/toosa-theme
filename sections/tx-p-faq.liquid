@@ -1,0 +1,124 @@
+{% comment %} TOOSA inner pages: FAQ with live search, grouped accordion, sticky nav and FAQPage schema {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp txp--light'
+  if s.theme == 'paper'
+    assign theme_class = 'txp txp--paper'
+  endif
+  assign group_count = 0
+  for block in section.blocks
+    if block.type == 'group'
+      assign group_count = group_count | plus: 1
+    endif
+  endfor
+-%}
+<section class="{{ theme_class }} txp-section txp-faq" id="txp-faq-{{ section.id }}" data-txp-faq>
+  <div class="txp-wrap {% if s.side %}txp-faq-layout{% else %}txp-wrap--read{% endif %}">
+    <div class="{% if s.side %}txp-faq__side{% else %}txp-head{% endif %}">
+      <div>
+        {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="txp-h2 txp-h2--sm txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      </div>
+      {%- if s.search -%}
+        <div class="txp-search txp-reveal" data-delay="2">
+          {% render 'tx-p-icon', name: 'search' %}
+          <input type="search" placeholder="{{ s.search_placeholder | default: 'Search the answers' }}" aria-label="Search questions" data-txp-faq-search autocomplete="off">
+          <button type="button" class="txp-search__clear" aria-label="Clear search" data-txp-faq-clear>{% render 'tx-p-icon', name: 'close' %}</button>
+        </div>
+      {%- endif -%}
+      {%- if s.side and group_count > 1 -%}
+        <nav class="txp-faq__nav txp-reveal" data-delay="3" aria-label="Topics" data-txp-faq-nav>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'group' -%}
+              {%- assign count = 0 -%}
+              {%- for inner in section.blocks offset: forloop.index -%}
+                {%- if inner.type == 'group' -%}{%- break -%}{%- endif -%}
+                {%- assign count = count | plus: 1 -%}
+              {%- endfor -%}
+              <a href="#faq-{{ block.id }}"><span>{{ block.settings.title }}</span><small>{{ count }}</small></a>
+            {%- endif -%}
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+      {%- if s.side and s.help_title != blank -%}
+        <div class="txp-faq__help txp-reveal" data-delay="4">
+          <h3 class="txp-h4">{{ s.help_title }}</h3>
+          {%- if s.help_text != blank -%}<p>{{ s.help_text }}</p>{%- endif -%}
+          {%- if s.help_btn != blank -%}<a class="txp-btn txp-btn--primary txp-btn--sm" href="{{ s.help_url }}">{{ s.help_btn }}{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="txp-faq__list txp-reveal" data-delay="1">
+      {%- assign open_group = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'group' -%}
+          {%- if open_group -%}</div>{%- endif -%}
+          {%- assign open_group = true -%}
+          <div class="txp-faq__group" id="faq-{{ block.id }}" {{ block.shopify_attributes }}>
+            <h3 class="txp-h3">{{ block.settings.title }}</h3>
+        {%- else -%}
+          {%- unless open_group -%}
+            {%- assign open_group = true -%}
+            <div class="txp-faq__group">
+          {%- endunless -%}
+          <div class="txp-faq__item {% if s.open_first and forloop.first %}is-open{% endif %}" data-txp-faq-item {{ block.shopify_attributes }}>
+            <button type="button" class="txp-faq__q" aria-expanded="{% if s.open_first and forloop.first %}true{% else %}false{% endif %}" aria-controls="faqa-{{ block.id }}" data-txp-faq-q>
+              <span data-txp-faq-text>{{ block.settings.question }}</span>
+              <span class="txp-faq__ic">{% render 'tx-p-icon', name: 'plus' %}</span>
+            </button>
+            <div class="txp-faq__a" id="faqa-{{ block.id }}"><div><div class="txp-rt" data-txp-faq-text>{{ block.settings.answer }}</div></div></div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if open_group -%}</div>{%- endif -%}
+      <div class="txp-faq__empty" data-txp-faq-empty>No answers match that search yet. <a href="{{ s.help_url | default: '/pages/contact' }}">Ask us directly</a> and we'll reply the same business day.</div>
+    </div>
+  </div>
+</section>
+{%- if s.schema -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign first = true -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'qa' -%}
+        {%- unless first -%},{%- endunless -%}
+        {%- assign first = false -%}
+        { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "TX FAQ",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "light", "options": [
+      { "value": "light", "label": "White" }, { "value": "paper", "label": "Paper" } ] },
+    { "type": "checkbox", "id": "side", "label": "Sticky side column with topics", "default": true },
+    { "type": "checkbox", "id": "search", "label": "Show search box", "default": true },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first answer", "default": false },
+    { "type": "checkbox", "id": "schema", "label": "Add FAQPage structured data", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "text", "id": "help_title", "label": "Help box title" },
+    { "type": "text", "id": "help_text", "label": "Help box text" },
+    { "type": "text", "id": "help_btn", "label": "Help box button" },
+    { "type": "url", "id": "help_url", "label": "Help box link" }
+  ],
+  "blocks": [
+    { "type": "group", "name": "Topic heading", "settings": [ { "type": "text", "id": "title", "label": "Topic" } ] },
+    { "type": "qa", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question" },
+      { "type": "richtext", "id": "answer", "label": "Answer" } ] }
+  ],
+  "presets": [ { "name": "TX FAQ" } ]
+}
+{% endschema %}

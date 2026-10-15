@@ -1,1 +1,23 @@
-{"sections":{"rich_text_eNWRrK":{"type":"rich-text","blocks":{"heading_ekgLyJ":{"type":"heading","settings":{"text":"Affordable Monthly Plans","text_size":"medium","text_custom_width":false,"text_width":450}},"text_JgQbNg":{"type":"text","settings":{"text":"Buy now and pay for your purchase over time at competitive interest rates.","text_size":"medium","text_custom_width":false,"text_width":450}},"heading_K68cEW":{"type":"heading","settings":{"text":"No Prepayment Penalties","text_size":"medium","text_custom_width":false,"text_width":450}},"text_pdYafC":{"type":"text","settings":{"text":"Pay for your purchase with monthly payments and prepay at any time without penalty.","text_size":"medium","text_custom_width":false,"text_width":450}},"heading_zaf7Ln":{"type":"heading","settings":{"text":"Easy Application","text_size":"medium","text_custom_width":false,"text_width":450}},"text_hbDbLF":{"type":"text","settings":{"text":"Get a decision in seconds with no obligation to buy. Checking your rate won't affect your credit score. Your data is safe and encrypted.","text_size":"medium","text_custom_width":false,"text_width":450}},"buttons_Fhf3wr":{"type":"buttons","settings":{"button_1_text":"Learn More","button_1_url":"https:\/\/www.rbcroyalbank.com\/payplan\/index.html#section-content-customers","button_1_target":"_self","button_1_style":"fill","button_1_custom_width":false,"button_1_width":200,"button_2_text":"","button_2_url":"","button_2_target":"_self","button_2_style":"fill","button_2_custom_width":false,"button_2_width":200}},"text_bG87EN":{"type":"text","settings":{"text":"Questions? Check the PayPlan by RBC™ FAQs. Trademark of Royal Bank of Canada. Used under licence. ","text_size":"x-small","text_custom_width":false,"text_width":450}}},"block_order":["heading_ekgLyJ","text_JgQbNg","heading_K68cEW","text_pdYafC","heading_zaf7Ln","text_hbDbLF","buttons_Fhf3wr","text_bG87EN"],"disabled":true,"name":"t:sections.rich_text.presets.rich_text.name","settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-0","color_scheme":"","inset_choice":"level-4","alignment":"center","gap":true,"gap_choice":"level-4","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":true,"spacing_choice":"level-3","spacing_placement":"1"}},"main_page_xwrhqc":{"type":"main-page","name":"t:sections.main_page.presets.main_page.name","settings":{"fullwidth":true,"width":1320,"side_margin_choice":"level-3","title_size":"x-small","alignment":"left","content_size":"x-small","content_custom_width":true,"content_width":1400,"spacing":true,"spacing_choice":"level-3","spacing_placement":"1"}}},"order":["rich_text_eNWRrK","main_page_xwrhqc"]}
+{
+  "sections": {
+    "hero": {
+      "type": "tx-p-hero",
+      "settings": {
+        "layout": "none",
+        "theme": "dark",
+        "show_crumbs": true
+      }
+    },
+    "body": {
+      "type": "tx-p-rich",
+      "settings": {
+        "theme": "light",
+        "use_page": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "body"
+  ]
+}

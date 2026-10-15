@@ -1,0 +1,62 @@
+{% comment %} TOOSA inner pages: showroom booking. The embed setting holds the booking app's own markup (e.g. Appointo) untouched. {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign tel = s.phone | replace: ' ', '' | replace: '(', '' | replace: ')', '' | replace: '-', ''
+-%}
+<section class="txp txp--paper txp-section" id="txp-booking-{{ section.id }}">
+  <div class="txp-wrap txp-book">
+    <div>
+      {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.heading != blank -%}<h2 class="txp-h2 txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
+      {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="txp-book__steps txp-reveal" data-delay="3">
+          {%- for block in section.blocks -%}
+            <div class="txp-book__step" {{ block.shopify_attributes }}>
+              <b>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</b>
+              <div><h3 class="txp-h4">{{ block.settings.title }}</h3>{%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="txp-book__panel txp-reveal" data-delay="2">
+      {%- if s.panel_heading != blank -%}<h3 class="txp-h3">{{ s.panel_heading }}</h3>{%- endif -%}
+      {%- if s.panel_text != blank -%}<p>{{ s.panel_text }}</p>{%- endif -%}
+      {%- if s.points != blank -%}
+        <ul class="txp-book__list">
+          {%- assign pts = s.points | split: '|' -%}
+          {%- for p in pts -%}<li><span>{% render 'tx-p-icon', name: 'check' %}</span>{{ p | strip }}</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if s.embed != blank -%}<div class="txp-book__embed">{{ s.embed }}</div>{%- endif -%}
+      {%- if s.btn_text != blank -%}<a class="txp-btn txp-btn--primary" href="{{ s.btn_url }}">{{ s.btn_text }}{% render 'tx-p-icon', name: 'calendar' %}</a>{%- endif -%}
+      {%- if s.phone != blank -%}<p>Prefer to talk? <a href="tel:{{ tel }}" style="color: inherit; font-weight: 700;">{{ s.phone }}</a>{%- if s.hours != blank -%} · {{ s.hours }}{%- endif -%}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Booking",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "header", "content": "Booking panel" },
+    { "type": "text", "id": "panel_heading", "label": "Panel heading" },
+    { "type": "text", "id": "panel_text", "label": "Panel text" },
+    { "type": "text", "id": "points", "label": "Checklist, separated by |" },
+    { "type": "liquid", "id": "embed", "label": "Booking app embed code", "info": "Paste the booking app's embed markup here. It is rendered as is." },
+    { "type": "text", "id": "btn_text", "label": "Fallback button text" },
+    { "type": "url", "id": "btn_url", "label": "Fallback button link" },
+    { "type": "text", "id": "phone", "label": "Phone" },
+    { "type": "text", "id": "hours", "label": "Hours" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "What to expect", "settings": [
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "textarea", "id": "text", "label": "Text" } ] }
+  ],
+  "presets": [ { "name": "TX Booking" } ]
+}
+{% endschema %}

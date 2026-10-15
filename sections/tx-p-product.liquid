@@ -1,0 +1,107 @@
+{% comment %} TOOSA inner pages: product spotlight (gallery + copy + price + chips + accordions), e.g. the air compressor {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign product = s.product
+  assign title = s.heading | default: product.title
+  assign tag = 'h1'
+  if s.use_h2
+    assign tag = 'h2'
+  endif
+  assign theme_class = 'txp txp--light'
+  if s.theme == 'paper'
+    assign theme_class = 'txp txp--paper'
+  endif
+-%}
+<section class="{{ theme_class }} txp-section" id="txp-product-{{ section.id }}" data-txp-product>
+  <div class="txp-wrap txp-prod">
+    <div class="txp-prod__gallery txp-reveal">
+      <div class="txp-prod__main" data-txp-main>
+        {%- if product != blank and product.media.size > 0 -%}
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: media.alt | default: title, class: 'txp-prod__img', data-txp-slide: forloop.index0 }}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- elsif s.image != blank -%}
+          {{ s.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1400', sizes: '(min-width: 900px) 50vw, 92vw', alt: title, class: 'txp-prod__img is-on' }}
+        {%- endif -%}
+      </div>
+      {%- if product != blank and product.media.size > 1 -%}
+        <div class="txp-prod__thumbs" data-txp-thumbs>
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <button type="button" data-txp-thumb="{{ forloop.index0 }}" aria-label="Photo {{ forloop.index }}">{{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="txp-prod__copy">
+      {%- if s.show_crumbs -%}<nav class="txp-crumbs txp-reveal" aria-label="Breadcrumb"><a href="/">Home</a><span>{{ page.title }}</span></nav>{%- endif -%}
+      {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+      <{{ tag }} class="txp-h1 txp-reveal" data-delay="1">{{ title }}</{{ tag }}>
+      {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      {%- if product != blank and s.show_price -%}
+        <div class="txp-prod__price txp-reveal" data-delay="2">
+          <b>{{ product.price | money }}</b>
+          {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+          {%- if s.price_note != blank -%}<small>{{ s.price_note }}</small>{%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- assign chips = section.blocks | where: 'type', 'chip' -%}
+      {%- if chips.size > 0 -%}
+        <ul class="txp-prod__chips txp-reveal" data-delay="3">
+          {%- for block in chips -%}<li {{ block.shopify_attributes }}>{% render 'tx-p-icon', name: 'check' %}<span>{{ block.settings.text }}</span></li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div class="txp-actions txp-reveal" data-delay="3">
+        {%- if s.btn1_text != blank -%}<a class="txp-btn txp-btn--primary" href="{{ s.btn1_url | default: product.url }}">{{ s.btn1_text }}{% render 'tx-p-icon', name: 'arrow' %}</a>{%- endif -%}
+        {%- if s.btn2_text != blank -%}<a class="txp-btn txp-btn--ghost" href="{{ s.btn2_url }}">{{ s.btn2_text }}</a>{%- endif -%}
+        {%- if s.btn3_text != blank -%}<a class="txp-btn txp-btn--ghost" href="{{ s.btn3_url }}">{{ s.btn3_text }}</a>{%- endif -%}
+      </div>
+      {%- assign accs = section.blocks | where: 'type', 'accordion' -%}
+      {%- if accs.size > 0 -%}
+        <div class="txp-prod__acc txp-reveal" data-delay="4">
+          {%- for block in accs -%}
+            <details {% if forloop.first and s.open_first %}open{% endif %} {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.title }}{% render 'tx-p-icon', name: 'plus' %}</summary>
+              <div class="txp-rt">{{ block.settings.content }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Product spotlight",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "light", "options": [
+      { "value": "light", "label": "White" }, { "value": "paper", "label": "Paper" } ] },
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "image_picker", "id": "image", "label": "Fallback image" },
+    { "type": "checkbox", "id": "show_crumbs", "label": "Show breadcrumb", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading (defaults to product title)" },
+    { "type": "checkbox", "id": "use_h2", "label": "Render heading as H2", "default": false },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+    { "type": "text", "id": "price_note", "label": "Price note" },
+    { "type": "text", "id": "btn1_text", "label": "Primary button" },
+    { "type": "url", "id": "btn1_url", "label": "Primary link (defaults to the product)" },
+    { "type": "text", "id": "btn2_text", "label": "Second button" },
+    { "type": "url", "id": "btn2_url", "label": "Second link" },
+    { "type": "text", "id": "btn3_text", "label": "Third button" },
+    { "type": "url", "id": "btn3_url", "label": "Third link" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first accordion", "default": true }
+  ],
+  "blocks": [
+    { "type": "chip", "name": "Highlight chip", "settings": [ { "type": "text", "id": "text", "label": "Text" } ] },
+    { "type": "accordion", "name": "Accordion", "settings": [
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "richtext", "id": "content", "label": "Content" } ] }
+  ],
+  "presets": [ { "name": "TX Product spotlight" } ]
+}
+{% endschema %}

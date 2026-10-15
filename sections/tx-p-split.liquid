@@ -1,0 +1,91 @@
+{% comment %} TOOSA inner pages: alternating image + text rows {% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign theme_class = 'txp txp--light'
+  if s.theme == 'paper'
+    assign theme_class = 'txp txp--paper'
+  elsif s.theme == 'dark'
+    assign theme_class = 'txp'
+  endif
+-%}
+<section class="{{ theme_class }} txp-section" id="txp-split-{{ section.id }}">
+  <div class="txp-wrap">
+    {%- if s.eyebrow != blank or s.heading != blank -%}
+      <div class="txp-head {% if s.center %}txp-head--center{% endif %}">
+        {%- if s.eyebrow != blank -%}<p class="txp-eyebrow txp-reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="txp-h2 txp-reveal" data-delay="1">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.lead != blank -%}<div class="txp-lead txp-reveal" data-delay="2">{{ s.lead }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="txp-split">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign frame = 'txp-split__frame'
+          if b.ratio == 'portrait'
+            assign frame = frame | append: ' txp-split__frame--portrait'
+          elsif b.ratio == 'auto'
+            assign frame = frame | append: ' txp-split__frame--auto'
+          endif
+          if b.contain
+            assign frame = frame | append: ' txp-split__frame--contain'
+          endif
+          assign htag = 'h3'
+          if s.heading == blank and s.eyebrow == blank
+            assign htag = 'h2'
+          endif
+        -%}
+        <div class="txp-split__row {% if b.flip %}txp-split__row--flip{% endif %}" {{ block.shopify_attributes }}>
+          <div class="txp-split__media txp-reveal">
+            {%- if b.image != blank -%}
+              <div class="{{ frame }}">
+                {{ b.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500, 800, 1100, 1400', sizes: '(min-width: 860px) 46vw, 92vw', alt: b.image.alt | default: b.heading }}
+                {%- if b.caption != blank -%}<span class="txp-split__cap">{{ b.caption }}</span>{%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="txp-split__copy txp-reveal" data-delay="1">
+            {%- if b.number != blank -%}<div class="txp-split__num">{{ b.number }}</div>{%- endif -%}
+            {%- if b.kicker != blank -%}<p class="txp-eyebrow">{{ b.kicker }}</p>{%- endif -%}
+            {%- if b.heading != blank -%}<{{ htag }} class="txp-h2 txp-h2--sm">{{ b.heading }}</{{ htag }}>{%- endif -%}
+            {%- if b.text != blank -%}<div class="txp-rt">{{ b.text }}</div>{%- endif -%}
+            {%- if b.meta != blank -%}
+              <div class="txp-split__meta">{%- assign metas = b.meta | split: '|' -%}{%- for m in metas -%}<span>{{ m | strip }}</span>{%- endfor -%}</div>
+            {%- endif -%}
+            {%- if b.link_text != blank -%}<div class="txp-actions"><a class="txp-btn txp-btn--ghost txp-btn--sm" href="{{ b.link_url }}">{{ b.link_text }}{% render 'tx-p-icon', name: 'arrow' %}</a></div>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TX Image + text rows",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "Colour", "default": "light", "options": [
+      { "value": "light", "label": "White" }, { "value": "paper", "label": "Paper" }, { "value": "dark", "label": "Dark" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "checkbox", "id": "center", "label": "Centre the heading", "default": false }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Row", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "select", "id": "ratio", "label": "Image shape", "default": "landscape", "options": [
+        { "value": "landscape", "label": "Landscape 4:3" }, { "value": "portrait", "label": "Portrait" }, { "value": "auto", "label": "Natural" } ] },
+      { "type": "checkbox", "id": "contain", "label": "Fit whole image (no crop)", "default": false },
+      { "type": "checkbox", "id": "flip", "label": "Swap sides", "default": false },
+      { "type": "text", "id": "caption", "label": "Image caption chip" },
+      { "type": "text", "id": "number", "label": "Big number (e.g. 01)" },
+      { "type": "text", "id": "kicker", "label": "Kicker" },
+      { "type": "text", "id": "heading", "label": "Heading" },
+      { "type": "richtext", "id": "text", "label": "Text" },
+      { "type": "text", "id": "meta", "label": "Chips, separated by |" },
+      { "type": "text", "id": "link_text", "label": "Link text" },
+      { "type": "url", "id": "link_url", "label": "Link" } ] }
+  ],
+  "presets": [ { "name": "TX Image + text rows" } ]
+}
+{% endschema %}

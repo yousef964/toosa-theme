@@ -1,1 +1,178 @@
-{"sections":{"image_banner_NtnjCX":{"type":"image-banner","blocks":{"special_heading_9NxGzX":{"type":"special-heading","settings":{"banner_special_heading":"{{ page.title }}","banner_special_heading_size":"x-small"}},"text_TYVxGK":{"type":"text","settings":{"banner_text":"Discover high-performance activewear designed for every move—shop our latest collections tailored for comfort, style, and endurance.","banner_text_size":"small"}}},"block_order":["special_heading_9NxGzX","text_TYVxGK"],"name":"t:sections.image_banner.presets.image_banner.name","settings":{"height_mobile":"460","height":"460","side_margin_choice":"level-0","color_scheme":"scheme_2","background_image":"shopify:\/\/shop_images\/contact_us.jpg","background_overlay":true,"background_overlay_color":"#000000","background_overlay_gradient":"","background_overlay_opacity":20,"content_custom_width":false,"content_width":720,"content_position":"center","content_vertical_align":"center","content_horizontal_align":"center","inset_choice":"level-1","separator":false,"separator_width":100,"separator_use_custom_color":false,"separator_custom_color":"#cccccc","spacing":false,"spacing_choice":"level-3","spacing_placement":"1"}},"tabs_video_image_gallery_wN9TXY":{"type":"tabs-video-image-gallery","blocks":{"video_Eam7Ri":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Test slam test.mov","video_url":""}},"video_MbkTKN":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Mini00333812.mov","video_url":""}},"video_aMiHKq":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Mini00331517.mov","video_url":""}},"video_AUQRWA":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Mini00328454.mov","video_url":""}},"video_h6FAHz":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Mini00330070.mov","video_url":""}},"video_MiBAq9":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Mini00338935.mov","video_url":""}},"video_bN9ewD":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Test  Modularity.mp4","video_url":""}},"video_GKbzfL":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Test drawer strength.mov","video_url":""}},"video_LAYGNk":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of Mini00332746.mov","video_url":""}},"video_8gVBX9":{"type":"video","settings":{"title":"","video":"shopify:\/\/files\/videos\/Copy of  72 inch Mega MAx Test steel gauge.mov","video_url":""}},"image_jYXA88":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/Copy_of_jk-8357-15mb.jpg","title":""}},"image_xhe8LK":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/Copy_of_jk-8196-15mb.jpg","title":""}},"image_NJPeYA":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/Copy_of_jk-8260-15mb.jpg","title":""}},"image_8c3F4K":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/jk-7300-15mb.jpg","title":""}},"image_ihtbxz":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/jk-7388-15mb.jpg","title":""}},"image_FWtqzA":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/Copy_of_jk-7843-15mb.jpg","title":""}},"image_N6rRQq":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/jk-8032-15mb.jpg","title":""}},"image_iaJrAj":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/Copy_of_jk-8380-15mb.jpg","title":""}}},"block_order":["video_Eam7Ri","video_MbkTKN","video_aMiHKq","video_AUQRWA","video_h6FAHz","video_MiBAq9","video_bN9ewD","video_GKbzfL","video_LAYGNk","video_8gVBX9","image_jYXA88","image_xhe8LK","image_NJPeYA","image_8c3F4K","image_ihtbxz","image_FWtqzA","image_N6rRQq","image_iaJrAj"],"name":"Tabs Video Image Gallery","settings":{"title":"Our Gallery","description":"<p>Explore our videos and image gallery.<\/p>","enable_videos":true,"video_tab_title":"Videos","enable_images":true,"image_tab_title":"Images","desktop_columns":"4","tablet_columns":"2","mobile_columns":"2","grid_gap":20,"image_ratio":"3 \/ 4","background_color":"#ffffff","padding_top":40,"padding_bottom":40}}},"order":["image_banner_NtnjCX","tabs_video_image_gallery_wN9TXY"]}
+{
+  "sections": {
+    "hero": {
+      "type": "tx-p-hero",
+      "settings": {
+        "layout": "bg",
+        "theme": "dark",
+        "eyebrow": "Gallery",
+        "heading": "TOOSA in real shops.",
+        "lead": "<p>Customer garages, service bays, retail floors and our own test bench. Photos and videos, as they are.</p>",
+        "image": "shopify://shop_images/Copy_of_jk-8357-15mb.jpg"
+      }
+    },
+    "gallery": {
+      "type": "tx-p-gallery",
+      "settings": {
+        "theme": "dark",
+        "photo_label": "Photos",
+        "video_label": "Tests & videos"
+      },
+      "blocks": {
+        "image_1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_jk-8357-15mb.jpg"
+          }
+        },
+        "image_2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_jk-8196-15mb.jpg"
+          }
+        },
+        "image_3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_jk-8260-15mb.jpg"
+          }
+        },
+        "image_4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/jk-7300-15mb.jpg"
+          }
+        },
+        "image_5": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/jk-7388-15mb.jpg"
+          }
+        },
+        "image_6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_jk-7843-15mb.jpg"
+          }
+        },
+        "image_7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/jk-8032-15mb.jpg"
+          }
+        },
+        "image_8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Copy_of_jk-8380-15mb.jpg"
+          }
+        },
+        "video_9": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Test slam test.mov",
+            "caption": "Slam test"
+          }
+        },
+        "video_10": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Mini00333812.mov"
+          }
+        },
+        "video_11": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Mini00331517.mov"
+          }
+        },
+        "video_12": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Mini00328454.mov"
+          }
+        },
+        "video_13": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Mini00330070.mov"
+          }
+        },
+        "video_14": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Mini00338935.mov"
+          }
+        },
+        "video_15": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Test  Modularity.mp4"
+          }
+        },
+        "video_16": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Test drawer strength.mov",
+            "caption": "Drawer strength test"
+          }
+        },
+        "video_17": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of Mini00332746.mov"
+          }
+        },
+        "video_18": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Copy of  72 inch Mega MAx Test steel gauge.mov"
+          }
+        }
+      },
+      "block_order": [
+        "image_1",
+        "image_2",
+        "image_3",
+        "image_4",
+        "image_5",
+        "image_6",
+        "image_7",
+        "image_8",
+        "video_9",
+        "video_10",
+        "video_11",
+        "video_12",
+        "video_13",
+        "video_14",
+        "video_15",
+        "video_16",
+        "video_17",
+        "video_18"
+      ]
+    },
+    "cta": {
+      "type": "tx-p-cta",
+      "settings": {
+        "theme": "dark",
+        "orange": true,
+        "eyebrow": "Show us your shop",
+        "heading": "Want yours in here?",
+        "lead": "<p>Tag @toosa.ca on Instagram or send us a photo of your setup. Then come and see the next one in Richmond.</p>",
+        "btn1_text": "Shop tool storage",
+        "btn1_url": "shopify://collections/tool-storage",
+        "btn2_text": "Book a showroom visit",
+        "btn2_url": "shopify://pages/book-appointments",
+        "phone": "+1 (778) 939-9494",
+        "email": "sales@toosa.ca",
+        "address": "11566 Eburne Way, Richmond, BC",
+        "address_url": "shopify://pages/contact"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "gallery",
+    "cta"
+  ]
+}
