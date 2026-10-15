@@ -186,13 +186,25 @@
     if (!dataEl) return;
     var DATA;
     try { DATA = JSON.parse(dataEl.textContent); } catch (e) { return; }
-    var state = { system: DATA.systems[0].id, color: DATA.systems[0].colors[0], mods: {} };
+    var SIDE_IDS = { locker: 1, drawers: 1 }; // modules that bolt onto the left or right of the base
+    var state = { system: DATA.systems[0].id, color: DATA.systems[0].colors[0], mods: {}, sides: { l: '', r: '' } };
     var stage = $('[data-tx-stage]', sec), sysEl = $('[data-tx-systems]', sec), colEl = $('[data-tx-colors]', sec), modEl = $('[data-tx-mods]', sec);
     var totalEl = $('[data-tx-total]', sec), moEl = $('[data-tx-monthly]', sec), saveEl = $('[data-tx-save]', sec), listEl = $('[data-tx-list]', sec), addBtn = $('[data-tx-add]', sec), dims = $('[data-tx-dims]', sec);
     var months = DATA.months || 24;
 
     function sys() { return DATA.systems.filter(function (s) { return s.id === state.system; })[0]; }
     function variantFor(item) { return item.variants[state.color] || item.variants['*'] || null; }
+    function isSide(mod) { return !!SIDE_IDS[mod.id]; }
+    function syncSides() { // side picks become module quantities for pricing (two lockers = qty 2)
+      var s = sys();
+      s.modules.forEach(function (mod) { if (isSide(mod)) state.mods[mod.id] = (state.sides.l === mod.id ? 1 : 0) + (state.sides.r === mod.id ? 1 : 0); });
+    }
+    function mods3d() { // what the 3D view shows: regular modules plus locker_l / drawers_r style keys
+      var m = {}; Object.keys(state.mods).forEach(function (k) { if (!SIDE_IDS[k] && state.mods[k]) m[k] = state.mods[k]; });
+      if (state.sides.l) m[state.sides.l + '_l'] = 1; if (state.sides.r) m[state.sides.r + '_r'] = 1;
+      m.locker = state.mods.locker || 0; m.locker2 = state.mods.locker > 1 ? 1 : 0; m.drawers = state.mods.drawers || 0; // for the SVG stand-in drawing
+      return m;
+    }
 
     function renderControls() {
       var s = sys();
@@ -202,7 +214,22 @@
         var hex = PAL[k] ? PAL[k].body : '#888';
         return '<button type="button" class="tx-swatch ' + (k === state.color ? 'is-on' : '') + '" data-color="' + k + '" aria-label="' + k.charAt(0).toUpperCase() + k.slice(1) + '" style="--c:' + hex + '"><i></i></button>';
       }).join('');
-      modEl.innerHTML = s.modules.map(function (mod) {
+      var sideMods = s.modules.filter(isSide), sidesHtml = '';
+      if (sideMods.length) {
+        ['l', 'r'].forEach(function (side) {
+          var pick = state.sides[side];
+          if (pick) { var pm = s.modules.filter(function (m) { return m.id === pick; })[0], pv = pm && variantFor(pm); if (!pv || !pv.available) { state.sides[side] = pick = ''; } }
+          sidesHtml += '<div class="tx-side" data-side="' + side + '"><span class="tx-side__label">' + (side === 'l' ? 'Left side' : 'Right side') + '</span><div class="tx-seg tx-seg--sm" role="radiogroup" aria-label="' + (side === 'l' ? 'Left side' : 'Right side') + ' module">' +
+            '<button type="button" role="radio" data-pick="" aria-checked="' + (!pick) + '" class="' + (!pick ? 'is-on' : '') + '">None</button>' +
+            sideMods.map(function (mod) {
+              var v = variantFor(mod), ok = v && v.available;
+              return '<button type="button" role="radio" data-pick="' + mod.id + '" aria-checked="' + (pick === mod.id) + '" class="' + (pick === mod.id ? 'is-on' : '') + (ok ? '' : ' is-off') + '"' + (ok ? '' : ' disabled title="Out of stock in this colour"') + '>' + mod.name.replace(/^(Ultra Task|Mega Max)\s+/i, '') + '<small>' + (ok && v ? money(v.price) : 'Sold out') + '</small></button>';
+            }).join('') + '</div></div>';
+        });
+        sidesHtml = '<div class="tx-sides">' + sidesHtml + '</div>';
+      }
+      syncSides();
+      modEl.innerHTML = s.modules.filter(function (mod) { return !isSide(mod); }).map(function (mod) {
         var v = variantFor(mod), ok = v && v.available, on = !!state.mods[mod.id];
         if (!ok && on) { state.mods[mod.id] = 0; on = false; }
         var qty = mod.max > 1 ? '<span class="tx-qty" data-qty="' + mod.id + '"><button type="button" data-d="-1" aria-label="Fewer">−</button><b>' + (state.mods[mod.id] || 0) + '</b><button type="button" data-d="1" aria-label="More">+</button></span>' : '';
@@ -210,7 +237,7 @@
           '<span class="tx-mod__box"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3 3 7-7"/></svg></span>' +
           '<span class="tx-mod__name">' + mod.name + '<small>' + (ok ? mod.note : 'Out of stock in this colour') + '</small></span>' +
           '<span class="tx-mod__price">' + (v ? money(v.price) : '') + qty + '</span></div>';
-      }).join('');
+      }).join('') + sidesHtml;
     }
 
     function renderTotals() {
@@ -226,7 +253,7 @@
       s.modules.forEach(function (mod) {
         var q = state.mods[mod.id] || 0; if (!q) return;
         var v = variantFor(mod); if (!v) return;
-        if (bundle && s.full.includes.indexOf(mod.id) >= 0) { separately += v.price * q; return; }
+        if (bundle && s.full.includes.indexOf(mod.id) >= 0) { separately += v.price; q -= 1; if (!q) return; } // the bundle covers one of each; extras are added on
         items.push({ name: mod.name, price: v.price * q, id: v.id, qty: q }); total += v.price * q; compare += (v.compare || v.price) * q;
       });
       totalEl.textContent = money(total);
@@ -237,8 +264,8 @@
       listEl.innerHTML = items.map(function (it) { return '<li><span>' + it.name + (it.qty > 1 ? ' × ' + it.qty : '') + '</span><span>' + money(it.price) + '</span></li>'; }).join('');
       addBtn.dataset.items = JSON.stringify(items.map(function (it) { return { id: it.id, quantity: it.qty }; }));
       if (dims) dims.textContent = s.dims || '';
-      if (wall) wall.update({ system: state.system, color: state.color, mods: state.mods });
-      else stage.innerHTML = '<div class="tx-stage__glow"></div>' + renderWall({ system: state.system, color: state.color, mods: state.mods });
+      if (wall) wall.update({ system: state.system, color: state.color, mods: mods3d() });
+      else stage.innerHTML = '<div class="tx-stage__glow"></div>' + renderWall({ system: state.system, color: state.color, mods: mods3d() });
     }
 
     /* real 3D models: loaded only when the builder scrolls near, the SVG drawing stands in until then */
@@ -252,7 +279,7 @@
       loadScript(cfg3d.script).then(function () { return loadScript(cfg3d.wall); }).then(function () {
         if (!window.TXWall) return;
         wall = window.TXWall.mount(stage, cfg3d);
-        if (wall) wall.update({ system: state.system, color: state.color, mods: state.mods });
+        if (wall) wall.update({ system: state.system, color: state.color, mods: mods3d() });
         else { stage.classList.remove('is-3d'); renderTotals(); }
       }).catch(function () { wall = null; stage.classList.remove('is-3d'); renderTotals(); });
     }
@@ -261,7 +288,7 @@
       io3.observe(stage);
     } else if (cfg3d) boot3d();
 
-    sysEl.addEventListener('click', function (e) { var b = e.target.closest('[data-sys]'); if (!b) return; state.system = b.dataset.sys; state.mods = {}; renderControls(); renderTotals(); });
+    sysEl.addEventListener('click', function (e) { var b = e.target.closest('[data-sys]'); if (!b) return; state.system = b.dataset.sys; state.mods = {}; state.sides = { l: '', r: '' }; renderControls(); renderTotals(); });
     colEl.addEventListener('click', function (e) { var b = e.target.closest('[data-color]'); if (!b) return; state.color = b.dataset.color; renderControls(); renderTotals(); });
     function toggle(id, d) {
       var s = sys(), mod = s.modules.filter(function (m) { return m.id === id; })[0]; if (!mod) return;
@@ -273,6 +300,8 @@
       renderControls(); renderTotals();
     }
     modEl.addEventListener('click', function (e) {
+      var pk = e.target.closest('[data-pick]');
+      if (pk) { if (pk.disabled) return; state.sides[pk.closest('[data-side]').dataset.side] = pk.dataset.pick; renderControls(); renderTotals(); return; }
       var q = e.target.closest('[data-d]'); if (q) { toggle(q.closest('[data-qty]').dataset.qty, +q.dataset.d); return; }
       var m = e.target.closest('[data-mod]'); if (m) toggle(m.dataset.mod);
     });

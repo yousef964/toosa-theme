@@ -1,16 +1,20 @@
-/* TOOSA "Build your wall": real 3D models (three.js bundle in tx-3d.js) with module toggles, finish colours and live dimensions. */
+/* TOOSA "Build your wall": real 3D models (three.js bundle in tx-3d.js) with module toggles, finish colours, live dimensions
+   and drawers / doors that open (parts named drawer.* / door.* / handle.* inside the GLB files). */
 (function () {
   'use strict';
   var T = window.TX3D; if (!T) return;
   var THREE = T.THREE;
 
-  // where each module file sits relative to its base (base files are centred on the floor at the origin)
+  // where each module file sits relative to its base (base files are centred on the floor at the origin).
+  // Side modules come as <id>_l / <id>_r; the file is drawn on its native side and mirrored for the other one.
   var PLACE = {
-    ut: { base: {}, hutch: {}, locker: {}, drawers: {} },
-    mm: { base: {}, peg: {}, upper: {}, locker: { x: -0.256 }, locker2: { x: 0.256, rotY: Math.PI } }
+    ut: { base: {}, hutch: {}, locker_l: {}, locker_r: { mirror: true }, drawers_r: {}, drawers_l: { mirror: true } },
+    mm: { base: {}, peg: {}, upper: {}, locker_l: { x: -0.209 }, locker_r: { x: 0.209, mirror: true } }
   };
   var PAINT = { grey: '#6a6f77', black: '#1b1c1f', red: '#b8222a' };
+  var PART_RE = /^(drawer|door|handle)-([^-]+)(?:-(xmin|xmax|ymax))?-(\w+)$/; // three.js strips dots from node names, so parts use hyphens
   var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  function fileKey(mod) { return mod.replace(/_[lr]$/, ''); }
 
   function mount(stage, cfg) {
     var files = cfg.files || {};
@@ -25,10 +29,12 @@
     renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.domElement.className = 'tx-stage__canvas';
     stage.appendChild(renderer.domElement);
-    var hint = document.createElement('div'); hint.className = 'tx-stage__hint'; hint.textContent = 'Drag to look around · pinch or scroll to zoom'; stage.appendChild(hint);
+    var hint = document.createElement('div'); hint.className = 'tx-stage__hint'; hint.textContent = 'Drag to look around · tap a drawer or door to open it'; stage.appendChild(hint);
     var dims = document.createElement('div'); dims.className = 'tx-stage__dims'; stage.appendChild(dims);
     var load = document.createElement('div'); load.className = 'tx-stage__load'; load.innerHTML = '<i></i><span>Loading 3D model…</span>'; stage.appendChild(load);
-    var reset = document.createElement('button'); reset.type = 'button'; reset.className = 'tx-stage__reset'; reset.textContent = 'Reset view'; stage.appendChild(reset);
+    var btns = document.createElement('div'); btns.className = 'tx-stage__btns'; stage.appendChild(btns);
+    var openBtn = document.createElement('button'); openBtn.type = 'button'; openBtn.className = 'tx-stage__open'; openBtn.textContent = 'Open everything'; btns.appendChild(openBtn);
+    var reset = document.createElement('button'); reset.type = 'button'; reset.className = 'tx-stage__reset'; reset.textContent = 'Reset view'; btns.appendChild(reset);
 
     var scene = new THREE.Scene();
     var pm = new THREE.PMREMGenerator(renderer); scene.environment = pm.fromScene(new T.RoomEnvironment(), 0.04).texture; pm.dispose();
@@ -43,7 +49,7 @@
     var root = new THREE.Group(); scene.add(root);
 
     var loader = new T.GLTFLoader(); loader.setMeshoptDecoder(T.MeshoptDecoder);
-    var cache = {}, groups = {}, state = { system: null, color: null, mods: {} }, anims = [], pending = 0, active = true;
+    var cache = {}, groups = {}, state = { system: null, color: null, mods: {}, open: false }, anims = [], pending = 0, active = true;
     var camGoal = { target: new THREE.Vector3(0, 0.6, 0), dist: 4 }, camStart = null, camT = 1, dirty = true, idleTimer = 0;
 
     function paintColor(k) { return PAINT[k] || PAINT.grey; }
@@ -66,29 +72,79 @@
       return cache[url];
     }
     function gkey(sys, mod) { return sys + ':' + mod; }
+
+    // drawers, doors and side handles are separate named meshes: hang each moving part under a pivot at its hinge or slide axis
+    function buildParts(obj) {
+      obj.updateMatrixWorld(true);
+      var byId = {}, handles = { l: [], r: [] };
+      obj.traverse(function (o) {
+        if (!o.isMesh) return;
+        var m = PART_RE.exec(o.name || ''); if (!m) return;
+        if (m[1] === 'handle') { (handles[m[2]] || (handles[m[2]] = [])).push(o); return; }
+        var p = byId[m[2]] || (byId[m[2]] = { kind: m[1], hinge: m[3] || '', meshes: [] });
+        p.meshes.push(o);
+      });
+      var parts = [];
+      Object.keys(byId).forEach(function (id) {
+        var p = byId[id], box = new THREE.Box3();
+        p.meshes.forEach(function (m) { box.expandByObject(m); });
+        if (box.isEmpty()) return;
+        var c = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+        var at = p.hinge === 'xmin' ? new THREE.Vector3(box.min.x, c.y, box.min.z) : p.hinge === 'xmax' ? new THREE.Vector3(box.max.x, c.y, box.min.z) : p.hinge === 'ymax' ? new THREE.Vector3(c.x, box.max.y, box.min.z) : c;
+        var pivot = new THREE.Group(); pivot.position.copy(at); obj.add(pivot); pivot.updateMatrixWorld(true);
+        p.meshes.forEach(function (m) { pivot.attach(m); });
+        var part = { id: id, kind: p.kind, hinge: p.hinge, pivot: pivot, travel: Math.min(0.5, size.z * 0.8), open: 0, goal: 0 };
+        p.meshes.forEach(function (m) { m.userData.part = part; });
+        parts.push(part);
+      });
+      return { parts: parts, handles: handles };
+    }
+    function applyPart(p) {
+      var e = ease(p.open);
+      if (p.kind === 'drawer') p.pivot.position.z = p.pivot.userData.z0 + e * p.travel;
+      else if (p.hinge === 'ymax') p.pivot.rotation.x = -e * 1.45;      // lids and cabinet doors lift up and out
+      else p.pivot.rotation.y = (p.hinge === 'xmax' ? 1 : -1) * e * 1.75; // hinged doors swing out to the front
+    }
+    function setOpen(g, on, instant) {
+      (g.userData.parts || []).forEach(function (p) { p.goal = on ? 1 : 0; if (instant) { p.open = p.goal; applyPart(p); } });
+      dirty = true;
+    }
+    function applyHandles(g) {
+      var h = g.userData.handles; if (!h) return;
+      ['l', 'r'].forEach(function (side) { var on = !state.mods['locker_' + side]; (h[side] || []).forEach(function (m) { m.visible = on; }); });
+      dirty = true;
+    }
+
     function place(sys, mod, obj) {
       var p = (PLACE[sys] || {})[mod] || {};
       var g = new THREE.Group(); g.add(obj);
-      if (p.rotY) obj.rotation.y = p.rotY;
+      var built = buildParts(obj);
+      built.parts.forEach(function (pt) { pt.pivot.userData.z0 = pt.pivot.position.z; });
+      g.userData.parts = built.parts; g.userData.handles = built.handles;
+      if (p.mirror) obj.scale.x = -1;
       g.position.set(p.x || 0, p.y || 0, p.z || 0);
+      g.updateMatrixWorld(true);
+      g.userData.box = new THREE.Box3().setFromObject(g); // closed, at rest: dimensions ignore slide-ins and open drawers
       return g;
     }
     function show(sys, mod, on) {
-      var k = gkey(sys, mod), url = (files[sys] || {})[mod]; if (!url) return;
+      var k = gkey(sys, mod), url = (files[sys] || {})[mod] || (files[sys] || {})[fileKey(mod)]; if (!url) return;
       if (groups[k]) { animate(groups[k], on, mod); return; }
       if (!on) return;
       groups[k] = { pending: true };
       loadFile(url).then(function (obj) {
         var g = place(sys, mod, obj.clone());
         g.userData.mod = mod; g.visible = false; root.add(g);
-        groups[k] = g; recolor(g);
+        groups[k] = g; recolor(g); applyHandles(g);
+        if (state.open) setOpen(g, true, true);
         animate(g, !!(state.system === sys && (mod === 'base' || state.mods[mod])), mod);
       }).catch(function () { groups[k] = null; });
     }
     function animate(g, on, mod) {
       if (g.pending) return;
       if (g.visible === on && !g.userData.anim) { return; }
-      var from = mod === 'hutch' || mod === 'upper' ? new THREE.Vector3(0, 0.35, 0) : mod === 'peg' ? new THREE.Vector3(0, 0, -0.3) : mod === 'locker' ? new THREE.Vector3(-0.45, 0, 0) : mod === 'locker2' || mod === 'drawers' ? new THREE.Vector3(0.45, 0, 0) : new THREE.Vector3(0, 0, 0);
+      var side = /_l$/.test(mod) ? -1 : /_r$/.test(mod) ? 1 : 0;
+      var from = mod === 'hutch' || mod === 'upper' ? new THREE.Vector3(0, 0.35, 0) : mod === 'peg' ? new THREE.Vector3(0, 0, -0.3) : side ? new THREE.Vector3(0.45 * side, 0, 0) : new THREE.Vector3(0, 0, 0);
       var base = g.userData.base || (g.userData.base = g.position.clone());
       if (!active) { // stage scrolled away (phones): no frames run, so land on the end state at once
         g.position.copy(base); g.scale.setScalar(1); g.visible = on; delete g.userData.anim; dirty = true; frameCamera(true); return;
@@ -101,10 +157,8 @@
     function bbox() {
       var b = new THREE.Box3(), any = false;
       root.children.forEach(function (g) {
-        if (!g.visible || (g.userData.anim && !g.userData.anim.on)) return;
-        var bb = new THREE.Box3().setFromObject(g); if (bb.isEmpty()) return;
-        bb.min.sub(g.position); bb.max.sub(g.position); bb.translate(g.userData.base || g.position); // ignore slide-in offsets
-        any ? b.union(bb) : b.copy(bb); any = true;
+        if (!g.visible || (g.userData.anim && !g.userData.anim.on) || !g.userData.box) return;
+        any ? b.union(g.userData.box) : b.copy(g.userData.box); any = true;
       });
       return any ? b : null;
     }
@@ -123,14 +177,17 @@
       var toIn = function (m) { return Math.round(m / 0.0254); }, toCm = function (m) { return Math.round(m * 100); };
       return toIn(s.x) + '" W × ' + toIn(s.z) + '" D × ' + toIn(s.y) + '" H  ·  ' + toCm(s.x) + ' × ' + toCm(s.z) + ' × ' + toCm(s.y) + ' cm';
     }
+    function visibleGroups() {
+      return root.children.filter(function (g) { return g.visible && !(g.userData.anim && !g.userData.anim.on) && g.userData.mod; });
+    }
     function update(st) {
       var sysChanged = st.system !== state.system;
-      state = { system: st.system, color: st.color, mods: Object.assign({}, st.mods) };
+      state.system = st.system; state.color = st.color; state.mods = Object.assign({}, st.mods);
       Object.keys(groups).forEach(function (k) {
         var g = groups[k]; if (!g || g.pending) return;
         var parts = k.split(':');
         if (parts[0] !== state.system) { if (g.visible) animate(g, false, parts[1]); return; }
-        recolor(g);
+        recolor(g); applyHandles(g);
       });
       show(state.system, 'base', true);
       var mods = (cfg.modules || {})[state.system] || Object.keys(files[state.system] || {});
@@ -138,6 +195,28 @@
       if (sysChanged) { ctl.autoRotate = true; }
       dirty = true;
     }
+    function setOpenAll(on) {
+      state.open = on; openBtn.textContent = on ? 'Close everything' : 'Open everything';
+      visibleGroups().forEach(function (g) { setOpen(g, on); });
+    }
+    openBtn.addEventListener('click', function () { setOpenAll(!state.open); });
+
+    // tap a drawer or door to open just that one (a drag is a look-around, not a tap)
+    var ray = new THREE.Raycaster(), down = null;
+    renderer.domElement.addEventListener('pointerdown', function (e) { down = { x: e.clientX, y: e.clientY, t: performance.now() }; });
+    renderer.domElement.addEventListener('pointerup', function (e) {
+      if (!down) return; var d = down; down = null;
+      if (Math.abs(e.clientX - d.x) > 6 || Math.abs(e.clientY - d.y) > 6 || performance.now() - d.t > 600) return;
+      var r = renderer.domElement.getBoundingClientRect();
+      ray.setFromCamera(new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), cam);
+      var hits = ray.intersectObjects(visibleGroups(), true);
+      for (var i = 0; i < hits.length; i++) {
+        var o = hits[i].object; if (!o.visible) continue;
+        var p = o.userData.part; if (p) { p.goal = p.goal ? 0 : 1; dirty = true; }
+        break; // the nearest solid thing decides: a cabinet body in front of a drawer is not a tap on the drawer
+      }
+    });
+
     // initial camera
     cam.position.set(2.6, 1.3, 3.6); ctl.target.set(0, 0.6, 0); ctl.update();
     var last = performance.now();
@@ -154,6 +233,15 @@
         var s = a.on ? 0.92 + 0.08 * e : 1 - 0.08 * e; g.scale.setScalar(s);
         if (a.t >= 1) { g.position.copy(a.base); g.scale.setScalar(1); g.visible = a.on; delete g.userData.anim; anims.splice(i, 1); }
         dirty = true;
+      }
+      // drawers and doors easing to their goal
+      for (var j = 0; j < root.children.length; j++) {
+        var gg = root.children[j]; if (!gg.visible || !gg.userData.parts) continue;
+        for (var q = 0; q < gg.userData.parts.length; q++) {
+          var p = gg.userData.parts[q]; if (p.open === p.goal) continue;
+          p.open = p.goal > p.open ? Math.min(p.goal, p.open + dt / 480) : Math.max(p.goal, p.open - dt / 360);
+          applyPart(p); dirty = true;
+        }
       }
       if (camT < 1) {
         camT = Math.min(1, camT + dt / 900); var e2 = ease(camT);
@@ -181,7 +269,7 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (en) { var vis = en[0].isIntersecting; if (vis && !active) { active = true; last = performance.now(); requestAnimationFrame(tick); } else if (!vis) active = false; }, { threshold: 0.02 }).observe(stage);
     }
-    return { update: update, resize: resize };
+    return { update: update, resize: resize, open: setOpenAll };
   }
 
   window.TXWall = { mount: mount };
