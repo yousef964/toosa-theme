@@ -206,8 +206,7 @@
         "spacing": false,
         "spacing_choice": "level-2",
         "spacing_placement": "3"
-      },
-      "disabled": true
+      }
     },
     "featured_products_FhKRz8": {
       "type": "featured-products",
@@ -254,8 +253,7 @@
         "spacing": false,
         "spacing_choice": "level-1",
         "spacing_placement": "2"
-      },
-      "disabled": true
+      }
     },
     "rich_text_A849JD": {
       "type": "rich-text",
@@ -309,8 +307,7 @@
         "spacing": false,
         "spacing_choice": "level-1",
         "spacing_placement": "2"
-      },
-      "disabled": true
+      }
     },
     "scrolling_text_zhHqM6": {
       "type": "scrolling-text",
@@ -411,8 +408,7 @@
         "spacing": false,
         "spacing_choice": "level-1",
         "spacing_placement": "3"
-      },
-      "disabled": true
+      }
     },
     "featured_collections_x8LKid": {
       "type": "featured-collections",
@@ -518,8 +514,7 @@
         "spacing": false,
         "spacing_choice": "level-2",
         "spacing_placement": "1"
-      },
-      "disabled": true
+      }
     },
     "17865642351f2912a5": {
       "type": "_blocks",
@@ -619,8 +614,7 @@
       "block_order": [
         "ai_gen_block_b4c320e_hXQrqD"
       ],
-      "settings": {},
-      "disabled": true
+      "settings": {}
     },
     "image_banner_QTwjei": {
       "type": "image-banner",
@@ -834,8 +828,7 @@
         "spacing": true,
         "spacing_choice": "level-3",
         "spacing_placement": "2"
-      },
-      "disabled": true
+      }
     },
     "top_workshop_hero_NX3JaB": {
       "type": "top-workshop-hero",
@@ -2074,13 +2067,7 @@
     }
   },
   "order": [
-    "tx_hero",
-    "tx_lineup",
-    "tx_builder",
-    "tx_drawer",
     "honest_comparison_eyqVh6",
-    "tx_foam",
-    "tx_videos",
     "1787045741fe65e5a9",
     "jd_new_financing_product_slider_nfnpeb",
     "showroom_visit_zhRU9Y",
@@ -2102,6 +2089,12 @@
     "workshop_steps_BM7PHw",
     "toosa_air_compressor_yrnULY",
     "build_it_your_way_gnMC6j",
-    "testimonials_tabs_knafUy"
+    "testimonials_tabs_knafUy",
+    "tx_hero",
+    "tx_lineup",
+    "tx_builder",
+    "tx_drawer",
+    "tx_foam",
+    "tx_videos"
   ]
 }
