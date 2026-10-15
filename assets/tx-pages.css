@@ -486,6 +486,7 @@ body.txp-lb-open { overflow: hidden; }
 .txp-cta__inner { position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.8fr); gap: clamp(28px, 4vw, 64px); align-items: center; padding: clamp(40px, 6vw, 80px) clamp(24px, 4vw, 64px); border-radius: var(--txp-radius); background: var(--txp-graphite); border: 1px solid var(--txp-line); overflow: hidden; }
 .txp-cta__inner::before { content: ''; position: absolute; inset: auto -10% -40% auto; width: 60%; height: 120%; background: radial-gradient(50% 50% at 50% 50%, rgba(255, 111, 60, 0.28), transparent 70%); pointer-events: none; }
 .txp-cta__inner > * { position: relative; }
+.txp-cta__inner { color: #f4f5f7; --txp-text: #f4f5f7; --txp-muted: #aab2bb; --txp-line: rgba(255, 255, 255, 0.12); }
 .txp-cta--orange .txp-cta__inner { background: var(--txp-orange); border-color: var(--txp-orange); color: #fff; }
 .txp-cta--orange .txp-cta__inner::before { background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.25), transparent 70%); }
 .txp-cta--orange .txp-eyebrow { color: #fff; }

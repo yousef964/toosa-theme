@@ -108,10 +108,10 @@
     function frameCamera(instant) {
       var b = bbox(); if (!b) return;
       var size = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3());
-      var fit = Math.max(size.x * 0.62, size.y * 1.05, size.z * 0.5) + 0.2;
-      var dist = fit / Math.tan((cam.fov * Math.PI) / 360);
-      var aspect = cam.aspect; if (aspect < 1) dist /= aspect * 1.05;
-      camGoal.target.set(c.x, c.y, c.z); camGoal.dist = dist * 1.02;
+      // frame the bounding sphere so the model stays inside whatever angle it spins to
+      var r = size.length() / 2 + 0.05, vfov = (cam.fov * Math.PI) / 180, hfov = 2 * Math.atan(Math.tan(vfov / 2) * cam.aspect);
+      var dist = (r / Math.sin(Math.min(vfov, hfov) / 2)) * 1.04;
+      camGoal.target.set(c.x, c.y * 0.96, c.z); camGoal.dist = dist;
       camStart = { target: ctl.target.clone(), dist: cam.position.distanceTo(ctl.target) }; camT = instant ? 1 : 0;
       dims.textContent = fmt(size);
       dirty = true;
@@ -136,7 +136,7 @@
       dirty = true;
     }
     // initial camera
-    cam.position.set(2.6, 1.6, 3.6); ctl.target.set(0, 0.6, 0); ctl.update();
+    cam.position.set(2.6, 1.3, 3.6); ctl.target.set(0, 0.6, 0); ctl.update();
     var active = true, last = performance.now();
     function tick(now) {
       if (!active) return;
@@ -165,7 +165,7 @@
     ctl.addEventListener('start', function () { ctl.autoRotate = false; clearTimeout(idleTimer); });
     ctl.addEventListener('end', function () { clearTimeout(idleTimer); idleTimer = setTimeout(function () { ctl.autoRotate = true; }, 7000); });
     reset.addEventListener('click', function () {
-      var dir = new THREE.Vector3(0.62, 0.36, 0.7).normalize(); var d = cam.position.distanceTo(ctl.target);
+      var dir = new THREE.Vector3(0.62, 0.3, 0.7).normalize(); var d = cam.position.distanceTo(ctl.target);
       cam.position.copy(ctl.target).addScaledVector(dir, d); frameCamera(); ctl.autoRotate = true;
     });
     function resize() {
