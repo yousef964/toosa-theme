@@ -58,6 +58,11 @@
       </div>
 
       <div class="tx-showroom__map tx-reveal" data-delay="2">
+        <div class="tx-showroom__ph" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <b>TOOSA showroom</b>
+          <span>{% for line in address_lines %}{{ line | strip }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
+        </div>
         {% if section.settings.image != blank %}
           {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 900px) 48vw, 100vw', alt: photo_alt }}
         {% elsif section.settings.map_embed != blank %}

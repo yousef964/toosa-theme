@@ -24,8 +24,15 @@
 .txf::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, var(--txf-hot), var(--txf-orange) 40%, rgba(255, 111, 60, 0) 100%); }
 .txf::after { content: ''; position: absolute; right: -10%; top: -30%; width: 55vw; height: 55vw; max-width: 760px; max-height: 760px; background: radial-gradient(closest-side, rgba(255, 111, 60, 0.16), rgba(255, 111, 60, 0)); pointer-events: none; }
 .txf *, .txf *::before, .txf *::after { box-sizing: border-box; }
-.txf a { color: inherit; text-decoration: none; transition: color 0.18s ease; }
-.txf a:hover { color: var(--txf-orange); }
+/* the theme paints every link with --theme-color-links at specificity (0,4,1); these selectors match it so the footer keeps its own colours */
+.txf a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: inherit; text-decoration: none; transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease, transform 0.18s ease; }
+.txf a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary):hover { color: var(--txf-orange); }
+.txf a.txf__btn:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: #fff; }
+.txf a.txf__btn:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary):hover { color: #fff; }
+.txf .txf__social a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary):hover { color: #fff; }
+.txf .txf__links a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary)[aria-current] { color: #fff; }
+.txf .txf__colophon a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: #cfd5dc; }
+.txf .txf__colophon a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary):hover { color: var(--txf-orange); }
 .txf a:focus-visible, .txf button:focus-visible, .txf input:focus-visible, .txf select:focus-visible { outline: 2px solid var(--txf-orange); outline-offset: 3px; }
 .txf ul { list-style: none; margin: 0; padding: 0; }
 .txf p { margin: 0; }
@@ -64,8 +71,8 @@
 .txf__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px); padding: clamp(32px, 4vw, 56px) 0; border-bottom: 1px solid var(--txf-line); }
 .txf__h { margin: 0 0 16px; font: 700 12px/1 var(--txf-body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--txf-orange); }
 .txf__links { display: grid; gap: 10px; }
-.txf__links a { display: inline-block; font-size: 15px; color: #cfd5dc; }
-.txf__links a[aria-current] { color: #fff; }
+.txf__links { color: #cfd5dc; }
+.txf__links a { display: inline-block; font-size: 15px; }
 .txf__visit { display: grid; gap: 14px; }
 .txf__visit li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: #cfd5dc; line-height: 1.45; }
 .txf__visit svg { flex: none; width: 20px; height: 20px; color: var(--txf-orange); margin-top: 1px; }
@@ -87,8 +94,7 @@
 .txf__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 22px; }
 .txf__colophon { font-size: 13px; color: var(--txf-muted); }
 .txf__colophon p { margin: 0; }
-.txf__colophon a { color: #cfd5dc; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.25); text-underline-offset: 3px; }
-.txf__colophon a:hover { color: var(--txf-orange); }
+.txf__colophon a { text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.25); text-underline-offset: 3px; }
 .txf__select { height: 38px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--txf-line); background: rgba(255, 255, 255, 0.06); color: #fff; font: 600 13px/1 var(--txf-body); }
 .txf__select option { color: #111; }
 

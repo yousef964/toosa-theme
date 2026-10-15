@@ -23,6 +23,13 @@
 .txc img { max-width: 100%; height: auto; display: block; }
 .txc ul { list-style: none; margin: 0; padding: 0; }
 .txc a:focus-visible, .txc label:focus-visible { outline: 2px solid var(--txc-orange); outline-offset: 3px; }
+/* the theme paints every link with --theme-color-links at specificity (0,4,1); these selectors match it */
+.txc a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: inherit; }
+.txc .txc-crumbs a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: var(--txc-muted); }
+.txc .txc-crumbs a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary):hover { color: #fff; }
+.txc a.txc-cat:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: var(--txc-text); }
+.txc a.txc-btn:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: #fff; }
+.txc .txc-rte a:not(.btn-fill):not(.btn-outline):not(.btn-fill-secondary):not(.btn-outline-secondary) { color: var(--txc-hot); }
 .txc__wrap { max-width: var(--txc-max); margin: 0 auto; padding-left: var(--txc-gutter); padding-right: var(--txc-gutter); }
 .txc-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 16px; font: 700 12px/1 var(--txc-body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--txc-orange); }
 .txc-eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--txc-orange); }
