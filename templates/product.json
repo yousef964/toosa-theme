@@ -436,7 +436,7 @@
       "settings": {
         "theme": "paper",
         "eyebrow": "At a glance",
-        "heading": "What you get with the [product]",
+        "heading": "What you get.",
         "columns": "2",
         "max_auto": 6,
         "default_icon": "check",

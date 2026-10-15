@@ -6,6 +6,9 @@
     if para contains '<p'
       assign ptext = para | split: '<p' | last | prepend: '<p' | strip_html | strip
       assign plen = ptext | size
+      if plen > 30 and ptext contains '!!!'
+        continue
+      endif
       if plen > 30
         assign text = ptext | truncatewords: 14
         break
@@ -26,7 +29,7 @@
     <span class="txpr-card__title">{{ p.title }}</span>
     {%- if text != blank -%}<span class="txpr-card__text">{{ text }}</span>{%- endif -%}
     <span class="txpr-card__foot">
-      <span class="txpr-card__price">{%- if p.price_varies -%}<small>From</small>{%- endif -%}{{ p.price_min | money }}{%- if p.compare_at_price_max > p.price_min -%}<s>{{ p.compare_at_price_max | money }}</s>{%- endif -%}</span>
+      <span class="txpr-card__price">{%- if p.price_min == 0 -%}Quote on request{%- else -%}{%- if p.price_varies -%}<small>From</small>{%- endif -%}{{ p.price_min | money }}{%- if p.compare_at_price_max > p.price_min -%}<s>{{ p.compare_at_price_max | money }}</s>{%- endif -%}{%- endif -%}</span>
       <span class="txpr-card__arrow">{% render 'tx-p-icon', name: 'arrow' %}</span>
     </span>
   </span>

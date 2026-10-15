@@ -67,7 +67,8 @@
 .txpr-specs__main .txp-tab.is-on .txp-tab__ic { background: var(--txp-orange); color: #fff; }
 .txpr-specs__main .txp-tabpanels { margin-top: 18px; }
 .txpr-sheet { border-radius: 14px; overflow: hidden; border: 1px solid var(--txp-line-dark); background: #fff; }
-.txpr-sheet table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.txpr-sheet table { width: 100%; border-collapse: collapse; font-size: 15px; border: 0; margin: 0; }
+.txpr-sheet tr, .txpr-sheet tbody { border: 0; }
 .txpr-sheet th, .txpr-sheet td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--txp-line-dark); vertical-align: top; }
 .txpr-sheet tr:last-child th, .txpr-sheet tr:last-child td { border-bottom: 0; }
 .txpr-sheet th { width: 36%; font: 700 12.5px/1.45 var(--txp-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--txp-muted); background: var(--txp-paper); }
@@ -136,10 +137,12 @@
 .txpr-card:hover .txpr-card__media img { transform: scale(1.04); }
 .txpr-card__tag { position: absolute; left: 12px; top: 12px; padding: 6px 9px; border-radius: 6px; background: var(--txp-ink); color: #fff; font: 700 10.5px/1 var(--txp-body); letter-spacing: 0.12em; text-transform: uppercase; }
 .txpr-card__tag--on { background: var(--txp-orange); }
-.txpr-card__body { display: grid; align-content: start; gap: 6px; padding: 16px 18px 18px; }
+.txpr-card__body { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 18px; }
+.txpr-card__title + .txpr-card__foot, .txpr-card__text + .txpr-card__foot { margin-top: auto; padding-top: 12px; }
+.txpr-card__text { margin-bottom: 8px; }
 .txpr-card__title { font: 800 17px/1.2 var(--txp-display); letter-spacing: -0.02em; color: var(--txp-ink); }
 .txpr-card__text { font-size: 13.5px; line-height: 1.5; color: #5c6670; }
-.txpr-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--txp-line-dark); }
+.txpr-card__foot { display: flex; margin-top: auto; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--txp-line-dark); }
 .txpr-card__price { font: 700 15px/1 var(--txp-body); color: var(--txp-ink); }
 .txpr-card__price small { font-weight: 500; color: var(--txp-muted); margin-right: 4px; font-size: 12px; }
 .txpr-card__price s { color: var(--txp-muted); font-weight: 500; margin-left: 6px; font-size: 13px; }
