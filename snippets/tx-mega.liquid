@@ -13,19 +13,34 @@
         assign colls = colls | append: ll.object.handle | append: ','
       elsif ll.type == 'collection_link' or ll.url == '/collections'
         assign all_url = ll.url
+      elsif ll.type == 'product_link'
+        assign colls = colls | append: 'p:' | append: ll.object.handle | append: ','
       endif
     endfor
   endfor
   assign handles = colls | split: ','
 -%}
 <li class="section-header-main-menu-subitem tx-mega scheme_1">
-  <div class="tx-mega__wrap" data-v="3" data-links="{% for l in item.links %}{{ l.type }}:{{ l.object.handle }}:{{ l.url }}:{{ l.links.size }}|{% for ll in l.links %}{{ ll.type }}:{{ ll.object.handle }}:{{ ll.url }}|{% endfor %}{% endfor %}">
+  <div class="tx-mega__wrap">
     {%- for h in handles -%}
-      {%- assign c = collections[h] -%}
+      {%- liquid
+        assign is_product = false
+        if h contains 'p:'
+          assign ph = h | remove_first: 'p:'
+          assign c = all_products[ph]
+          assign is_product = true
+        else
+          assign c = collections[h]
+        endif
+      -%}
       {%- if c == blank -%}{%- continue -%}{%- endif -%}
       {%- liquid
         assign blurb = ''
         assign ic = 'grid'
+        if is_product
+          assign blurb = c.type | default: 'See the product'
+          assign pic = c.featured_image
+        endif
         case c.handle
           when 'tool-storage' or 'tool-chests'
             assign blurb = 'Mega Max 72, Ultra Task 56 and every module that bolts on'
@@ -36,11 +51,13 @@
           when 'foam-inserts' or 'tool-sets'
             assign blurb = 'Cut-to-fit foam for every drawer'
             assign ic = 'foam'
-          when 'air-compressors-1' or 'air-compressors'
+          when 'air-compressors-1' or 'air-compressors' or '20-hp-rotary-screw-air-compressor-with-integrated-dryer-500l-tank'
             assign blurb = 'The TS-20 rotary screw package'
             assign ic = 'air'
         endcase
-        assign pic = c.products.first.featured_image | default: c.image
+        unless is_product
+          assign pic = c.products.first.featured_image | default: c.image
+        endunless
       -%}
       {%- if forloop.first -%}
         <a class="tx-mega__hero" href="{{ c.url }}">
@@ -57,7 +74,7 @@
         <a class="tx-mega__row" href="{{ c.url }}">
           <span class="tx-mega__thumb">{%- if pic != blank -%}{%- assign tx_alt = pic.alt | default: c.title | escape -%}{{ pic | image_url: width: 160 | image_tag: loading: 'lazy', alt: tx_alt }}{%- else -%}{% render 'tx-p-icon', name: ic %}{%- endif -%}</span>
           <span class="tx-mega__row-body"><b>{{ c.title }}</b>{%- if blurb != blank -%}<small>{{ blurb }}</small>{%- endif -%}</span>
-          <span class="tx-mega__count">{{ c.all_products_count }}</span>
+          <span class="tx-mega__count">{% if is_product %}{{ c.price | money_without_trailing_zeros }}{% else %}{{ c.all_products_count }}{% endif %}</span>
         </a>
       {%- endif -%}
       {%- if forloop.last -%}
