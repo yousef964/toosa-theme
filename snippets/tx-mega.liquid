@@ -8,6 +8,13 @@
     elsif l.type == 'collection_link' or l.url == '/collections'
       assign all_url = l.url
     endif
+    for ll in l.links
+      if ll.type == 'collection_link' and ll.object.handle != 'all' and ll.object.handle != 'shop-all'
+        assign colls = colls | append: ll.object.handle | append: ','
+      elsif ll.type == 'collection_link' or ll.url == '/collections'
+        assign all_url = ll.url
+      endif
+    endfor
   endfor
   assign handles = colls | split: ','
 -%}
