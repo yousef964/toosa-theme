@@ -172,3 +172,6 @@
 .tx-mega__quick { background: #fff; border: 1px solid #e1e4e9; }
 .tx-mega__quick span { background: #f7f7f8; }
 .tx-mega__hero { box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.5); }
+.section-header nav > ul > li.tx-has-mega { --theme-header-megamenu-background-color: #eceef2; }
+.section-header nav > ul > li.tx-has-mega > ul::before, .section-header nav > ul > li.tx-has-mega > ul::after { background: #eceef2 !important; }
+.section-header nav > ul > li.tx-has-mega > ul > li.tx-mega, .tx-mega.scheme_1 { background: transparent !important; --theme-background-color: #eceef2; }
