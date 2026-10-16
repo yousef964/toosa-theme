@@ -19,7 +19,7 @@
   assign handles = colls | split: ','
 -%}
 <li class="section-header-main-menu-subitem tx-mega scheme_1">
-  <div class="tx-mega__wrap">
+  <div class="tx-mega__wrap" data-v="3" data-links="{% for l in item.links %}{{ l.type }}:{{ l.object.handle }}:{{ l.url }}:{{ l.links.size }}|{% for ll in l.links %}{{ ll.type }}:{{ ll.object.handle }}:{{ ll.url }}|{% endfor %}{% endfor %}">
     {%- for h in handles -%}
       {%- assign c = collections[h] -%}
       {%- if c == blank -%}{%- continue -%}{%- endif -%}
