@@ -330,7 +330,8 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (en) { var vis = en[0].isIntersecting; if (vis && !active) { active = true; last = performance.now(); requestAnimationFrame(tick); } else if (!vis) active = false; }, { threshold: 0.02 }).observe(stage);
     }
-    return { update: update, resize: resize, open: setOpenAll, foam: setFoam };
+    function setView(x, y, z) { var dir = new THREE.Vector3(x, y, z).normalize(), d = cam.position.distanceTo(ctl.target); cam.position.copy(ctl.target).addScaledVector(dir, d); ctl.autoRotate = false; clearTimeout(idleTimer); dirty = true; }
+    return { update: update, resize: resize, open: setOpenAll, foam: setFoam, view: setView };
   }
 
   window.TXWall = { mount: mount };
