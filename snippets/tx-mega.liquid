@@ -1,0 +1,70 @@
+{% comment %} Compact "Shop" panel for the header: the first range as a photo tile, the other ranges as rows, plus two quick links. Ranges come from the menu item's own links. {% endcomment %}
+{%- liquid
+  assign colls = ''
+  assign all_url = '/collections'
+  for l in item.links
+    if l.type == 'collection_link' and l.object.handle != 'all' and l.object.handle != 'shop-all'
+      assign colls = colls | append: l.object.handle | append: ','
+    elsif l.type == 'collection_link' or l.url == '/collections'
+      assign all_url = l.url
+    endif
+  endfor
+  assign handles = colls | split: ','
+-%}
+<li class="section-header-main-menu-subitem tx-mega scheme_1">
+  <div class="tx-mega__wrap">
+    {%- for h in handles -%}
+      {%- assign c = collections[h] -%}
+      {%- if c == blank -%}{%- continue -%}{%- endif -%}
+      {%- liquid
+        assign blurb = ''
+        assign ic = 'grid'
+        case c.handle
+          when 'tool-storage' or 'tool-chests'
+            assign blurb = 'Mega Max 72, Ultra Task 56 and every module that bolts on'
+            assign ic = 'drawer'
+          when 'accessories-2' or 'accessories-1' or 'accessories'
+            assign blurb = 'Lockers, side drawers, lighting, vises and bench tops'
+            assign ic = 'wrench'
+          when 'foam-inserts' or 'tool-sets'
+            assign blurb = 'Cut-to-fit foam for every drawer'
+            assign ic = 'foam'
+          when 'air-compressors-1' or 'air-compressors'
+            assign blurb = 'The TS-20 rotary screw package'
+            assign ic = 'air'
+        endcase
+        assign pic = c.products.first.featured_image | default: c.image
+      -%}
+      {%- if forloop.first -%}
+        <a class="tx-mega__hero" href="{{ c.url }}">
+          <span class="tx-mega__hero-img">{%- if pic != blank -%}{%- assign tx_alt = pic.alt | default: c.title | escape -%}{{ pic | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320, 480, 640', sizes: '320px', alt: tx_alt }}{%- endif -%}</span>
+          <span class="tx-mega__hero-body">
+            <span class="tx-mega__kicker">Start here</span>
+            <b>{{ c.title }}</b>
+            {%- if blurb != blank -%}<small>{{ blurb }}</small>{%- endif -%}
+            <span class="tx-mega__cta">Shop {{ c.title | downcase }}{% render 'tx-p-icon', name: 'arrow' %}</span>
+          </span>
+        </a>
+        <div class="tx-mega__list">
+      {%- else -%}
+        <a class="tx-mega__row" href="{{ c.url }}">
+          <span class="tx-mega__thumb">{%- if pic != blank -%}{%- assign tx_alt = pic.alt | default: c.title | escape -%}{{ pic | image_url: width: 160 | image_tag: loading: 'lazy', alt: tx_alt }}{%- else -%}{% render 'tx-p-icon', name: ic %}{%- endif -%}</span>
+          <span class="tx-mega__row-body"><b>{{ c.title }}</b>{%- if blurb != blank -%}<small>{{ blurb }}</small>{%- endif -%}</span>
+          <span class="tx-mega__count">{{ c.all_products_count }}</span>
+        </a>
+      {%- endif -%}
+      {%- if forloop.last -%}
+          <a class="tx-mega__row tx-mega__row--all" href="{{ all_url }}">
+            <span class="tx-mega__thumb tx-mega__thumb--ic">{% render 'tx-p-icon', name: 'grid' %}</span>
+            <span class="tx-mega__row-body"><b>Browse every range</b><small>All products in one place</small></span>
+            <span class="tx-mega__count">{% render 'tx-p-icon', name: 'arrow' %}</span>
+          </a>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+    <div class="tx-mega__side">
+      <a class="tx-mega__quick" href="/#tx-builder"><span>{% render 'tx-p-icon', name: 'layers' %}</span><b>Build your wall</b><small>Configure a setup in 3D</small></a>
+      <a class="tx-mega__quick" href="/pages/book-appointments"><span>{% render 'tx-p-icon', name: 'calendar' %}</span><b>See it in person</b><small>Richmond, BC showroom</small></a>
+    </div>
+  </div>
+</li>
