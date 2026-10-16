@@ -38,7 +38,7 @@
     assign cover = ''
   endif
 -%}
-<section class="txc txc-intro{% if compact %} txc-intro--compact{% endif %}" id="txc-intro-{{ section.id }}">
+<section class="txc txc-intro{% if compact %} txc-intro--compact{% endif %}{% unless is_coll %} txc-intro--shop{% endunless %}" id="txc-intro-{{ section.id }}">
   <div class="txc__wrap">
     <nav class="txc-crumbs" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
