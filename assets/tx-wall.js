@@ -14,7 +14,7 @@
   var PAINT = { grey: '#6a6f77', black: '#1b1c1f', red: '#b8222a' };
   var PART_RE = /^(drawer|door|lid|handle)-([^-]+)(?:-(xmin|xmax|ymax|lift|seam|fold)(\d+)?)?-(\w+)$/; // three.js strips dots from node names, so parts use hyphens; an optional number is the opening angle in degrees
   // the lighting kit: an LED bar under the hutch (Ultra Task) or under the upper cabinets (Mega Max), only when those are on the wall
-  var LIGHT = { ut: { y: 1.56, z: 0.12, w: 1.3, needs: ['hutch'] }, mm: { y: 1.395, z: -0.05, w: 1.75, needs: ['peg', 'upper'] } };
+  var LIGHT = { ut: { y: 1.8, z: -0.23, w: 1.3, needs: ['hutch'] }, mm: { y: 1.395, z: -0.05, w: 1.75, needs: ['peg', 'upper'] } };
   var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
   function fileKey(mod) { return mod.replace(/_[lr]$/, ''); }
 

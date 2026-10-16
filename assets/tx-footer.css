@@ -161,3 +161,14 @@
 
 .section-header nav .tx-mega__hero { display: grid !important; width: 100%; }
 .tx-mega__hero-img { width: 100%; }
+/* dropdown contrast */
+.section-header nav > ul > li.tx-has-mega > ul { background: #eceef2 !important; border-top: 1px solid #dfe3e8; border-bottom: 3px solid #ff6f3c; box-shadow: 0 30px 50px -24px rgba(0, 0, 0, 0.45); }
+.tx-mega__row { background: #fff; border: 1px solid #e1e4e9; }
+.tx-mega__row:hover { background: #fff3ec; border-color: #ffb08f; }
+.tx-mega__row--all { border: 1px dashed #cfd4db; background: transparent; border-radius: 10px; margin-top: 4px; padding-top: 8px; }
+.tx-mega__row--all:hover { background: #fff; }
+.tx-mega__thumb { background: #f3f4f6; }
+.tx-mega__side { border-left-color: #d9dde3; }
+.tx-mega__quick { background: #fff; border: 1px solid #e1e4e9; }
+.tx-mega__quick span { background: #f7f7f8; }
+.tx-mega__hero { box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.5); }

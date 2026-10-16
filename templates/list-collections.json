@@ -107,7 +107,8 @@
     "spacing": true,
     "spacing_choice": "level-2",
     "spacing_placement": "1"
-   }
+   },
+   "disabled": true
   },
   "tx_c_intro": {
    "type": "tx-c-intro",
@@ -159,7 +160,8 @@
      "foam-inserts",
      "air-compressors-1"
     ],
-    "lead": "Everything you need for a cleaner, more organized and more productive workspace: professional tool storage, modular accessories, custom foam organization and industrial shop air, designed for garages, automotive shops, tradespeople and professional facilities."
+    "lead": "Everything you need for a cleaner, more organized and more productive workspace: professional tool storage, modular accessories, custom foam organization and industrial shop air, designed for garages, automotive shops, tradespeople and professional facilities.",
+    "layout": "tiles"
    }
   }
  },

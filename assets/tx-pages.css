@@ -936,3 +936,7 @@ body.txp-lb-open { overflow: hidden; }
   .txp-one__side { order: 2; }
   .txp-one__book { order: 3; }
 }
+/* booking app inside the contact card: keep it to a sensible size */
+.txp-one__book { grid-template-columns: minmax(220px, 0.6fr) minmax(0, 1.4fr); }
+.txp-one__book .txp-book__embed-body { max-width: 760px; max-height: 520px; overflow: auto; border: 1px solid var(--txp-line-dark); border-radius: 12px; padding: 10px; zoom: 0.85; }
+.txp-one__book .txp-book__embed-body > * { max-width: 100%; }
