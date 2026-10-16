@@ -159,3 +159,5 @@
 .tx-mega__row-body small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tx-mega__hero-img > img { width: 100% !important; height: 100% !important; max-width: none; object-fit: cover; object-position: center 40%; }
 
+.section-header nav .tx-mega__hero { display: grid !important; width: 100%; }
+.tx-mega__hero-img { width: 100%; }
