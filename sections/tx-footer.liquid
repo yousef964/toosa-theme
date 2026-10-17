@@ -37,8 +37,10 @@
 
       {% if section.settings.show_newsletter %}
         <div class="txf__news">
-          {% if section.settings.newsletter_title != blank %}<h2 class="txf__news-title">{{ section.settings.newsletter_title }}</h2>{% endif %}
-          {% if section.settings.newsletter_text != blank %}<p class="txf__news-text">{{ section.settings.newsletter_text }}</p>{% endif %}
+          <div class="txf__news-head">
+            {% if section.settings.newsletter_title != blank %}<h2 class="txf__news-title">{{ section.settings.newsletter_title }}</h2>{% endif %}
+            {% if section.settings.newsletter_text != blank %}<p class="txf__news-text">{{ section.settings.newsletter_text }}</p>{% endif %}
+          </div>
           {% form 'customer', class: 'txf__form', id: 'txf-newsletter' %}
             <input type="hidden" name="contact[tags]" value="newsletter">
             <div class="txf__field">
@@ -55,20 +57,24 @@
 
     <div class="txf__cols">
       {% if section.settings.menu_1 != blank %}
-        <nav class="txf__col" aria-label="{{ section.settings.menu_1_title | escape }}">
-          <h3 class="txf__h">{{ section.settings.menu_1_title }}</h3>
-          <ul class="txf__links">
-            {% for link in section.settings.menu_1.links %}<li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>{% endfor %}
-          </ul>
-        </nav>
+        <details class="txf__col txf__fold" open>
+          <summary><h3 class="txf__h">{{ section.settings.menu_1_title }}</h3></summary>
+          <nav aria-label="{{ section.settings.menu_1_title | escape }}">
+            <ul class="txf__links">
+              {% for link in section.settings.menu_1.links %}<li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>{% endfor %}
+            </ul>
+          </nav>
+        </details>
       {% endif %}
       {% if section.settings.menu_2 != blank %}
-        <nav class="txf__col" aria-label="{{ section.settings.menu_2_title | escape }}">
-          <h3 class="txf__h">{{ section.settings.menu_2_title }}</h3>
-          <ul class="txf__links">
-            {% for link in section.settings.menu_2.links %}<li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>{% endfor %}
-          </ul>
-        </nav>
+        <details class="txf__col txf__fold" open>
+          <summary><h3 class="txf__h">{{ section.settings.menu_2_title }}</h3></summary>
+          <nav aria-label="{{ section.settings.menu_2_title | escape }}">
+            <ul class="txf__links">
+              {% for link in section.settings.menu_2.links %}<li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a></li>{% endfor %}
+            </ul>
+          </nav>
+        </details>
       {% endif %}
       <div class="txf__col txf__col--visit">
         <h3 class="txf__h">{{ section.settings.visit_title }}</h3>
@@ -85,16 +91,10 @@
               <span>{% for line in hours_lines %}{{ line | strip }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</span>
             </li>
           {% endif %}
-          {% if section.settings.phone != blank %}
+          {% if section.settings.phone != blank or section.settings.email != blank %}
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
-              <span><a href="tel:{{ tel }}">{{ section.settings.phone }}</a></span>
-            </li>
-          {% endif %}
-          {% if section.settings.email != blank %}
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-              <span><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></span>
+              <span>{% if section.settings.phone != blank %}<a href="tel:{{ tel }}">{{ section.settings.phone }}</a>{% endif %}{% if section.settings.phone != blank and section.settings.email != blank %}<br>{% endif %}{% if section.settings.email != blank %}<a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>{% endif %}</span>
             </li>
           {% endif %}
         </ul>
@@ -148,6 +148,13 @@
     </div>
   </div>
 </footer>
+<script>
+  // Footer menus start collapsed on phones; they stay open on wider screens. Every link is in the HTML either way.
+  (function () {
+    if (!window.matchMedia('(max-width: 760px)').matches) return;
+    document.querySelectorAll('#tx-footer-{{ section.id }} details.txf__fold').forEach(function (d) { d.open = false; });
+  })();
+</script>
 
 {% schema %}
 {
@@ -158,12 +165,12 @@
     { "type": "header", "content": "Brand" },
     { "type": "image_picker", "id": "logo", "label": "Logo (light version)" },
     { "type": "range", "id": "logo_width", "label": "Logo width", "min": 100, "max": 320, "step": 10, "unit": "px", "default": 200 },
-    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Modular tool storage, shop air and foam. Designed in Richmond, BC and delivered across Canada." },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Modular tool storage, shop air and foam. Richmond, BC." },
     { "type": "checkbox", "id": "show_social", "label": "Show social links (set the links in Theme settings)", "default": true },
     { "type": "header", "content": "Newsletter" },
     { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter", "default": true },
     { "type": "text", "id": "newsletter_title", "label": "Title", "default": "Get more from your workshop" },
-    { "type": "text", "id": "newsletter_text", "label": "Text", "default": "New modules, shop tips and showroom days. A few emails a year, no spam." },
+    { "type": "text", "id": "newsletter_text", "label": "Text", "default": "" },
     { "type": "text", "id": "newsletter_placeholder", "label": "Placeholder", "default": "Your email" },
     { "type": "text", "id": "newsletter_button", "label": "Button", "default": "Subscribe" },
     { "type": "header", "content": "Menus" },
@@ -175,7 +182,7 @@
     { "type": "text", "id": "visit_title", "label": "Title", "default": "Visit" },
     { "type": "textarea", "id": "address", "label": "Address (one line per row)", "default": "Unit 142 - 11566 Eburne Way\nRichmond, BC V6V 2G7" },
     { "type": "url", "id": "directions_link", "label": "Directions link" },
-    { "type": "textarea", "id": "hours", "label": "Hours (one line per row)", "default": "Mon to Fri, 10:00 to 18:00\nSat and Sun closed" },
+    { "type": "textarea", "id": "hours", "label": "Hours (one line per row)", "default": "Mon to Fri, 10:00 to 18:00" },
     { "type": "text", "id": "phone", "label": "Phone", "default": "+1 (778) 939 9494" },
     { "type": "text", "id": "email", "label": "Email", "default": "Sales@toosa.ca" },
     { "type": "text", "id": "visit_button_text", "label": "Button", "default": "Book a showroom visit" },
